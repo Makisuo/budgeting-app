@@ -6,6 +6,7 @@ import { type PlaidLinkOptions, usePlaidLink } from "react-plaid-link"
 
 import { Configuration, CountryCode, PlaidApi, PlaidEnvironments, Products } from "plaid"
 import { Button } from "~/components/ui/button"
+import { useSession } from "~/utils/auth-client"
 
 const createLinkToken = createServerFn("POST", async () => {
 	try {
@@ -40,6 +41,8 @@ export const Route = createFileRoute("/")({
 })
 
 function Home() {
+	const { data, isPending, error } = useSession()
+
 	const { linkToken } = Route.useLoaderData()
 	const config = {
 		token: linkToken,

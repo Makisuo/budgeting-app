@@ -1,11 +1,13 @@
-import { Outlet, ScrollRestoration, createRootRoute } from "@tanstack/react-router"
+import { Outlet, ScrollRestoration, createRootRoute, useRouter } from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/router-devtools"
 import { Body, Head, Html, Meta, Scripts } from "@tanstack/start"
 import type * as React from "react"
+import { useEffect } from "react"
 import { DefaultCatchBoundary } from "~/components/DefaultCatchBoundary"
 import { NotFound } from "~/components/NotFound"
 import { Providers } from "~/components/providers"
 import appCss from "~/styles/app.css?url"
+import { useSession } from "~/utils/auth-client"
 import { seo } from "~/utils/seo"
 
 export const Route = createRootRoute({
@@ -66,6 +68,17 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const { data } = useSession()
+	const { navigate } = useRouter()
+
+	useEffect(() => {
+		if (!data?.user) {
+			if (!location.pathname.includes("auth/")) {
+				navigate({ to: "/auth/signin" })
+			}
+		}
+	}, [data, navigate])
+
 	return (
 		<Html>
 			<Head>
