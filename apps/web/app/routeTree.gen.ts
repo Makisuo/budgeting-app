@@ -11,34 +11,13 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as TracesImport } from './routes/traces'
-import { Route as EventsImport } from './routes/events'
 import { Route as IndexImport } from './routes/index'
-import { Route as TraceIdImport } from './routes/trace.$id'
 
 // Create/Update Routes
-
-const TracesRoute = TracesImport.update({
-  id: '/traces',
-  path: '/traces',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const EventsRoute = EventsImport.update({
-  id: '/events',
-  path: '/events',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const TraceIdRoute = TraceIdImport.update({
-  id: '/trace/$id',
-  path: '/trace/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -53,27 +32,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/events': {
-      id: '/events'
-      path: '/events'
-      fullPath: '/events'
-      preLoaderRoute: typeof EventsImport
-      parentRoute: typeof rootRoute
-    }
-    '/traces': {
-      id: '/traces'
-      path: '/traces'
-      fullPath: '/traces'
-      preLoaderRoute: typeof TracesImport
-      parentRoute: typeof rootRoute
-    }
-    '/trace/$id': {
-      id: '/trace/$id'
-      path: '/trace/$id'
-      fullPath: '/trace/$id'
-      preLoaderRoute: typeof TraceIdImport
-      parentRoute: typeof rootRoute
-    }
   }
 }
 
@@ -81,47 +39,32 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/events': typeof EventsRoute
-  '/traces': typeof TracesRoute
-  '/trace/$id': typeof TraceIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/events': typeof EventsRoute
-  '/traces': typeof TracesRoute
-  '/trace/$id': typeof TraceIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/events': typeof EventsRoute
-  '/traces': typeof TracesRoute
-  '/trace/$id': typeof TraceIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/events' | '/traces' | '/trace/$id'
+  fullPaths: '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/events' | '/traces' | '/trace/$id'
-  id: '__root__' | '/' | '/events' | '/traces' | '/trace/$id'
+  to: '/'
+  id: '__root__' | '/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  EventsRoute: typeof EventsRoute
-  TracesRoute: typeof TracesRoute
-  TraceIdRoute: typeof TraceIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  EventsRoute: EventsRoute,
-  TracesRoute: TracesRoute,
-  TraceIdRoute: TraceIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -134,23 +77,11 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
-        "/events",
-        "/traces",
-        "/trace/$id"
+        "/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/events": {
-      "filePath": "events.tsx"
-    },
-    "/traces": {
-      "filePath": "traces.tsx"
-    },
-    "/trace/$id": {
-      "filePath": "trace.$id.tsx"
     }
   }
 }

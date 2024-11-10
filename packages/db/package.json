@@ -1,0 +1,15 @@
+{
+	"private": true,
+	"name": "db",
+	"version": "1.0.0",
+	"devDependencies": {
+		"@total-typescript/tsconfig": "^1.0.4",
+		"dotenv": "^16.4.5",
+		"drizzle-kit": "^0.28.0"
+	},
+	"main": "src/index.ts",
+	"dependencies": {
+		"drizzle-orm": "^0.36.1",
+		"postgres": "^3.4.5"
+	}
+}

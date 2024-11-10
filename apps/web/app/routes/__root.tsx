@@ -1,12 +1,10 @@
-import { Link, Outlet, ScrollRestoration, createRootRoute } from "@tanstack/react-router"
+import { Outlet, ScrollRestoration, createRootRoute } from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/router-devtools"
 import { Body, Head, Html, Meta, Scripts } from "@tanstack/start"
 import type * as React from "react"
 import { DefaultCatchBoundary } from "~/components/DefaultCatchBoundary"
 import { NotFound } from "~/components/NotFound"
 import { Providers } from "~/components/providers"
-import { ThemeProvider } from "~/components/theme-provider"
-import { Topbar } from "~/components/top-bar"
 import appCss from "~/styles/app.css?url"
 import { seo } from "~/utils/seo"
 
@@ -74,7 +72,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<Meta />
 			</Head>
 			<Body>
-				<Topbar />
 				<div className="px-2 pt-4">{children}</div>
 				<ScrollRestoration />
 				<TanStackRouterDevtools position="bottom-right" />

@@ -1,5 +1,9 @@
 {
 	"name": "budgeting-app",
 	"scripts": {},
-	"workspaces": ["apps/*"]
+	"workspaces": ["apps/*", "packages/*"],
+	"dependencies": {
+		"plaid": "^29.0.0",
+		"react-plaid-link": "^3.6.1"
+	}
 }
