@@ -8,7 +8,7 @@ export class PlaidInternalError extends Schema.TaggedError<PlaidInternalError>()
 ) {}
 
 export class PlaidApi extends HttpApiGroup.make("plaid").add(
-	HttpApiEndpoint.get("exchangeToken", "/exchange-token")
+	HttpApiEndpoint.post("exchangeToken", "/exchange-token")
 		.addSuccess(Schema.String)
 		.addError(PlaidInternalError)
 		.setPayload(

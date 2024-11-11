@@ -5,5 +5,8 @@
 	"dependencies": {
 		"plaid": "^29.0.0",
 		"react-plaid-link": "^3.6.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4"
 	}
 }

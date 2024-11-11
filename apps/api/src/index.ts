@@ -1,21 +1,28 @@
-import { HttpApi, HttpApiBuilder, HttpApiEndpoint, HttpApiGroup } from "@effect/platform"
-import { Effect, Layer, Schema } from "effect"
-import { PlaidApi } from "./plaid/api"
-import { PlaidLive } from "./plaid/http"
+import { HttpApiBuilder } from "@effect/platform"
+import { ConfigProvider, Layer } from "effect"
+import { Api } from "./api"
+import { HttpBaseLive } from "./routes/main/http"
+import { HttpPlaidLive } from "./routes/plaid/http"
 
-export const MapleApi = HttpApi.empty.add(PlaidApi)
-
-const ApiLive = HttpApiBuilder.api(MapleApi).pipe(
-	Layer.provide(HttpApiBuilder.middlewareCors()),
-
-	Layer.provide([PlaidLive]),
-)
-
-// @ts-expect-error
-const { handler } = HttpApiBuilder.toWebHandler(ApiLive)
+const ApiLive = Layer.provide(HttpApiBuilder.api(Api), [HttpPlaidLive, HttpBaseLive])
 
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
+		const configLayer = ConfigProvider.fromJson(env)
+
+		const ConfigLayerLive = Layer.setConfigProvider(configLayer)
+
+		const MainLayer = Layer.mergeAll(ConfigLayerLive, ApiLive)
+
+		const { handler } = HttpApiBuilder.toWebHandler(
+			// @ts-expect-error
+			MainLayer.pipe(
+				// Layer.provide(HttpApiSwagger.layer()),
+				// Layer.provide(HttpApiBuilder.middlewareOpenApi()),
+				// Layer.provide(HttpApiBuilder.middlewareCors()),
+			),
+		)
+
 		return handler(request)
 	},
 } satisfies ExportedHandler<Env>

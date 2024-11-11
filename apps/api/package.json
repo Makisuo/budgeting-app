@@ -1,25 +1,27 @@
 {
-  "name": "api",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "deploy": "wrangler deploy",
-    "dev": "wrangler dev",
-    "start": "wrangler dev",
-    "test": "vitest",
-    "cf-typegen": "wrangler types"
-  },
-  "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.5.2",
-    "@cloudflare/workers-types": "^4.20241106.0",
-    "typescript": "^5.5.2",
-    "vitest": "2.0.5",
-    "wrangler": "^3.86.0"
-  },
-  "dependencies": {
-    "@effect/platform": "^0.69.21",
-    "@effect/sql": "^0.20.5",
-    "@effect/sql-drizzle": "^0.19.5",
-    "effect": "^3.10.14"
-  }
+	"name": "api",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"start": "wrangler dev",
+		"test": "vitest",
+		"cf-typegen": "wrangler types"
+	},
+	"devDependencies": {
+		"@cloudflare/vitest-pool-workers": "^0.5.2",
+		"@cloudflare/workers-types": "^4.20241106.0",
+		"typescript": "^5.5.2",
+		"vitest": "2.0.5",
+		"wrangler": "^3.86.0"
+	},
+	"dependencies": {
+		"@effect/platform": "^0.69.21",
+		"@effect/sql": "^0.20.5",
+		"@effect/sql-drizzle": "^0.19.5",
+		"@effect/sql-pg": "^0.21.5",
+		"effect": "^3.10.14",
+		"db": "workspace:*"
+	}
 }
