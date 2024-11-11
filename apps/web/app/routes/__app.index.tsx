@@ -9,20 +9,6 @@ import { getWebRequest } from "vinxi/http"
 import { Button } from "~/components/ui/button"
 import { auth } from "~/utils/auth"
 
-export const authMiddleware = createServerFn("POST", async () => {
-	const request = getWebRequest()
-
-	const session = await auth.api.getSession({
-		headers: request.headers,
-	})
-
-	if (!session) {
-		throw redirect({ to: "/auth/signin" })
-	}
-
-	return session
-})
-
 const createLinkToken = createServerFn("POST", async () => {
 	try {
 		const tokenResponse = await plaidClient.linkTokenCreate({
@@ -43,8 +29,6 @@ const createLinkToken = createServerFn("POST", async () => {
 export const Route = createFileRoute("/__app/")({
 	component: Home,
 	loader: async () => {
-		await authMiddleware()
-
 		const res = await createLinkToken()
 
 		if (res.link_token === null) {
