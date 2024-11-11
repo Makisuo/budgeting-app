@@ -8,9 +8,8 @@ import { Configuration, CountryCode, PlaidApi, PlaidEnvironments, Products } fro
 import { getWebRequest } from "vinxi/http"
 import { Button } from "~/components/ui/button"
 import { auth } from "~/utils/auth"
-import { authClient, useSession } from "~/utils/auth-client"
 
-const authMiddleware = createServerFn("POST", async () => {
+export const authMiddleware = createServerFn("POST", async () => {
 	const request = getWebRequest()
 
 	const session = await auth.api.getSession({

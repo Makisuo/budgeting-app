@@ -1,8 +1,7 @@
-import { Outlet, ScrollRestoration, createRootRoute, redirect, useRouter } from "@tanstack/react-router"
+import { Outlet, ScrollRestoration, createRootRoute } from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/router-devtools"
-import { Body, Head, Html, Meta, Scripts, createServerFn } from "@tanstack/start"
+import { Body, Head, Html, Meta, Scripts } from "@tanstack/start"
 import type * as React from "react"
-import { getWebRequest } from "vinxi/http"
 import { DefaultCatchBoundary } from "~/components/default-catch-boundary"
 import { NotFound } from "~/components/not-found"
 import { Providers } from "~/components/providers"
@@ -74,7 +73,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<Meta />
 			</Head>
 			<Body>
-				<div className="px-2 pt-4">{children}</div>
+				{children}
 				<ScrollRestoration />
 				<TanStackRouterDevtools position="bottom-right" />
 				<Scripts />

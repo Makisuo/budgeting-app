@@ -1,10 +1,9 @@
 import { Link, type NavigateFn, createFileRoute, useRouter } from "@tanstack/react-router"
 import { IconBrandGithub, IconBrandGoogle, IconMail } from "justd-icons"
-import { useEffect } from "react"
 import { Card, TextField } from "~/components/ui"
 import { Button } from "~/components/ui/button"
 import { Separator } from "~/components/ui/separator"
-import { signIn, useSession } from "~/utils/auth-client"
+import { signIn } from "~/utils/auth-client"
 
 export const Route = createFileRoute("/auth/signin")({
 	component: RouteComponent,
