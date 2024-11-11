@@ -1,13 +1,13 @@
-import { Outlet, ScrollRestoration, createRootRoute, useRouter } from "@tanstack/react-router"
+import { Outlet, ScrollRestoration, createRootRoute, redirect, useRouter } from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/router-devtools"
-import { Body, Head, Html, Meta, Scripts } from "@tanstack/start"
+import { Body, Head, Html, Meta, Scripts, createServerFn } from "@tanstack/start"
 import type * as React from "react"
-import { useEffect } from "react"
+import { getWebRequest } from "vinxi/http"
 import { DefaultCatchBoundary } from "~/components/DefaultCatchBoundary"
 import { NotFound } from "~/components/NotFound"
 import { Providers } from "~/components/providers"
 import appCss from "~/styles/app.css?url"
-import { useSession } from "~/utils/auth-client"
+
 import { seo } from "~/utils/seo"
 
 export const Route = createRootRoute({
@@ -68,23 +68,6 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const { data, isPending } = useSession()
-	const { navigate } = useRouter()
-
-	useEffect(() => {
-		if (!isPending) {
-			if (!data?.user) {
-				if (!location.pathname.includes("auth/")) {
-					navigate({ to: "/auth/signin" })
-				}
-			} else {
-				if (location.pathname.includes("auth/")) {
-					navigate({ to: "/" })
-				}
-			}
-		}
-	}, [data, isPending, navigate])
-
 	return (
 		<Html>
 			<Head>

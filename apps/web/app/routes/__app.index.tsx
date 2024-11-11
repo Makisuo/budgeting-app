@@ -1,12 +1,28 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, redirect } from "@tanstack/react-router"
 import { createServerFn, json } from "@tanstack/start"
 import { plaidClient } from "./api/plaid/create-link-token"
 
 import { type PlaidLinkOptions, usePlaidLink } from "react-plaid-link"
 
 import { Configuration, CountryCode, PlaidApi, PlaidEnvironments, Products } from "plaid"
+import { getWebRequest } from "vinxi/http"
 import { Button } from "~/components/ui/button"
+import { auth } from "~/utils/auth"
 import { useSession } from "~/utils/auth-client"
+
+const authMiddleware = createServerFn("POST", async () => {
+	const request = getWebRequest()
+
+	const session = await auth.api.getSession({
+		headers: request.headers,
+	})
+
+	if (!session) {
+		throw redirect({ to: "/auth/signin" })
+	}
+
+	return session
+})
 
 const createLinkToken = createServerFn("POST", async () => {
 	try {
@@ -25,9 +41,11 @@ const createLinkToken = createServerFn("POST", async () => {
 	}
 })
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/__app/")({
 	component: Home,
 	loader: async () => {
+		await authMiddleware()
+
 		const res = await createLinkToken()
 
 		if (res.link_token === null) {

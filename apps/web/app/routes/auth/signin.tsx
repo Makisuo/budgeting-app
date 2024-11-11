@@ -10,7 +10,7 @@ export const Route = createFileRoute("/auth/signin")({
 	component: RouteComponent,
 })
 
-const signInHandler = async (provider: "github" | "google", navigate: NavigateFn) => {
+const signInOauth = async (provider: "github" | "google", navigate: NavigateFn) => {
 	const res = await signIn.social({ provider: provider, callbackURL: "/" })
 
 	if (res.error) {
@@ -36,11 +36,11 @@ function RouteComponent() {
 				</Card.Header>
 				<Card.Content className="space-y-4">
 					<div className="grid grid-cols-2 gap-4">
-						<Button onPress={() => signInHandler("google", navigate)}>
+						<Button onPress={() => signInOauth("google", navigate)}>
 							<IconBrandGoogle />
 							Google
 						</Button>
-						<Button onPress={() => signInHandler("github", navigate)}>
+						<Button onPress={() => signInOauth("github", navigate)}>
 							<IconBrandGithub />
 							Github
 						</Button>
