@@ -68,16 +68,22 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-	const { data } = useSession()
+	const { data, isPending } = useSession()
 	const { navigate } = useRouter()
 
 	useEffect(() => {
-		if (!data?.user) {
-			if (!location.pathname.includes("auth/")) {
-				navigate({ to: "/auth/signin" })
+		if (!isPending) {
+			if (!data?.user) {
+				if (!location.pathname.includes("auth/")) {
+					navigate({ to: "/auth/signin" })
+				}
+			} else {
+				if (location.pathname.includes("auth/")) {
+					navigate({ to: "/" })
+				}
 			}
 		}
-	}, [data, navigate])
+	}, [data, isPending, navigate])
 
 	return (
 		<Html>
