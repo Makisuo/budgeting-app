@@ -4,10 +4,8 @@ import { plaidClient } from "./api/plaid/create-link-token"
 
 import { type PlaidLinkOptions, usePlaidLink } from "react-plaid-link"
 
-import { Configuration, CountryCode, PlaidApi, PlaidEnvironments, Products } from "plaid"
-import { getWebRequest } from "vinxi/http"
+import { CountryCode, Products } from "plaid"
 import { Button } from "~/components/ui/button"
-import { auth } from "~/utils/auth"
 
 const createLinkToken = createServerFn("POST", async () => {
 	try {
