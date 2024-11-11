@@ -8,7 +8,7 @@ import { Configuration, CountryCode, PlaidApi, PlaidEnvironments, Products } fro
 import { getWebRequest } from "vinxi/http"
 import { Button } from "~/components/ui/button"
 import { auth } from "~/utils/auth"
-import { useSession } from "~/utils/auth-client"
+import { authClient, useSession } from "~/utils/auth-client"
 
 const authMiddleware = createServerFn("POST", async () => {
 	const request = getWebRequest()
@@ -59,8 +59,6 @@ export const Route = createFileRoute("/__app/")({
 })
 
 function Home() {
-	const { data, isPending, error } = useSession()
-
 	const { linkToken } = Route.useLoaderData()
 	const config = {
 		token: linkToken,

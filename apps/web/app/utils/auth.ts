@@ -1,4 +1,6 @@
 import { betterAuth } from "better-auth"
+import { passkey } from "better-auth/plugins"
+
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
 
 import { db } from "db"
@@ -16,4 +18,11 @@ export const auth = betterAuth({
 			clientSecret: process.env.GITHUB_CLIENT_SECRET!,
 		},
 	},
+	account: {
+		accountLinking: {
+			enabled: true,
+		},
+	},
+
+	plugins: [passkey()],
 })

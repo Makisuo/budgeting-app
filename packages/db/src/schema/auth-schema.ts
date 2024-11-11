@@ -1,4 +1,4 @@
-import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core"
+import { boolean, integer, pgTable, text, timestamp } from "drizzle-orm/pg-core"
 
 export const user = pgTable("user", {
 	id: text("id").primaryKey(),
@@ -39,4 +39,19 @@ export const verification = pgTable("verification", {
 	identifier: text("identifier").notNull(),
 	value: text("value").notNull(),
 	expiresAt: timestamp("expiresAt").notNull(),
+})
+
+export const passkey = pgTable("passkey", {
+	id: text("id").primaryKey(),
+	name: text("name"),
+	publicKey: text("publicKey").notNull(),
+	userId: text("userId")
+		.notNull()
+		.references(() => user.id),
+	webauthnUserID: text("webauthnUserID").notNull(),
+	counter: integer("counter").notNull(),
+	deviceType: text("deviceType").notNull(),
+	backedUp: boolean("backedUp").notNull(),
+	transports: text("transports"),
+	createdAt: timestamp("createdAt"),
 })
