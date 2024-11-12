@@ -1,21 +1,22 @@
 import { HttpApiBuilder } from "@effect/platform"
 
 import { PgDrizzle } from "@effect/sql-drizzle/Pg"
-import { auth, schema } from "db"
+import { schema } from "db"
 import { Effect } from "effect"
 import { Api } from "../../api"
-import { InternalError, Unauthorized } from "../../errors"
+import { InternalError } from "../../errors"
 import { PlaidService } from "../../services/plaid-service"
 
 export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 	handlers.handle("exchangeToken", ({ payload, headers }) =>
 		Effect.gen(function* () {
-			const session = yield* Effect.tryPromise({
-				try: () => auth.api.getSession({ headers: headers }),
-				catch: (error) => new Unauthorized({ error }),
-			})
+			console.log(headers)
+			// const session = yield* Effect.tryPromise({
+			// 	try: () => auth.api.getSession({ headers: headers }),
+			// 	catch: (error) => new Unauthorized({ error }),
+			// })
 
-			console.log(session)
+			// console.log(session)
 
 			const db = yield* PgDrizzle
 

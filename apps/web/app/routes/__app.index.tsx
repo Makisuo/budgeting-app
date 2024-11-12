@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import { createServerFn, json } from "@tanstack/start"
 import { plaidClient } from "./api/plaid/create-link-token"
 
@@ -6,7 +6,7 @@ import { type PlaidLinkOptions, usePlaidLink } from "react-plaid-link"
 
 import { CountryCode, Products } from "plaid"
 import { Button } from "~/components/ui/button"
-import { authClient } from "~/utils/auth-client"
+import { useSession } from "~/utils/auth-client"
 
 const createLinkToken = createServerFn("POST", async () => {
 	try {
@@ -41,19 +41,25 @@ export const Route = createFileRoute("/__app/")({
 })
 
 function Home() {
+	const { data: sessionData } = useSession()
+
 	const { linkToken } = Route.useLoaderData()
 	const config = {
 		token: linkToken,
 		onSuccess: async (publicToken, metadata) => {
 			console.log(publicToken, metadata)
 
-			const { data, error } = await authClient.$fetch("http://localhost:8787/exchange-token", {
+			const res = await fetch("http://localhost:8787/exchange-token", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: `Bearer ${sessionData.session.id}`,
 				},
+
 				body: JSON.stringify({ publicToken: publicToken }),
 			})
+
+			console.log(await res.text())
 
 			// const { accessToken } = await response.json()
 
