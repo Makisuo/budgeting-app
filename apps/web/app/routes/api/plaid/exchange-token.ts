@@ -1,7 +1,7 @@
 import { json } from "@tanstack/start"
 import { createAPIFileRoute } from "@tanstack/start/api"
 import { db, schema } from "db"
-import { auth } from "~/utils/auth"
+import { auth } from "db"
 import { plaidClient } from "./create-link-token"
 
 export const Route = createAPIFileRoute("/api/plaid/exchange-token")({

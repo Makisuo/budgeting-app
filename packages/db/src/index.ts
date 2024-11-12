@@ -8,3 +8,5 @@ export const db = drizzle({
 })
 
 export { schema }
+
+export * from "./auth"

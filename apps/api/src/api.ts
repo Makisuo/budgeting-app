@@ -13,6 +13,7 @@ export const AuthorizationLive = Layer.effect(
 		return Authorization.of({
 			bearer: (bearerToken) =>
 				Effect.gen(function* () {
+					// TODO: Authenticate later and get session here
 					yield* Effect.log("checking bearer token", Redacted.value(bearerToken))
 
 					return new User({ id: "placeholder" })

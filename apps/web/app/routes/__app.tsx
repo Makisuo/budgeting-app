@@ -1,14 +1,11 @@
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router"
 import { createServerFn } from "@tanstack/start"
+import { auth } from "db"
 import { IconChevronLgDown, IconCirclePerson, IconLogout, IconSearch, IconSettings, IconShield } from "justd-icons"
 import { getWebRequest } from "vinxi/http"
 import { AppSidebar } from "~/components/app-sidebar"
 import { ProfileMenu } from "~/components/profile-menu"
 import { Button, Sidebar } from "~/components/ui"
-import { Avatar } from "~/components/ui/avatar"
-import { Menu } from "~/components/ui/menu"
-import { Separator } from "~/components/ui/separator"
-import { auth } from "~/utils/auth"
 
 export const authMiddleware = createServerFn("POST", async () => {
 	const request = getWebRequest()

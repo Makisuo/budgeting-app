@@ -4,6 +4,7 @@ import { Api, AuthorizationLive } from "./api"
 import { HttpBaseLive } from "./routes/main/http"
 import { HttpPlaidLive } from "./routes/plaid/http"
 import { DrizzleLive } from "./services/db-service"
+import { PlaidService } from "./services/plaid-service"
 
 const ApiLive = Layer.provide(HttpApiBuilder.api(Api), [HttpPlaidLive, HttpBaseLive])
 
@@ -26,6 +27,7 @@ export default {
 			MainLayer.pipe(
 				Layer.provide(AuthorizationLive),
 				Layer.provide(DrizzleLive),
+				Layer.provide(PlaidService.Default),
 				Layer.provide(ConfigLayerLive),
 			),
 			{
