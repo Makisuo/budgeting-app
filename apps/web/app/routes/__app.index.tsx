@@ -41,7 +41,7 @@ export const Route = createFileRoute("/__app/")({
 })
 
 function Home() {
-	const { data: sessionData } = useSession()
+	const { auth } = Route.useRouteContext()
 
 	const { linkToken } = Route.useLoaderData()
 	const config = {
@@ -53,7 +53,7 @@ function Home() {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Bearer ${sessionData.session.id}`,
+					Authorization: `Bearer ${auth.session.id}`,
 				},
 
 				body: JSON.stringify({ publicToken: publicToken }),

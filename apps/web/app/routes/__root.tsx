@@ -1,13 +1,25 @@
 import { Outlet, ScrollRestoration, createRootRoute } from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/router-devtools"
-import { Body, Head, Html, Meta, Scripts } from "@tanstack/start"
+import { Body, Head, Html, Meta, Scripts, createServerFn } from "@tanstack/start"
 import type * as React from "react"
+import { getWebRequest } from "vinxi/http"
 import { DefaultCatchBoundary } from "~/components/default-catch-boundary"
 import { NotFound } from "~/components/not-found"
 import { Providers } from "~/components/providers"
 import appCss from "~/styles/app.css?url"
+import { auth } from "~/utils/auth"
 
 import { seo } from "~/utils/seo"
+
+const fetchUserSession = createServerFn("POST", async () => {
+	const request = getWebRequest()
+
+	const session = await auth.api.getSession({
+		headers: request.headers,
+	})
+
+	return session
+})
 
 export const Route = createRootRoute({
 	meta: () => [
@@ -53,6 +65,13 @@ export const Route = createRootRoute({
 		)
 	},
 	notFoundComponent: () => <NotFound />,
+	beforeLoad: async () => {
+		const auth = await fetchUserSession()
+
+		return {
+			auth,
+		}
+	},
 	component: RootComponent,
 })
 

@@ -3,6 +3,7 @@ import { ConfigProvider, Layer } from "effect"
 import { Api, AuthorizationLive } from "./api"
 import { HttpBaseLive } from "./routes/main/http"
 import { HttpPlaidLive } from "./routes/plaid/http"
+import { BetterAuthService } from "./services/auth-service"
 import { DrizzleLive } from "./services/db-service"
 import { PlaidService } from "./services/plaid-service"
 
@@ -28,6 +29,7 @@ export default {
 				Layer.provide(AuthorizationLive),
 				Layer.provide(DrizzleLive),
 				Layer.provide(PlaidService.Default),
+				Layer.provide(BetterAuthService.Default),
 				Layer.provide(ConfigLayerLive),
 			),
 			{

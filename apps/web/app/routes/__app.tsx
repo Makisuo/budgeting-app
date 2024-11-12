@@ -1,29 +1,18 @@
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router"
-import { createServerFn } from "@tanstack/start"
-import { getWebRequest } from "vinxi/http"
 import { AppSidebar } from "~/components/app-sidebar"
 import { ProfileMenu } from "~/components/profile-menu"
-import { Button, Sidebar } from "~/components/ui"
-import { auth } from "~/utils/auth"
-
-export const authMiddleware = createServerFn("POST", async () => {
-	const request = getWebRequest()
-
-	const session = await auth.api.getSession({
-		headers: request.headers,
-	})
-
-	if (!session) {
-		throw redirect({ to: "/auth/signin" })
-	}
-
-	return session
-})
+import { Sidebar } from "~/components/ui"
 
 export const Route = createFileRoute("/__app")({
 	component: RouteComponent,
-	loader: async () => {
-		await authMiddleware()
+	beforeLoad: async ({ context }) => {
+		if (!context.auth) {
+			throw redirect({ to: "/auth/signin" })
+		}
+
+		return {
+			auth: context.auth,
+		}
 	},
 })
 

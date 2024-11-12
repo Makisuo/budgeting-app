@@ -2,6 +2,8 @@ import { HttpApiSchema } from "@effect/platform"
 import { Config, Effect, Schema } from "effect"
 import { Configuration, PlaidApi, PlaidEnvironments } from "plaid"
 
+import axios from "axios"
+
 export class PlaidApiError extends Schema.TaggedError<PlaidApiError>()(
 	"PlaidApiError",
 	{},
@@ -14,7 +16,7 @@ export class PlaidService extends Effect.Service<PlaidService>()("PlaidService",
 
 		const plaidEnv = yield* Config.string("PLAID_ENV")
 		const plaidClientId = yield* Config.string("PLAID_CLIENT_ID")
-		const plaidSecret = yield* Config.redacted("PLAID_SECRET")
+		const plaidSecret = yield* Config.string("PLAID_SECRET")
 
 		const configuration = new Configuration({
 			basePath: PlaidEnvironments[plaidEnv],
@@ -31,7 +33,12 @@ export class PlaidService extends Effect.Service<PlaidService>()("PlaidService",
 		const call = <A>(f: (client: PlaidApi, signal: AbortSignal) => Promise<A>) =>
 			Effect.tryPromise({
 				try: (signal) => f(plaidClient, signal),
-				catch: (error) => new PlaidApiError({ error }),
+				catch: (error) => {
+					if (axios.isAxiosError(error)) {
+						return new PlaidApiError({ message: error.response?.data, status: error.response?.status })
+					}
+					return new PlaidApiError({ error })
+				},
 			})
 
 		return {
