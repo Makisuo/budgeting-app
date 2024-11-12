@@ -6,6 +6,7 @@ import { type PlaidLinkOptions, usePlaidLink } from "react-plaid-link"
 
 import { CountryCode, Products } from "plaid"
 import { Button } from "~/components/ui/button"
+import { authClient } from "~/utils/auth-client"
 
 const createLinkToken = createServerFn("POST", async () => {
 	try {
@@ -46,7 +47,7 @@ function Home() {
 		onSuccess: async (publicToken, metadata) => {
 			console.log(publicToken, metadata)
 
-			const response = await fetch("/api/plaid/exchange-token", {
+			const { data, error } = await authClient.$fetch("http://localhost:8787/exchange-token", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -54,17 +55,17 @@ function Home() {
 				body: JSON.stringify({ publicToken: publicToken }),
 			})
 
-			const { accessToken } = await response.json()
+			// const { accessToken } = await response.json()
 
-			const res2 = await fetch("/api/plaid/transactions", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ accessToken: accessToken }),
-			})
+			// const res2 = await fetch("/api/plaid/transactions", {
+			// 	method: "POST",
+			// 	headers: {
+			// 		"Content-Type": "application/json",
+			// 	},
+			// 	body: JSON.stringify({ accessToken: accessToken }),
+			// })
 
-			console.log(await res2.json())
+			// console.log(await res2.json())
 		},
 	} as PlaidLinkOptions
 

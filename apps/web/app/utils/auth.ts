@@ -1,5 +1,5 @@
 import { betterAuth } from "better-auth"
-import { passkey } from "better-auth/plugins"
+import { bearer, passkey } from "better-auth/plugins"
 
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
 
@@ -24,5 +24,5 @@ export const auth = betterAuth({
 		},
 	},
 
-	plugins: [passkey()],
+	plugins: [passkey(), bearer()],
 })

@@ -1,6 +1,6 @@
 import { HttpApiBuilder, HttpApiScalar, HttpMiddleware, HttpServer } from "@effect/platform"
 import { ConfigProvider, Layer } from "effect"
-import { Api } from "./api"
+import { Api, AuthorizationLive } from "./api"
 import { HttpBaseLive } from "./routes/main/http"
 import { HttpPlaidLive } from "./routes/plaid/http"
 import { DrizzleLive } from "./services/db-service"
@@ -23,7 +23,11 @@ export default {
 		const ConfigLayerLive = Layer.setConfigProvider(ConfigProvider.fromJson(env))
 
 		const { handler } = HttpApiBuilder.toWebHandler(
-			MainLayer.pipe(Layer.provide(DrizzleLive), Layer.provide(ConfigLayerLive)),
+			MainLayer.pipe(
+				Layer.provide(AuthorizationLive),
+				Layer.provide(DrizzleLive),
+				Layer.provide(ConfigLayerLive),
+			),
 			{
 				middleware: (httpApp) => httpApp.pipe(HttpMiddleware.logger),
 			},

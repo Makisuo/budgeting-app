@@ -1,19 +1,18 @@
-import { HttpApiEndpoint, HttpApiGroup, HttpApiSchema } from "@effect/platform"
+import { HttpApiEndpoint, HttpApiGroup } from "@effect/platform"
 import { Schema } from "effect"
-
-export class PlaidInternalError extends Schema.TaggedError<PlaidInternalError>()(
-	"UserNotFound",
-	{},
-	HttpApiSchema.annotations({ status: 500 }),
-) {}
+import { Authorization } from "../../authorization"
+import { InternalError, Unauthorized } from "../../errors"
 
 export class PlaidApi extends HttpApiGroup.make("plaid").add(
 	HttpApiEndpoint.post("exchangeToken", "/exchange-token")
 		.addSuccess(Schema.String)
-		.addError(PlaidInternalError)
+		.addError(InternalError)
+		.addError(Unauthorized)
+		.setHeaders(Schema.Any)
 		.setPayload(
 			Schema.Struct({
 				publicToken: Schema.String,
 			}),
-		),
+		)
+		.middleware(Authorization),
 ) {}

@@ -5,9 +5,11 @@ import { Effect } from "effect"
 import { Api } from "../../api"
 
 export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
-	handlers.handle("exchangeToken", (_) =>
+	handlers.handle("exchangeToken", ({ payload, headers }) =>
 		Effect.gen(function* () {
 			const db = yield* PgDrizzle
+
+			console.log(headers)
 
 			return yield* Effect.succeed("WOW")
 		}),
