@@ -8,6 +8,7 @@ import {
 	IconShield,
 	IconSun,
 } from "justd-icons"
+import { Route } from "~/routes/__app"
 import { signOut } from "~/utils/auth-client"
 import { useTheme } from "./theme-provider"
 import { Avatar, Button, Menu } from "./ui"
@@ -17,6 +18,7 @@ export type ProfileMenuProps = {
 }
 
 export const ProfileMenu = ({ collapsed = false }: ProfileMenuProps) => {
+	const { auth } = Route.useRouteContext()
 	const { theme, setTheme } = useTheme()
 
 	const navigate = useNavigate()
@@ -24,9 +26,9 @@ export const ProfileMenu = ({ collapsed = false }: ProfileMenuProps) => {
 	return (
 		<Menu>
 			<Button appearance="plain" aria-label="Profile" slot="menu-trigger" className="group">
-				<Avatar size="small" shape="square" src="/images/sidebar/profile-slash.jpg" />
+				<Avatar size="small" shape="square" src={auth.user.image} />
 				<span className="flex items-center justify-center group-data-[collapsible=dock]:hidden">
-					Saul Hudson
+					{auth.user.name}
 					<IconChevronLgDown className="absolute right-3 size-4 transition-transform group-pressed:rotate-180" />
 				</span>
 			</Button>
