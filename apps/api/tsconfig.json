@@ -28,6 +28,7 @@
 
 		/* Ensure that each file can be safely transpiled without relying on other imports. */
 		"isolatedModules": true,
+
 		/* Allow 'import x from y' when a module doesn't have a default export. */
 		"allowSyntheticDefaultImports": true,
 		/* Ensure that casing is correct in imports. */
@@ -38,7 +39,11 @@
 
 		/* Skip type checking all .d.ts files. */
 		"skipLibCheck": true
+		// "paths": {
+		// 	"~/*": ["./src/*"]
+		// }
 	},
+
 	"exclude": ["test"],
 	"include": ["worker-configuration.d.ts", "src/**/*.ts"]
 }

@@ -2,6 +2,7 @@ import { HttpApiBuilder } from "@effect/platform"
 
 import { PgDrizzle } from "@effect/sql-drizzle/Pg"
 import { schema } from "db"
+import type { InsertBankAccount } from "db/src/schema"
 import { Console, Effect } from "effect"
 import { Api } from "../../api"
 import { InternalError, Unauthorized } from "../../errors"
@@ -14,7 +15,7 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 			const betterAuth = yield* BetterAuthService
 
 			const session = yield* betterAuth.call((client, signal) =>
-				client.getSession({ headers: new Headers(headers) }),
+				client.getSession({ headers: new Headers(headers), signal }),
 			)
 
 			if (!session) {
@@ -26,7 +27,12 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 			const plaid = yield* PlaidService
 
 			const tokenResponse = yield* plaid.call((client, signal) =>
-				client.itemPublicTokenExchange({ public_token: payload.publicToken }),
+				client.itemPublicTokenExchange(
+					{ public_token: payload.publicToken },
+					{
+						signal,
+					},
+				),
 			)
 
 			const accessToken = tokenResponse.data.access_token
@@ -37,6 +43,22 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 				accessToken: accessToken,
 				userId: session.user.id,
 			})
+
+			// const connectedAccounts = yield* plaid.call((client, signal) =>
+			// 	client.accountsGet({ access_token: accessToken }, { signal }),
+			// )
+
+			// const mappedItems: InsertBankAccount[] = connectedAccounts.data.accounts.map((account) => ({
+			// 	id: account.account_id,
+			// 	name: account.name,
+			// 	officialName: account.official_name,
+			// 	mask: account.mask,
+			// 	balance: account.balances,
+			// 	type: account.type,
+			// 	plaidItemId: itemId,
+			// }))
+
+			// yield* db.insert(schema.bankAccount).values(mappedItems)
 
 			return yield* Effect.succeed("WOW")
 		}).pipe(

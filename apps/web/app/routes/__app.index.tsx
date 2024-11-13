@@ -5,8 +5,15 @@ import { plaidClient } from "./api/plaid/create-link-token"
 import { type PlaidLinkOptions, usePlaidLink } from "react-plaid-link"
 
 import { CountryCode, Products } from "plaid"
+import { Card } from "~/components/ui"
 import { Button } from "~/components/ui/button"
-import { useSession } from "~/utils/auth-client"
+import { db } from "~/utils/db"
+
+const getPlaidItems = createServerFn("GET", async (userId: string) => {
+	const plaidItems = await db.query.plaidItem.findMany()
+
+	return plaidItems
+})
 
 const createLinkToken = createServerFn("POST", async () => {
 	try {
@@ -27,8 +34,10 @@ const createLinkToken = createServerFn("POST", async () => {
 
 export const Route = createFileRoute("/__app/")({
 	component: Home,
-	loader: async () => {
+	loader: async ({ context }) => {
 		const res = await createLinkToken()
+
+		const plaidItems = await getPlaidItems(context.auth.user.id)
 
 		if (res.link_token === null) {
 			throw new Error(res.error)
@@ -36,6 +45,7 @@ export const Route = createFileRoute("/__app/")({
 
 		return {
 			linkToken: res.link_token,
+			plaidItems,
 		}
 	},
 })
@@ -43,9 +53,12 @@ export const Route = createFileRoute("/__app/")({
 function Home() {
 	const { auth } = Route.useRouteContext()
 
-	const { linkToken } = Route.useLoaderData()
+	const { linkToken, plaidItems } = Route.useLoaderData()
 	const config = {
 		token: linkToken,
+		onEvent: (event) => {
+			console.log(event)
+		},
 		onSuccess: async (publicToken, metadata) => {
 			console.log(publicToken, metadata)
 
@@ -60,28 +73,24 @@ function Home() {
 			})
 
 			console.log(await res.text())
-
-			// const { accessToken } = await response.json()
-
-			// const res2 = await fetch("/api/plaid/transactions", {
-			// 	method: "POST",
-			// 	headers: {
-			// 		"Content-Type": "application/json",
-			// 	},
-			// 	body: JSON.stringify({ accessToken: accessToken }),
-			// })
-
-			// console.log(await res2.json())
 		},
 	} as PlaidLinkOptions
 
 	const { open, ready } = usePlaidLink(config)
 
-	console.log(ready)
 	return (
 		<div className="p-2">
 			<h3>Welcome Home!!!</h3>
-			<Button onPress={() => open()}>Open</Button>
+			<Button isPending={!ready} onPress={() => open()}>
+				Open
+			</Button>
+
+			{plaidItems.map((item) => (
+				<Card key={item.id}>
+					<Card.Header>Plaid Items</Card.Header>
+					<Card.Content>{item.accessToken}</Card.Content>
+				</Card>
+			))}
 		</div>
 	)
 }
