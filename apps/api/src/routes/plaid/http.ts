@@ -44,21 +44,22 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 				userId: session.user.id,
 			})
 
-			// const connectedAccounts = yield* plaid.call((client, signal) =>
-			// 	client.accountsGet({ access_token: accessToken }, { signal }),
-			// )
+			const connectedAccounts = yield* plaid.call((client, signal) =>
+				client.accountsGet({ access_token: accessToken }, { signal }),
+			)
 
-			// const mappedItems: InsertBankAccount[] = connectedAccounts.data.accounts.map((account) => ({
-			// 	id: account.account_id,
-			// 	name: account.name,
-			// 	officialName: account.official_name,
-			// 	mask: account.mask,
-			// 	balance: account.balances,
-			// 	type: account.type,
-			// 	plaidItemId: itemId,
-			// }))
+			// TODO: This query is not working
+			const mappedItems: InsertBankAccount[] = connectedAccounts.data.accounts.map((account) => ({
+				id: account.account_id,
+				name: account.name,
+				officialName: account.official_name,
+				mask: account.mask,
+				balance: account.balances,
+				type: account.type,
+				plaidItemId: itemId,
+			}))
 
-			// yield* db.insert(schema.bankAccount).values(mappedItems)
+			yield* db.insert(schema.bankAccount).values(mappedItems)
 
 			return yield* Effect.succeed("WOW")
 		}).pipe(
