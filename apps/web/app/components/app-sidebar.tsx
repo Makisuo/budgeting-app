@@ -3,17 +3,7 @@
 import type * as React from "react"
 
 import { useLocation } from "@tanstack/react-router"
-import { useServerFn } from "@tanstack/start"
-import {
-	IconAlbum,
-	IconBrandApple,
-	IconCreditCard,
-	IconCube,
-	IconDashboard,
-	IconPlus,
-	IconServerStack,
-	IconSettings,
-} from "justd-icons"
+import { IconAlbum, IconBrandApple, IconCreditCard, IconCube, IconDashboard, IconPlus, IconSettings } from "justd-icons"
 import { type PlaidLinkOptions, usePlaidLink } from "react-plaid-link"
 import { Link, Modal, Sidebar, useSidebar } from "~/components/ui"
 import { Route, getBankAccounts } from "~/routes/__app"

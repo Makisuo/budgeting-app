@@ -3,7 +3,7 @@ import { createServerFn, json } from "@tanstack/start"
 import { CountryCode, Products } from "plaid"
 import { AppSidebar } from "~/components/app-sidebar"
 import { ProfileMenu } from "~/components/profile-menu"
-import { Sidebar } from "~/components/ui"
+import { Container, Sidebar } from "~/components/ui"
 import { db } from "~/utils/db"
 import { fetchUserSession } from "./__root"
 import { plaidClient } from "./api/plaid/create-link-token"
@@ -76,9 +76,9 @@ function RouteComponent() {
 						<ProfileMenu />
 					</div>
 				</Sidebar.Nav>
-				<div className="overflow-hidden p-4 lg:p-6">
+				<Container className="overflow-hidden p-4 lg:p-6">
 					<Outlet />
-				</div>
+				</Container>
 			</Sidebar.Inset>
 		</Sidebar.Provider>
 	)
