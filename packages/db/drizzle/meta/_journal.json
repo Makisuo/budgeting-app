@@ -15,6 +15,20 @@
       "when": 1731502050972,
       "tag": "0001_goofy_toxin",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1731536209775,
+      "tag": "0002_fine_black_queen",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1731536273029,
+      "tag": "0003_wise_husk",
+      "breakpoints": true
     }
   ]
 }

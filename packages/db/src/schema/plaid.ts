@@ -5,10 +5,11 @@ import { user } from "./auth-schema"
 
 export const plaidItem = pgTable("plaid_item", {
 	id: text().primaryKey(),
-	userId: text()
+	userId: text("user_id")
 		.notNull()
 		.references(() => user.id),
-	accessToken: text().notNull(),
+	institutionId: text("institution_id"),
+	accessToken: text("access_token").notNull(),
 })
 
 export const accountType = pgEnum("account_type", [
@@ -21,7 +22,7 @@ export const accountType = pgEnum("account_type", [
 ])
 
 export const bankAccount = pgTable("bank_account", {
-	id: text().notNull().unique(),
+	id: text().notNull().primaryKey(),
 	name: text().notNull(),
 	// The official name of the account as given by the financial institution
 	officialName: text("official_name"),

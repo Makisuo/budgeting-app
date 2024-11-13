@@ -1,7 +1,34 @@
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router"
+import { createServerFn, json } from "@tanstack/start"
+import { CountryCode, Products } from "plaid"
 import { AppSidebar } from "~/components/app-sidebar"
 import { ProfileMenu } from "~/components/profile-menu"
 import { Sidebar } from "~/components/ui"
+import { db } from "~/utils/db"
+import { plaidClient } from "./api/plaid/create-link-token"
+
+export const getBankAccounts = createServerFn("GET", async (userId: string) => {
+	const bankAccounts = await db.query.bankAccount.findMany()
+
+	return bankAccounts
+})
+
+const createLinkToken = createServerFn("POST", async () => {
+	try {
+		const tokenResponse = await plaidClient.linkTokenCreate({
+			user: { client_user_id: "unique-user-id" }, // Replace with actual user ID
+			client_name: "Maple",
+			products: [Products.Transactions],
+			country_codes: [CountryCode.De],
+			language: "en",
+		})
+
+		return json({ link_token: tokenResponse.data.link_token })
+	} catch (error: any) {
+		console.error("Error creating link token:", error)
+		return json({ error: error.message, link_token: null }, { status: 500 })
+	}
+})
 
 export const Route = createFileRoute("/__app")({
 	component: RouteComponent,
@@ -12,6 +39,17 @@ export const Route = createFileRoute("/__app")({
 
 		return {
 			auth: context.auth,
+		}
+	},
+	loader: async () => {
+		const res = await createLinkToken()
+
+		if (res.link_token === null) {
+			throw new Error(res.error)
+		}
+
+		return {
+			linkToken: res.link_token,
 		}
 	},
 })

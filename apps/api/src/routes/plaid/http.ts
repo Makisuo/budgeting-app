@@ -39,28 +39,16 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 				const accessToken = tokenResponse.data.access_token
 				const itemId = tokenResponse.data.item_id
 
+				const item = yield* plaid.call((client, signal) =>
+					client.itemGet({ access_token: accessToken }, { signal }),
+				)
+
 				yield* db.insert(schema.plaidItem).values({
 					id: itemId,
+					institutionId: item.data.item.institution_id,
 					accessToken: accessToken,
 					userId: session.user.id,
 				})
-
-				const connectedAccounts = yield* plaid.call((client, signal) =>
-					client.accountsGet({ access_token: accessToken }, { signal }),
-				)
-
-				// TODO: This query is not working
-				const mappedItems: InsertBankAccount[] = connectedAccounts.data.accounts.map((account) => ({
-					id: account.account_id,
-					name: account.name,
-					officialName: account.official_name,
-					mask: account.mask,
-					balance: account.balances,
-					type: account.type,
-					plaidItemId: itemId,
-				}))
-
-				yield* db.insert(schema.bankAccount).values(mappedItems)
 
 				return yield* Effect.succeed("WOW")
 			}).pipe(

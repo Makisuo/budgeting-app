@@ -15,3 +15,4 @@ export * from './menu';
 export * from './dropdown';
 export * from './keyboard';
 export * from './popover';
+export * from './modal';
