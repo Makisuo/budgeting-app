@@ -33,6 +33,10 @@ export const bankAccount = pgTable("bank_account", {
 		.notNull()
 		.references(() => plaidItem.id),
 
+	userId: text("user_id")
+		.notNull()
+		.references(() => user.id),
+
 	type: accountType().notNull().$type<AccountType>(),
 })
 

@@ -88,12 +88,12 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 								client.accountsGet({ access_token: item.accessToken }, { signal }),
 							)
 
-							// TODO: This query is not working
 							const mappedItems: InsertBankAccount[] = connectedAccounts.data.accounts.map((account) => ({
 								id: account.account_id,
 								name: account.name,
 								officialName: account.official_name,
 								mask: account.mask,
+								userId: session.user.id,
 								balance: account.balances,
 								type: account.type,
 								plaidItemId: item.id,

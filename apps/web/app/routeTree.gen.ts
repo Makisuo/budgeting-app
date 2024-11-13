@@ -15,7 +15,10 @@ import { Route as appImport } from './routes/__app'
 import { Route as appIndexImport } from './routes/__app.index'
 import { Route as AuthSigninImport } from './routes/auth/signin'
 import { Route as AuthRegisterImport } from './routes/auth/register'
+import { Route as appSubscriptionsImport } from './routes/__app.subscriptions'
 import { Route as appSettingsImport } from './routes/__app.settings'
+import { Route as appAccountsImport } from './routes/__app.accounts'
+import { Route as appIdImport } from './routes/__app.$id'
 
 // Create/Update Routes
 
@@ -42,9 +45,27 @@ const AuthRegisterRoute = AuthRegisterImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const appSubscriptionsRoute = appSubscriptionsImport.update({
+  id: '/subscriptions',
+  path: '/subscriptions',
+  getParentRoute: () => appRoute,
+} as any)
+
 const appSettingsRoute = appSettingsImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => appRoute,
+} as any)
+
+const appAccountsRoute = appAccountsImport.update({
+  id: '/accounts',
+  path: '/accounts',
+  getParentRoute: () => appRoute,
+} as any)
+
+const appIdRoute = appIdImport.update({
+  id: '/$id',
+  path: '/$id',
   getParentRoute: () => appRoute,
 } as any)
 
@@ -59,11 +80,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appImport
       parentRoute: typeof rootRoute
     }
+    '/__app/$id': {
+      id: '/__app/$id'
+      path: '/$id'
+      fullPath: '/$id'
+      preLoaderRoute: typeof appIdImport
+      parentRoute: typeof appImport
+    }
+    '/__app/accounts': {
+      id: '/__app/accounts'
+      path: '/accounts'
+      fullPath: '/accounts'
+      preLoaderRoute: typeof appAccountsImport
+      parentRoute: typeof appImport
+    }
     '/__app/settings': {
       id: '/__app/settings'
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof appSettingsImport
+      parentRoute: typeof appImport
+    }
+    '/__app/subscriptions': {
+      id: '/__app/subscriptions'
+      path: '/subscriptions'
+      fullPath: '/subscriptions'
+      preLoaderRoute: typeof appSubscriptionsImport
       parentRoute: typeof appImport
     }
     '/auth/register': {
@@ -93,12 +135,18 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface appRouteChildren {
+  appIdRoute: typeof appIdRoute
+  appAccountsRoute: typeof appAccountsRoute
   appSettingsRoute: typeof appSettingsRoute
+  appSubscriptionsRoute: typeof appSubscriptionsRoute
   appIndexRoute: typeof appIndexRoute
 }
 
 const appRouteChildren: appRouteChildren = {
+  appIdRoute: appIdRoute,
+  appAccountsRoute: appAccountsRoute,
   appSettingsRoute: appSettingsRoute,
+  appSubscriptionsRoute: appSubscriptionsRoute,
   appIndexRoute: appIndexRoute,
 }
 
@@ -106,14 +154,20 @@ const appRouteWithChildren = appRoute._addFileChildren(appRouteChildren)
 
 export interface FileRoutesByFullPath {
   '': typeof appRouteWithChildren
+  '/$id': typeof appIdRoute
+  '/accounts': typeof appAccountsRoute
   '/settings': typeof appSettingsRoute
+  '/subscriptions': typeof appSubscriptionsRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/signin': typeof AuthSigninRoute
   '/': typeof appIndexRoute
 }
 
 export interface FileRoutesByTo {
+  '/$id': typeof appIdRoute
+  '/accounts': typeof appAccountsRoute
   '/settings': typeof appSettingsRoute
+  '/subscriptions': typeof appSubscriptionsRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/signin': typeof AuthSigninRoute
   '/': typeof appIndexRoute
@@ -122,7 +176,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/__app': typeof appRouteWithChildren
+  '/__app/$id': typeof appIdRoute
+  '/__app/accounts': typeof appAccountsRoute
   '/__app/settings': typeof appSettingsRoute
+  '/__app/subscriptions': typeof appSubscriptionsRoute
   '/auth/register': typeof AuthRegisterRoute
   '/auth/signin': typeof AuthSigninRoute
   '/__app/': typeof appIndexRoute
@@ -130,13 +187,31 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/settings' | '/auth/register' | '/auth/signin' | '/'
+  fullPaths:
+    | ''
+    | '/$id'
+    | '/accounts'
+    | '/settings'
+    | '/subscriptions'
+    | '/auth/register'
+    | '/auth/signin'
+    | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/settings' | '/auth/register' | '/auth/signin' | '/'
+  to:
+    | '/$id'
+    | '/accounts'
+    | '/settings'
+    | '/subscriptions'
+    | '/auth/register'
+    | '/auth/signin'
+    | '/'
   id:
     | '__root__'
     | '/__app'
+    | '/__app/$id'
+    | '/__app/accounts'
     | '/__app/settings'
+    | '/__app/subscriptions'
     | '/auth/register'
     | '/auth/signin'
     | '/__app/'
@@ -173,12 +248,27 @@ export const routeTree = rootRoute
     "/__app": {
       "filePath": "__app.tsx",
       "children": [
+        "/__app/$id",
+        "/__app/accounts",
         "/__app/settings",
+        "/__app/subscriptions",
         "/__app/"
       ]
     },
+    "/__app/$id": {
+      "filePath": "__app.$id.tsx",
+      "parent": "/__app"
+    },
+    "/__app/accounts": {
+      "filePath": "__app.accounts.tsx",
+      "parent": "/__app"
+    },
     "/__app/settings": {
       "filePath": "__app.settings.tsx",
+      "parent": "/__app"
+    },
+    "/__app/subscriptions": {
+      "filePath": "__app.subscriptions.tsx",
       "parent": "/__app"
     },
     "/auth/register": {

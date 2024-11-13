@@ -11,7 +11,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"db": "workspace:*",
+		"@tanstack/react-query": "^5.59.20",
 		"@tanstack/react-router": "^1.81.4",
 		"@tanstack/router-devtools": "^1.81.4",
 		"@tanstack/start": "^1.81.4",
@@ -19,6 +19,7 @@
 		"clsx": "^2.1.1",
 		"date-fns": "^4.1.0",
 		"date-fns-tz": "^3.2.0",
+		"db": "workspace:*",
 		"effect": "^3.10.14",
 		"framer-motion": "^11.11.13",
 		"justd-icons": "^1.7.4",

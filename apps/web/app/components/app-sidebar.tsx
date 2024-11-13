@@ -3,10 +3,20 @@
 import type * as React from "react"
 
 import { useLocation } from "@tanstack/react-router"
-import { IconBrandApple, IconCube, IconDashboard, IconPlus, IconSettings } from "justd-icons"
+import { useServerFn } from "@tanstack/start"
+import {
+	IconAlbum,
+	IconBrandApple,
+	IconCreditCard,
+	IconCube,
+	IconDashboard,
+	IconPlus,
+	IconServerStack,
+	IconSettings,
+} from "justd-icons"
 import { type PlaidLinkOptions, usePlaidLink } from "react-plaid-link"
 import { Link, Modal, Sidebar, useSidebar } from "~/components/ui"
-import { Route } from "~/routes/__app"
+import { Route, getBankAccounts } from "~/routes/__app"
 import { ProfileMenu } from "./profile-menu"
 
 export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
@@ -27,13 +37,19 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 			<Sidebar.Content>
 				<Sidebar.Section>
 					<SidebarItem icon={IconDashboard} href="/">
-						Overview
+						Dashboard
+					</SidebarItem>
+					<SidebarItem icon={IconAlbum} href="/accounts">
+						Accounts
+					</SidebarItem>
+					<SidebarItem icon={IconCreditCard} href="/subscriptions">
+						Subscriptions
 					</SidebarItem>
 					<SidebarItem icon={IconSettings} href="/settings">
 						Settings
 					</SidebarItem>
 				</Sidebar.Section>
-				<Sidebar.Section collapsible title="Linked Accounts">
+				<Sidebar.Section title="Linked Accounts">
 					<Sidebar.Item icon={IconCube} href="/">
 						All Bank Accounts
 					</Sidebar.Item>
@@ -63,6 +79,13 @@ export const SidebarItem = ({ href, ...rest }: React.ComponentProps<typeof Sideb
 }
 
 const ConnectBankAccountItem = () => {
+	// const getTime = useServerFn(getBankAccounts)
+
+	// const timeQuery = useQuery({
+	//   queryKey: 'time',
+	//   queryFn: () => getTime(),
+	// })
+
 	const { auth } = Route.useRouteContext()
 
 	const { linkToken } = Route.useLoaderData()

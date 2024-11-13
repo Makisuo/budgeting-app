@@ -5,10 +5,19 @@ import { AppSidebar } from "~/components/app-sidebar"
 import { ProfileMenu } from "~/components/profile-menu"
 import { Sidebar } from "~/components/ui"
 import { db } from "~/utils/db"
+import { fetchUserSession } from "./__root"
 import { plaidClient } from "./api/plaid/create-link-token"
 
-export const getBankAccounts = createServerFn("GET", async (userId: string) => {
-	const bankAccounts = await db.query.bankAccount.findMany()
+export const getBankAccounts = createServerFn("GET", async () => {
+	const session = await fetchUserSession()
+
+	if (!session) {
+		throw new Error("Unauthorized")
+	}
+
+	const bankAccounts = await db.query.bankAccount.findMany({
+		where: (table, { eq }) => eq(table.userId, session.user.id),
+	})
 
 	return bankAccounts
 })

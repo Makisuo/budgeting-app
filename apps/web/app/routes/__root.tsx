@@ -11,7 +11,7 @@ import { auth } from "~/utils/auth"
 
 import { seo } from "~/utils/seo"
 
-const fetchUserSession = createServerFn("POST", async () => {
+export const fetchUserSession = createServerFn("POST", async () => {
 	const request = getWebRequest()
 
 	const session = await auth.api.getSession({
