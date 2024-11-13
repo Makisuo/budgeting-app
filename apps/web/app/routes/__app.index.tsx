@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router"
+import { Card } from "~/components/ui"
 
 import { Button } from "~/components/ui/button"
 
@@ -22,9 +23,17 @@ function Home() {
 
 	return (
 		<div>
-			<div className="flex gap-2">
-				<Button onPress={syncBankAccount}>Sync Bank Accounts</Button>
-			</div>
+			<Button onPress={syncBankAccount}>Sync Bank Accounts</Button>
+			<Card>
+				<Card.Header>
+					<Card.Title>Monthly Report</Card.Title>
+					<Card.Description>Financial summary for June</Card.Description>
+				</Card.Header>
+				<Card.Content>WOW</Card.Content>
+				<Card.Footer>
+					<Button>View Details</Button>
+				</Card.Footer>
+			</Card>
 		</div>
 	)
 }
