@@ -9,4 +9,5 @@ export const getDb = (connectionString: string) =>
 	drizzle({
 		connection: connectionString,
 		schema,
+		// casing: "snake_case",
 	})

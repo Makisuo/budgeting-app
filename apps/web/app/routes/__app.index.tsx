@@ -5,6 +5,7 @@ import { plaidClient } from "./api/plaid/create-link-token"
 import { type PlaidLinkOptions, usePlaidLink } from "react-plaid-link"
 
 import { CountryCode, Products } from "plaid"
+import { useEffect } from "react"
 import { Card } from "~/components/ui"
 import { Button } from "~/components/ui/button"
 import { db } from "~/utils/db"
@@ -53,6 +54,15 @@ export const Route = createFileRoute("/__app/")({
 function Home() {
 	const { auth } = Route.useRouteContext()
 
+	useEffect(() => {
+		fetch("http://localhost:8787/sync-bank-accounts", {
+			method: "POST",
+			headers: {
+				Authorization: `Bearer ${auth.session.id}`,
+			},
+		})
+	}, [auth])
+
 	const { linkToken, plaidItems } = Route.useLoaderData()
 	const config = {
 		token: linkToken,
@@ -60,8 +70,6 @@ function Home() {
 			console.log(event)
 		},
 		onSuccess: async (publicToken, metadata) => {
-			console.log(publicToken, metadata)
-
 			const res = await fetch("http://localhost:8787/exchange-token", {
 				method: "POST",
 				headers: {

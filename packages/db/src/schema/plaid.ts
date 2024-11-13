@@ -17,17 +17,18 @@ export const accountType = pgEnum("account_type", [
 	AccountType.Investment,
 	AccountType.Loan,
 	AccountType.Other,
+	AccountType.Depository,
 ])
 
 export const bankAccount = pgTable("bank_account", {
 	id: text().notNull().unique(),
 	name: text().notNull(),
 	// The official name of the account as given by the financial institution
-	officialName: text(),
+	officialName: text("official_name"),
 	mask: text(),
 	balance: json().$type<AccountBalance>().notNull(),
 
-	plaidItemId: text()
+	plaidItemId: text("plaid_item_id")
 		.notNull()
 		.references(() => plaidItem.id),
 

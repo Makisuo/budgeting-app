@@ -1,10 +1,10 @@
 import { HttpApiBuilder } from "@effect/platform"
 
 import { PgDrizzle } from "@effect/sql-drizzle/Pg"
-import { eq, schema } from "db"
+import { eq, schema, sql } from "db"
 import type { InsertBankAccount } from "db/src/schema"
 import { Console, Effect } from "effect"
-import { Api } from "../../api"
+import { Api } from "~/api"
 import { InternalError, Unauthorized } from "../../errors"
 import { BetterAuthService } from "../../services/auth-service"
 import { PlaidService } from "../../services/plaid-service"
@@ -111,7 +111,19 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 								plaidItemId: item.id,
 							}))
 
-							yield* db.insert(schema.bankAccount).values(mappedItems)
+							yield* db
+								.insert(schema.bankAccount)
+								.values(mappedItems)
+								.onConflictDoUpdate({
+									target: schema.bankAccount.id,
+									set: {
+										name: sql.raw(`excluded.${schema.bankAccount.name.name}`),
+										officialName: sql.raw(`excluded.${schema.bankAccount.officialName.name}`),
+										mask: sql.raw(`excluded.${schema.bankAccount.mask.name}`),
+										balance: sql.raw(`excluded.${schema.bankAccount.balance.name}`),
+										type: sql.raw(`excluded.${schema.bankAccount.type.name}`),
+									},
+								})
 						}),
 					{ concurrency: "unbounded" },
 				)
