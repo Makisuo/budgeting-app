@@ -39,7 +39,7 @@ const createLinkToken = createServerFn("POST", async () => {
 	}
 })
 
-export const Route = createFileRoute("/__app")({
+export const Route = createFileRoute("/_app")({
 	component: RouteComponent,
 	beforeLoad: async ({ context }) => {
 		if (!context.auth) {

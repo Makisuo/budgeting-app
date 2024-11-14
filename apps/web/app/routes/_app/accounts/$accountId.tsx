@@ -1,9 +1,7 @@
-import { Link, createFileRoute, notFound } from "@tanstack/react-router"
+import { Outlet, createFileRoute, notFound } from "@tanstack/react-router"
 import { createServerFn } from "@tanstack/start"
-import { Card } from "~/components/ui"
 import { db } from "~/utils/db"
-import { getBankAccounts } from "./__app"
-import { fetchUserSession } from "./__root"
+import { fetchUserSession } from "../../__root"
 
 const getBankAccount = createServerFn("GET", async (id: string) => {
 	const session = await fetchUserSession()
@@ -19,10 +17,10 @@ const getBankAccount = createServerFn("GET", async (id: string) => {
 	return bankAccount
 })
 
-export const Route = createFileRoute("/__app/accounts/$id")({
+export const Route = createFileRoute("/_app/accounts/$accountId")({
 	component: RouteComponent,
 	loader: async ({ params }) => {
-		const bankAccount = await getBankAccount(params.id)
+		const bankAccount = await getBankAccount(params.accountId)
 
 		if (!bankAccount) {
 			throw notFound()
@@ -37,5 +35,12 @@ export const Route = createFileRoute("/__app/accounts/$id")({
 function RouteComponent() {
 	const { bankAccount } = Route.useLoaderData()
 
-	return <div>{bankAccount.name}</div>
+	console.log(bankAccount, "XD")
+
+	return (
+		<div>
+			{bankAccount.name}
+			<Outlet />
+		</div>
+	)
 }

@@ -8,7 +8,7 @@ import {
 	IconShield,
 	IconSun,
 } from "justd-icons"
-import { Route } from "~/routes/__app"
+import { Route } from "~/routes/_app"
 import { signOut } from "~/utils/auth-client"
 import { useTheme } from "./theme-provider"
 import { Avatar, Button, Menu } from "./ui"

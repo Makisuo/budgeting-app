@@ -3,7 +3,7 @@ import { Card } from "~/components/ui"
 
 import { Button } from "~/components/ui/button"
 
-export const Route = createFileRoute("/__app/")({
+export const Route = createFileRoute("/_app/")({
 	component: Home,
 })
 

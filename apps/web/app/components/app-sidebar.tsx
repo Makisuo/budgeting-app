@@ -6,7 +6,7 @@ import { useLocation } from "@tanstack/react-router"
 import { IconAlbum, IconBrandApple, IconCreditCard, IconCube, IconDashboard, IconPlus, IconSettings } from "justd-icons"
 import { type PlaidLinkOptions, usePlaidLink } from "react-plaid-link"
 import { Link, Modal, Sidebar, useSidebar } from "~/components/ui"
-import { Route, getBankAccounts } from "~/routes/__app"
+import { Route, getBankAccounts } from "~/routes/_app"
 import { ProfileMenu } from "./profile-menu"
 
 export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
@@ -40,9 +40,9 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 					</SidebarItem>
 				</Sidebar.Section>
 				<Sidebar.Section title="Linked Accounts">
-					<Sidebar.Item icon={IconCube} href="/">
+					<SidebarItem icon={IconCube} href="/accounts">
 						All Bank Accounts
-					</Sidebar.Item>
+					</SidebarItem>
 					<ConnectBankAccountItem />
 				</Sidebar.Section>
 			</Sidebar.Content>

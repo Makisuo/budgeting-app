@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router"
 import * as React from "react"
 
-export const Route = createFileRoute("/__app/settings")({
+export const Route = createFileRoute("/_app/settings")({
 	component: RouteComponent,
 })
 
 function RouteComponent() {
-	return "Hello /__app/settings!"
+	return "Hello /_app/settings!"
 }
