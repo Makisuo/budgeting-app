@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router"
 import { Card } from "~/components/ui"
 
 import { Button } from "~/components/ui/button"
+import { useBankAccounts } from "~/utils/electric/hooks"
 
 export const Route = createFileRoute("/_app/")({
 	component: Home,
@@ -9,6 +10,8 @@ export const Route = createFileRoute("/_app/")({
 
 function Home() {
 	const { auth } = Route.useRouteContext()
+
+	const { data } = useBankAccounts()
 
 	const syncBankAccount = async () => {
 		const res = await fetch("http://localhost:8787/sync-bank-accounts", {

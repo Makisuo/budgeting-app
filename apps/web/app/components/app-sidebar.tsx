@@ -2,11 +2,14 @@
 
 import type * as React from "react"
 
+import { useQuery } from "@tanstack/react-query"
 import { useLocation } from "@tanstack/react-router"
+import { useServerFn } from "@tanstack/start"
 import { IconAlbum, IconBrandApple, IconCreditCard, IconCube, IconDashboard, IconPlus, IconSettings } from "justd-icons"
 import { type PlaidLinkOptions, usePlaidLink } from "react-plaid-link"
 import { Link, Modal, Sidebar, useSidebar } from "~/components/ui"
 import { Route, getBankAccounts } from "~/routes/_app"
+import { useBankAccounts } from "~/utils/electric/hooks"
 import { ProfileMenu } from "./profile-menu"
 
 export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
@@ -43,6 +46,7 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 					<SidebarItem icon={IconCube} href="/accounts">
 						All Bank Accounts
 					</SidebarItem>
+					<AccountItems />
 					<ConnectBankAccountItem />
 				</Sidebar.Section>
 			</Sidebar.Content>
@@ -68,14 +72,21 @@ export const SidebarItem = ({ href, ...rest }: React.ComponentProps<typeof Sideb
 	return <Sidebar.Item isCurrent={isMatch} href={href} {...rest} />
 }
 
+const AccountItems = () => {
+	const { data } = useBankAccounts()
+
+	return (
+		<>
+			{data.map((item) => (
+				<SidebarItem icon={IconCube} key={item.id} href={`/accounts/${item.id}` as "/accounts/$accountId"}>
+					{item.name}
+				</SidebarItem>
+			))}
+		</>
+	)
+}
+
 const ConnectBankAccountItem = () => {
-	// const getTime = useServerFn(getBankAccounts)
-
-	// const timeQuery = useQuery({
-	//   queryKey: 'time',
-	//   queryFn: () => getTime(),
-	// })
-
 	const { auth } = Route.useRouteContext()
 
 	const { linkToken } = Route.useLoaderData()

@@ -11,6 +11,10 @@ import { auth } from "~/utils/auth"
 
 import { seo } from "~/utils/seo"
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+
+const queryClient = new QueryClient()
+
 export const fetchUserSession = createServerFn("POST", async () => {
 	const request = getWebRequest()
 
@@ -78,9 +82,11 @@ export const Route = createRootRoute({
 function RootComponent() {
 	return (
 		<RootDocument>
-			<Providers>
-				<Outlet />
-			</Providers>
+			<QueryClientProvider client={queryClient}>
+				<Providers>
+					<Outlet />
+				</Providers>
+			</QueryClientProvider>
 		</RootDocument>
 	)
 }
