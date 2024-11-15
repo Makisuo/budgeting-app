@@ -16,7 +16,7 @@ export const createLinkTokenAction = createServerFn({ method: "POST" }).handler(
 		const tokenResponse = await plaidClient.linkTokenCreate({
 			user: { client_user_id: session.user.id },
 			client_name: "Maple",
-			// webhook: `${process.env.VITE_APP_BACKEND_URL}/webhook`,
+			webhook: `${process.env.VITE_APP_BACKEND_URL}/webhook`,
 			products: [Products.Transactions],
 			country_codes: [CountryCode.De],
 			language: "en",
