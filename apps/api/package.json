@@ -12,19 +12,19 @@
 		"plaid": "^29.0.0"
 	},
 	"devDependencies": {
-		"@cloudflare/vitest-pool-workers": "^0.5.27",
+		"@cloudflare/vitest-pool-workers": "^0.5.28",
 		"@cloudflare/workers-types": "^4.20241112.0",
 		"typescript": "^5.6.3",
 		"vitest": "2.1.5",
-		"wrangler": "^3.86.1"
+		"wrangler": "^3.87.0"
 	},
 	"dependencies": {
-		"@effect/platform": "^0.69.21",
-		"@effect/sql": "^0.20.5",
-		"@effect/sql-drizzle": "^0.19.5",
-		"@effect/sql-pg": "^0.21.5",
-		"better-auth": "^0.8.2",
+		"@effect/platform": "^0.69.24",
+		"@effect/sql": "^0.20.8",
+		"@effect/sql-drizzle": "^0.19.8",
+		"@effect/sql-pg": "^0.21.8",
+		"better-auth": "^0.8.4",
 		"db": "workspace:*",
-		"effect": "^3.10.14"
+		"effect": "^3.10.15"
 	}
 }

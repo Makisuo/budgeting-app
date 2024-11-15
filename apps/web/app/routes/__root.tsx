@@ -1,6 +1,6 @@
 import { Outlet, ScrollRestoration, createRootRoute } from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/router-devtools"
-import { Body, Head, Html, Meta, Scripts, createServerFn } from "@tanstack/start"
+import { Meta, Scripts, createServerFn } from "@tanstack/start"
 import type * as React from "react"
 import { getWebRequest } from "vinxi/http"
 import { DefaultCatchBoundary } from "~/components/default-catch-boundary"
@@ -15,7 +15,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 const queryClient = new QueryClient()
 
-export const fetchUserSession = createServerFn("POST", async () => {
+export const fetchUserSession = createServerFn({ method: "POST" }).handler(async () => {
 	const request = getWebRequest()
 
 	const session = await auth.api.getSession({
@@ -93,16 +93,16 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
-		<Html>
-			<Head>
+		<html lang="en">
+			<head>
 				<Meta />
-			</Head>
-			<Body>
+			</head>
+			<body>
 				{children}
 				<ScrollRestoration />
 				<TanStackRouterDevtools position="bottom-right" />
 				<Scripts />
-			</Body>
-		</Html>
+			</body>
+		</html>
 	)
 }

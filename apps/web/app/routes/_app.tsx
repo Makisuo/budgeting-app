@@ -8,7 +8,7 @@ import { db } from "~/utils/db"
 import { fetchUserSession } from "./__root"
 import { plaidClient } from "./api/plaid/create-link-token"
 
-export const getBankAccounts = createServerFn("GET", async () => {
+export const getBankAccounts = createServerFn().handler(async () => {
 	const session = await fetchUserSession()
 
 	if (!session) {
@@ -22,7 +22,7 @@ export const getBankAccounts = createServerFn("GET", async () => {
 	return bankAccounts
 })
 
-const createLinkToken = createServerFn("POST", async () => {
+const createLinkToken = createServerFn({ method: "POST" }).handler(async () => {
 	try {
 		const tokenResponse = await plaidClient.linkTokenCreate({
 			user: { client_user_id: "unique-user-id" }, // Replace with actual user ID
