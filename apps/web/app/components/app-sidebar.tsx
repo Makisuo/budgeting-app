@@ -2,13 +2,11 @@
 
 import type * as React from "react"
 
-import { useQuery } from "@tanstack/react-query"
 import { useLocation } from "@tanstack/react-router"
-import { useServerFn } from "@tanstack/start"
 import { IconAlbum, IconBrandApple, IconCreditCard, IconCube, IconDashboard, IconPlus, IconSettings } from "justd-icons"
 import { type PlaidLinkOptions, usePlaidLink } from "react-plaid-link"
-import { Link, Modal, Sidebar, useSidebar } from "~/components/ui"
-import { Route, getBankAccounts } from "~/routes/_app"
+import { Link, Loader, Sidebar, useSidebar } from "~/components/ui"
+import { Route } from "~/routes/_app"
 import { useBankAccounts } from "~/utils/electric/hooks"
 import { ProfileMenu } from "./profile-menu"
 
@@ -91,13 +89,15 @@ const ConnectBankAccountItem = () => {
 
 	const { linkToken } = Route.useLoaderData()
 
+	console.log(linkToken)
+
 	const config = {
 		token: linkToken,
 		onEvent: (event) => {
 			console.log(event)
 		},
 		onSuccess: async (publicToken, metadata) => {
-			const res = await fetch("http://localhost:8787/exchange-token", {
+			const res = await fetch(`${import.meta.env.VITE_APP_BACKEND_URL}/exchange-token`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -111,8 +111,9 @@ const ConnectBankAccountItem = () => {
 		},
 	} as PlaidLinkOptions
 
-	const { open, ready } = usePlaidLink(config)
+	const { open, ready, error } = usePlaidLink(config)
 
+	console.log(error, ready)
 	return (
 		<Sidebar.Item onPress={() => open()} isDisabled={!ready} icon={IconPlus}>
 			Connect Bank Account

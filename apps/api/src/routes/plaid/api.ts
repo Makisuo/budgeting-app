@@ -1,5 +1,6 @@
 import { HttpApiEndpoint, HttpApiGroup } from "@effect/platform"
 import { Schema } from "effect"
+import { PlaidWebhook } from "~/schemas/plaid-webhook"
 import { Authorization } from "../../authorization"
 import { InternalError, Unauthorized } from "../../errors"
 
@@ -22,6 +23,13 @@ export class PlaidApi extends HttpApiGroup.make("plaid")
 			.addSuccess(Schema.String)
 			.addError(InternalError)
 			.addError(Unauthorized)
+
 			.setHeaders(Schema.Any)
 			.middleware(Authorization),
+	)
+	.add(
+		HttpApiEndpoint.post("webhook", "/webhook")
+			.addSuccess(Schema.String)
+			.setPayload(PlaidWebhook)
+			.addError(InternalError),
 	) {}

@@ -1,43 +1,8 @@
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router"
-import { createServerFn, json } from "@tanstack/start"
-import { CountryCode, Products } from "plaid"
+import { createLinkToken } from "~/actions"
 import { AppSidebar } from "~/components/app-sidebar"
 import { ProfileMenu } from "~/components/profile-menu"
 import { Container, Sidebar } from "~/components/ui"
-import { db } from "~/utils/db"
-import { fetchUserSession } from "./__root"
-import { plaidClient } from "./api/plaid/create-link-token"
-
-export const getBankAccounts = createServerFn().handler(async () => {
-	const session = await fetchUserSession()
-
-	if (!session) {
-		throw new Error("Unauthorized")
-	}
-
-	const bankAccounts = await db.query.bankAccount.findMany({
-		where: (table, { eq }) => eq(table.userId, session.user.id),
-	})
-
-	return bankAccounts
-})
-
-const createLinkToken = createServerFn({ method: "POST" }).handler(async () => {
-	try {
-		const tokenResponse = await plaidClient.linkTokenCreate({
-			user: { client_user_id: "unique-user-id" }, // Replace with actual user ID
-			client_name: "Maple",
-			products: [Products.Transactions],
-			country_codes: [CountryCode.De],
-			language: "en",
-		})
-
-		return json({ link_token: tokenResponse.data.link_token })
-	} catch (error: any) {
-		console.error("Error creating link token:", error)
-		return json({ error: error.message, link_token: null }, { status: 500 })
-	}
-})
 
 export const Route = createFileRoute("/_app")({
 	component: RouteComponent,
@@ -53,8 +18,8 @@ export const Route = createFileRoute("/_app")({
 	loader: async () => {
 		const res = await createLinkToken()
 
-		if (res.link_token === null) {
-			throw new Error(res.error)
+		if (!res.link_token) {
+			throw new Error("Error creating link token")
 		}
 
 		return {

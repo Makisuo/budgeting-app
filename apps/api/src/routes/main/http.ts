@@ -1,6 +1,6 @@
 import { HttpApiBuilder } from "@effect/platform"
 
-import { Config, Effect } from "effect"
+import { Effect } from "effect"
 import { Api } from "../../api"
 
 export const HttpBaseLive = HttpApiBuilder.group(Api, "helloWorld", (handlers) =>

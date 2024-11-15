@@ -3,7 +3,7 @@ import { HttpApiBuilder } from "@effect/platform"
 import { PgDrizzle } from "@effect/sql-drizzle/Pg"
 import { eq, schema, sql } from "db"
 import type { InsertBankAccount } from "db/src/schema"
-import { Console, Effect } from "effect"
+import { Console, Effect, Match } from "effect"
 import { Api } from "~/api"
 import { InternalError, Unauthorized } from "../../errors"
 import { BetterAuthService } from "../../services/auth-service"
@@ -130,5 +130,29 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 					BetterAuthError: (error) => new InternalError({ message: error.message }),
 				}),
 			),
+		)
+		.handle("webhook", ({ payload }) =>
+			Effect.gen(function* () {
+				if (payload.webhook_type !== "TRANSACTIONS") {
+					return yield* Effect.fail(new InternalError({ message: "Invalid webhook type" }))
+				}
+
+				switch (payload.webhook_code) {
+					case "SYNC_UPDATES_AVAILABLE":
+						return yield* Effect.succeed("sync updates available")
+					case "RECURRING_TRANSACTIONS_UPDATE":
+						return yield* Effect.succeed("recurring transactions update")
+					case "TRANSACTIONS_REMOVED":
+					case "INITIAL_UPDATE":
+					case "HISTORICAL_UPDATE":
+					case "DEFAULT_UPDATE":
+						yield* Effect.logDebug("ignored", payload.webhook_code)
+						return yield* Effect.succeed("ignored")
+
+					default:
+						yield* Effect.logWarning("Unknown webhook code", payload.webhook_code)
+						return yield* Effect.fail(new InternalError({ message: "Webhook code not being handelt" }))
+				}
+			}),
 		),
 )

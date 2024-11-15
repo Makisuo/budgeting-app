@@ -1,16 +1,9 @@
 import { Link, createFileRoute } from "@tanstack/react-router"
 import { Card } from "~/components/ui"
 import { useBankAccounts } from "~/utils/electric/hooks"
-import { getBankAccounts } from "../../_app"
 
 export const Route = createFileRoute("/_app/accounts/")({
 	component: RouteComponent,
-	loader: async () => {
-		const bankAccounts = await getBankAccounts()
-		return {
-			bankAccounts,
-		}
-	},
 })
 
 function RouteComponent() {

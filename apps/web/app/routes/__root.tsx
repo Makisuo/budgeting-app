@@ -2,28 +2,17 @@ import { Outlet, ScrollRestoration, createRootRoute } from "@tanstack/react-rout
 import { TanStackRouterDevtools } from "@tanstack/router-devtools"
 import { Meta, Scripts, createServerFn } from "@tanstack/start"
 import type * as React from "react"
-import { getWebRequest } from "vinxi/http"
 import { DefaultCatchBoundary } from "~/components/default-catch-boundary"
 import { NotFound } from "~/components/not-found"
 import { Providers } from "~/components/providers"
 import appCss from "~/styles/app.css?url"
-import { auth } from "~/utils/auth"
 
 import { seo } from "~/utils/seo"
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { fetchUserSession } from "~/actions"
 
 const queryClient = new QueryClient()
-
-export const fetchUserSession = createServerFn({ method: "POST" }).handler(async () => {
-	const request = getWebRequest()
-
-	const session = await auth.api.getSession({
-		headers: request.headers,
-	})
-
-	return session
-})
 
 export const Route = createRootRoute({
 	meta: () => [
