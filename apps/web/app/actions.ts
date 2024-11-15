@@ -5,7 +5,7 @@ import { plaidClient } from "./routes/api/plaid/create-link-token"
 import { auth } from "./utils/auth"
 import { db } from "./utils/db"
 
-export const createLinkToken = createServerFn({ method: "POST" }).handler(async () => {
+export const createLinkTokenAction = createServerFn({ method: "POST" }).handler(async () => {
 	const session = await fetchUserSession()
 
 	if (!session?.user) {
@@ -14,19 +14,20 @@ export const createLinkToken = createServerFn({ method: "POST" }).handler(async 
 
 	try {
 		const tokenResponse = await plaidClient.linkTokenCreate({
-			user: { client_user_id: session.user.id }, // Replace with actual user ID
+			user: { client_user_id: session.user.id },
 			client_name: "Maple",
-			webhook: `${import.meta.env.VITE_APP_BACKEND_URL}/webhook`,
+			// webhook: `${process.env.VITE_APP_BACKEND_URL}/webhook`,
 			products: [Products.Transactions],
 			country_codes: [CountryCode.De],
 			language: "en",
 		})
 
+		setResponseStatus(200)
 		return { link_token: tokenResponse.data.link_token }
 	} catch (error: any) {
 		console.error("Error creating link token:", error)
 		setResponseStatus(500)
-		return { error: error.message, link_token: null }
+		throw new Error("Error creating link token")
 	}
 })
 

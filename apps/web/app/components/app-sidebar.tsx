@@ -2,9 +2,17 @@
 
 import type * as React from "react"
 
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { useLocation } from "@tanstack/react-router"
+import { useServerFn } from "@tanstack/start"
 import { IconAlbum, IconBrandApple, IconCreditCard, IconCube, IconDashboard, IconPlus, IconSettings } from "justd-icons"
-import { type PlaidLinkOptions, usePlaidLink } from "react-plaid-link"
+import {
+	type PlaidLinkError,
+	type PlaidLinkOnExitMetadata,
+	type PlaidLinkOptions,
+	usePlaidLink,
+} from "react-plaid-link"
+import { createLinkTokenAction } from "~/actions"
 import { Link, Loader, Sidebar, useSidebar } from "~/components/ui"
 import { Route } from "~/routes/_app"
 import { useBankAccounts } from "~/utils/electric/hooks"
@@ -89,14 +97,24 @@ const ConnectBankAccountItem = () => {
 
 	const { linkToken } = Route.useLoaderData()
 
-	console.log(linkToken)
+	// const { data } = useQuery({
+	// 	queryKey: ["createLinkToken"],
+	// 	queryFn: () => createLinkToken(),
+	// })
+
+	// console.log(data)
 
 	const config = {
 		token: linkToken,
 		onEvent: (event) => {
-			console.log(event)
+			console.debug(event)
+		},
+		onExit: (error: PlaidLinkError | null, metadata: PlaidLinkOnExitMetadata) => {
+			console.debug("exit")
+			console.error(error, metadata)
 		},
 		onSuccess: async (publicToken, metadata) => {
+			console.debug("HI", publicToken, metadata)
 			const res = await fetch(`${import.meta.env.VITE_APP_BACKEND_URL}/exchange-token`, {
 				method: "POST",
 				headers: {
@@ -107,13 +125,12 @@ const ConnectBankAccountItem = () => {
 				body: JSON.stringify({ publicToken: publicToken }),
 			})
 
-			console.log(await res.text())
+			console.debug(await res.text())
 		},
 	} as PlaidLinkOptions
 
-	const { open, ready, error } = usePlaidLink(config)
+	const { open, ready } = usePlaidLink(config)
 
-	console.log(error, ready)
 	return (
 		<Sidebar.Item onPress={() => open()} isDisabled={!ready} icon={IconPlus}>
 			Connect Bank Account
