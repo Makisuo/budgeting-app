@@ -85,6 +85,13 @@
       "when": 1731764328229,
       "tag": "0011_giant_kylun",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1731788201299,
+      "tag": "0012_wide_sersi",
+      "breakpoints": true
     }
   ]
 }

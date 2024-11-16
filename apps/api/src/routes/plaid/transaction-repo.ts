@@ -13,20 +13,32 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 			// TODO: Use a branded type to ensure that the id is a plaiditemId
 			upsertTransactions: (transactions: PlaidTransaction[]) =>
 				Effect.gen(function* () {
-					const dbTransactions: InsertTransaction[] = transactions.map((transaction) => ({
-						accountId: transaction.account_id,
-						id: transaction.transaction_id,
-						website: transaction.website,
-						logoUrl: transaction.logo_url,
-						personalCategory: transaction.personal_finance_category?.primary,
-						name: transaction.name,
-						amount: transaction.amount.toString(),
-						isoCurrencyCode: transaction.iso_currency_code,
-						unofficalCurrencyCode: transaction.unofficial_currency_code,
-						date: transaction.date,
-						pending: transaction.pending,
-						accountOwner: transaction.account_owner,
-					}))
+					const dbTransactions: InsertTransaction[] = transactions.map(
+						(transaction) =>
+							({
+								accountId: transaction.account_id,
+								id: transaction.transaction_id,
+								website: transaction.website,
+								logoUrl: transaction.logo_url,
+								personalCategory: transaction.personal_finance_category?.primary,
+								amount: transaction.amount.toString(),
+								isoCurrencyCode: transaction.iso_currency_code,
+								unofficalCurrencyCode: transaction.unofficial_currency_code,
+
+								location: transaction.location,
+
+								name: transaction.name,
+								description: transaction.original_description,
+
+								// Dates
+								date: transaction.date,
+								authorizedAt: transaction.authorized_datetime,
+								postedAt: transaction.datetime,
+
+								pending: transaction.pending,
+								accountOwner: transaction.account_owner,
+							}) satisfies InsertTransaction,
+					)
 
 					yield* db
 						.insert(schema.transaction)

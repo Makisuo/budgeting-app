@@ -41,7 +41,16 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 				 *
 				 */
 				const transactions = yield* plaid.call((client, signal) =>
-					client.transactionsSync({ access_token: accessToken }, { signal }),
+					client.transactionsSync(
+						{
+							access_token: accessToken,
+							options: {
+								include_original_description: true,
+								include_personal_finance_category: true,
+							},
+						},
+						{ signal },
+					),
 				)
 
 				yield* Effect.logInfo("Started Synced transactions", transactions.data)
@@ -130,7 +139,7 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 						return yield* Effect.fail(new InternalError({ message: "Webhook code not being handelt" }))
 				}
 			}).pipe(
-				Effect.tapError((error) => Effect.succeed(() => console.log(error))),
+				Effect.tapError((error) => Console.error(error)),
 				Effect.catchTags({
 					PlaidApiError: (error) => new InternalError({ message: error.message }),
 					SqlError: (error) => new InternalError({ message: error.message }),

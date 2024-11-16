@@ -1,6 +1,6 @@
 import type { InferInsertModel } from "drizzle-orm"
-import { boolean, date, decimal, json, pgEnum, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
-import { type AccountBalance, AccountType, type AssetReportAccountBalance } from "plaid"
+import { boolean, date, decimal, json, jsonb, pgEnum, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
+import { type AccountBalance, AccountType, type AssetReportAccountBalance, type Location } from "plaid"
 import { user } from "./auth-schema"
 
 export const plaidItem = pgTable("plaid_item", {
@@ -43,10 +43,11 @@ export const transaction = pgTable("transaction", {
 		.notNull()
 		.references(() => bankAccount.id),
 	name: text("name").notNull(),
+	description: text("description"),
+
 	amount: decimal("amount", { precision: 28, scale: 10 }).notNull(),
 	isoCurrencyCode: text("iso_currency_code"),
 	unofficalCurrencyCode: text("unoffical_currency_code"),
-	date: date("date").notNull(),
 	pending: boolean("pending").notNull(),
 	accountOwner: text("account_owner"),
 
@@ -54,6 +55,13 @@ export const transaction = pgTable("transaction", {
 
 	website: text("website"),
 	logoUrl: text("logo_url"),
+
+	date: date("date").notNull(),
+
+	authorizedAt: timestamp("authorized_at", { mode: "string" }),
+	postedAt: timestamp("posted_at", { mode: "string" }),
+
+	location: jsonb("location").$type<Location>(),
 
 	createdAt: timestamp("created_at").defaultNow(),
 	updatedAt: timestamp("updated_at")
