@@ -7,6 +7,8 @@ import { BetterAuthService } from "./services/auth-service"
 import { DrizzleLive } from "./services/db-service"
 import { PlaidService } from "./services/plaid-service"
 
+// TODO: Clean up this file and move things to a main layer and move logger config into its own layer
+
 const ApiLive = Layer.provide(HttpApiBuilder.api(Api), [HttpPlaidLive, HttpBaseLive])
 
 export default {
