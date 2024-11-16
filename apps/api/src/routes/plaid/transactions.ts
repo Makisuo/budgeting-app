@@ -70,5 +70,5 @@ export const updateTransactions = (plaidItemId: string) =>
 		yield* Effect.logDebug("Removed transactions", removed)
 		yield* Effect.logDebug("Cursor", cursor)
 		yield* Effect.logDebug("Access token", accessToken)
-		return yield* Effect.die("Not implemented")
+		// return yield* Effect.die("Not implemented")
 	})

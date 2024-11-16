@@ -166,7 +166,7 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 						return yield* Effect.fail(new InternalError({ message: "Webhook code not being handelt" }))
 				}
 			}).pipe(
-				Effect.tapError((error) => Console.error(error)),
+				Effect.tapError((error) => Effect.succeed(() => console.log(error))),
 				Effect.catchTags({
 					PlaidApiError: (error) => new InternalError({ message: error.message }),
 					SqlError: (error) => new InternalError({ message: error.message }),
