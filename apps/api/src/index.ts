@@ -1,5 +1,5 @@
 import { HttpApiBuilder, HttpApiScalar, HttpMiddleware, HttpServer } from "@effect/platform"
-import { ConfigProvider, Layer } from "effect"
+import { ConfigProvider, Layer, ManagedRuntime } from "effect"
 import { Api, AuthorizationLive } from "./api"
 import { HttpBaseLive } from "./routes/main/http"
 import { HttpPlaidLive } from "./routes/plaid/http"
@@ -33,7 +33,7 @@ export default {
 				Layer.provide(ConfigLayerLive),
 			),
 			{
-				middleware: (httpApp) => httpApp.pipe(HttpMiddleware.logger),
+				// middleware: (httpApp) => httpApp.pipe(HttpMiddleware.logger),
 			},
 		)
 

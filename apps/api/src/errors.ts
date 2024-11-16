@@ -18,3 +18,9 @@ export class Unauthorized extends Schema.TaggedError<Unauthorized>()(
 	{},
 	HttpApiSchema.annotations({ status: 401 }),
 ) {}
+
+export class NotFound extends Schema.TaggedError<NotFound>()(
+	"NotFound",
+	{},
+	HttpApiSchema.annotations({ status: 404 }),
+) {}

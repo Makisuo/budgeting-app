@@ -8,6 +8,7 @@ import { Api } from "~/api"
 import { InternalError, Unauthorized } from "../../errors"
 import { BetterAuthService } from "../../services/auth-service"
 import { PlaidService } from "../../services/plaid-service"
+import { updateTransactions } from "./transactions"
 
 export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 	handlers
@@ -41,6 +42,14 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 
 				const item = yield* plaid.call((client, signal) =>
 					client.itemGet({ access_token: accessToken }, { signal }),
+				)
+
+				/**
+				 * Starts sync of transactions, sync will be triggered by webhook
+				 *
+				 */
+				yield* plaid.call((client, signal) =>
+					client.transactionsSync({ access_token: accessToken }, { signal }),
 				)
 
 				yield* db.insert(schema.plaidItem).values({
@@ -133,12 +142,15 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 		)
 		.handle("webhook", ({ payload }) =>
 			Effect.gen(function* () {
+				console.log(payload.webhook_type, payload.webhook_code)
 				if (payload.webhook_type !== "TRANSACTIONS") {
 					return yield* Effect.fail(new InternalError({ message: "Invalid webhook type" }))
 				}
 
 				switch (payload.webhook_code) {
 					case "SYNC_UPDATES_AVAILABLE":
+						yield* Effect.logInfo("sync updates available")
+						yield* updateTransactions(payload.item_id)
 						return yield* Effect.succeed("sync updates available")
 					case "RECURRING_TRANSACTIONS_UPDATE":
 						return yield* Effect.succeed("recurring transactions update")
@@ -146,13 +158,19 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 					case "INITIAL_UPDATE":
 					case "HISTORICAL_UPDATE":
 					case "DEFAULT_UPDATE":
-						yield* Effect.logDebug("ignored", payload.webhook_code)
+						yield* Effect.logInfo("ignored", payload.webhook_code)
 						return yield* Effect.succeed("ignored")
 
 					default:
 						yield* Effect.logWarning("Unknown webhook code", payload.webhook_code)
 						return yield* Effect.fail(new InternalError({ message: "Webhook code not being handelt" }))
 				}
-			}),
+			}).pipe(
+				Effect.tapError((error) => Console.error(error)),
+				Effect.catchTags({
+					PlaidApiError: (error) => new InternalError({ message: error.message }),
+					SqlError: (error) => new InternalError({ message: error.message }),
+				}),
+			),
 		),
 )

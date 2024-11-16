@@ -10,6 +10,7 @@ export const plaidItem = pgTable("plaid_item", {
 		.references(() => user.id),
 	institutionId: text("institution_id"),
 	accessToken: text("access_token").notNull(),
+	transactionsCursor: text("transactions_cursor"),
 })
 
 export const accountType = pgEnum("account_type", [

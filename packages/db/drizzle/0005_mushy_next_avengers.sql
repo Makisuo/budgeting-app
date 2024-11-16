@@ -1,0 +1,1 @@
+ALTER TABLE "plaid_item" ADD COLUMN "transactions_cursor" text;
