@@ -5,6 +5,7 @@ import { Card } from "~/components/ui"
 import { Badge } from "~/components/ui/badge"
 import { Table } from "~/components/ui/table"
 import { useTransactions } from "~/utils/electric/hooks"
+import { currencyFormatter } from "~/utils/formatters"
 
 export const Route = createFileRoute("/_app/accounts/$accountId")({
 	component: RouteComponent,
@@ -24,6 +25,8 @@ export const Route = createFileRoute("/_app/accounts/$accountId")({
 function RouteComponent() {
 	const { bankAccount } = Route.useLoaderData()
 
+	console.log(bankAccount)
+
 	const { data: transactions } = useTransactions()
 
 	return (
@@ -32,9 +35,14 @@ function RouteComponent() {
 				<Card.Header>
 					<div>
 						<Card.Title>{bankAccount.name}</Card.Title>
+						<Card.Description>{bankAccount.officialName}</Card.Description>
 					</div>
 				</Card.Header>
-				<Card.Content>{bankAccount.balance.available}</Card.Content>
+				<Card.Content>
+					{currencyFormatter(bankAccount.balance.iso_currency_code ?? "USD").format(
+						bankAccount.balance.available ?? 0,
+					)}
+				</Card.Content>
 			</Card>
 
 			<Card>
@@ -48,6 +56,7 @@ function RouteComponent() {
 						<Table.Header>
 							<Table.Column isRowHeader>Name</Table.Column>
 							<Table.Column>Price</Table.Column>
+							<Table.Column>Category</Table.Column>
 							<Table.Column>Date</Table.Column>
 							<Table.Column>Status</Table.Column>
 						</Table.Header>
@@ -62,7 +71,14 @@ function RouteComponent() {
 										)}
 										{transaction.name}
 									</Table.Cell>
-									<Table.Cell>{transaction.amount}</Table.Cell>
+									<Table.Cell>
+										<Badge intent={Number(transaction.amount) > 0 ? "danger" : "success"}>
+											{currencyFormatter(transaction.iso_currency_code ?? "USD").format(
+												-Number(transaction.amount),
+											)}
+										</Badge>
+									</Table.Cell>
+									<Table.Cell>{transaction.personal_category || "Unknown"}</Table.Cell>
 									<Table.Cell>{transaction.date}</Table.Cell>
 									<Table.Cell>
 										<Badge intent={transaction.pending ? "info" : "primary"}>

@@ -17,3 +17,4 @@ export * from './keyboard';
 export * from './popover';
 export * from './modal';
 export * from './container';
+export * from './chart';
