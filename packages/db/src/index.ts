@@ -1,4 +1,4 @@
-import type { InferSelectModel } from "drizzle-orm"
+import type { InferInsertModel, InferSelectModel } from "drizzle-orm"
 import { drizzle } from "drizzle-orm/postgres-js"
 import * as schema from "./schema"
 
@@ -14,3 +14,5 @@ export const getDb = (connectionString: string) =>
 	})
 
 export type BankAccount = InferSelectModel<typeof schema.bankAccount>
+
+export type InsertBankAccount = InferInsertModel<typeof schema.bankAccount>

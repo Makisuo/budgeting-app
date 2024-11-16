@@ -12,7 +12,7 @@
 	},
 	"main": "src/index.ts",
 	"dependencies": {
-		"better-auth": "^0.8.4",
+		"better-auth": "^0.8.5",
 		"drizzle-orm": "^0.36.1",
 		"postgres": "^3.4.5"
 	}

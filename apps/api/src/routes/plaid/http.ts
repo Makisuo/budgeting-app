@@ -3,12 +3,13 @@ import { HttpApiBuilder } from "@effect/platform"
 import { PgDrizzle } from "@effect/sql-drizzle/Pg"
 import { eq, schema, sql } from "db"
 import type { InsertBankAccount } from "db/src/schema"
-import { Console, Effect, Match } from "effect"
+import { Console, Effect } from "effect"
 import { Api } from "~/api"
 import { InternalError, Unauthorized } from "../../errors"
 import { BetterAuthService } from "../../services/auth-service"
 import { PlaidService } from "../../services/plaid-service"
-import { updateTransactions } from "./transactions"
+import { AccountRepo } from "./account-repo"
+import { TransactionService } from "./transactions"
 
 export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 	handlers
@@ -74,6 +75,8 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 				const db = yield* PgDrizzle
 				const betterAuth = yield* BetterAuthService
 
+				const accountRepo = yield* AccountRepo
+
 				const session = yield* betterAuth.call((client, signal) =>
 					client.getSession({ headers: new Headers(headers), signal }),
 				)
@@ -108,19 +111,7 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 								plaidItemId: item.id,
 							}))
 
-							yield* db
-								.insert(schema.bankAccount)
-								.values(mappedItems)
-								.onConflictDoUpdate({
-									target: schema.bankAccount.id,
-									set: {
-										name: sql.raw(`excluded.${schema.bankAccount.name.name}`),
-										officialName: sql.raw(`excluded.${schema.bankAccount.officialName.name}`),
-										mask: sql.raw(`excluded.${schema.bankAccount.mask.name}`),
-										balance: sql.raw(`excluded.${schema.bankAccount.balance.name}`),
-										type: sql.raw(`excluded.${schema.bankAccount.type.name}`),
-									},
-								})
+							yield* accountRepo.createAccounts(mappedItems)
 						}),
 					{ concurrency: "unbounded" },
 				)
@@ -142,7 +133,7 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 		)
 		.handle("webhook", ({ payload }) =>
 			Effect.gen(function* () {
-				console.log(payload.webhook_type, payload.webhook_code)
+				const transactionService = yield* TransactionService
 				if (payload.webhook_type !== "TRANSACTIONS") {
 					return yield* Effect.fail(new InternalError({ message: "Invalid webhook type" }))
 				}
@@ -150,7 +141,7 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 				switch (payload.webhook_code) {
 					case "SYNC_UPDATES_AVAILABLE":
 						yield* Effect.logInfo("sync updates available")
-						yield* updateTransactions(payload.item_id)
+						yield* transactionService.updateTransactions(payload.item_id)
 						return yield* Effect.succeed("sync updates available")
 					case "RECURRING_TRANSACTIONS_UPDATE":
 						return yield* Effect.succeed("recurring transactions update")

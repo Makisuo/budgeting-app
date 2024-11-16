@@ -2,7 +2,9 @@ import { HttpApiBuilder, HttpApiScalar, HttpMiddleware, HttpServer } from "@effe
 import { Config, ConfigProvider, Effect, Layer, Logger, ManagedRuntime } from "effect"
 import { Api, AuthorizationLive } from "./api"
 import { HttpBaseLive } from "./routes/main/http"
+import { AccountRepo } from "./routes/plaid/account-repo"
 import { HttpPlaidLive } from "./routes/plaid/http"
+import { TransactionService } from "./routes/plaid/transactions"
 import { BetterAuthService } from "./services/auth-service"
 import { DrizzleLive } from "./services/db-service"
 import { PlaidService } from "./services/plaid-service"
@@ -39,7 +41,9 @@ export default {
 				Layer.provide(AuthorizationLive),
 				Layer.provide(DrizzleLive),
 				Layer.provide(PlaidService.Default),
+				Layer.provide(TransactionService.Default),
 				Layer.provide(BetterAuthService.Default),
+				Layer.provide(AccountRepo.Default),
 				Layer.provide(ConfigLayerLive),
 			),
 			{
