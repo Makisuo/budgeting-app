@@ -1,5 +1,5 @@
 import { HttpApiBuilder, HttpApiScalar, HttpMiddleware, HttpServer } from "@effect/platform"
-import { ConfigProvider, Layer, Logger, ManagedRuntime } from "effect"
+import { Config, ConfigProvider, Effect, Layer, Logger, ManagedRuntime } from "effect"
 import { Api, AuthorizationLive } from "./api"
 import { HttpBaseLive } from "./routes/main/http"
 import { HttpPlaidLive } from "./routes/plaid/http"
@@ -24,8 +24,16 @@ export default {
 
 		const ConfigLayerLive = Layer.setConfigProvider(ConfigProvider.fromJson(env))
 
+		const LogLevelLive = Config.logLevel("LOG_LEVEL")
+			.pipe(
+				Effect.andThen((level) => Logger.minimumLogLevel(level)),
+				Layer.unwrapEffect,
+			)
+			.pipe(Layer.provide(Logger.pretty))
+
 		const { handler } = HttpApiBuilder.toWebHandler(
 			MainLayer.pipe(
+				Layer.provide(LogLevelLive),
 				Layer.provide(AuthorizationLive),
 				Layer.provide(DrizzleLive),
 				Layer.provide(PlaidService.Default),
