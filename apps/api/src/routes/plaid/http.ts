@@ -5,6 +5,7 @@ import { eq, schema, sql } from "db"
 import type { InsertBankAccount } from "db/src/schema"
 import { Console, Effect } from "effect"
 import { Api } from "~/api"
+import { Authorization } from "~/authorization"
 import { InternalError, Unauthorized } from "../../errors"
 import { BetterAuthService } from "../../services/auth-service"
 import { PlaidService } from "../../services/plaid-service"
@@ -15,15 +16,7 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 	handlers
 		.handle("exchangeToken", ({ payload, headers }) =>
 			Effect.gen(function* () {
-				const betterAuth = yield* BetterAuthService
-
-				const session = yield* betterAuth.call((client, signal) =>
-					client.getSession({ headers: new Headers(headers), signal }),
-				)
-
-				if (!session) {
-					return yield* new Unauthorized()
-				}
+				const currentUser = yield* Authorization.provides
 
 				const db = yield* PgDrizzle
 
@@ -57,14 +50,13 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 					id: itemId,
 					institutionId: item.data.item.institution_id,
 					accessToken: accessToken,
-					userId: session.user.id,
+					userId: currentUser.id,
 				})
 
 				return yield* Effect.succeed("WOW")
 			}).pipe(
 				Effect.tapError((error) => Console.log(`expected error: ${error.stack}`)),
 				Effect.catchTags({
-					BetterAuthError: (error) => new InternalError({ message: error.message }),
 					PlaidApiError: (error) => new InternalError({ message: error.message }),
 					SqlError: (error) => new InternalError({ message: error.message }),
 				}),
@@ -73,24 +65,17 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 		.handle("syncBankAccounts", ({ headers }) =>
 			Effect.gen(function* () {
 				const db = yield* PgDrizzle
-				const betterAuth = yield* BetterAuthService
 
 				const accountRepo = yield* AccountRepo
 
-				const session = yield* betterAuth.call((client, signal) =>
-					client.getSession({ headers: new Headers(headers), signal }),
-				)
-
-				if (!session) {
-					return yield* new Unauthorized()
-				}
+				const currentUser = yield* Authorization.provides
 
 				const plaid = yield* PlaidService
 
 				const plaidItems = yield* db
 					.select()
 					.from(schema.plaidItem)
-					.where(eq(schema.plaidItem.userId, session.user.id))
+					.where(eq(schema.plaidItem.userId, currentUser.id))
 
 				yield* Effect.forEach(
 					plaidItems,
@@ -105,7 +90,7 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 								name: account.name,
 								officialName: account.official_name,
 								mask: account.mask,
-								userId: session.user.id,
+								userId: currentUser.id,
 								balance: account.balances,
 								type: account.type,
 								plaidItemId: item.id,
@@ -127,7 +112,6 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 				Effect.catchTags({
 					PlaidApiError: (error) => new InternalError({ message: error.message }),
 					SqlError: (error) => new InternalError({ message: error.message }),
-					BetterAuthError: (error) => new InternalError({ message: error.message }),
 				}),
 			),
 		)
