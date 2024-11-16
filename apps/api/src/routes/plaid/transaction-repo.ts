@@ -1,9 +1,9 @@
 import { PgDrizzle } from "@effect/sql-drizzle/Pg"
-import { type InsertTransaction, schema, sql } from "db"
+import { type InsertTransaction, inArray, schema, sql } from "db"
 import { Effect } from "effect"
 import { DrizzleLive } from "~/services/db-service"
 
-import type { Transaction as PlaidTransaction } from "plaid"
+import type { Transaction as PlaidTransaction, RemovedTransaction } from "plaid"
 
 export class TransactionRepo extends Effect.Service<TransactionRepo>()("TransactionRepo", {
 	effect: Effect.gen(function* () {
@@ -18,6 +18,7 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 						id: transaction.transaction_id,
 						website: transaction.website,
 						logoUrl: transaction.logo_url,
+						personalCategory: transaction.personal_finance_category?.primary,
 						name: transaction.name,
 						amount: transaction.amount.toString(),
 						isoCurrencyCode: transaction.iso_currency_code,
@@ -44,6 +45,15 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 								accountOwner: sql.raw(`excluded.${schema.transaction.accountOwner.name}`),
 							},
 						})
+				}),
+			deleteTransactions: (arrays: RemovedTransaction[]) =>
+				Effect.gen(function* () {
+					yield* db.delete(schema.transaction).where(
+						inArray(
+							schema.transaction.id,
+							arrays.map((item) => item.transaction_id),
+						),
+					)
 				}),
 		}
 	}),

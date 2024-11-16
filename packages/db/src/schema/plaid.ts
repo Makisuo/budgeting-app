@@ -50,6 +50,8 @@ export const transaction = pgTable("transaction", {
 	pending: boolean("pending").notNull(),
 	accountOwner: text("account_owner"),
 
+	personalCategory: text("personal_category"),
+
 	website: text("website"),
 	logoUrl: text("logo_url"),
 

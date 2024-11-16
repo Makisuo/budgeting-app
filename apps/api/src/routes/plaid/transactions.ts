@@ -23,28 +23,22 @@ export class TransactionService extends Effect.Service<TransactionService>()("Tr
 						client.accountsGet({ access_token: accessToken }, { signal }),
 					)
 
-					const mappedItems: InsertBankAccount[] = connectedAccounts.data.accounts.map((account) => ({
-						id: account.account_id,
-						name: account.name,
-						officialName: account.official_name,
-						mask: account.mask,
-						balance: account.balances,
-						type: account.type,
-						plaidItemId: plaidItemId,
-					}))
-
-					yield* accountRepo.createAccounts(mappedItems)
+					// TODO: Make this conccurent maybe?
+					yield* accountRepo.createAccounts(plaidItemId, connectedAccounts.data.accounts)
 					yield* transactionRepo.upsertTransactions([...added, ...modified])
+					yield* transactionRepo.deleteTransactions(removed)
 
-					// TODO: Save data to database
-					// TODO: Make this a Effect Service
-
-					yield* Effect.logDebug("Added transactions", added)
-					yield* Effect.logDebug("Modified transactions", modified)
-					yield* Effect.logDebug("Removed transactions", removed)
+					yield* Effect.logDebug("Added transactions", added.length)
+					yield* Effect.logDebug("Modified transactions", modified.length)
+					yield* Effect.logDebug("Removed transactions", removed.length)
 					yield* Effect.logDebug("Cursor", cursor)
 					yield* Effect.logDebug("Access token", accessToken)
-					// return yield* Effect.die("Not implemented")
+
+					return {
+						addedCount: added.length,
+						modifiedCount: modified.length,
+						removedCount: removed.length,
+					}
 				}),
 		}
 	}),

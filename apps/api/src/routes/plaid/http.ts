@@ -1,8 +1,7 @@
 import { HttpApiBuilder } from "@effect/platform"
 
 import { PgDrizzle } from "@effect/sql-drizzle/Pg"
-import { eq, schema, sql } from "db"
-import type { InsertBankAccount } from "db/src/schema"
+import { eq, schema } from "db"
 import { Console, Effect } from "effect"
 import { Api } from "~/api"
 import { Authorization } from "~/authorization"
@@ -41,9 +40,11 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 				 * Starts sync of transactions, sync will be triggered by webhook
 				 *
 				 */
-				yield* plaid.call((client, signal) =>
+				const transactions = yield* plaid.call((client, signal) =>
 					client.transactionsSync({ access_token: accessToken }, { signal }),
 				)
+
+				yield* Effect.logInfo("Started Synced transactions", transactions.data)
 
 				yield* db.insert(schema.plaidItem).values({
 					id: itemId,
@@ -84,18 +85,7 @@ export const HttpPlaidLive = HttpApiBuilder.group(Api, "plaid", (handlers) =>
 								client.accountsGet({ access_token: item.accessToken }, { signal }),
 							)
 
-							const mappedItems: InsertBankAccount[] = connectedAccounts.data.accounts.map((account) => ({
-								id: account.account_id,
-								name: account.name,
-								officialName: account.official_name,
-								mask: account.mask,
-								userId: currentUser.id,
-								balance: account.balances,
-								type: account.type,
-								plaidItemId: item.id,
-							}))
-
-							yield* accountRepo.createAccounts(mappedItems)
+							yield* accountRepo.createAccounts(item.id, connectedAccounts.data.accounts)
 						}),
 					{ concurrency: "unbounded" },
 				)
