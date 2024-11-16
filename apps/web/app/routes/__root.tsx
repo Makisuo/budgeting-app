@@ -1,6 +1,6 @@
 import { Outlet, ScrollRestoration, createRootRoute } from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/router-devtools"
-import { Meta, Scripts, createServerFn } from "@tanstack/start"
+import { Meta, Scripts } from "@tanstack/start"
 import type * as React from "react"
 import { DefaultCatchBoundary } from "~/components/default-catch-boundary"
 import { NotFound } from "~/components/not-found"
@@ -24,8 +24,8 @@ export const Route = createRootRoute({
 			content: "width=device-width, initial-scale=1",
 		},
 		...seo({
-			title: "TanStack Start | Type-Safe, Client-First, Full-Stack React Framework",
-			description: "TanStack Start is a type-safe, client-first, full-stack React framework. ",
+			title: "Maple | Your Budgeting Companion",
+			description: "Maple is a personal budgeting app.",
 		}),
 	],
 	links: () => [
