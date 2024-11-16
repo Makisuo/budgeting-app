@@ -28,7 +28,13 @@ export const bankAccount = pgTable("bank_account", {
 	// The official name of the account as given by the financial institution
 	officialName: text("official_name"),
 	mask: text(),
-	balance: json().$type<AccountBalance>().notNull(),
+
+	currentBalance: decimal("current_balance", { precision: 28, scale: 10 }),
+	availableBalance: decimal("available_balance", { precision: 28, scale: 10 }),
+	limit: decimal("limit", { precision: 28, scale: 10 }),
+
+	isoCurrencyCode: text("iso_currency_code"),
+	unofficialCurrencyCode: text("unofficial_currency_code"),
 
 	plaidItemId: text("plaid_item_id")
 		.notNull()

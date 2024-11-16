@@ -39,8 +39,8 @@ function RouteComponent() {
 					</div>
 				</Card.Header>
 				<Card.Content>
-					{currencyFormatter(bankAccount.balance.iso_currency_code ?? "USD").format(
-						bankAccount.balance.available ?? 0,
+					{currencyFormatter(bankAccount.isoCurrencyCode ?? "USD").format(
+						Number(bankAccount.availableBalance) ?? 0,
 					)}
 				</Card.Content>
 			</Card>
