@@ -5,10 +5,12 @@ import { NotFound } from "~/errors"
 import { DrizzleLive } from "~/services/db-service"
 import { PlaidService } from "~/services/plaid-service"
 import { AccountRepo } from "./account-repo"
+import { TransactionRepo } from "./transaction-repo"
 
 export class TransactionService extends Effect.Service<TransactionService>()("TransactionService", {
 	effect: Effect.gen(function* () {
 		const accountRepo = yield* AccountRepo
+		const transactionRepo = yield* TransactionRepo
 		const plaid = yield* PlaidService
 
 		return {
@@ -32,6 +34,7 @@ export class TransactionService extends Effect.Service<TransactionService>()("Tr
 					}))
 
 					yield* accountRepo.createAccounts(mappedItems)
+					yield* transactionRepo.upsertTransactions([...added, ...modified])
 
 					// TODO: Save data to database
 					// TODO: Make this a Effect Service

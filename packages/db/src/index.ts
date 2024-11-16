@@ -16,3 +16,5 @@ export const getDb = (connectionString: string) =>
 export type BankAccount = InferSelectModel<typeof schema.bankAccount>
 
 export type InsertBankAccount = InferInsertModel<typeof schema.bankAccount>
+
+export type InsertTransaction = InferInsertModel<typeof schema.transaction>

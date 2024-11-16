@@ -8,8 +8,7 @@
 		"start": "wrangler dev",
 		"test": "vitest",
 		"cf-typegen": "wrangler types",
-		"typecheck": "tsc --noEmit",
-		"plaid": "^29.0.0"
+		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.5.28",
@@ -24,6 +23,7 @@
 		"@effect/sql-drizzle": "^0.19.8",
 		"@effect/sql-pg": "^0.21.8",
 		"better-auth": "^0.8.5",
+		"plaid": "^30.0.0",
 		"db": "workspace:*",
 		"effect": "^3.10.15"
 	}

@@ -38,15 +38,10 @@ export const bankAccount = pgTable("bank_account", {
 })
 
 export const transaction = pgTable("transaction", {
-	id: uuid().primaryKey(),
+	id: text().primaryKey().notNull(),
 	accountId: text("account_id")
 		.notNull()
 		.references(() => bankAccount.id),
-	plaidTransactionId: text("plaid_transaction_id").unique().notNull(),
-	plaidCategoryId: text("plaid_category_id"),
-	category: text("category").notNull(),
-	subcategory: text("subcategory"),
-	type: text("type").notNull(),
 	name: text("name").notNull(),
 	amount: decimal("amount", { precision: 28, scale: 10 }).notNull(),
 	isoCurrencyCode: text("iso_currency_code"),
@@ -54,6 +49,9 @@ export const transaction = pgTable("transaction", {
 	date: date("date").notNull(),
 	pending: boolean("pending").notNull(),
 	accountOwner: text("account_owner"),
+
+	website: text("website"),
+	logoUrl: text("logo_url"),
 
 	createdAt: timestamp("created_at").defaultNow(),
 	updatedAt: timestamp("updated_at")
