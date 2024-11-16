@@ -39,6 +39,7 @@ export const verification = pgTable("verification", {
 	identifier: text("identifier").notNull(),
 	value: text("value").notNull(),
 	expiresAt: timestamp("expiresAt").notNull(),
+	createdAt: timestamp("createdAt"),
 })
 
 export const passkey = pgTable("passkey", {

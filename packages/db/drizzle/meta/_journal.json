@@ -50,6 +50,13 @@
       "when": 1731756910128,
       "tag": "0006_nebulous_wiccan",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1731757801788,
+      "tag": "0007_sturdy_siren",
+      "breakpoints": true
     }
   ]
 }
