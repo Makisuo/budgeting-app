@@ -50,8 +50,9 @@ export const getBankAccount = createServerFn({ method: "GET" })
 			throw new Error("Unauthorized")
 		}
 
+		// TODO: Should be filtered by userId, whcih isnt part of bankAccounts rn
 		const bankAccount = await db.query.bankAccount.findFirst({
-			where: (table, { eq, and }) => and(eq(table.id, data), eq(table.userId, session.user.id)),
+			where: (table, { eq, and }) => eq(table.id, data),
 		})
 
 		return bankAccount

@@ -4,10 +4,21 @@ import { Api, AuthorizationLive } from "./api"
 import { HttpBaseLive } from "./routes/main/http"
 import { AccountRepo } from "./routes/plaid/account-repo"
 import { HttpPlaidLive } from "./routes/plaid/http"
+import { TransactionRepo } from "./routes/plaid/transaction-repo"
 import { TransactionService } from "./routes/plaid/transactions"
 import { BetterAuthService } from "./services/auth-service"
 import { DrizzleLive } from "./services/db-service"
 import { PlaidService } from "./services/plaid-service"
+
+const MainLayer = Layer.mergeAll(
+	AuthorizationLive,
+	DrizzleLive,
+	PlaidService.Default,
+	TransactionService.Default,
+	BetterAuthService.Default,
+	AccountRepo.Default,
+	TransactionRepo.Default,
+)
 
 // TODO: Clean up this file and move things to a main layer and move logger config into its own layer
 
@@ -44,6 +55,7 @@ export default {
 				Layer.provide(TransactionService.Default),
 				Layer.provide(BetterAuthService.Default),
 				Layer.provide(AccountRepo.Default),
+				Layer.provide(TransactionRepo.Default),
 				Layer.provide(ConfigLayerLive),
 			),
 			{
