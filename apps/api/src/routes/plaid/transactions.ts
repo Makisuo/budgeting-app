@@ -86,9 +86,9 @@ const fetchTransactionUpdates = (plaidItemId: string) =>
 			}
 			const { data } = yield* plaid.call((client, signal) => client.transactionsSync(request, { signal }))
 
-			added.push(data.added)
-			modified.push(data.modified)
-			removed.push(data.removed)
+			added.push(...data.added)
+			modified.push(...data.modified)
+			removed.push(...data.removed)
 
 			hasMore = data.has_more
 			cursor = data.next_cursor

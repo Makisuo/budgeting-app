@@ -1,5 +1,4 @@
 import { PgDrizzle } from "@effect/sql-drizzle/Pg"
-import { type InsertBankAccount, schema, sql } from "db"
 import { Effect } from "effect"
 import { DrizzleLive } from "~/services/db-service"
 
