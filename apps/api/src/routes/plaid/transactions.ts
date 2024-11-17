@@ -1,5 +1,5 @@
 import { PgDrizzle } from "@effect/sql-drizzle/Pg"
-import { type InsertBankAccount, eq, schema } from "db"
+import { eq, schema } from "db"
 import { Effect } from "effect"
 import { NotFound } from "~/errors"
 import { DrizzleLive } from "~/services/db-service"
@@ -42,7 +42,7 @@ export class TransactionService extends Effect.Service<TransactionService>()("Tr
 				}),
 		}
 	}),
-	dependencies: [DrizzleLive, PlaidService.Default],
+	dependencies: [DrizzleLive, PlaidService.Default, AccountRepo.Default, TransactionRepo.Default],
 }) {}
 
 /**

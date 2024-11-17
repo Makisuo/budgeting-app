@@ -23,8 +23,8 @@
 		"@effect/sql-drizzle": "^0.19.8",
 		"@effect/sql-pg": "^0.21.8",
 		"better-auth": "^0.8.5",
-		"plaid": "^30.0.0",
 		"db": "workspace:*",
-		"effect": "^3.10.15"
+		"effect": "^3.10.15",
+		"plaid": "^30.0.0"
 	}
 }

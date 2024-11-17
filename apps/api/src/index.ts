@@ -1,69 +1,43 @@
-import { HttpApiBuilder, HttpApiScalar, HttpMiddleware, HttpServer } from "@effect/platform"
-import { Config, ConfigProvider, Effect, Layer, Logger, ManagedRuntime } from "effect"
-import { Api, AuthorizationLive } from "./api"
-import { HttpGoCardlessLive } from "./routes/go-cardless/http"
-import { HttpBaseLive } from "./routes/main/http"
+import { HttpApiBuilder, HttpMiddleware } from "@effect/platform"
+import { ConfigProvider, Layer } from "effect"
+import { AuthorizationLive } from "./api"
+import { HttpLive } from "./http"
 import { AccountRepo } from "./routes/plaid/account-repo"
-import { HttpPlaidLive } from "./routes/plaid/http"
 import { TransactionRepo } from "./routes/plaid/transaction-repo"
 import { TransactionService } from "./routes/plaid/transactions"
 import { BetterAuthService } from "./services/auth-service"
 import { DrizzleLive } from "./services/db-service"
 import { PlaidService } from "./services/plaid-service"
 
-const MainLayer = Layer.mergeAll(
-	AuthorizationLive,
-	DrizzleLive,
-	PlaidService.Default,
-	TransactionService.Default,
-	BetterAuthService.Default,
-	AccountRepo.Default,
-	TransactionRepo.Default,
-)
-
 // TODO: Clean up this file and move things to a main layer and move logger config into its own layer
 
-const ApiLive = Layer.provide(HttpApiBuilder.api(Api), [HttpPlaidLive, HttpGoCardlessLive, HttpBaseLive])
+declare global {
+	// eslint-disable-next-line no-var
+	var env: Env
+}
+
+const Live = HttpLive.pipe(
+	Layer.provide(AuthorizationLive),
+	Layer.provide(DrizzleLive),
+	Layer.provide(PlaidService.Default),
+	Layer.provide(TransactionService.Default),
+	Layer.provide(BetterAuthService.Default),
+	Layer.provide(AccountRepo.Default),
+	Layer.provide(TransactionRepo.Default),
+)
 
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
-		const ApiDocsLive = HttpApiScalar.layer().pipe(Layer.provide(ApiLive))
-		const OpenApiLive = HttpApiBuilder.middlewareOpenApi().pipe(Layer.provide(ApiLive))
-
-		const MainLayer = Layer.mergeAll(
-			HttpApiBuilder.middlewareCors(),
-			ApiLive,
-			OpenApiLive,
-			ApiDocsLive,
-			HttpServer.layerContext,
-		)
+		Object.assign(globalThis, {
+			env,
+		})
 
 		const ConfigLayerLive = Layer.setConfigProvider(ConfigProvider.fromJson(env))
 
-		const LogLevelLive = Config.logLevel("LOG_LEVEL")
-			.pipe(
-				Effect.andThen((level) => Logger.minimumLogLevel(level)),
-				Layer.unwrapEffect,
-			)
-			.pipe(Layer.provide(Logger.pretty))
+		const handler = HttpApiBuilder.toWebHandler(Live.pipe(Layer.provide(ConfigLayerLive)), {
+			middleware: HttpMiddleware.logger,
+		})
 
-		const { handler } = HttpApiBuilder.toWebHandler(
-			MainLayer.pipe(
-				Layer.provide(LogLevelLive),
-				Layer.provide(AuthorizationLive),
-				Layer.provide(DrizzleLive),
-				Layer.provide(PlaidService.Default),
-				Layer.provide(TransactionService.Default),
-				Layer.provide(BetterAuthService.Default),
-				Layer.provide(AccountRepo.Default),
-				Layer.provide(TransactionRepo.Default),
-				Layer.provide(ConfigLayerLive),
-			),
-			{
-				middleware: (httpApp) => httpApp.pipe(HttpMiddleware.logger),
-			},
-		)
-
-		return handler(request)
+		return handler.handler(request)
 	},
 } satisfies ExportedHandler<Env>
