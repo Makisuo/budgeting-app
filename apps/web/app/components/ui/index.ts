@@ -18,3 +18,5 @@ export * from './popover';
 export * from './modal';
 export * from './container';
 export * from './chart';
+export * from './command-menu';
+export * from './separator';

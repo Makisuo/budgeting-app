@@ -2,6 +2,7 @@ import { HttpApi, OpenApi } from "@effect/platform"
 import { Effect, Layer, Redacted } from "effect"
 import { Authorization, User } from "./authorization"
 import { Unauthorized } from "./errors"
+import { GoCardlessApi } from "./routes/go-cardless/api"
 import { BaseApi } from "./routes/main/api"
 import { PlaidApi } from "./routes/plaid/api"
 import { BetterAuthService } from "./services/auth-service"
@@ -36,4 +37,8 @@ export const AuthorizationLive = Layer.effect(
 	}),
 )
 
-export class Api extends HttpApi.empty.add(PlaidApi).add(BaseApi).annotate(OpenApi.Title, "Groups API") {}
+export class Api extends HttpApi.empty
+	.add(PlaidApi)
+	.add(GoCardlessApi)
+	.add(BaseApi)
+	.annotate(OpenApi.Title, "Groups API") {}

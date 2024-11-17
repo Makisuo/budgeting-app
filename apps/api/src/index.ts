@@ -1,6 +1,7 @@
 import { HttpApiBuilder, HttpApiScalar, HttpMiddleware, HttpServer } from "@effect/platform"
 import { Config, ConfigProvider, Effect, Layer, Logger, ManagedRuntime } from "effect"
 import { Api, AuthorizationLive } from "./api"
+import { HttpGoCardlessLive } from "./routes/go-cardless/http"
 import { HttpBaseLive } from "./routes/main/http"
 import { AccountRepo } from "./routes/plaid/account-repo"
 import { HttpPlaidLive } from "./routes/plaid/http"
@@ -22,7 +23,7 @@ const MainLayer = Layer.mergeAll(
 
 // TODO: Clean up this file and move things to a main layer and move logger config into its own layer
 
-const ApiLive = Layer.provide(HttpApiBuilder.api(Api), [HttpPlaidLive, HttpBaseLive])
+const ApiLive = Layer.provide(HttpApiBuilder.api(Api), [HttpPlaidLive, HttpGoCardlessLive, HttpBaseLive])
 
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
