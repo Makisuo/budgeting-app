@@ -1,5 +1,17 @@
 import type { InferInsertModel } from "drizzle-orm"
-import { boolean, date, decimal, json, jsonb, pgEnum, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
+import {
+	boolean,
+	date,
+	decimal,
+	integer,
+	json,
+	jsonb,
+	pgEnum,
+	pgTable,
+	text,
+	timestamp,
+	uuid,
+} from "drizzle-orm/pg-core"
 import { type AccountBalance, AccountType, type AssetReportAccountBalance, type Location } from "plaid"
 import { user } from "./auth-schema"
 
@@ -76,3 +88,13 @@ export const transaction = pgTable("transaction", {
 })
 
 export type InsertBankAccount = InferInsertModel<typeof bankAccount>
+
+export const institution = pgTable("institution", {
+	id: text().primaryKey().notNull(),
+	name: text("name").notNull(),
+	bic: text("bic").notNull(),
+	transaction_total_days: integer("transaction_total_days").notNull(),
+	countries: text("countries").array().notNull().default([]),
+	logo: text("logo").notNull(),
+	max_access_valid_for_days: integer("max_access_valid_for_days").notNull(),
+})

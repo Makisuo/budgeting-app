@@ -3,9 +3,8 @@ import { Schema } from "effect"
 import { InternalError } from "~/errors"
 import { Institution } from "~/services/gocardless/models"
 
-export class GoCardlessApi extends HttpApiGroup.make("gocardless").add(
-	HttpApiEndpoint.get("getInstitutions", "/gocardless/institutions/:countryCode")
-		.setPath(Schema.Struct({ countryCode: Schema.String }))
+export class AdminApi extends HttpApiGroup.make("admin").add(
+	HttpApiEndpoint.get("syncInstitutions", "/admin/sync/institutions")
 		.addSuccess(Schema.Array(Institution))
 		.addError(InternalError),
 ) {}

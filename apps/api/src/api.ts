@@ -2,6 +2,7 @@ import { HttpApi, OpenApi } from "@effect/platform"
 import { Effect, Layer, Redacted } from "effect"
 import { Authorization, User } from "./authorization"
 import { Unauthorized } from "./errors"
+import { AdminApi } from "./routes/admin/api"
 import { GoCardlessApi } from "./routes/go-cardless/api"
 import { BaseApi } from "./routes/main/api"
 import { PlaidApi } from "./routes/plaid/api"
@@ -38,6 +39,7 @@ export const AuthorizationLive = Layer.effect(
 )
 
 export class Api extends HttpApi.empty
+	.add(AdminApi)
 	.add(PlaidApi)
 	.add(GoCardlessApi)
 	.add(BaseApi)

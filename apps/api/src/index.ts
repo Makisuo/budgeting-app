@@ -1,5 +1,5 @@
 import { HttpApiBuilder, HttpMiddleware } from "@effect/platform"
-import { ConfigProvider, Layer } from "effect"
+import { ConfigProvider, Effect, Layer, ManagedRuntime } from "effect"
 import { AuthorizationLive } from "./api"
 import { HttpLive } from "./http"
 import { AccountRepo } from "./routes/plaid/account-repo"
@@ -7,9 +7,8 @@ import { TransactionRepo } from "./routes/plaid/transaction-repo"
 import { TransactionService } from "./routes/plaid/transactions"
 import { BetterAuthService } from "./services/auth-service"
 import { DrizzleLive } from "./services/db-service"
+import { GoCardlessService } from "./services/gocardless/gocardless-service"
 import { PlaidService } from "./services/plaid-service"
-
-// TODO: Clean up this file and move things to a main layer and move logger config into its own layer
 
 declare global {
 	// eslint-disable-next-line no-var
@@ -20,6 +19,7 @@ const Live = HttpLive.pipe(
 	Layer.provide(AuthorizationLive),
 	Layer.provide(DrizzleLive),
 	Layer.provide(PlaidService.Default),
+	Layer.provide(GoCardlessService.Default),
 	Layer.provide(TransactionService.Default),
 	Layer.provide(BetterAuthService.Default),
 	Layer.provide(AccountRepo.Default),

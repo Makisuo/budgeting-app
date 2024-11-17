@@ -1,6 +1,6 @@
 import { HttpApiEndpoint, HttpApiGroup } from "@effect/platform"
 import { Schema } from "effect"
 
-export class BaseApi extends HttpApiGroup.make("helloWorld").add(
-	HttpApiEndpoint.get("helloWorld", "/").addSuccess(Schema.String),
+export class BaseApi extends HttpApiGroup.make("api").add(
+	HttpApiEndpoint.get("healthCheck", "/").addSuccess(Schema.String),
 ) {}
