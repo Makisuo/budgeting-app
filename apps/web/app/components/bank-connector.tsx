@@ -1,6 +1,5 @@
-import { IconHome, IconNotes } from "justd-icons"
+import { useMutation } from "@tanstack/react-query"
 import { useMemo, useState } from "react"
-import { Link } from "react-aria-components"
 import { useInstitutions } from "~/utils/electric/hooks"
 import { CommandMenu } from "./ui"
 
@@ -11,6 +10,25 @@ export interface BankConnectorProps {
 
 export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 	const { data } = useInstitutions()
+
+	const createLinkTokenMutation = useMutation({
+		mutationFn: async (institutionId: string) => {
+			const res = await fetch(`${import.meta.env.VITE_APP_BACKEND_URL}/gocardless/link`, {
+				method: "POST",
+				body: JSON.stringify({
+					institutionId: institutionId,
+				}),
+			})
+
+			const body = await res.json()
+
+			return body.link
+		},
+
+		onSuccess: (link) => {
+			window.location.href = link
+		},
+	})
 
 	const [selectedCountry, setSelectedCountry] = useState<string>()
 
@@ -38,20 +56,6 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 		})
 	}, [data, selectedCountry])
 
-	const createGoCardlessLink = async (institutionId: string) => {
-		const res = await fetch("http://localhost:8787/gocardless/link", {
-			method: "POST",
-			// headers: {
-			// 	Authorization: `Bearer ${auth.session.id}`,
-			// },
-			body: JSON.stringify({
-				institutionId: institutionId,
-			}),
-		})
-
-		console.log(res)
-	}
-
 	return (
 		<CommandMenu isOpen={isOpen} onOpenChange={setIsOpen}>
 			<CommandMenu.Input autoFocus placeholder="Quick search..." />
@@ -78,7 +82,7 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 						{filteredInstitutions.map((institution) => (
 							<CommandMenu.Item asChild key={institution.id}>
 								{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-								<div onClick={() => createGoCardlessLink(institution.id)}>
+								<div onClick={() => createLinkTokenMutation.mutate(institution.id)}>
 									<img className="h-3 pr-2" src={institution.logo} alt={institution.name} />{" "}
 									{institution.name}
 								</div>

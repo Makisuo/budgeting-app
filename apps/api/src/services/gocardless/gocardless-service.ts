@@ -51,21 +51,24 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 						Effect.scoped,
 					)
 				}),
-			createAgreement: (options?: {
-				maxHistoricalDays?: number
-				maxTransactionDays?: number
-				accessValidForDays?: number
-				accessScope?: string[]
-			}) =>
+			createAgreement: (
+				institutionId: string,
+				options?: {
+					maxHistoricalDays?: number
+					maxTransactionDays?: number
+					accessValidForDays?: number
+					accessScope?: string[]
+				},
+			) =>
 				Effect.gen(function* () {
 					const { access } = yield* getAccessToken()
 
-					return yield* HttpClientRequest.post("/api/v2/agreements/enduser").pipe(
+					return yield* HttpClientRequest.post("/api/v2/agreements/enduser/").pipe(
 						HttpClientRequest.prependUrl(baseUrl),
 						HttpClientRequest.bearerToken(access),
 						HttpClientRequest.bodyUnsafeJson({
+							institution_id: institutionId,
 							max_historical_days: options?.maxHistoricalDays || 365,
-							max_transaction_days: options?.maxTransactionDays || 365,
 							access_valid_for_days: options?.accessValidForDays || 180,
 							access_scope: options?.accessScope || ["balances", "details", "transactions"],
 						}),
@@ -78,15 +81,15 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 				redirect: string
 				// TODO: Should be a branded ID
 				institutionId: string
-				reference: string
+				reference?: string
 				// TODO: Should be a branded ID
-				agreementId: string
+				agreementId?: string
 				userLanguage: string | undefined
 			}) =>
 				Effect.gen(function* () {
 					const { access } = yield* getAccessToken()
 
-					return yield* HttpClientRequest.post("/api/v2/requisitions").pipe(
+					return yield* HttpClientRequest.post("/api/v2/requisitions/").pipe(
 						HttpClientRequest.prependUrl(baseUrl),
 						HttpClientRequest.bearerToken(access),
 						HttpClientRequest.bodyUnsafeJson({
