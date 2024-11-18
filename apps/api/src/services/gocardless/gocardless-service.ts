@@ -1,6 +1,6 @@
 import { FetchHttpClient, HttpClient, HttpClientRequest, HttpClientResponse } from "@effect/platform"
 import { Config, Effect, Option, Schedule, Schema } from "effect"
-import { Institution, NewTokenResponse } from "./models"
+import { CreateAgreementResponse, CreateLinkResponse, Institution, NewTokenResponse } from "./models"
 
 export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCardlessService", {
 	effect: Effect.gen(function* () {
@@ -48,6 +48,56 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 						HttpClientRequest.bearerToken(access),
 						httpClient.execute,
 						Effect.flatMap(HttpClientResponse.schemaBodyJson(Schema.Array(Institution), { errors: "all" })),
+						Effect.scoped,
+					)
+				}),
+			createAgreement: (options?: {
+				maxHistoricalDays?: number
+				maxTransactionDays?: number
+				accessValidForDays?: number
+				accessScope?: string[]
+			}) =>
+				Effect.gen(function* () {
+					const { access } = yield* getAccessToken()
+
+					return yield* HttpClientRequest.post("/api/v2/agreements/enduser").pipe(
+						HttpClientRequest.prependUrl(baseUrl),
+						HttpClientRequest.bearerToken(access),
+						HttpClientRequest.bodyUnsafeJson({
+							max_historical_days: options?.maxHistoricalDays || 365,
+							max_transaction_days: options?.maxTransactionDays || 365,
+							access_valid_for_days: options?.accessValidForDays || 180,
+							access_scope: options?.accessScope || ["balances", "details", "transactions"],
+						}),
+						httpClient.execute,
+						Effect.flatMap(HttpClientResponse.schemaBodyJson(CreateAgreementResponse, { errors: "all" })),
+						Effect.scoped,
+					)
+				}),
+			createLink: (options: {
+				redirect: string
+				// TODO: Should be a branded ID
+				institutionId: string
+				reference: string
+				// TODO: Should be a branded ID
+				agreementId: string
+				userLanguage: string | undefined
+			}) =>
+				Effect.gen(function* () {
+					const { access } = yield* getAccessToken()
+
+					return yield* HttpClientRequest.post("/api/v2/requisitions").pipe(
+						HttpClientRequest.prependUrl(baseUrl),
+						HttpClientRequest.bearerToken(access),
+						HttpClientRequest.bodyUnsafeJson({
+							redirect: options.redirect,
+							institution_id: options.institutionId,
+							reference: options.reference,
+							agreement: options.agreementId,
+							user_language: options.userLanguage || "EN",
+						}),
+						httpClient.execute,
+						Effect.flatMap(HttpClientResponse.schemaBodyJson(CreateLinkResponse, { errors: "all" })),
 						Effect.scoped,
 					)
 				}),

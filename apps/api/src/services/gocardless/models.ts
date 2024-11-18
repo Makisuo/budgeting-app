@@ -16,3 +16,28 @@ export class NewTokenResponse extends Schema.Class<NewTokenResponse>("NewTokenRe
 	refresh: Schema.String,
 	refresh_expires: Schema.Number,
 }) {}
+
+export class CreateAgreementResponse extends Schema.Class<CreateAgreementResponse>("CreateAgreementResponse")({
+	id: Schema.String,
+	created: Schema.String,
+	max_historical_days: Schema.Number,
+	access_valid_for_days: Schema.Number,
+	access_scope: Schema.Array(Schema.String),
+	accepted: Schema.String,
+	institution_id: Schema.String,
+}) {}
+
+export class CreateLinkResponse extends Schema.Class<CreateLinkResponse>("CreateLinkResponse")({
+	id: Schema.String,
+	redirect: Schema.String,
+	status: Schema.Struct({
+		short: Schema.String,
+		long: Schema.String,
+		description: Schema.String,
+	}),
+	agreement: Schema.String,
+	accounts: Schema.Array(Schema.String),
+	reference: Schema.String,
+	user_language: Schema.String,
+	link: Schema.String,
+}) {}
