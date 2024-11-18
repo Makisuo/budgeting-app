@@ -88,13 +88,3 @@ export const transaction = pgTable("transaction", {
 })
 
 export type InsertBankAccount = InferInsertModel<typeof bankAccount>
-
-export const institution = pgTable("institution", {
-	id: text().primaryKey().notNull(),
-	name: text("name").notNull(),
-	bic: text("bic").notNull(),
-	transaction_total_days: integer("transaction_total_days").notNull(),
-	countries: text("countries").array().notNull().default([]),
-	logo: text("logo").notNull(),
-	max_access_valid_for_days: integer("max_access_valid_for_days").notNull(),
-})

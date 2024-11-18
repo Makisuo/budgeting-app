@@ -37,3 +37,10 @@ export class CreateLinkResponse extends Schema.Class<CreateLinkResponse>("Create
 	user_language: Schema.String,
 	link: Schema.String,
 }) {}
+
+export class GetRequisitionResponse extends Schema.Class<GetRequisitionResponse>("GetRequisitionResponse")({
+	id: Schema.String,
+	status: Schema.String,
+	accounts: Schema.Array(Schema.String),
+	reference: Schema.String,
+}) {}

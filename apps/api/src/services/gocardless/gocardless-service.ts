@@ -1,6 +1,12 @@
 import { FetchHttpClient, HttpClient, HttpClientRequest, HttpClientResponse } from "@effect/platform"
 import { Config, Effect, Option, Schedule, Schema } from "effect"
-import { CreateAgreementResponse, CreateLinkResponse, Institution, NewTokenResponse } from "./models"
+import {
+	CreateAgreementResponse,
+	CreateLinkResponse,
+	GetRequisitionResponse,
+	Institution,
+	NewTokenResponse,
+} from "./models"
 
 export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCardlessService", {
 	effect: Effect.gen(function* () {
@@ -15,6 +21,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 			HttpClient.retry({ times: 3, schedule: Schedule.exponential("300 millis") }),
 		)
 
+		// TODO: Should be saved in KV and then refreshed
 		const getAccessToken = () =>
 			Effect.gen(function* () {
 				const response = yield* HttpClientRequest.post("/api/v2/token/new/").pipe(
@@ -33,6 +40,18 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 			})
 
 		return {
+			getRequistion: (id: string) =>
+				Effect.gen(function* () {
+					const { access } = yield* getAccessToken()
+
+					return yield* HttpClientRequest.get(`/api/v2/requisitions/${id}/`).pipe(
+						HttpClientRequest.prependUrl(baseUrl),
+						HttpClientRequest.bearerToken(access),
+						httpClient.execute,
+						Effect.flatMap(HttpClientResponse.schemaBodyJson(GetRequisitionResponse, { errors: "all" })),
+						Effect.scoped,
+					)
+				}),
 			getInstitutions: (countryCode: Option.Option<string>) =>
 				Effect.gen(function* () {
 					const { access } = yield* getAccessToken()
