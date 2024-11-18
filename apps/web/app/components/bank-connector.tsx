@@ -38,6 +38,20 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 		})
 	}, [data, selectedCountry])
 
+	const createGoCardlessLink = async (institutionId: string) => {
+		const res = await fetch("http://localhost:8787/gocardless/link", {
+			method: "POST",
+			// headers: {
+			// 	Authorization: `Bearer ${auth.session.id}`,
+			// },
+			body: JSON.stringify({
+				institutionId: institutionId,
+			}),
+		})
+
+		console.log(res)
+	}
+
 	return (
 		<CommandMenu isOpen={isOpen} onOpenChange={setIsOpen}>
 			<CommandMenu.Input autoFocus placeholder="Quick search..." />
@@ -63,7 +77,8 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 					<CommandMenu.Section heading="Banks">
 						{filteredInstitutions.map((institution) => (
 							<CommandMenu.Item asChild key={institution.id}>
-								<div>
+								{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
+								<div onClick={() => createGoCardlessLink(institution.id)}>
 									<img className="h-3 pr-2" src={institution.logo} alt={institution.name} />{" "}
 									{institution.name}
 								</div>
