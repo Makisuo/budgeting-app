@@ -18,3 +18,5 @@ export type InsertBankAccount = InferInsertModel<typeof schema.bankAccount>
 
 export type Transaction = InferSelectModel<typeof schema.transaction>
 export type InsertTransaction = InferInsertModel<typeof schema.transaction>
+
+export type Institution = InferSelectModel<typeof schema.institution>

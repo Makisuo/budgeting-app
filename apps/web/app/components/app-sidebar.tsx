@@ -6,6 +6,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import { useLocation } from "@tanstack/react-router"
 import { useServerFn } from "@tanstack/start"
 import { IconAlbum, IconBrandApple, IconCreditCard, IconCube, IconDashboard, IconPlus, IconSettings } from "justd-icons"
+import { useState } from "react"
 import {
 	type PlaidLinkError,
 	type PlaidLinkOnExitMetadata,
@@ -16,6 +17,7 @@ import { createLinkTokenAction } from "~/actions"
 import { Link, Loader, Sidebar, useSidebar } from "~/components/ui"
 import { Route } from "~/routes/_app"
 import { useBankAccounts } from "~/utils/electric/hooks"
+import { BankConnector } from "./bank-connector"
 import { ProfileMenu } from "./profile-menu"
 
 export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
@@ -53,6 +55,7 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 						All Bank Accounts
 					</SidebarItem>
 					<AccountItems />
+					<ConnectBankAccountItem2 />
 					<ConnectBankAccountItem />
 				</Sidebar.Section>
 			</Sidebar.Content>
@@ -135,5 +138,18 @@ const ConnectBankAccountItem = () => {
 		<Sidebar.Item onPress={() => open()} isDisabled={!ready} icon={IconPlus}>
 			Connect Bank Account
 		</Sidebar.Item>
+	)
+}
+
+const ConnectBankAccountItem2 = () => {
+	const [isOpen, setIsOpen] = useState(false)
+
+	return (
+		<>
+			<Sidebar.Item icon={IconPlus} onPress={() => setIsOpen((open) => !open)}>
+				GoCardless
+			</Sidebar.Item>
+			<BankConnector isOpen={isOpen} setIsOpen={setIsOpen} />
+		</>
 	)
 }

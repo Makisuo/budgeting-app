@@ -9,3 +9,8 @@ export const transactionShape = () => ({
 	url: new URL("/v1/shape", ELECTRIC_URL).href,
 	table: "transaction",
 })
+
+export const institutionShape = () => ({
+	url: new URL("/v1/shape", ELECTRIC_URL).href,
+	table: "institution",
+})
