@@ -1,7 +1,7 @@
 import { HttpApiBuilder, HttpApp, HttpServerResponse } from "@effect/platform"
 import { PgDrizzle } from "@effect/sql-drizzle/Pg"
 import { eq, schema } from "db"
-import { Arbitrary, Config, Effect, FastCheck, Option, Schema, pipe } from "effect"
+import { Arbitrary, Config, Effect, FastCheck, Schema, pipe } from "effect"
 import { AccountType } from "plaid"
 import { Api } from "~/api"
 import { InternalError, NotFound } from "~/errors"
@@ -94,7 +94,7 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 						}),
 					)
 
-					// yield* syncWorkflow.create({ params: { requisitionId: requisition.id } })
+					yield* syncWorkflow.create({ params: { requisitionId: requisition.id } })
 
 					yield* HttpApp.appendPreResponseHandler((_req, res) =>
 						pipe(

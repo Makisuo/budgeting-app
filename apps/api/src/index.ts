@@ -10,6 +10,8 @@ import { DrizzleLive } from "./services/db-service"
 import { GoCardlessService } from "./services/gocardless/gocardless-service"
 import { PlaidService } from "./services/plaid-service"
 
+import { PgDrizzle } from "@effect/sql-drizzle/Pg"
+import { eq, schema } from "db"
 import { Workflow, Workflows, makeWorkflow } from "./services/cloudflare/workflows"
 
 declare global {
@@ -30,26 +32,31 @@ export const SyncAccountWorkflow = makeWorkflow(
 		Effect.gen(function* () {
 			const workflow = yield* Workflow
 
-			const goCardless = yield* GoCardlessService
+			// const goCardless = yield* GoCardlessService
+			// const db = yield* PgDrizzle
 
-			const requisition = yield* goCardless.getRequistion(args.requisitionId)
+			// const accounts = yield* db
+			// 	.select()
+			// 	.from(schema.bankAccount)
+			// 	.where(eq(schema.bankAccount.requistionId, args.requisitionId))
 
-			yield* Effect.forEach(requisition.accounts, (accountId) =>
-				workflow.do(
-					"syncAccount",
-					Effect.gen(function* () {
-						const account = yield* goCardless.getAccount(accountId)
+			// yield* Effect.forEach(accounts, (account) =>
+			// 	Effect.gen(function* () {
+			// 		const transactions = yield* workflow.do(
+			// 			"getTransactions",
+			// 			goCardless.getTransactions(account.id).pipe(Effect.catchAll(Effect.die)),
+			// 		)
 
-						yield* Effect.log("account", account)
-					}).pipe(Effect.catchAll(Effect.die)),
-				),
-			)
+			// 		yield* Effect.log("transactions", transactions)
+			// 	}),
+			// )
 
 			yield* workflow.do("step2", Effect.log("step2"))
 
 			yield* Effect.log("args", args)
 		}).pipe(
 			Effect.provide(GoCardlessService.Default),
+			Effect.provide(DrizzleLive),
 
 			Effect.catchAll(Effect.die),
 			Effect.provide(Logger.minimumLogLevel(LogLevel.All)),
