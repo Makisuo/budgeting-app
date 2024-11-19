@@ -2,6 +2,7 @@ import { HttpApiBuilder, HttpApp, HttpServerResponse } from "@effect/platform"
 import { PgDrizzle } from "@effect/sql-drizzle/Pg"
 import { eq, schema } from "db"
 import { Arbitrary, Config, Effect, FastCheck, Option, Schema, pipe } from "effect"
+import { AccountType } from "plaid"
 import { Api } from "~/api"
 import { InternalError, NotFound } from "~/errors"
 import { Workflows } from "~/services/cloudflare/workflows"
@@ -19,7 +20,19 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 			.handle("createLink", ({ payload }) =>
 				Effect.gen(function* () {
 					const db = yield* PgDrizzle
-					const agreement = yield* goCardless.createAgreement(payload.institutionId)
+
+					const institution = (yield* db
+						.select()
+						.from(schema.institution)
+						.where(eq(schema.institution.id, payload.institutionId)))[0]
+
+					if (!institution) {
+						return yield* Effect.fail(new NotFound({ message: "Institution not found" }))
+					}
+
+					const agreement = yield* goCardless.createAgreement(payload.institutionId, {
+						maxHistoricalDays: institution.transaction_total_days,
+					})
 
 					const referenceId = FastCheck.sample(Arbitrary.make(Schema.UUID), 1)[0]!
 
@@ -67,7 +80,21 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 
 					const newRequisition = yield* goCardless.getRequistion(requisition.id)
 
-					yield* syncWorkflow.create({ params: { requisitionId: requisition.id } })
+					yield* Effect.forEach(newRequisition.accounts, (accountId) =>
+						Effect.gen(function* () {
+							const { account } = yield* goCardless.getAccount(accountId)
+
+							yield* db.insert(schema.bankAccount).values({
+								id: accountId,
+								name: account.ownerName,
+								requistionId: requisition.id,
+								iban: account.iban,
+								type: AccountType.Other,
+							})
+						}),
+					)
+
+					// yield* syncWorkflow.create({ params: { requisitionId: requisition.id } })
 
 					yield* HttpApp.appendPreResponseHandler((_req, res) =>
 						pipe(

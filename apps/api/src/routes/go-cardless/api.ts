@@ -12,7 +12,8 @@ export class GoCardlessApi extends HttpApiGroup.make("gocardless")
 				}),
 			)
 			.addSuccess(CreateLinkResponse)
-			.addError(InternalError),
+			.addError(InternalError)
+			.addError(NotFound),
 	)
 	.add(
 		HttpApiEndpoint.get("callback", "/gocardless/callback/:id")

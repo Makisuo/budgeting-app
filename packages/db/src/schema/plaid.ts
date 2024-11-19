@@ -14,6 +14,7 @@ import {
 } from "drizzle-orm/pg-core"
 import { type AccountBalance, AccountType, type AssetReportAccountBalance, type Location } from "plaid"
 import { user } from "./auth-schema"
+import { requisition } from "./gocardless"
 
 export const plaidItem = pgTable("plaid_item", {
 	id: text().primaryKey(),
@@ -39,7 +40,7 @@ export const bankAccount = pgTable("bank_account", {
 	name: text().notNull(),
 	// The official name of the account as given by the financial institution
 	officialName: text("official_name"),
-	mask: text(),
+	iban: text(),
 
 	currentBalance: decimal("current_balance", { precision: 28, scale: 10 }),
 	availableBalance: decimal("available_balance", { precision: 28, scale: 10 }),
@@ -48,9 +49,9 @@ export const bankAccount = pgTable("bank_account", {
 	isoCurrencyCode: text("iso_currency_code"),
 	unofficialCurrencyCode: text("unofficial_currency_code"),
 
-	plaidItemId: text("plaid_item_id")
+	requistionId: text("requisition_id")
 		.notNull()
-		.references(() => plaidItem.id),
+		.references(() => requisition.id),
 
 	type: accountType().notNull().$type<AccountType>(),
 })

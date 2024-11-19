@@ -75,16 +75,15 @@ const Live = HttpLive.pipe(
 )
 
 export default {
-	async fetch(request, env, ctx): Promise<Response> {
+	async fetch(request, env): Promise<Response> {
 		Object.assign(globalThis, {
 			env,
 		})
 
+		// @ts-expect-error
 		Object.assign(process, {
 			env,
 		})
-
-		// const ConfigLayerLive = Layer.setConfigProvider(ConfigProvider.fromJson(env))
 
 		const handler = HttpApiBuilder.toWebHandler(Live, {
 			middleware: HttpMiddleware.logger,

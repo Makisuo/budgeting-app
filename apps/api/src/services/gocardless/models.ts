@@ -32,7 +32,7 @@ export class Balance extends Schema.Class<Balance>("Balance")({
 		amount: Schema.String,
 	}),
 	balanceType: Schema.String,
-	reference: Schema.DateFromString,
+	referenceDate: Schema.DateFromString,
 }) {}
 
 export class Account extends Schema.Class<Account>("Account")({
@@ -40,9 +40,6 @@ export class Account extends Schema.Class<Account>("Account")({
 	iban: Schema.String,
 	currency: Schema.String,
 	ownerName: Schema.String,
-	name: Schema.String,
-	product: Schema.String,
-	cashAccountType: Schema.String,
 }) {}
 
 export class GetAccountDetailsResponse extends Schema.Class<GetAccountDetailsResponse>("GetAccountDetailsResponse")({
