@@ -1,5 +1,6 @@
 import { HttpApiBuilder, HttpApiScalar, HttpServer } from "@effect/platform"
 import { Layer, LogLevel, Logger, pipe } from "effect"
+import { workflows } from "."
 import { Api } from "./api"
 import { HttpAdminLive } from "./routes/admin/http"
 import { HttpGoCardlessLive } from "./routes/go-cardless/http"
@@ -13,7 +14,7 @@ export const ApiLive = Layer.provide(HttpApiBuilder.api(Api), [
 	HttpAdminLive,
 ])
 
-export const HttpLive = pipe(
+export const HttpAppLive = pipe(
 	HttpApiBuilder.Router.Live,
 	Layer.provide(HttpApiScalar.layer()),
 	Layer.provideMerge(HttpApiBuilder.middlewareOpenApi()),

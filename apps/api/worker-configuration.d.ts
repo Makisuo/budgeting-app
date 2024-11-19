@@ -8,4 +8,5 @@ interface Env {
 	LOG_LEVEL: string;
 	GO_CARDLESS_SECRET_ID: string;
 	GO_CARDLESS_SECRET_KEY: string;
+	SYNC_ACCOUNT_WORKFLOW: Workflow;
 }

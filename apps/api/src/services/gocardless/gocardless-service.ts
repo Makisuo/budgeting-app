@@ -3,7 +3,10 @@ import { Config, Effect, Option, Schedule, Schema } from "effect"
 import {
 	CreateAgreementResponse,
 	CreateLinkResponse,
+	GetAccountDetailsResponse,
+	GetBalancesResponse,
 	GetRequisitionResponse,
+	GetTransactionsResponse,
 	Institution,
 	NewTokenResponse,
 } from "./models"
@@ -49,6 +52,42 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 						HttpClientRequest.bearerToken(access),
 						httpClient.execute,
 						Effect.flatMap(HttpClientResponse.schemaBodyJson(GetRequisitionResponse, { errors: "all" })),
+						Effect.scoped,
+					)
+				}),
+			getAccount: (id: string) =>
+				Effect.gen(function* () {
+					const { access } = yield* getAccessToken()
+
+					return yield* HttpClientRequest.get(`/api/v2/accounts/${id}/details/`).pipe(
+						HttpClientRequest.prependUrl(baseUrl),
+						HttpClientRequest.bearerToken(access),
+						httpClient.execute,
+						Effect.flatMap(HttpClientResponse.schemaBodyJson(GetAccountDetailsResponse, { errors: "all" })),
+						Effect.scoped,
+					)
+				}),
+			getBalances: (accountId: string) =>
+				Effect.gen(function* () {
+					const { access } = yield* getAccessToken()
+
+					return yield* HttpClientRequest.get(`/api/v2/accounts/${accountId}/balances/`).pipe(
+						HttpClientRequest.prependUrl(baseUrl),
+						HttpClientRequest.bearerToken(access),
+						httpClient.execute,
+						Effect.flatMap(HttpClientResponse.schemaBodyJson(GetBalancesResponse, { errors: "all" })),
+						Effect.scoped,
+					)
+				}),
+			getTransactions: (accountId: string) =>
+				Effect.gen(function* () {
+					const { access } = yield* getAccessToken()
+
+					return yield* HttpClientRequest.get(`/api/v2/accounts/${accountId}/transactions/`).pipe(
+						HttpClientRequest.prependUrl(baseUrl),
+						HttpClientRequest.bearerToken(access),
+						httpClient.execute,
+						Effect.flatMap(HttpClientResponse.schemaBodyJson(GetTransactionsResponse, { errors: "all" })),
 						Effect.scoped,
 					)
 				}),

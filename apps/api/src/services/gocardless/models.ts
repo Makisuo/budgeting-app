@@ -10,11 +10,61 @@ export class Institution extends Schema.Class<Institution>("Institution")({
 	max_access_valid_for_days: Schema.NumberFromString,
 }) {}
 
+export class Transaction extends Schema.Class<Transaction>("Transaction")({
+	transactionId: Schema.String,
+	debtorName: Schema.String,
+	debtorAccount: Schema.Struct({
+		iban: Schema.String,
+	}),
+	transactionAmount: Schema.Struct({
+		currency: Schema.String,
+		amount: Schema.String,
+	}),
+	bankTransactionCode: Schema.String,
+	bookingDate: Schema.DateFromString,
+	valueDate: Schema.DateFromString,
+	remittanceInformationUnstructured: Schema.String,
+}) {}
+
+export class Balance extends Schema.Class<Balance>("Balance")({
+	balanceAmount: Schema.Struct({
+		currency: Schema.String,
+		amount: Schema.String,
+	}),
+	balanceType: Schema.String,
+	reference: Schema.DateFromString,
+}) {}
+
+export class Account extends Schema.Class<Account>("Account")({
+	resourceId: Schema.String,
+	iban: Schema.String,
+	currency: Schema.String,
+	ownerName: Schema.String,
+	name: Schema.String,
+	product: Schema.String,
+	cashAccountType: Schema.String,
+}) {}
+
+export class GetAccountDetailsResponse extends Schema.Class<GetAccountDetailsResponse>("GetAccountDetailsResponse")({
+	account: Account,
+}) {}
+
 export class NewTokenResponse extends Schema.Class<NewTokenResponse>("NewTokenResponse")({
 	access: Schema.String,
 	access_expires: Schema.Number,
 	refresh: Schema.String,
 	refresh_expires: Schema.Number,
+}) {}
+
+export class GetBalancesResponse extends Schema.Class<GetBalancesResponse>("GetBalancesResponse")({
+	balances: Schema.Array(Balance),
+}) {}
+
+export class GetTransactionsResponse extends Schema.Class<GetTransactionsResponse>("GetTransactionsResponse")({
+	transactions: Schema.Struct({
+		booked: Schema.Array(Transaction),
+		pending: Schema.Array(Transaction),
+	}),
 }) {}
 
 export class CreateAgreementResponse extends Schema.Class<CreateAgreementResponse>("CreateAgreementResponse")({

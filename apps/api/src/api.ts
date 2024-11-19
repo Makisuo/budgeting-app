@@ -27,7 +27,7 @@ export const AuthorizationLive = Layer.effect(
 					)
 
 					if (!session) {
-						return yield* new Unauthorized()
+						return yield* Effect.fail(new Unauthorized({ message: "Unauthorized" }))
 					}
 
 					yield* Effect.log("checking bearer token", Redacted.value(bearerToken))

@@ -1,7 +1,7 @@
 import { HttpApiBuilder, HttpMiddleware } from "@effect/platform"
-import { ConfigProvider, Effect, Layer, ManagedRuntime } from "effect"
+import { ConfigProvider, DateTime, Effect, Layer, ManagedRuntime, Schema, pipe } from "effect"
 import { AuthorizationLive } from "./api"
-import { HttpLive } from "./http"
+import { HttpAppLive } from "./http"
 import { AccountRepo } from "./routes/plaid/account-repo"
 import { TransactionRepo } from "./routes/plaid/transaction-repo"
 import { TransactionService } from "./routes/plaid/transactions"
@@ -10,9 +10,47 @@ import { DrizzleLive } from "./services/db-service"
 import { GoCardlessService } from "./services/gocardless/gocardless-service"
 import { PlaidService } from "./services/plaid-service"
 
+import { Workflow, Workflows, makeWorkflow } from "./services/cloudflare/workflows"
+
 declare global {
-	// eslint-disable-next-line no-var
 	var env: Env
+
+	type WorkflowsBinding = typeof workflows
+}
+
+export const SyncAccountWorkflow = makeWorkflow(
+	{
+		name: "SyncAccountWorkflow",
+		binding: "SYNC_ACCOUNT_WORKFLOW",
+		schema: Schema.Struct({
+			requisitionId: Schema.String,
+		}),
+	},
+	(args) =>
+		Effect.gen(function* () {
+			const workflow = yield* Workflow
+			const goCardless = yield* GoCardlessService
+
+			const requisition = yield* goCardless.getRequistion(args.requisitionId)
+
+			yield* Effect.forEach(requisition.accounts, (accountId) =>
+				Effect.gen(function* () {
+					const account = yield* goCardless.getAccount(accountId)
+
+					yield* Effect.log("account", account)
+				}),
+			)
+
+			yield* workflow.do("step2", Effect.log("step2"))
+
+			yield* Effect.log("args", args)
+		}).pipe(Effect.provide(GoCardlessService.Default), Effect.catchAll(Effect.die)),
+)
+
+const HttpLive = Layer.mergeAll(HttpAppLive).pipe(Layer.provide(Workflows.fromRecord(() => workflows)))
+
+const workflows = {
+	SyncAccountWorkflow,
 }
 
 const Live = HttpLive.pipe(

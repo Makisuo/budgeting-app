@@ -4,12 +4,15 @@ import { eq, schema } from "db"
 import { Arbitrary, Config, Effect, FastCheck, Option, Schema, pipe } from "effect"
 import { Api } from "~/api"
 import { InternalError, NotFound } from "~/errors"
+import { Workflows } from "~/services/cloudflare/workflows"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
 import { CreateLinkResponse } from "./models"
 
 export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handlers) =>
 	Effect.gen(function* () {
 		const goCardless = yield* GoCardlessService
+
+		const workflows = yield* Workflows
 
 		return handlers
 			.handle("createLink", ({ payload }) =>
@@ -62,7 +65,10 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 					}
 
 					const newRequisition = yield* goCardless.getRequistion(requisition.id)
-					console.log(newRequisition)
+
+					const syncWorkflow = workflows.getWorkflow<WorkflowsBinding>("SyncAccountWorkflow")
+
+					yield* syncWorkflow.create({ params: { requisitionId: requisition.id } })
 
 					yield* HttpApp.appendPreResponseHandler((_req, res) =>
 						pipe(

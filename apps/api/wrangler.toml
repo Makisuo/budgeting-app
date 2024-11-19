@@ -4,18 +4,22 @@ main = "src/index.ts"
 compatibility_date = "2024-11-06"
 compatibility_flags = ["nodejs_compat"]
 
-# Workers Logs
-# Docs: https://developers.cloudflare.com/workers/observability/logs/workers-logs/
-# Configuration: https://developers.cloudflare.com/workers/observability/logs/workers-logs/#enable-workers-logs
+
 [observability]
 enabled = true
 
-# Automatically place your workloads in an optimal location to minimize latency.
-# If you are running back-end logic in a Worker, running it closer to your back-end infrastructure
-# rather than the end user may result in better performance.
-# Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
-# [placement]
-# mode = "smart"
+[placement]
+mode = "smart"
+
+[[workflows]]
+name = "workflow-sync-account"
+binding = "SYNC_ACCOUNT_WORKFLOW"
+class_name = "SyncAccountWorkflow"
+# name = "sync-account-workflow"
+# binding = "SYNC_ACCOUNT_WORKFLOW"
+# class_name = "SyncAccountWorkflow"
+# script_name = "sync-account-workflow"
+
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Docs:
