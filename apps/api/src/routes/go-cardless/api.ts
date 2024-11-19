@@ -19,4 +19,15 @@ export class GoCardlessApi extends HttpApiGroup.make("gocardless")
 			.setPath(Schema.Struct({ id: Schema.String }))
 			.addError(InternalError)
 			.addError(NotFound),
+	)
+	.add(
+		HttpApiEndpoint.get("sync", "/gocardless/sync/:referenceId")
+			.setPath(
+				Schema.Struct({
+					referenceId: Schema.String,
+				}),
+			)
+			.addError(InternalError)
+			.addError(NotFound)
+			.addSuccess(Schema.String),
 	) {}

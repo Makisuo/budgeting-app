@@ -1,6 +1,6 @@
 import { HttpApiBuilder, HttpApiScalar, HttpServer } from "@effect/platform"
 import { Layer, LogLevel, Logger, pipe } from "effect"
-import { workflows } from "."
+
 import { Api } from "./api"
 import { HttpAdminLive } from "./routes/admin/http"
 import { HttpGoCardlessLive } from "./routes/go-cardless/http"

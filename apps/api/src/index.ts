@@ -1,5 +1,5 @@
 import { HttpApiBuilder, HttpMiddleware } from "@effect/platform"
-import { ConfigProvider, DateTime, Effect, Layer, ManagedRuntime, Schema, pipe } from "effect"
+import { ConfigProvider, DateTime, Effect, Layer, LogLevel, Logger, ManagedRuntime, Schema, pipe } from "effect"
 import { AuthorizationLive } from "./api"
 import { HttpAppLive } from "./http"
 import { AccountRepo } from "./routes/plaid/account-repo"
@@ -29,22 +29,32 @@ export const SyncAccountWorkflow = makeWorkflow(
 	(args) =>
 		Effect.gen(function* () {
 			const workflow = yield* Workflow
+
 			const goCardless = yield* GoCardlessService
 
 			const requisition = yield* goCardless.getRequistion(args.requisitionId)
 
 			yield* Effect.forEach(requisition.accounts, (accountId) =>
-				Effect.gen(function* () {
-					const account = yield* goCardless.getAccount(accountId)
+				workflow.do(
+					"syncAccount",
+					Effect.gen(function* () {
+						const account = yield* goCardless.getAccount(accountId)
 
-					yield* Effect.log("account", account)
-				}),
+						yield* Effect.log("account", account)
+					}).pipe(Effect.catchAll(Effect.die)),
+				),
 			)
 
 			yield* workflow.do("step2", Effect.log("step2"))
 
 			yield* Effect.log("args", args)
-		}).pipe(Effect.provide(GoCardlessService.Default), Effect.catchAll(Effect.die)),
+		}).pipe(
+			Effect.provide(GoCardlessService.Default),
+
+			Effect.catchAll(Effect.die),
+			Effect.provide(Logger.minimumLogLevel(LogLevel.All)),
+			Effect.provide(Logger.structured),
+		),
 )
 
 const HttpLive = Layer.mergeAll(HttpAppLive).pipe(Layer.provide(Workflows.fromRecord(() => workflows)))
@@ -70,9 +80,13 @@ export default {
 			env,
 		})
 
-		const ConfigLayerLive = Layer.setConfigProvider(ConfigProvider.fromJson(env))
+		Object.assign(process, {
+			env,
+		})
 
-		const handler = HttpApiBuilder.toWebHandler(Live.pipe(Layer.provide(ConfigLayerLive)), {
+		// const ConfigLayerLive = Layer.setConfigProvider(ConfigProvider.fromJson(env))
+
+		const handler = HttpApiBuilder.toWebHandler(Live, {
 			middleware: HttpMiddleware.logger,
 		})
 

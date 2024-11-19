@@ -65,7 +65,6 @@ export const transaction = pgTable("transaction", {
 
 	amount: decimal("amount", { precision: 28, scale: 10 }).notNull(),
 	isoCurrencyCode: text("iso_currency_code"),
-	unofficalCurrencyCode: text("unoffical_currency_code"),
 	pending: boolean("pending").notNull(),
 	accountOwner: text("account_owner"),
 

@@ -13,6 +13,7 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 		const goCardless = yield* GoCardlessService
 
 		const workflows = yield* Workflows
+		const syncWorkflow = workflows.getWorkflow<WorkflowsBinding>("SyncAccountWorkflow")
 
 		return handlers
 			.handle("createLink", ({ payload }) =>
@@ -66,8 +67,6 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 
 					const newRequisition = yield* goCardless.getRequistion(requisition.id)
 
-					const syncWorkflow = workflows.getWorkflow<WorkflowsBinding>("SyncAccountWorkflow")
-
 					yield* syncWorkflow.create({ params: { requisitionId: requisition.id } })
 
 					yield* HttpApp.appendPreResponseHandler((_req, res) =>
@@ -85,6 +84,30 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 						ResponseError: (error) => {
 							return new InternalError({ message: error.message })
 						},
+					}),
+				),
+			)
+			.handle("sync", ({ path }) =>
+				Effect.gen(function* () {
+					const db = yield* PgDrizzle
+
+					const requisition = (yield* db
+						.select()
+						.from(schema.requisition)
+						.where(eq(schema.requisition.reference_id, path.referenceId)))[0]
+
+					if (!requisition) {
+						return yield* Effect.fail(new NotFound({ message: "Requisition not found" }))
+					}
+
+					yield* syncWorkflow.create({ params: { requisitionId: requisition.id } })
+
+					return "Sucesfully started sync job"
+				}).pipe(
+					Effect.tapError((error) => Effect.logError(error)),
+					Effect.catchTags({
+						ParseError: (error) => new InternalError({ message: error.message }),
+						SqlError: (error) => new InternalError({ message: error.message }),
 					}),
 				),
 			)
