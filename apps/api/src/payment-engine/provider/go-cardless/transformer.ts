@@ -3,6 +3,24 @@ import { Match, Schema } from "effect"
 import { Transaction } from "~/payment-engine/payment-engine"
 import * as GoCardlessSchema from "./models"
 
+const matchTransactionCategory = Match.type<GoCardlessSchema.Transaction>().pipe(
+	Match.when(
+		{
+			transactionAmount: {
+				amount: (amount) => Number(amount) > 0,
+			},
+		},
+		() => "income",
+	),
+	Match.when(
+		{
+			proprietaryBankTransactionCode: "Transfer",
+		},
+		() => "transfer",
+	),
+	Match.orElse(() => null),
+)
+
 export const mapTransactionMethod = (type: string | undefined) => {
 	switch (type) {
 		case "Payment":
@@ -34,11 +52,11 @@ const GoCardlessTransactionTransformer = Schema.transform(
 				amount: transaction.transactionAmount.amount,
 				currency: transaction.transactionAmount.currency,
 				date: transaction.bookingDate,
-				status: "posted" as const,
-				category: "",
+				category: matchTransactionCategory(transaction),
 				method: method,
-				name: "",
-				description: "",
+				name: transaction.creditorName,
+				description: transaction.remittanceInformationUnstructuredArray.join(", "),
+				status: "posted" as const,
 			}
 		},
 		encode: () => {
