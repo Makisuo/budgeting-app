@@ -1,5 +1,5 @@
 import { HttpApiBuilder, HttpMiddleware } from "@effect/platform"
-import { ConfigProvider, DateTime, Effect, Layer, LogLevel, Logger, ManagedRuntime, Schema, pipe } from "effect"
+import { Effect, Layer, LogLevel, Logger, Schema } from "effect"
 import { AuthorizationLive } from "./api"
 import { HttpAppLive } from "./http"
 import { AccountRepo } from "./routes/plaid/account-repo"
@@ -10,8 +10,6 @@ import { DrizzleLive } from "./services/db-service"
 import { GoCardlessService } from "./services/gocardless/gocardless-service"
 import { PlaidService } from "./services/plaid-service"
 
-import { PgDrizzle } from "@effect/sql-drizzle/Pg"
-import { eq, schema } from "db"
 import { Workflow, Workflows, makeWorkflow } from "./services/cloudflare/workflows"
 
 declare global {

@@ -41,6 +41,7 @@
 
 		/* Skip type checking all .d.ts files. */
 		"skipLibCheck": true,
+		"exactOptionalPropertyTypes": true,
 		"paths": {
 			"~/*": ["./src/*"]
 		}

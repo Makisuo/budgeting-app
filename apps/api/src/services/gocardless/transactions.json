@@ -1,0 +1,2539 @@
+{
+	"transactions": {
+		"booked": [
+			{
+				"transactionId": "673c57ce-90f8-a042-8a41-bf3edd4b5901",
+				"bookingDate": "2024-11-19",
+				"valueDate": "2024-11-20",
+				"bookingDateTime": "2024-11-19T09:18:06.064233Z",
+				"valueDateTime": "2024-11-20T03:52:17.156339Z",
+				"transactionAmount": {
+					"amount": "-37.79",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "c8ea2c2d709c53d533b9c21a36345ee5"
+			},
+			{
+				"transactionId": "673c26be-970f-ab14-be5f-09325d8f5d2c",
+				"bookingDate": "2024-11-19",
+				"valueDate": "2024-11-20",
+				"bookingDateTime": "2024-11-19T05:48:46.519317Z",
+				"valueDateTime": "2024-11-20T05:59:59.311079Z",
+				"transactionAmount": {
+					"amount": "8.67",
+					"currency": "EUR"
+				},
+				"debtorName": "UBER * EATS PENDING",
+				"remittanceInformationUnstructuredArray": ["Refund from Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_REFUND",
+				"internalTransactionId": "e7c38c486a14a316ed98bf0a035c6258"
+			},
+			{
+				"transactionId": "673b783b-b688-a199-8efe-9a21b8b22a78",
+				"bookingDate": "2024-11-18",
+				"valueDate": "2024-11-19",
+				"bookingDateTime": "2024-11-18T17:24:11.599751Z",
+				"valueDateTime": "2024-11-19T06:39:26.361360Z",
+				"transactionAmount": {
+					"amount": "-40.20",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "edfa934acbf0ba534e6a6ec402726176"
+			},
+			{
+				"transactionId": "673b3046-2984-aff9-bd98-c2857ae79d53",
+				"bookingDate": "2024-11-18",
+				"valueDate": "2024-11-19",
+				"bookingDateTime": "2024-11-18T12:17:10.935854Z",
+				"valueDateTime": "2024-11-19T06:52:38.188640Z",
+				"transactionAmount": {
+					"amount": "-34.30",
+					"currency": "EUR"
+				},
+				"creditorName": "Splt-order Food Online",
+				"remittanceInformationUnstructuredArray": ["Splt-Order Food Online"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "cc3caf65d5e5205cd32da8fd6216f088"
+			},
+			{
+				"transactionId": "673b00be-27ac-a752-bd93-123b3f128b79",
+				"bookingDate": "2024-11-18",
+				"valueDate": "2024-11-19",
+				"bookingDateTime": "2024-11-18T08:54:22.685714Z",
+				"valueDateTime": "2024-11-19T10:11:04.669018Z",
+				"transactionAmount": {
+					"amount": "-5.03",
+					"currency": "EUR"
+				},
+				"creditorName": "Hetzner Online Gmbh",
+				"remittanceInformationUnstructuredArray": ["Hetzner Online Gmbh"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "b59be7b7cfdc8918134267d3698cc83b"
+			},
+			{
+				"transactionId": "673a492d-eef3-a1c7-bf0f-996c6a55cf92",
+				"bookingDate": "2024-11-17",
+				"valueDate": "2024-11-18",
+				"bookingDateTime": "2024-11-17T19:51:09.848599Z",
+				"valueDateTime": "2024-11-18T15:18:32.266367Z",
+				"transactionAmount": {
+					"amount": "-9.52",
+					"currency": "EUR"
+				},
+				"creditorName": "X Corp. Paid Features",
+				"remittanceInformationUnstructuredArray": ["X Corp. Paid Features"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "ea0164ba325f3bec1ca43388799d9924"
+			},
+			{
+				"transactionId": "67396e2c-bc53-a676-b214-792ea9d083ec",
+				"bookingDate": "2024-11-17",
+				"valueDate": "2024-11-17",
+				"bookingDateTime": "2024-11-17T04:16:44.579770Z",
+				"valueDateTime": "2024-11-17T15:23:31.189706Z",
+				"transactionAmount": {
+					"amount": "-8.21",
+					"currency": "EUR"
+				},
+				"creditorName": "Sqsp* Inv157928417",
+				"remittanceInformationUnstructuredArray": ["Sqsp* Inv157928417"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "0b5f7393937494d83c7d0e5ba4183fa9"
+			},
+			{
+				"transactionId": "67379f25-b4c9-af51-a257-7ef859cd1533",
+				"bookingDate": "2024-11-15",
+				"valueDate": "2024-11-16",
+				"bookingDateTime": "2024-11-15T19:21:09.161361Z",
+				"valueDateTime": "2024-11-16T05:54:45.805547Z",
+				"transactionAmount": {
+					"amount": "-4.99",
+					"currency": "EUR"
+				},
+				"creditorName": "Ubr* Pending.uber.com",
+				"remittanceInformationUnstructuredArray": ["Ubr* Pending.uber.com"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "8084c47e17cd9654517d21ee03d32e25"
+			},
+			{
+				"transactionId": "67371c4a-0dd0-ae3c-938d-cf527bbe672a",
+				"bookingDate": "2024-11-15",
+				"valueDate": "2024-11-16",
+				"bookingDateTime": "2024-11-15T10:02:50.111257Z",
+				"valueDateTime": "2024-11-16T02:45:44.258426Z",
+				"transactionAmount": {
+					"amount": "-100.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *torten  Schnit",
+				"remittanceInformationUnstructuredArray": ["Sumup *torten Schnit"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "92b2c23b34926942faf6b89534f6b46a"
+			},
+			{
+				"transactionId": "6735ca04-19fb-a354-bd60-73cb499700d5",
+				"bookingDate": "2024-11-14",
+				"valueDate": "2024-11-15",
+				"bookingDateTime": "2024-11-14T09:59:32.751188Z",
+				"valueDateTime": "2024-11-15T03:57:00.274353Z",
+				"transactionAmount": {
+					"amount": "-18.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "397204516424769aa37d770866b2e3f8"
+			},
+			{
+				"transactionId": "6734cf80-3878-aaec-b4a2-f07d9c80d92b",
+				"bookingDate": "2024-11-13",
+				"valueDate": "2024-11-14",
+				"bookingDateTime": "2024-11-13T16:10:40.586080Z",
+				"valueDateTime": "2024-11-14T06:08:36.301954Z",
+				"transactionAmount": {
+					"amount": "-2.33",
+					"currency": "EUR"
+				},
+				"creditorName": "Lidl Sagt Danke",
+				"remittanceInformationUnstructuredArray": ["Lidl Sagt Danke"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "8396815139f1a88f9fba41e5ab16b171"
+			},
+			{
+				"transactionId": "6734c9cd-3e0d-a419-86ce-1fed5e85a0d5",
+				"bookingDate": "2024-11-13",
+				"valueDate": "2024-11-14",
+				"bookingDateTime": "2024-11-13T15:46:21.972836Z",
+				"valueDateTime": "2024-11-14T03:10:30.614372Z",
+				"transactionAmount": {
+					"amount": "-2.40",
+					"currency": "EUR"
+				},
+				"creditorName": "Www.riverty.com*bvg",
+				"remittanceInformationUnstructuredArray": ["Www.riverty.com*bvg"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "9babeac77306c5f9d1b5809b7d02a023"
+			},
+			{
+				"transactionId": "6734c872-5a39-a5af-b689-e00c452a36f7",
+				"bookingDate": "2024-11-13",
+				"valueDate": "2024-11-14",
+				"bookingDateTime": "2024-11-13T15:40:34.486717Z",
+				"valueDateTime": "2024-11-14T14:35:34.341499Z",
+				"transactionAmount": {
+					"amount": "-3.20",
+					"currency": "EUR"
+				},
+				"creditorName": "Ditsch Berlin Alexande",
+				"remittanceInformationUnstructuredArray": ["Ditsch Berlin Alexande"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "76bb77514945422af6a1eecfdf29af29"
+			},
+			{
+				"transactionId": "67348236-2f8a-a8bb-944e-ca5950a2ad3c",
+				"bookingDate": "2024-11-13",
+				"valueDate": "2024-11-14",
+				"bookingDateTime": "2024-11-13T10:40:54.990943Z",
+				"valueDateTime": "2024-11-14T03:09:08.687317Z",
+				"transactionAmount": {
+					"amount": "-10.40",
+					"currency": "EUR"
+				},
+				"creditorName": "Splt-order Food Online",
+				"remittanceInformationUnstructuredArray": ["Splt-Order Food Online"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "cecd45397418826b1b04bc85309d7b06"
+			},
+			{
+				"transactionId": "67337f57-0c74-a46d-862b-d2f455db7751",
+				"bookingDate": "2024-11-12",
+				"valueDate": "2024-11-13",
+				"bookingDateTime": "2024-11-12T16:16:23.546897Z",
+				"valueDateTime": "2024-11-13T02:53:59.635633Z",
+				"transactionAmount": {
+					"amount": "-147.50",
+					"currency": "EUR"
+				},
+				"creditorName": "Uniqlo 208",
+				"remittanceInformationUnstructuredArray": ["Uniqlo 208"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "78eb34d35b7b2f7db7a8c4cdc3888fb5"
+			},
+			{
+				"transactionId": "6731f452-3e17-a4bc-a594-68b61042f261",
+				"bookingDate": "2024-11-11",
+				"valueDate": "2024-11-12",
+				"bookingDateTime": "2024-11-11T12:10:58.065486Z",
+				"valueDateTime": "2024-11-12T15:00:12.518435Z",
+				"transactionAmount": {
+					"amount": "-5.61",
+					"currency": "EUR"
+				},
+				"creditorName": "The Barn Gmbh",
+				"remittanceInformationUnstructuredArray": ["The Barn Gmbh"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "f12b9d384ac307b1f6d2d695686afeab"
+			},
+			{
+				"transactionId": "6730fa3f-09a2-af83-8d2f-5e4fdd1e68cc",
+				"bookingDate": "2024-11-10",
+				"valueDate": "2024-11-11",
+				"bookingDateTime": "2024-11-10T18:23:59.300653Z",
+				"valueDateTime": "2024-11-11T06:25:03.001535Z",
+				"transactionAmount": {
+					"amount": "-5.70",
+					"currency": "EUR"
+				},
+				"creditorName": "Nyx*sugarfoxgmbh",
+				"remittanceInformationUnstructuredArray": ["Nyx*sugarfoxgmbh"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "c783e6fb811009b64952958975103aa5"
+			},
+			{
+				"transactionId": "6730869d-01dc-ad11-a8d1-f521cc3e4c6f",
+				"bookingDate": "2024-11-10",
+				"valueDate": "2024-11-11",
+				"bookingDateTime": "2024-11-10T10:10:37.395166Z",
+				"valueDateTime": "2024-11-11T06:28:48.667171Z",
+				"transactionAmount": {
+					"amount": "-3.36",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *torten   Schni",
+				"remittanceInformationUnstructuredArray": ["Sumup *torten Schni"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "d0bc87cbe7cbcfa60f0b5c0c11aa35c1"
+			},
+			{
+				"transactionId": "672f4e2b-815c-a054-bbf5-d1ea96420bdc",
+				"bookingDate": "2024-11-09",
+				"valueDate": "2024-11-10",
+				"bookingDateTime": "2024-11-09T11:57:31.056982Z",
+				"valueDateTime": "2024-11-10T15:16:44.999990Z",
+				"transactionAmount": {
+					"amount": "-18.90",
+					"currency": "EUR"
+				},
+				"currencyExchange": {
+					"instructedAmount": {
+						"amount": "18.71",
+						"currency": "EUR"
+					},
+					"sourceCurrency": "EUR",
+					"exchangeRate": "1.0690267059842342614762554051269952",
+					"unitCurrency": "EUR",
+					"targetCurrency": "USD"
+				},
+				"creditorName": "Www.perplexity.ai",
+				"remittanceInformationUnstructuredArray": ["www.perplexity.ai"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"additionalDataStructured": {
+					"chargeAmount": {
+						"amount": "0.19",
+						"currency": "EUR"
+					}
+				},
+				"internalTransactionId": "5c42f6c3fa50f2c0402ba6d8077e22be"
+			},
+			{
+				"transactionId": "672cca95-9e34-a98b-8a65-7bcea5709a8e",
+				"bookingDate": "2024-11-07",
+				"valueDate": "2024-11-08",
+				"bookingDateTime": "2024-11-07T14:11:33.303840Z",
+				"valueDateTime": "2024-11-08T12:59:25.761975Z",
+				"transactionAmount": {
+					"amount": "-14.42",
+					"currency": "EUR"
+				},
+				"creditorName": "Fressnapf",
+				"remittanceInformationUnstructuredArray": ["Fressnapf"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "b63b78b8b00d3a340706c98c1462331d"
+			},
+			{
+				"transactionId": "672c9065-0dd3-a851-a0c3-771a15f8c7ac",
+				"bookingDate": "2024-11-07",
+				"valueDate": "2024-11-08",
+				"bookingDateTime": "2024-11-07T10:03:17.874930Z",
+				"valueDateTime": "2024-11-08T03:01:26.196739Z",
+				"transactionAmount": {
+					"amount": "-12.94",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "842d36214ed24a24b38ce967a3712b59"
+			},
+			{
+				"transactionId": "672b2b23-779f-a017-981d-344796f1e29f",
+				"bookingDate": "2024-11-06",
+				"valueDate": "2024-11-07",
+				"bookingDateTime": "2024-11-06T08:38:59.547292Z",
+				"valueDateTime": "2024-11-07T06:41:43.621735Z",
+				"transactionAmount": {
+					"amount": "-6.55",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "e269380c8f6cd5cfa603b200b091b798"
+			},
+			{
+				"transactionId": "672affdc-75dc-ae35-8430-b555a6ef259e",
+				"bookingDate": "2024-11-06",
+				"valueDate": "2024-11-06",
+				"bookingDateTime": "2024-11-06T05:34:20.218693Z",
+				"valueDateTime": "2024-11-06T05:34:20.904486Z",
+				"transactionAmount": {
+					"amount": "300.00",
+					"currency": "EUR"
+				},
+				"debtorName": "CHANTALE GOEDECKE",
+				"debtorAccount": {
+					"iban": "DE68278937601012782800"
+				},
+				"remittanceInformationUnstructuredArray": ["Payment from Chantale Goedecke"],
+				"proprietaryBankTransactionCode": "TOPUP",
+				"internalTransactionId": "719d33762a1116f6bae217fd0a8bb335"
+			},
+			{
+				"transactionId": "672a7771-b254-a045-9312-563d9fc6a7e5",
+				"bookingDate": "2024-11-05",
+				"valueDate": "2024-11-05",
+				"bookingDateTime": "2024-11-05T19:52:17.949558Z",
+				"valueDateTime": "2024-11-05T19:52:17.950228Z",
+				"transactionAmount": {
+					"amount": "-0.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Iruda Catering Gmbh",
+				"remittanceInformationUnstructuredArray": ["Iruda Catering Gmbh"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "1be77c4c0f7239ffc472f9a38168ebc1"
+			},
+			{
+				"transactionId": "67274749-0327-a469-bbe9-1275d5541139",
+				"bookingDate": "2024-11-03",
+				"valueDate": "2024-11-04",
+				"bookingDateTime": "2024-11-03T09:50:01.587402Z",
+				"valueDateTime": "2024-11-04T02:55:08.402276Z",
+				"transactionAmount": {
+					"amount": "-23.99",
+					"currency": "EUR"
+				},
+				"creditorName": "Google *youtubepremium",
+				"remittanceInformationUnstructuredArray": ["Google *youtubepremium"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "c40ada5d5220cae92e4af12d3d0ea053"
+			},
+			{
+				"transactionId": "672745dd-8cad-a654-92f9-8fc68697498b",
+				"bookingDate": "2024-11-03",
+				"valueDate": "2024-11-04",
+				"bookingDateTime": "2024-11-03T09:43:57.454165Z",
+				"valueDateTime": "2024-11-04T06:11:35.854758Z",
+				"transactionAmount": {
+					"amount": "-8.55",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "19e79689ab5c676c8f7a740d086bc389"
+			},
+			{
+				"transactionId": "67256546-6f36-a611-8fe1-ecade2d5d1bd",
+				"bookingDate": "2024-11-01",
+				"valueDate": "2024-11-04",
+				"bookingDateTime": "2024-11-01T23:33:26.922554Z",
+				"valueDateTime": "2024-11-04T17:08:26.813439Z",
+				"transactionAmount": {
+					"amount": "-22.28",
+					"currency": "EUR"
+				},
+				"creditorName": "Amzn Mktp De*tx3g38j24",
+				"remittanceInformationUnstructuredArray": ["Amzn Mktp De"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "e1077e85ad3186aaf54290099bdafb36"
+			},
+			{
+				"transactionId": "6725e24b-a96e-a9ac-b264-77fc3dc00ebe",
+				"bookingDate": "2024-11-02",
+				"valueDate": "2024-11-03",
+				"bookingDateTime": "2024-11-02T08:26:51.477838Z",
+				"valueDateTime": "2024-11-03T05:05:35.777606Z",
+				"transactionAmount": {
+					"amount": "-6.65",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "edb44e2d39bb023cd5c4649c94f7285e"
+			},
+			{
+				"transactionId": "67250865-7c4a-af93-9eb2-88e7a647d38c",
+				"bookingDate": "2024-11-01",
+				"valueDate": "2024-11-02",
+				"bookingDateTime": "2024-11-01T16:57:09.742172Z",
+				"valueDateTime": "2024-11-02T14:52:57.927888Z",
+				"transactionAmount": {
+					"amount": "-24.43",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "db2fd496d348269315ffd29a082e327b"
+			},
+			{
+				"transactionId": "6724e789-022a-a5e3-8899-78dacea24a77",
+				"bookingDate": "2024-11-01",
+				"valueDate": "2024-11-02",
+				"bookingDateTime": "2024-11-01T14:36:57.244338Z",
+				"valueDateTime": "2024-11-02T15:19:31.898574Z",
+				"transactionAmount": {
+					"amount": "-12.60",
+					"currency": "EUR"
+				},
+				"creditorName": "Berlin Burger Lover",
+				"remittanceInformationUnstructuredArray": ["Berlin Burger Lover"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "873ae8c4c6d803abfb172e34c237fde3"
+			},
+			{
+				"transactionId": "67249b5a-7dcd-a5ee-ba79-569b33de3051",
+				"bookingDate": "2024-11-01",
+				"valueDate": "2024-11-02",
+				"bookingDateTime": "2024-11-01T09:11:54.786832Z",
+				"valueDateTime": "2024-11-02T05:12:33.241566Z",
+				"transactionAmount": {
+					"amount": "-6.50",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "b07b7d36ad7e6c93e7e674b9dcca2ef4"
+			},
+			{
+				"transactionId": "672420ba-ec6f-a662-92f2-97b692a0e6c0",
+				"bookingDate": "2024-11-01",
+				"valueDate": "2024-11-02",
+				"bookingDateTime": "2024-11-01T00:28:42.777029Z",
+				"valueDateTime": "2024-11-02T01:51:10.284441Z",
+				"transactionAmount": {
+					"amount": "-10.99",
+					"currency": "EUR"
+				},
+				"creditorName": "Amzn Mktp De*tr62l4kb4",
+				"remittanceInformationUnstructuredArray": ["Amzn Mktp De"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "e390f5c3b4378e3e9178b59e0d0e7e69"
+			},
+			{
+				"transactionId": "6724b608-e00e-a8d2-b9d7-b041980494f6",
+				"bookingDate": "2024-11-01",
+				"valueDate": "2024-11-01",
+				"bookingDateTime": "2024-11-01T11:05:44.879353Z",
+				"valueDateTime": "2024-11-01T11:05:44.879571Z",
+				"transactionAmount": {
+					"amount": "6.00",
+					"currency": "EUR"
+				},
+				"creditorName": "DAVID JOHAN ARUN GRANZIN",
+				"creditorAccount": {
+					"iban": "LT093250055815608860"
+				},
+				"debtorName": "CHANTALE GÖDECKE",
+				"debtorAccount": {
+					"iban": "LT033250091588033037"
+				},
+				"remittanceInformationUnstructuredArray": ["From Chantale Gödecke"],
+				"proprietaryBankTransactionCode": "TRANSFER",
+				"internalTransactionId": "e9ad85f54ef0a6b97c20c4aa6e1d781c"
+			},
+			{
+				"transactionId": "67236a1e-ceee-a742-a046-51c0423d4505",
+				"bookingDate": "2024-10-31",
+				"valueDate": "2024-11-01",
+				"bookingDateTime": "2024-10-31T11:29:34.363313Z",
+				"valueDateTime": "2024-11-01T14:11:43.045647Z",
+				"transactionAmount": {
+					"amount": "-13.49",
+					"currency": "EUR"
+				},
+				"creditorName": "Fressnapf",
+				"remittanceInformationUnstructuredArray": ["Fressnapf"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "aa60f00ead95e64d6d0d8a3fb3f2b22b"
+			},
+			{
+				"transactionId": "67222130-a02e-afa0-a442-961012d4fddc",
+				"bookingDate": "2024-10-30",
+				"valueDate": "2024-10-31",
+				"bookingDateTime": "2024-10-30T12:06:08.310394Z",
+				"valueDateTime": "2024-10-31T12:06:54.873221Z",
+				"transactionAmount": {
+					"amount": "-15.04",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "115d08a68cd01c0fbea7e3ff50aec526"
+			},
+			{
+				"transactionId": "671fc661-6c57-a6f0-9f81-26f0bbfc67e7",
+				"bookingDate": "2024-10-28",
+				"valueDate": "2024-10-29",
+				"bookingDateTime": "2024-10-28T17:14:09.310465Z",
+				"valueDateTime": "2024-10-29T11:47:59.571543Z",
+				"transactionAmount": {
+					"amount": "-3.44",
+					"currency": "EUR"
+				},
+				"creditorName": "Getränke Hoffmann Gmbh",
+				"remittanceInformationUnstructuredArray": ["Getränke Hoffmann Gmbh"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "1580aa53d7a7db962ec4bb9b01c3f63e"
+			},
+			{
+				"transactionId": "671fb3ef-745d-ae15-8da2-0ccc7ccd4ad8",
+				"bookingDate": "2024-10-28",
+				"valueDate": "2024-10-29",
+				"bookingDateTime": "2024-10-28T15:55:27.861368Z",
+				"valueDateTime": "2024-10-29T12:24:03.757600Z",
+				"transactionAmount": {
+					"amount": "-19.57",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "06edefeb27840673c343eb9b30ce0e39"
+			},
+			{
+				"transactionId": "671fb9e8-b59b-a759-826b-fb6d7f762f51",
+				"bookingDate": "2024-10-28",
+				"valueDate": "2024-10-28",
+				"bookingDateTime": "2024-10-28T16:20:56.010120Z",
+				"valueDateTime": "2024-10-28T16:21:16.984586Z",
+				"transactionAmount": {
+					"amount": "500.00",
+					"currency": "EUR"
+				},
+				"remittanceInformationUnstructuredArray": ["Top-Up by *8658"],
+				"proprietaryBankTransactionCode": "TOPUP",
+				"internalTransactionId": "24bca0a659dfd3ff7f810a1ca43f23e2"
+			},
+			{
+				"transactionId": "671e2d98-5874-a7e8-9c92-feb4ac3a0bce",
+				"bookingDate": "2024-10-27",
+				"valueDate": "2024-10-28",
+				"bookingDateTime": "2024-10-27T12:10:00.538097Z",
+				"valueDateTime": "2024-10-28T01:51:31.798186Z",
+				"transactionAmount": {
+					"amount": "-32.90",
+					"currency": "EUR"
+				},
+				"creditorName": "Splt-order Food Online",
+				"remittanceInformationUnstructuredArray": ["Splt-Order Food Online"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "f68a4a42af043db2f228bce652411a42"
+			},
+			{
+				"transactionId": "671d032c-9c6b-a3ea-afe4-edbac126890b",
+				"bookingDate": "2024-10-26",
+				"valueDate": "2024-10-27",
+				"bookingDateTime": "2024-10-26T14:56:44.337095Z",
+				"valueDateTime": "2024-10-27T01:52:43.844156Z",
+				"transactionAmount": {
+					"amount": "-10.75",
+					"currency": "EUR"
+				},
+				"creditorName": "Wolt",
+				"remittanceInformationUnstructuredArray": ["Wolt"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "874b99c947177bb3b18e4e5068938889"
+			},
+			{
+				"transactionId": "671bda61-1cf3-a30e-9305-bd1f1ede8deb",
+				"bookingDate": "2024-10-25",
+				"valueDate": "2024-10-27",
+				"bookingDateTime": "2024-10-25T17:50:25.612502Z",
+				"valueDateTime": "2024-10-27T09:03:00.366033Z",
+				"transactionAmount": {
+					"amount": "-349.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Sp Ozlo Eu",
+				"remittanceInformationUnstructuredArray": ["Sp Ozlo Eu"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "bb9845eda97222ea00605aa5bd11c44c"
+			},
+			{
+				"transactionId": "671d6f5e-3e41-ad02-b066-cf5997b82c52",
+				"bookingDate": "2024-10-26",
+				"valueDate": "2024-10-26",
+				"bookingDateTime": "2024-10-26T22:38:22.308756Z",
+				"valueDateTime": "2024-10-26T22:38:22.309Z",
+				"transactionAmount": {
+					"amount": "-60.00",
+					"currency": "EUR"
+				},
+				"remittanceInformationUnstructuredArray": ["Revolut Vault", "To EUR Pro"],
+				"proprietaryBankTransactionCode": "TRANSFER",
+				"internalTransactionId": "039b435db034479567cd802e3f97fb52"
+			},
+			{
+				"transactionId": "671b9444-1e6f-a81c-895f-3f567833e797",
+				"bookingDate": "2024-10-25",
+				"valueDate": "2024-10-26",
+				"bookingDateTime": "2024-10-25T12:51:16.875251Z",
+				"valueDateTime": "2024-10-26T12:15:30.554941Z",
+				"transactionAmount": {
+					"amount": "-28.42",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "170f2397162e9b1fccee1389cd810689"
+			},
+			{
+				"transactionId": "6719fd1a-897a-a84f-988d-ed026da24bbb",
+				"bookingDate": "2024-10-24",
+				"valueDate": "2024-10-25",
+				"bookingDateTime": "2024-10-24T07:54:02.151090Z",
+				"valueDateTime": "2024-10-25T01:52:43.737111Z",
+				"transactionAmount": {
+					"amount": "-12.19",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "a09f22eb35ee737ce3771f13ab56898d"
+			},
+			{
+				"transactionId": "671a6c0b-0f0c-ac07-984b-00d265a134f0",
+				"bookingDate": "2024-10-24",
+				"valueDate": "2024-10-24",
+				"bookingDateTime": "2024-10-24T15:47:23.077711Z",
+				"valueDateTime": "2024-10-24T15:47:23.078141Z",
+				"transactionAmount": {
+					"amount": "-0.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Wolt",
+				"remittanceInformationUnstructuredArray": ["Wolt"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "2f3e8d0bbe8b4cf488a539e9a4e52f29"
+			},
+			{
+				"transactionId": "671a320a-ba12-a8ba-8c73-0f5314e8424d",
+				"bookingDate": "2024-10-24",
+				"valueDate": "2024-10-24",
+				"bookingDateTime": "2024-10-24T11:39:54.692924Z",
+				"valueDateTime": "2024-10-24T14:21:08.400431Z",
+				"transactionAmount": {
+					"amount": "-8.99",
+					"currency": "EUR"
+				},
+				"creditorName": "Amznprime De*tl21f8x04",
+				"remittanceInformationUnstructuredArray": ["Amznprime De"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "904139319bc62631feb3be8105e3cbfb"
+			},
+			{
+				"transactionId": "6717c5a0-d703-a345-b661-b786d47f17ef",
+				"bookingDate": "2024-10-22",
+				"valueDate": "2024-10-23",
+				"bookingDateTime": "2024-10-22T15:32:48.525281Z",
+				"valueDateTime": "2024-10-23T14:27:04.018004Z",
+				"transactionAmount": {
+					"amount": "-87.87",
+					"currency": "EUR"
+				},
+				"creditorName": "Kaufland Berlin Heiner",
+				"remittanceInformationUnstructuredArray": ["Kaufland Berlin Heiner"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "1d2e2398bca054ebb53ec8c229a3094b"
+			},
+			{
+				"transactionId": "67168485-4c41-a833-8c9e-100f2b54e593",
+				"bookingDate": "2024-10-21",
+				"valueDate": "2024-10-22",
+				"bookingDateTime": "2024-10-21T16:42:45.697712Z",
+				"valueDateTime": "2024-10-22T11:33:09.186177Z",
+				"transactionAmount": {
+					"amount": "-14.70",
+					"currency": "EUR"
+				},
+				"creditorName": "Lidl Sagt Danke",
+				"remittanceInformationUnstructuredArray": ["Lidl Sagt Danke"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "d598521b027098204572507cff467a06"
+			},
+			{
+				"transactionId": "67165f2e-8165-a22b-9ba2-dadb5c3aacd4",
+				"bookingDate": "2024-10-21",
+				"valueDate": "2024-10-22",
+				"bookingDateTime": "2024-10-21T14:03:26.676561Z",
+				"valueDateTime": "2024-10-22T11:40:11.936561Z",
+				"transactionAmount": {
+					"amount": "-14.31",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "322e3120be0190331fd67e2f39553726"
+			},
+			{
+				"transactionId": "67165cb8-f5f7-ab3d-acdb-31db892304a4",
+				"bookingDate": "2024-10-21",
+				"valueDate": "2024-10-22",
+				"bookingDateTime": "2024-10-21T13:52:56.442005Z",
+				"valueDateTime": "2024-10-22T04:56:58.290821Z",
+				"transactionAmount": {
+					"amount": "-4.40",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "da0099b2a9edf5e021ff26462b52f470"
+			},
+			{
+				"transactionId": "67160f60-8fe2-ac6f-97c7-1d483bf97f10",
+				"bookingDate": "2024-10-21",
+				"valueDate": "2024-10-22",
+				"bookingDateTime": "2024-10-21T08:22:56.391883Z",
+				"valueDateTime": "2024-10-22T12:06:33.220080Z",
+				"transactionAmount": {
+					"amount": "-2.75",
+					"currency": "EUR"
+				},
+				"creditorName": "Babuschka",
+				"remittanceInformationUnstructuredArray": ["Babuschka"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "a2a846608d1e6309a99a3c6cc0f8d92f"
+			},
+			{
+				"transactionId": "67160a64-739a-a39f-a6b3-9a44394c10e3",
+				"bookingDate": "2024-10-21",
+				"valueDate": "2024-10-21",
+				"bookingDateTime": "2024-10-21T08:01:40.257157Z",
+				"valueDateTime": "2024-10-21T15:46:01.249999Z",
+				"transactionAmount": {
+					"amount": "-7.40",
+					"currency": "EUR"
+				},
+				"creditorName": "Splt-order Food Online",
+				"remittanceInformationUnstructuredArray": ["Splt-Order Food Online"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "93cfc556ec0c51310b7782b2341468d9"
+			},
+			{
+				"transactionId": "6714fd83-3193-aca4-a105-7933d996a82d",
+				"bookingDate": "2024-10-20",
+				"valueDate": "2024-10-21",
+				"bookingDateTime": "2024-10-20T12:54:27.647936Z",
+				"valueDateTime": "2024-10-21T05:01:39.350074Z",
+				"transactionAmount": {
+					"amount": "-30.42",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "42bf86f28428299f92d0dfa4a4a01348"
+			},
+			{
+				"transactionId": "6714bdbf-38a4-a0ac-a26f-2394039359c6",
+				"bookingDate": "2024-10-20",
+				"valueDate": "2024-10-21",
+				"bookingDateTime": "2024-10-20T08:22:23.802928Z",
+				"valueDateTime": "2024-10-21T05:15:25.847735Z",
+				"transactionAmount": {
+					"amount": "-4.30",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "889381bfd0efd5d38f95d8f93f6b2f70"
+			},
+			{
+				"transactionId": "6714b7c9-65f1-ac11-b9e6-ae63f7e54807",
+				"bookingDate": "2024-10-20",
+				"valueDate": "2024-10-21",
+				"bookingDateTime": "2024-10-20T07:56:57.502047Z",
+				"valueDateTime": "2024-10-21T05:15:20.155296Z",
+				"transactionAmount": {
+					"amount": "-8.55",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "81f57abae54926664e17b6d6ea42365d"
+			},
+			{
+				"transactionId": "67143d54-d213-abef-9145-47cb99b58fc6",
+				"bookingDate": "2024-10-19",
+				"valueDate": "2024-10-19",
+				"bookingDateTime": "2024-10-19T23:14:28.785305Z",
+				"valueDateTime": "2024-10-19T23:14:28.914215Z",
+				"transactionAmount": {
+					"amount": "-1200.00",
+					"currency": "EUR"
+				},
+				"creditorName": "INVESTMENT ACCOUNT",
+				"debtorName": "DAVID JOHAN ARUN GRANZIN",
+				"debtorAccount": {
+					"iban": "LT093250055815608860"
+				},
+				"remittanceInformationUnstructuredArray": ["To investment account"],
+				"proprietaryBankTransactionCode": "TRANSFER",
+				"internalTransactionId": "ee8e6f406d4dcaedbb4d5b0495648b3e"
+			},
+			{
+				"transactionId": "67143d22-f8f0-a1d8-ba81-3e977fe1376f",
+				"bookingDate": "2024-10-19",
+				"valueDate": "2024-10-19",
+				"bookingDateTime": "2024-10-19T23:13:38.431497Z",
+				"valueDateTime": "2024-10-19T23:14:04.955609Z",
+				"transactionAmount": {
+					"amount": "1500.00",
+					"currency": "EUR"
+				},
+				"remittanceInformationUnstructuredArray": ["Top-Up by *8658"],
+				"proprietaryBankTransactionCode": "TOPUP",
+				"internalTransactionId": "040c3be2dd3f2922d406edf26cb1ba00"
+			},
+			{
+				"transactionId": "67121ae1-4c29-a5d4-8b20-7a991e14d4f5",
+				"bookingDate": "2024-10-18",
+				"valueDate": "2024-10-19",
+				"bookingDateTime": "2024-10-18T08:22:57.227677Z",
+				"valueDateTime": "2024-10-19T05:06:10.712112Z",
+				"transactionAmount": {
+					"amount": "-7.40",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "fedeeb84b41d32d75742c86485b7f1c7"
+			},
+			{
+				"transactionId": "67116a80-2497-a0fd-8353-c130102c1315",
+				"bookingDate": "2024-10-17",
+				"valueDate": "2024-10-18",
+				"bookingDateTime": "2024-10-17T19:50:24.044716Z",
+				"valueDateTime": "2024-10-18T13:47:39.690205Z",
+				"transactionAmount": {
+					"amount": "-9.52",
+					"currency": "EUR"
+				},
+				"creditorName": "X Corp. Paid Features",
+				"remittanceInformationUnstructuredArray": ["X Corp. Paid Features"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "88c1e2c6f2e217616ecda60bc6498d1b"
+			},
+			{
+				"transactionId": "6710ebd8-da92-a1d7-9454-e44964503ade",
+				"bookingDate": "2024-10-17",
+				"valueDate": "2024-10-18",
+				"bookingDateTime": "2024-10-17T10:50:00.719757Z",
+				"valueDateTime": "2024-10-18T04:52:14.714710Z",
+				"transactionAmount": {
+					"amount": "-15.45",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "31f46f05b33213b4e56eb0f5cfffd484"
+			},
+			{
+				"transactionId": "6710c744-f289-a7c0-9b9f-b3995616a832",
+				"bookingDate": "2024-10-17",
+				"valueDate": "2024-10-18",
+				"bookingDateTime": "2024-10-17T08:13:56.420786Z",
+				"valueDateTime": "2024-10-18T08:34:59.764373Z",
+				"transactionAmount": {
+					"amount": "-10.25",
+					"currency": "EUR"
+				},
+				"creditorName": "Hetzner Online Gmbh",
+				"remittanceInformationUnstructuredArray": ["Hetzner Online Gmbh"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "0c5ddb02a21c9a051b45d19e3a124e15"
+			},
+			{
+				"transactionId": "6710c431-fb0d-a4b3-a48e-a5fd7c919b6d",
+				"bookingDate": "2024-10-17",
+				"valueDate": "2024-10-18",
+				"bookingDateTime": "2024-10-17T08:00:49.506677Z",
+				"valueDateTime": "2024-10-18T05:39:08.561253Z",
+				"transactionAmount": {
+					"amount": "-4.30",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "79972e8f5ef4de03b875c4c6f2a72151"
+			},
+			{
+				"transactionId": "67108d4b-f342-a78c-a7bc-67b71b2149de",
+				"bookingDate": "2024-10-17",
+				"valueDate": "2024-10-17",
+				"bookingDateTime": "2024-10-17T04:06:35.518758Z",
+				"valueDateTime": "2024-10-17T13:37:54.599779Z",
+				"transactionAmount": {
+					"amount": "-8.21",
+					"currency": "EUR"
+				},
+				"creditorName": "Sqsp* Inv153993384",
+				"remittanceInformationUnstructuredArray": ["Sqsp* Inv153993384"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "563675d07335eae435e1c7fa5f5c0b31"
+			},
+			{
+				"transactionId": "670fdd0d-8031-aed1-8c5f-b8064f46a7c9",
+				"bookingDate": "2024-10-16",
+				"valueDate": "2024-10-17",
+				"bookingDateTime": "2024-10-16T15:34:37.385514Z",
+				"valueDateTime": "2024-10-17T01:51:36.577504Z",
+				"transactionAmount": {
+					"amount": "-49.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *las Miras Stea",
+				"remittanceInformationUnstructuredArray": ["Sumup *las Miras Stea"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "14d543085821fe95e0d6ef6d6cb45a17"
+			},
+			{
+				"transactionId": "670f6fe2-82cc-a2e3-a80e-a68fce3cfa05",
+				"bookingDate": "2024-10-16",
+				"valueDate": "2024-10-16",
+				"bookingDateTime": "2024-10-16T07:48:50.883715Z",
+				"valueDateTime": "2024-10-16T14:27:25.415519Z",
+				"transactionAmount": {
+					"amount": "-9.60",
+					"currency": "EUR"
+				},
+				"creditorName": "Splt-order Food Online",
+				"remittanceInformationUnstructuredArray": ["Splt-Order Food Online"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "5c3c3fa44a86be11b86440c37a135b52"
+			},
+			{
+				"transactionId": "670ec0a5-7791-af73-aaba-ef9127c7d52b",
+				"bookingDate": "2024-10-15",
+				"valueDate": "2024-10-16",
+				"bookingDateTime": "2024-10-15T19:21:09.536330Z",
+				"valueDateTime": "2024-10-16T11:59:07.992905Z",
+				"transactionAmount": {
+					"amount": "-4.99",
+					"currency": "EUR"
+				},
+				"creditorName": "Ubr* Pending.uber.com",
+				"remittanceInformationUnstructuredArray": ["Ubr* Pending.uber.com"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "a2af1b49307663c213dbb9c070ef24b4"
+			},
+			{
+				"transactionId": "670e2063-9ba7-a8b1-b898-d8f23374c9f4",
+				"bookingDate": "2024-10-15",
+				"valueDate": "2024-10-16",
+				"bookingDateTime": "2024-10-15T07:57:23.181757Z",
+				"valueDateTime": "2024-10-16T05:22:47.883249Z",
+				"transactionAmount": {
+					"amount": "-7.35",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "4304a36d94d5a6117f77f2780e14dadc"
+			},
+			{
+				"transactionId": "670d204a-196f-ac39-84f7-3dff98f0bd9a",
+				"bookingDate": "2024-10-14",
+				"valueDate": "2024-10-15",
+				"bookingDateTime": "2024-10-14T13:44:42.646016Z",
+				"valueDateTime": "2024-10-15T05:14:53.525232Z",
+				"transactionAmount": {
+					"amount": "-4.40",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "b83fb1f0e16645f0e31fa9e58e8c3f6f"
+			},
+			{
+				"transactionId": "670cf917-12c0-a0d5-a930-bf28c7463fd6",
+				"bookingDate": "2024-10-14",
+				"valueDate": "2024-10-15",
+				"bookingDateTime": "2024-10-14T10:57:27.312135Z",
+				"valueDateTime": "2024-10-15T02:59:13.243888Z",
+				"transactionAmount": {
+					"amount": "-12.94",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "58ee6974c41deab60cdf070d67f21a77"
+			},
+			{
+				"transactionId": "670bc8bc-7aa7-aeea-a020-d720d1f629c3",
+				"bookingDate": "2024-10-13",
+				"valueDate": "2024-10-14",
+				"bookingDateTime": "2024-10-13T13:18:52.758639Z",
+				"valueDateTime": "2024-10-14T02:59:56.724307Z",
+				"transactionAmount": {
+					"amount": "-100.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *torten  Schnit",
+				"remittanceInformationUnstructuredArray": ["Sumup *torten Schnit"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "389c2cb0c6345dd078df2e31ac4a1310"
+			},
+			{
+				"transactionId": "670b7b23-ed91-afbe-b37a-8843beb6ae51",
+				"bookingDate": "2024-10-13",
+				"valueDate": "2024-10-14",
+				"bookingDateTime": "2024-10-13T07:47:47.669491Z",
+				"valueDateTime": "2024-10-14T05:16:23.579207Z",
+				"transactionAmount": {
+					"amount": "-5.90",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "6940670d2dad78ae542c459f2cf83cc5"
+			},
+			{
+				"transactionId": "670a5e28-055f-a690-90a9-e9edb2df38fe",
+				"bookingDate": "2024-10-12",
+				"valueDate": "2024-10-14",
+				"bookingDateTime": "2024-10-12T11:31:52.637832Z",
+				"valueDateTime": "2024-10-14T13:04:14.007221Z",
+				"transactionAmount": {
+					"amount": "-26.60",
+					"currency": "EUR"
+				},
+				"creditorName": "Frittenwerk Berlin",
+				"remittanceInformationUnstructuredArray": ["Frittenwerk Berlin"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "c6e6246f8cc763bffc07253cf72b7307"
+			},
+			{
+				"transactionId": "6708d657-fd07-a6f8-8497-af036e54a5ba",
+				"bookingDate": "2024-10-11",
+				"valueDate": "2024-10-12",
+				"bookingDateTime": "2024-10-11T07:40:07.683738Z",
+				"valueDateTime": "2024-10-12T05:21:59.364233Z",
+				"transactionAmount": {
+					"amount": "-6.70",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "2461b1d66096a2bd92701dea663c9242"
+			},
+			{
+				"transactionId": "670785fc-fc5e-ab83-8073-53655c657270",
+				"bookingDate": "2024-10-10",
+				"valueDate": "2024-10-11",
+				"bookingDateTime": "2024-10-10T07:45:00.527649Z",
+				"valueDateTime": "2024-10-11T05:10:12.904061Z",
+				"transactionAmount": {
+					"amount": "-6.30",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "179fbe2389f56a3fefbbd6036abfede3"
+			},
+			{
+				"transactionId": "6704eafd-c83e-ad06-bba2-96eb3c9f8810",
+				"bookingDate": "2024-10-08",
+				"valueDate": "2024-10-09",
+				"bookingDateTime": "2024-10-08T08:19:09.376030Z",
+				"valueDateTime": "2024-10-09T11:53:12.285463Z",
+				"transactionAmount": {
+					"amount": "-4.60",
+					"currency": "EUR"
+				},
+				"creditorName": "Mohamad Mehdi Ayad",
+				"remittanceInformationUnstructuredArray": ["Mohamad Mehdi Ayad"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "b1a8e4090b4a82ee641aa27b6f855864"
+			},
+			{
+				"transactionId": "6703379b-6946-a5ea-9119-4b298c83c450",
+				"bookingDate": "2024-10-07",
+				"valueDate": "2024-10-07",
+				"bookingDateTime": "2024-10-07T01:21:31.969725Z",
+				"valueDateTime": "2024-10-07T01:21:33.191053Z",
+				"transactionAmount": {
+					"amount": "300.00",
+					"currency": "EUR"
+				},
+				"debtorName": "CHANTALE GOEDECKE",
+				"debtorAccount": {
+					"iban": "DE68278937601012782800"
+				},
+				"remittanceInformationUnstructuredArray": ["Payment from Chantale Goedecke"],
+				"proprietaryBankTransactionCode": "TOPUP",
+				"internalTransactionId": "64693080d1d05ca36d1f55aa39e52717"
+			},
+			{
+				"transactionId": "67028cc1-a8a2-a50a-bb75-1f1d10d6a5d2",
+				"bookingDate": "2024-10-06",
+				"valueDate": "2024-10-07",
+				"bookingDateTime": "2024-10-06T13:12:33.089894Z",
+				"valueDateTime": "2024-10-07T06:09:52.020114Z",
+				"transactionAmount": {
+					"amount": "-27.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Hotel Schloss Luebbena",
+				"remittanceInformationUnstructuredArray": ["Hotel Schloss Luebbena"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "07f66e583869dc7256294f163a32ca8a"
+			},
+			{
+				"transactionId": "67025ce8-8a45-a845-87c6-b14e3a8f3244",
+				"bookingDate": "2024-10-06",
+				"valueDate": "2024-10-07",
+				"bookingDateTime": "2024-10-06T09:48:24.803183Z",
+				"valueDateTime": "2024-10-07T01:32:06.228250Z",
+				"transactionAmount": {
+					"amount": "-25.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Db Vertrieb Gmbh",
+				"remittanceInformationUnstructuredArray": ["Db Vertrieb Gmbh"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "a5d396b214b37817a54a549d43fb6100"
+			},
+			{
+				"transactionId": "67024fab-46ab-aa23-8601-86a24a0c737d",
+				"bookingDate": "2024-10-06",
+				"valueDate": "2024-10-07",
+				"bookingDateTime": "2024-10-06T08:51:55.733842Z",
+				"valueDateTime": "2024-10-07T01:10:13.139579Z",
+				"transactionAmount": {
+					"amount": "-5.00",
+					"currency": "EUR"
+				},
+				"creditorName": "KOSTENEINZIEHUNGSSTELLE DER JUSTIZ",
+				"creditorAccount": {
+					"iban": "DE20100100100000352108"
+				},
+				"remittanceInformationUnstructuredArray": [
+					"To Kosteneinziehungsstelle der Justiz",
+					"Sent from Revolut"
+				],
+				"proprietaryBankTransactionCode": "TRANSFER",
+				"internalTransactionId": "80b474af5107a745e8c2169a78c787ee"
+			},
+			{
+				"transactionId": "6702480b-c4ec-a113-861b-ca218d7ca43e",
+				"bookingDate": "2024-10-06",
+				"valueDate": "2024-10-07",
+				"bookingDateTime": "2024-10-06T08:19:23.215297Z",
+				"valueDateTime": "2024-10-07T05:48:45.688275Z",
+				"transactionAmount": {
+					"amount": "-260.20",
+					"currency": "EUR"
+				},
+				"creditorName": "Radisson Blu",
+				"remittanceInformationUnstructuredArray": ["Radisson Blu Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "17fb6f00c344d4e9631e3bb7d015d5e2"
+			},
+			{
+				"transactionId": "6702454d-af18-aec0-a436-1b419cea6dc1",
+				"bookingDate": "2024-10-06",
+				"valueDate": "2024-10-06",
+				"bookingDateTime": "2024-10-06T08:07:41.043235Z",
+				"valueDateTime": "2024-10-06T08:08:15.232303Z",
+				"transactionAmount": {
+					"amount": "500.00",
+					"currency": "EUR"
+				},
+				"remittanceInformationUnstructuredArray": ["Top-Up by *8658"],
+				"proprietaryBankTransactionCode": "TOPUP",
+				"internalTransactionId": "9bb5776d8d9b52baa9830b29e03ab639"
+			},
+			{
+				"transactionId": "67013321-2847-a8f7-8ec5-997672c5b44e",
+				"bookingDate": "2024-10-05",
+				"valueDate": "2024-10-06",
+				"bookingDateTime": "2024-10-05T12:37:53.981019Z",
+				"valueDateTime": "2024-10-06T13:29:51.767071Z",
+				"transactionAmount": {
+					"amount": "-15.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Hugendubel",
+				"remittanceInformationUnstructuredArray": ["Hugendubel"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "f9dfed2ceaf11bcbf22c456c0f7c3c0c"
+			},
+			{
+				"transactionId": "6700fca3-ae8a-a2e4-a5a3-6fd3b5a33c62",
+				"bookingDate": "2024-10-05",
+				"valueDate": "2024-10-06",
+				"bookingDateTime": "2024-10-05T08:45:23.258160Z",
+				"valueDateTime": "2024-10-06T07:00:35.318003Z",
+				"transactionAmount": {
+					"amount": "-4.90",
+					"currency": "EUR"
+				},
+				"creditorName": "Db Vertrieb Gmbh",
+				"remittanceInformationUnstructuredArray": ["Db Vertrieb Gmbh"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "507ee568b0bdfc706192ec916af8dcfc"
+			},
+			{
+				"transactionId": "6700077d-85f2-ac77-9d0a-59490ab96b98",
+				"bookingDate": "2024-10-04",
+				"valueDate": "2024-10-05",
+				"bookingDateTime": "2024-10-04T15:19:25.959615Z",
+				"valueDateTime": "2024-10-05T14:07:54.553138Z",
+				"transactionAmount": {
+					"amount": "-11.99",
+					"currency": "EUR"
+				},
+				"creditorName": "Gamestop Deutschland G",
+				"remittanceInformationUnstructuredArray": ["Gamestop Deutschland G"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "65e3ff91bb8def06a65614a417ce8384"
+			},
+			{
+				"transactionId": "66ffcebe-307b-ad01-a067-f67e569f311d",
+				"bookingDate": "2024-10-04",
+				"valueDate": "2024-10-05",
+				"bookingDateTime": "2024-10-04T11:17:18.077990Z",
+				"valueDateTime": "2024-10-05T01:47:19.457732Z",
+				"transactionAmount": {
+					"amount": "-2.30",
+					"currency": "EUR"
+				},
+				"creditorName": "Db Vertrieb Gmbh",
+				"remittanceInformationUnstructuredArray": ["Db Vertrieb Gmbh"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "5e36a5a5031d727860d0f14cd0a15836"
+			},
+			{
+				"transactionId": "66feab5b-4bcc-a476-a4f0-bb431faf681d",
+				"bookingDate": "2024-10-03",
+				"valueDate": "2024-10-04",
+				"bookingDateTime": "2024-10-03T14:34:03.736825Z",
+				"valueDateTime": "2024-10-04T01:43:01.016195Z",
+				"transactionAmount": {
+					"amount": "-65.67",
+					"currency": "EUR"
+				},
+				"creditorName": "Schlodder Gastronomie",
+				"remittanceInformationUnstructuredArray": ["Schlodder Gastronomie"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "7ebff249d4302aa8579b9825d3457143"
+			},
+			{
+				"transactionId": "66fe6ef3-3b85-a89a-8201-35c2a2769e0e",
+				"bookingDate": "2024-10-03",
+				"valueDate": "2024-10-04",
+				"bookingDateTime": "2024-10-03T10:16:19.721806Z",
+				"valueDateTime": "2024-10-04T01:37:40.656214Z",
+				"transactionAmount": {
+					"amount": "-17.50",
+					"currency": "EUR"
+				},
+				"creditorName": "Db Vertrieb Gmbh",
+				"remittanceInformationUnstructuredArray": ["Db Vertrieb Gmbh"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "6516e82d43f37e8b6f857f9d662a228c"
+			},
+			{
+				"transactionId": "66fe5c3f-a583-a87a-92be-fe49ffa34511",
+				"bookingDate": "2024-10-03",
+				"valueDate": "2024-10-04",
+				"bookingDateTime": "2024-10-03T08:56:31.530090Z",
+				"valueDateTime": "2024-10-04T01:57:53.915923Z",
+				"transactionAmount": {
+					"amount": "-23.99",
+					"currency": "EUR"
+				},
+				"creditorName": "Google *youtubepremium",
+				"remittanceInformationUnstructuredArray": ["Google *youtubepremium"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "56dc1a3e436a316aea16bb9ac0c19575"
+			},
+			{
+				"transactionId": "66fe5c25-f893-a7ab-8c27-bb0de34437d7",
+				"bookingDate": "2024-10-03",
+				"valueDate": "2024-10-03",
+				"bookingDateTime": "2024-10-03T08:56:05.017367Z",
+				"valueDateTime": "2024-10-03T08:56:05.017928Z",
+				"transactionAmount": {
+					"amount": "-0.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Google *temporary Hold",
+				"remittanceInformationUnstructuredArray": ["Google *temporary Hold"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "a424bd00edc7a09f6df8f98dd11b89a1"
+			},
+			{
+				"transactionId": "66fd5d4c-e8c1-a76c-918b-94765bf7a433",
+				"bookingDate": "2024-10-02",
+				"valueDate": "2024-10-03",
+				"bookingDateTime": "2024-10-02T14:48:44.151358Z",
+				"valueDateTime": "2024-10-03T04:41:29.353379Z",
+				"transactionAmount": {
+					"amount": "-25.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Zettle_*cheap Style",
+				"remittanceInformationUnstructuredArray": ["Zettle_*cheap Style"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "3474670fbfc7443be44ed3d7c50966da"
+			},
+			{
+				"transactionId": "66fbf32c-f790-a986-b392-1aceb4109a62",
+				"bookingDate": "2024-10-01",
+				"valueDate": "2024-10-02",
+				"bookingDateTime": "2024-10-01T13:03:40.630794Z",
+				"valueDateTime": "2024-10-02T05:23:00.885462Z",
+				"transactionAmount": {
+					"amount": "-4.30",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "d25d3c7b02f7b254dc9cee005e619515"
+			},
+			{
+				"transactionId": "66fa4e5d-1008-a2b1-877b-db19c94536a7",
+				"bookingDate": "2024-09-30",
+				"valueDate": "2024-10-01",
+				"bookingDateTime": "2024-09-30T07:08:13.456141Z",
+				"valueDateTime": "2024-10-01T05:04:13.200034Z",
+				"transactionAmount": {
+					"amount": "-6.70",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "74dc2ab35dad79589a0424f40142fa73"
+			},
+			{
+				"transactionId": "66fa030a-2d6c-a54c-85d2-c718afed0c00",
+				"bookingDate": "2024-09-30",
+				"valueDate": "2024-10-01",
+				"bookingDateTime": "2024-09-30T01:46:50.508056Z",
+				"valueDateTime": "2024-10-01T01:53:37.042071Z",
+				"transactionAmount": {
+					"amount": "286.06",
+					"currency": "EUR"
+				},
+				"debtorName": "PARTNERS ON BOOKING BV",
+				"remittanceInformationUnstructuredArray": ["Refund from Partners On Booking Bv"],
+				"proprietaryBankTransactionCode": "CARD_REFUND",
+				"internalTransactionId": "d545e68d7d4f97540e36fd71d84aeb48"
+			},
+			{
+				"transactionId": "66fa99dc-568b-a9d2-bbeb-db40e3ffc367",
+				"bookingDate": "2024-09-30",
+				"valueDate": "2024-09-30",
+				"bookingDateTime": "2024-09-30T12:30:20.442960Z",
+				"valueDateTime": "2024-09-30T12:30:20.443234Z",
+				"transactionAmount": {
+					"amount": "11.18",
+					"currency": "EUR"
+				},
+				"remittanceInformationUnstructuredArray": ["To EUR"],
+				"proprietaryBankTransactionCode": "TRANSFER",
+				"internalTransactionId": "54e47acaa884754475ca276685b1e552"
+			},
+			{
+				"transactionId": "66f94feb-2c98-af4b-a966-f5f76a1972c0",
+				"bookingDate": "2024-09-29",
+				"valueDate": "2024-09-30",
+				"bookingDateTime": "2024-09-29T13:02:35.241810Z",
+				"valueDateTime": "2024-09-30T01:46:50.457851Z",
+				"transactionAmount": {
+					"amount": "-340.55",
+					"currency": "EUR"
+				},
+				"creditorName": "Partners On Booking Bv",
+				"remittanceInformationUnstructuredArray": ["Partners On Booking Bv"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "121ade0a29dfcc833c013265808cad75"
+			},
+			{
+				"transactionId": "66f903f8-5104-a55b-875f-21ac22e6960d",
+				"bookingDate": "2024-09-29",
+				"valueDate": "2024-09-30",
+				"bookingDateTime": "2024-09-29T07:38:32.982601Z",
+				"valueDateTime": "2024-09-30T05:16:40.475062Z",
+				"transactionAmount": {
+					"amount": "-48.78",
+					"currency": "EUR"
+				},
+				"creditorName": "Amazon.de*ta0ig2ez4",
+				"remittanceInformationUnstructuredArray": ["amazon.de"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "ecbe55a5466f57e85f0ac0341ff3a1bf"
+			},
+			{
+				"transactionId": "66f90302-719c-a463-9372-7b27017c005e",
+				"bookingDate": "2024-09-29",
+				"valueDate": "2024-09-30",
+				"bookingDateTime": "2024-09-29T07:34:26.961985Z",
+				"valueDateTime": "2024-09-30T05:11:17.583915Z",
+				"transactionAmount": {
+					"amount": "-6.60",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "9c779a2118cc8c2346c9daac2f452104"
+			},
+			{
+				"transactionId": "66f904a6-73fe-a67a-9ff5-a3b7ff3fd432",
+				"bookingDate": "2024-09-29",
+				"valueDate": "2024-09-29",
+				"bookingDateTime": "2024-09-29T07:41:26.151859Z",
+				"valueDateTime": "2024-09-29T07:41:26.152404Z",
+				"transactionAmount": {
+					"amount": "-0.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Amazon Eu",
+				"remittanceInformationUnstructuredArray": ["Amazon Eu"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "972c555dba9bee93631753104c0bb1af"
+			},
+			{
+				"transactionId": "66f8059d-4ef0-a30a-8dd3-5c173b695178",
+				"bookingDate": "2024-09-28",
+				"valueDate": "2024-09-29",
+				"bookingDateTime": "2024-09-28T13:33:17.627003Z",
+				"valueDateTime": "2024-09-29T06:45:58.479828Z",
+				"transactionAmount": {
+					"amount": "-19.76",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "a8ac199a13a3b99f1ead6e48ffcf5712"
+			},
+			{
+				"transactionId": "66f7d4d5-4341-a089-904f-f05aad2a8b16",
+				"bookingDate": "2024-09-28",
+				"valueDate": "2024-09-29",
+				"bookingDateTime": "2024-09-28T10:05:09.415663Z",
+				"valueDateTime": "2024-09-29T06:39:22.447487Z",
+				"transactionAmount": {
+					"amount": "-24.14",
+					"currency": "EUR"
+				},
+				"creditorName": "Netto Marken-discount",
+				"remittanceInformationUnstructuredArray": ["Netto Marken-Discount"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "96aba8d6917d9ce7abdd5668264655b1"
+			},
+			{
+				"transactionId": "66f7db30-9e1d-abf9-b942-168290e94a11",
+				"bookingDate": "2024-09-28",
+				"valueDate": "2024-09-28",
+				"bookingDateTime": "2024-09-28T10:32:16.470143Z",
+				"valueDateTime": "2024-09-28T15:46:43.383115Z",
+				"transactionAmount": {
+					"amount": "-10.80",
+					"currency": "EUR"
+				},
+				"creditorName": "Www.riverty.com*bvg",
+				"remittanceInformationUnstructuredArray": ["Www.riverty.com*bvg"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "e24cabdce5c1b3d196d8397071668772"
+			},
+			{
+				"transactionId": "66f6e30a-8a36-a20d-a4cf-33f9f4ca72bd",
+				"bookingDate": "2024-09-27",
+				"valueDate": "2024-09-28",
+				"bookingDateTime": "2024-09-27T16:53:30.615661Z",
+				"valueDateTime": "2024-09-28T04:37:00.133428Z",
+				"transactionAmount": {
+					"amount": "-10.80",
+					"currency": "EUR"
+				},
+				"creditorName": "Zeit Fuer Brot",
+				"remittanceInformationUnstructuredArray": ["Zeit Fuer Brot"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "c5f4bf2e5ee1900aa4e89425329b29ba"
+			},
+			{
+				"transactionId": "66f6e122-df12-a3c4-9270-9bd001a80bb5",
+				"bookingDate": "2024-09-27",
+				"valueDate": "2024-09-28",
+				"bookingDateTime": "2024-09-27T16:45:22.679908Z",
+				"valueDateTime": "2024-09-28T05:08:04.796462Z",
+				"transactionAmount": {
+					"amount": "-51.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Uzr*takumi Nine",
+				"remittanceInformationUnstructuredArray": ["Uzr*takumi Nine"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "7ed8b086cd7dafa7e478853e4113a36b"
+			},
+			{
+				"transactionId": "66f58b78-9207-ae26-a22f-b92a242526f0",
+				"bookingDate": "2024-09-26",
+				"valueDate": "2024-09-27",
+				"bookingDateTime": "2024-09-26T16:27:36.285268Z",
+				"valueDateTime": "2024-09-27T04:53:09.522197Z",
+				"transactionAmount": {
+					"amount": "-3.88",
+					"currency": "EUR"
+				},
+				"creditorName": "Getränke Hoffmann Gmbh",
+				"remittanceInformationUnstructuredArray": ["Getränke Hoffmann Gmbh"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "d9b24ea31190c6681617655e8fdfae36"
+			},
+			{
+				"transactionId": "66f58ad1-7d30-a598-859f-3b9ceaae0cc9",
+				"bookingDate": "2024-09-26",
+				"valueDate": "2024-09-27",
+				"bookingDateTime": "2024-09-26T16:24:49.105950Z",
+				"valueDateTime": "2024-09-27T04:57:46.095229Z",
+				"transactionAmount": {
+					"amount": "-17.82",
+					"currency": "EUR"
+				},
+				"creditorName": "Lidl Sagt Danke",
+				"remittanceInformationUnstructuredArray": ["Lidl Sagt Danke"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "81291cd3f335d60c540860d5ff1ddce9"
+			},
+			{
+				"transactionId": "66f2c40d-d530-a02b-acf9-f8fd5634f7fb",
+				"bookingDate": "2024-09-24",
+				"valueDate": "2024-09-26",
+				"bookingDateTime": "2024-09-24T13:52:13.020013Z",
+				"valueDateTime": "2024-09-26T05:31:19.920017Z",
+				"transactionAmount": {
+					"amount": "-32.97",
+					"currency": "EUR"
+				},
+				"creditorName": "Amzn Mktp De*th2i74q24",
+				"remittanceInformationUnstructuredArray": ["Amzn Mktp De"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "21d6272afd9f1c30b218b54bd9564968"
+			},
+			{
+				"transactionId": "66f3c382-092d-a03d-964c-3e6ea7ede133",
+				"bookingDate": "2024-09-25",
+				"valueDate": "2024-09-26",
+				"bookingDateTime": "2024-09-25T08:02:10.297437Z",
+				"valueDateTime": "2024-09-26T05:27:31.887377Z",
+				"transactionAmount": {
+					"amount": "-7.40",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "81e89de599ad8c02637ccffd3decb81f"
+			},
+			{
+				"transactionId": "66f2e197-9d16-a949-9f02-868a7425f3ab",
+				"bookingDate": "2024-09-24",
+				"valueDate": "2024-09-25",
+				"bookingDateTime": "2024-09-24T15:58:15.733548Z",
+				"valueDateTime": "2024-09-25T05:10:58.591351Z",
+				"transactionAmount": {
+					"amount": "-9.99",
+					"currency": "EUR"
+				},
+				"creditorName": "Amzn Mktp De*th8ry95t4",
+				"remittanceInformationUnstructuredArray": ["Amzn Mktp De"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "d1c892d7b29b10b5cee50f51baf93cba"
+			},
+			{
+				"transactionId": "66f2a620-aefc-a45e-95da-884b674bc501",
+				"bookingDate": "2024-09-24",
+				"valueDate": "2024-09-25",
+				"bookingDateTime": "2024-09-24T11:44:32.403536Z",
+				"valueDateTime": "2024-09-25T01:42:30.207515Z",
+				"transactionAmount": {
+					"amount": "-8.99",
+					"currency": "EUR"
+				},
+				"creditorName": "Amznprime De*th7zr4xp4",
+				"remittanceInformationUnstructuredArray": ["Amznprime De"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "f1f845d2ac92d47b9f21da4d8e941de1"
+			},
+			{
+				"transactionId": "66f27767-4a6b-ac25-8f6b-179e3fd0567d",
+				"bookingDate": "2024-09-24",
+				"valueDate": "2024-09-25",
+				"bookingDateTime": "2024-09-24T08:25:11.108508Z",
+				"valueDateTime": "2024-09-25T01:52:54.699972Z",
+				"transactionAmount": {
+					"amount": "-11.50",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "69cc812d8767bd51fbf4bd45c95c1383"
+			},
+			{
+				"transactionId": "66f176b3-300f-a469-a1b8-0737482a6018",
+				"bookingDate": "2024-09-23",
+				"valueDate": "2024-09-24",
+				"bookingDateTime": "2024-09-23T14:09:55.657811Z",
+				"valueDateTime": "2024-09-24T12:21:43.473931Z",
+				"transactionAmount": {
+					"amount": "-3.13",
+					"currency": "EUR"
+				},
+				"creditorName": "Fressnapf",
+				"remittanceInformationUnstructuredArray": ["Fressnapf"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "027a7be94e8fef794305df5414680129"
+			},
+			{
+				"transactionId": "66f11cc8-6a21-a5df-9e6e-3d75451f3193",
+				"bookingDate": "2024-09-23",
+				"valueDate": "2024-09-24",
+				"bookingDateTime": "2024-09-23T07:46:16.757260Z",
+				"valueDateTime": "2024-09-24T05:07:53.064453Z",
+				"transactionAmount": {
+					"amount": "-6.60",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "36b27e063915aed5c52aa38c914c4ff6"
+			},
+			{
+				"transactionId": "66efc567-5152-a2d0-ab48-f24720cd5cf1",
+				"bookingDate": "2024-09-22",
+				"valueDate": "2024-09-23",
+				"bookingDateTime": "2024-09-22T07:21:11.376149Z",
+				"valueDateTime": "2024-09-23T05:10:04.375376Z",
+				"transactionAmount": {
+					"amount": "-6.70",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "63a72ed59813938d8f3bb94048bd0160"
+			},
+			{
+				"transactionId": "66ee99d1-78ce-ad3c-b865-e1df2ee09b8d",
+				"bookingDate": "2024-09-21",
+				"valueDate": "2024-09-23",
+				"bookingDateTime": "2024-09-21T10:02:57.947762Z",
+				"valueDateTime": "2024-09-23T01:56:55.972228Z",
+				"transactionAmount": {
+					"amount": "-4.94",
+					"currency": "EUR"
+				},
+				"creditorName": "Amazon.de*th35j33j4",
+				"remittanceInformationUnstructuredArray": ["amazon.de"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "ea24d7c350e47a5a4e655969b2d6c468"
+			},
+			{
+				"transactionId": "66eee1d0-2c67-a86b-9c2a-b4d00de35cbf",
+				"bookingDate": "2024-09-21",
+				"valueDate": "2024-09-22",
+				"bookingDateTime": "2024-09-21T15:10:08.908809Z",
+				"valueDateTime": "2024-09-22T11:57:54.531602Z",
+				"transactionAmount": {
+					"amount": "-33.98",
+					"currency": "EUR"
+				},
+				"creditorName": "Amzn Mktp De*th8e66fn4",
+				"remittanceInformationUnstructuredArray": ["Amzn Mktp De"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "ea6ce53d17c87531e9d5e0d6c7077a4b"
+			},
+			{
+				"transactionId": "66ee7ff8-d07a-a097-9ee0-9871d6e74c23",
+				"bookingDate": "2024-09-21",
+				"valueDate": "2024-09-22",
+				"bookingDateTime": "2024-09-21T08:12:40.711227Z",
+				"valueDateTime": "2024-09-22T05:14:29.593038Z",
+				"transactionAmount": {
+					"amount": "-7.40",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "41a10f687dc71468aacb2e480d61dada"
+			},
+			{
+				"transactionId": "66ee84c9-2b93-aab9-899b-33cfed731cc8",
+				"bookingDate": "2024-09-21",
+				"valueDate": "2024-09-21",
+				"bookingDateTime": "2024-09-21T08:33:13.479578Z",
+				"valueDateTime": "2024-09-21T15:49:32.873441Z",
+				"transactionAmount": {
+					"amount": "-42.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *moonvillagegam",
+				"remittanceInformationUnstructuredArray": ["Sumup *moonvillagegam"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "129154531c731c259433c66bbfce954f"
+			},
+			{
+				"transactionId": "66ea837c-bf2b-ac8d-b814-65af87e7a197",
+				"bookingDate": "2024-09-18",
+				"valueDate": "2024-09-19",
+				"bookingDateTime": "2024-09-18T07:38:36.521019Z",
+				"valueDateTime": "2024-09-19T05:09:39.161164Z",
+				"transactionAmount": {
+					"amount": "-6.70",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "0c2e392da14266c11cfb3d8641ee9250"
+			},
+			{
+				"transactionId": "66ea8233-fcc1-ac30-8df0-8604137087e3",
+				"bookingDate": "2024-09-18",
+				"valueDate": "2024-09-18",
+				"bookingDateTime": "2024-09-18T07:33:07.841485Z",
+				"valueDateTime": "2024-09-18T07:33:08.003592Z",
+				"transactionAmount": {
+					"amount": "-26.00",
+					"currency": "EUR"
+				},
+				"creditorName": "CHANTALE GÖDECKE",
+				"creditorAccount": {
+					"iban": "LT033250091588033037"
+				},
+				"debtorName": "DAVID JOHAN ARUN GRANZIN",
+				"debtorAccount": {
+					"iban": "LT093250055815608860"
+				},
+				"remittanceInformationUnstructuredArray": ["To Chantale Gödecke"],
+				"proprietaryBankTransactionCode": "TRANSFER",
+				"internalTransactionId": "c8b5e7fc6a083399aec8ca2d054e083b"
+			},
+			{
+				"transactionId": "66e9ddc8-1004-a406-bdf3-83c487ac949b",
+				"bookingDate": "2024-09-17",
+				"valueDate": "2024-09-18",
+				"bookingDateTime": "2024-09-17T19:51:36.184312Z",
+				"valueDateTime": "2024-09-18T14:03:47.413421Z",
+				"transactionAmount": {
+					"amount": "-9.52",
+					"currency": "EUR"
+				},
+				"creditorName": "X Corp. Paid Features",
+				"remittanceInformationUnstructuredArray": ["X Corp. Paid Features"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "3725809dbeaa87c2596d6218a675c716"
+			},
+			{
+				"transactionId": "66e98a8b-6f08-ac8d-8c94-005fb4423fc3",
+				"bookingDate": "2024-09-17",
+				"valueDate": "2024-09-18",
+				"bookingDateTime": "2024-09-17T13:56:27.301494Z",
+				"valueDateTime": "2024-09-18T13:09:36.116869Z",
+				"transactionAmount": {
+					"amount": "-4.55",
+					"currency": "EUR"
+				},
+				"creditorName": "Fressnapf",
+				"remittanceInformationUnstructuredArray": ["Fressnapf"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "9966e349e2a0720c1234adf470953d88"
+			},
+			{
+				"transactionId": "66e938d6-2a50-ad30-a819-971d94cf476c",
+				"bookingDate": "2024-09-17",
+				"valueDate": "2024-09-18",
+				"bookingDateTime": "2024-09-17T08:07:50.410023Z",
+				"valueDateTime": "2024-09-18T04:59:59.163538Z",
+				"transactionAmount": {
+					"amount": "-18.40",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "6ff62f1e772dbb8a81028d5415879d7e"
+			},
+			{
+				"transactionId": "66e9358d-51c2-a0a4-8865-2338784bda4e",
+				"bookingDate": "2024-09-17",
+				"valueDate": "2024-09-18",
+				"bookingDateTime": "2024-09-17T07:53:49.649432Z",
+				"valueDateTime": "2024-09-18T08:50:46.418392Z",
+				"transactionAmount": {
+					"amount": "-12.76",
+					"currency": "EUR"
+				},
+				"creditorName": "Hetzner Online Gmbh",
+				"remittanceInformationUnstructuredArray": ["Hetzner Online Gmbh"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "673a4ba85b375f50446c48fc54be0c56"
+			},
+			{
+				"transactionId": "66e9017e-ac74-a9b4-9152-714a57cc5b4b",
+				"bookingDate": "2024-09-17",
+				"valueDate": "2024-09-17",
+				"bookingDateTime": "2024-09-17T04:11:42.739380Z",
+				"valueDateTime": "2024-09-17T14:06:49.198127Z",
+				"transactionAmount": {
+					"amount": "-8.21",
+					"currency": "EUR"
+				},
+				"creditorName": "Sqsp* Inv149979642",
+				"remittanceInformationUnstructuredArray": ["Sqsp* Inv149979642"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "8fc45ae5713fb3fcf7df301a547a3f80"
+			},
+			{
+				"transactionId": "66e84303-ef80-a85f-8192-6a8eb34f1fc0",
+				"bookingDate": "2024-09-16",
+				"valueDate": "2024-09-17",
+				"bookingDateTime": "2024-09-16T14:38:59.155489Z",
+				"valueDateTime": "2024-09-17T05:06:39.136249Z",
+				"transactionAmount": {
+					"amount": "-4.90",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "033a9457aea18f120e7f83e7aba623f8"
+			},
+			{
+				"transactionId": "66e733a5-1b91-a7c4-8d94-ed5a6347fd6a",
+				"bookingDate": "2024-09-15",
+				"valueDate": "2024-09-16",
+				"bookingDateTime": "2024-09-15T19:21:09.480806Z",
+				"valueDateTime": "2024-09-16T11:32:35.391168Z",
+				"transactionAmount": {
+					"amount": "-4.99",
+					"currency": "EUR"
+				},
+				"creditorName": "Ubr* Pending.uber.com",
+				"remittanceInformationUnstructuredArray": ["Ubr* Pending.uber.com"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "4d60dfa1ad13162fe6be08c4481866f3"
+			},
+			{
+				"transactionId": "66e692a2-9df1-ac3a-8d6e-855850b735c4",
+				"bookingDate": "2024-09-15",
+				"valueDate": "2024-09-16",
+				"bookingDateTime": "2024-09-15T07:54:10.770022Z",
+				"valueDateTime": "2024-09-16T05:11:38.072774Z",
+				"transactionAmount": {
+					"amount": "-8.60",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "8fb80edb7cdf51f9c9af6965115c0a2f"
+			},
+			{
+				"transactionId": "66e54717-e7ab-a6b3-9e45-fe966c5e385d",
+				"bookingDate": "2024-09-14",
+				"valueDate": "2024-09-15",
+				"bookingDateTime": "2024-09-14T08:19:35.459005Z",
+				"valueDateTime": "2024-09-15T04:54:23.867202Z",
+				"transactionAmount": {
+					"amount": "-7.10",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "b3245b6df2c2244d451689735808063c"
+			},
+			{
+				"transactionId": "66e3f765-94a9-a932-b6a1-c84c394ed82c",
+				"bookingDate": "2024-09-13",
+				"valueDate": "2024-09-14",
+				"bookingDateTime": "2024-09-13T08:27:17.433918Z",
+				"valueDateTime": "2024-09-14T01:51:40.627735Z",
+				"transactionAmount": {
+					"amount": "-100.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *torten  Schnit",
+				"remittanceInformationUnstructuredArray": ["Sumup *torten Schnit"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "3b50b6f9c4c0faeb7cbc9987cda52492"
+			},
+			{
+				"transactionId": "66e295ba-47f0-ad8b-ac44-a151fc19f66f",
+				"bookingDate": "2024-09-12",
+				"valueDate": "2024-09-13",
+				"bookingDateTime": "2024-09-12T07:18:18.033996Z",
+				"valueDateTime": "2024-09-13T05:15:41.661138Z",
+				"transactionAmount": {
+					"amount": "-7.10",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "50063721a23e292adbf66d20494725eb"
+			},
+			{
+				"transactionId": "66e14bad-0b61-a7d0-a289-56a6a12a7cdd",
+				"bookingDate": "2024-09-11",
+				"valueDate": "2024-09-12",
+				"bookingDateTime": "2024-09-11T07:50:05.990791Z",
+				"valueDateTime": "2024-09-12T12:23:59.000391Z",
+				"transactionAmount": {
+					"amount": "-6.25",
+					"currency": "EUR"
+				},
+				"creditorName": "Babuschka",
+				"remittanceInformationUnstructuredArray": ["Babuschka"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "ab799773b243f1fd1f192a5710e95155"
+			},
+			{
+				"transactionId": "66dffad8-43e3-a29d-87f5-79cca24b3de9",
+				"bookingDate": "2024-09-10",
+				"valueDate": "2024-09-11",
+				"bookingDateTime": "2024-09-10T07:52:56.927448Z",
+				"valueDateTime": "2024-09-11T05:09:15.015523Z",
+				"transactionAmount": {
+					"amount": "-6.35",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "5f798052ac74b93ad6b653460d868bbb"
+			},
+			{
+				"transactionId": "66def405-e81e-a6e4-9540-ed7dcdccb254",
+				"bookingDate": "2024-09-09",
+				"valueDate": "2024-09-10",
+				"bookingDateTime": "2024-09-09T13:11:33.964170Z",
+				"valueDateTime": "2024-09-10T11:50:45.077850Z",
+				"transactionAmount": {
+					"amount": "-15.47",
+					"currency": "EUR"
+				},
+				"creditorName": "Fressnapf",
+				"remittanceInformationUnstructuredArray": ["Fressnapf"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "9bc146ed6cfacd342f730ccaa83734ef"
+			},
+			{
+				"transactionId": "66ded6f7-3516-a531-beb9-df03c58fb59b",
+				"bookingDate": "2024-09-09",
+				"valueDate": "2024-09-09",
+				"bookingDateTime": "2024-09-09T11:07:35.667807Z",
+				"valueDateTime": "2024-09-09T14:40:47.754864Z",
+				"transactionAmount": {
+					"amount": "-2.40",
+					"currency": "EUR"
+				},
+				"creditorName": "Www.riverty.com*bvg",
+				"remittanceInformationUnstructuredArray": ["Www.riverty.com*bvg"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "84c804941a296a54321f86d9d722bd26"
+			},
+			{
+				"transactionId": "66dc2574-39f4-a3c8-b3bd-913ddd675cf4",
+				"bookingDate": "2024-09-07",
+				"valueDate": "2024-09-09",
+				"bookingDateTime": "2024-09-07T10:05:40.103220Z",
+				"valueDateTime": "2024-09-09T12:11:05.338860Z",
+				"transactionAmount": {
+					"amount": "-9.60",
+					"currency": "EUR"
+				},
+				"creditorName": "Edk*vanille Eis",
+				"remittanceInformationUnstructuredArray": ["Edk*vanille Eis"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "6f388a510a2b5ed9dbe7bdcb650281b6"
+			},
+			{
+				"transactionId": "66daf3b2-d3fd-af3e-8fc3-7c1a7a5cb3ca",
+				"bookingDate": "2024-09-06",
+				"valueDate": "2024-09-07",
+				"bookingDateTime": "2024-09-06T12:21:06.656457Z",
+				"valueDateTime": "2024-09-07T12:33:28.880168Z",
+				"transactionAmount": {
+					"amount": "-22.40",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "1e0f34895cfab72409d3941e41558b16"
+			},
+			{
+				"transactionId": "66dab86c-5d73-abb6-a399-fcb3622dee55",
+				"bookingDate": "2024-09-06",
+				"valueDate": "2024-09-07",
+				"bookingDateTime": "2024-09-06T08:08:12.495843Z",
+				"valueDateTime": "2024-09-07T05:00:47.898971Z",
+				"transactionAmount": {
+					"amount": "-1.30",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *torten   Schni",
+				"remittanceInformationUnstructuredArray": ["Sumup *torten Schni"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "89caf5a0f61d76d591327ea487162702"
+			},
+			{
+				"transactionId": "66da55e5-5e55-aca2-977c-50b9480127c6",
+				"bookingDate": "2024-09-06",
+				"valueDate": "2024-09-06",
+				"bookingDateTime": "2024-09-06T01:07:49.426666Z",
+				"valueDateTime": "2024-09-06T01:07:49.721876Z",
+				"transactionAmount": {
+					"amount": "300.00",
+					"currency": "EUR"
+				},
+				"debtorName": "CHANTALE GOEDECKE",
+				"debtorAccount": {
+					"iban": "DE68278937601012782800"
+				},
+				"remittanceInformationUnstructuredArray": ["Payment from Chantale Goedecke"],
+				"proprietaryBankTransactionCode": "TOPUP",
+				"internalTransactionId": "0180ef5b11e7bf9de59bccc722b9c199"
+			},
+			{
+				"transactionId": "66d81135-f515-ab72-b954-767614cc5bf7",
+				"bookingDate": "2024-09-04",
+				"valueDate": "2024-09-05",
+				"bookingDateTime": "2024-09-04T07:50:13.903536Z",
+				"valueDateTime": "2024-09-05T05:09:09.941970Z",
+				"transactionAmount": {
+					"amount": "-9.10",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "d24df2379659634a95cb52b582b6b5c3"
+			},
+			{
+				"transactionId": "66d6c29b-5d23-a456-a5d1-e7f7c7e7995d",
+				"bookingDate": "2024-09-03",
+				"valueDate": "2024-09-04",
+				"bookingDateTime": "2024-09-03T08:02:35.458092Z",
+				"valueDateTime": "2024-09-04T01:48:33.021456Z",
+				"transactionAmount": {
+					"amount": "-11.30",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "b3e2a74ae4c156fbaeb990fcef4c1ffa"
+			},
+			{
+				"transactionId": "66d66be8-9150-ae80-9bf4-79ea8551f96d",
+				"bookingDate": "2024-09-03",
+				"valueDate": "2024-09-03",
+				"bookingDateTime": "2024-09-03T01:52:40.869207Z",
+				"valueDateTime": "2024-09-03T01:52:40.869643Z",
+				"transactionAmount": {
+					"amount": "13.00",
+					"currency": "EUR"
+				},
+				"debtorName": "UBER * EATS PENDING",
+				"remittanceInformationUnstructuredArray": ["Refund from Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_REFUND",
+				"internalTransactionId": "2202f9e97912e4431f7f0de90df329fd"
+			},
+			{
+				"transactionId": "66d5bb54-feb1-a435-ab68-2d3e64716c0b",
+				"bookingDate": "2024-09-02",
+				"valueDate": "2024-09-03",
+				"bookingDateTime": "2024-09-02T13:19:16.684918Z",
+				"valueDateTime": "2024-09-03T04:59:09.508709Z",
+				"transactionAmount": {
+					"amount": "-15.30",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "e80faa66045fdc2f32c82a065d1277bc"
+			},
+			{
+				"transactionId": "66d5b9f8-657a-a642-ba04-24d5df780073",
+				"bookingDate": "2024-09-02",
+				"valueDate": "2024-09-03",
+				"bookingDateTime": "2024-09-02T13:13:28.899459Z",
+				"valueDateTime": "2024-09-03T12:03:59.814123Z",
+				"transactionAmount": {
+					"amount": "-34.94",
+					"currency": "EUR"
+				},
+				"creditorName": "Fressnapf",
+				"remittanceInformationUnstructuredArray": ["Fressnapf"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "d18dabb2d46e53cb7c325c9d45dd282c"
+			},
+			{
+				"transactionId": "66d5714b-6b2f-a456-b035-37ff647ee330",
+				"bookingDate": "2024-09-02",
+				"valueDate": "2024-09-03",
+				"bookingDateTime": "2024-09-02T08:03:23.206782Z",
+				"valueDateTime": "2024-09-03T05:17:39.657902Z",
+				"transactionAmount": {
+					"amount": "-7.20",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "3019c765ffb914a18145725c75aae359"
+			},
+			{
+				"transactionId": "66d4c81d-2c3c-a588-a718-a0685d02c882",
+				"bookingDate": "2024-09-01",
+				"valueDate": "2024-09-02",
+				"bookingDateTime": "2024-09-01T20:01:33.150915Z",
+				"valueDateTime": "2024-09-02T01:48:12.269423Z",
+				"transactionAmount": {
+					"amount": "-13.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber *eats Help.uber.c"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "bd5e60e0bf38fa4bbf832cc3899cece6"
+			},
+			{
+				"transactionId": "66d4ade2-f26e-a8d9-95d4-c8b5f48bda37",
+				"bookingDate": "2024-09-01",
+				"valueDate": "2024-09-02",
+				"bookingDateTime": "2024-09-01T18:09:38.969339Z",
+				"valueDateTime": "2024-09-02T01:48:12.203518Z",
+				"transactionAmount": {
+					"amount": "-13.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Uber *eats Help.uber.c",
+				"remittanceInformationUnstructuredArray": ["Uber * Eats Pending"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "e1464983c253ffe074c83e7a489c4232"
+			},
+			{
+				"transactionId": "66d46409-ce3c-a205-9e58-8941a64e42d9",
+				"bookingDate": "2024-09-01",
+				"valueDate": "2024-09-02",
+				"bookingDateTime": "2024-09-01T12:54:33.898808Z",
+				"valueDateTime": "2024-09-02T01:49:57.541612Z",
+				"transactionAmount": {
+					"amount": "-31.85",
+					"currency": "EUR"
+				},
+				"creditorName": "Wolt",
+				"remittanceInformationUnstructuredArray": ["Wolt"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "35401e699266113952d90d504e378045"
+			},
+			{
+				"transactionId": "66d420b9-3c22-a541-971d-abfcaede5567",
+				"bookingDate": "2024-09-01",
+				"valueDate": "2024-09-02",
+				"bookingDateTime": "2024-09-01T08:07:21.867557Z",
+				"valueDateTime": "2024-09-02T06:05:34.248353Z",
+				"transactionAmount": {
+					"amount": "-7.10",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "9b7fff7e29adc8001093b41146f3546c"
+			},
+			{
+				"transactionId": "66d1c5fd-6933-aa35-8630-73a86575aa7d",
+				"bookingDate": "2024-08-30",
+				"valueDate": "2024-08-31",
+				"bookingDateTime": "2024-08-30T13:15:41.782608Z",
+				"valueDateTime": "2024-08-31T01:57:24.824244Z",
+				"transactionAmount": {
+					"amount": "-28.66",
+					"currency": "EUR"
+				},
+				"creditorName": "Wolt",
+				"remittanceInformationUnstructuredArray": ["Wolt"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "2f34cba8ab04c1df40f277dacf2d6772"
+			},
+			{
+				"transactionId": "66d01e97-cd9b-a4a7-9e5e-2d8033a6a97e",
+				"bookingDate": "2024-08-29",
+				"valueDate": "2024-08-30",
+				"bookingDateTime": "2024-08-29T07:09:11.962773Z",
+				"valueDateTime": "2024-08-30T05:11:50.414594Z",
+				"transactionAmount": {
+					"amount": "-4.90",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *north Andes Co",
+				"remittanceInformationUnstructuredArray": ["Sumup *north Andes Co"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "3c4e78f1837751bf5a48976858610cc8"
+			},
+			{
+				"transactionId": "66d0243c-b627-a5e1-b5dd-34ec8daf7746",
+				"bookingDate": "2024-08-29",
+				"valueDate": "2024-08-29",
+				"bookingDateTime": "2024-08-29T07:33:16.730459Z",
+				"valueDateTime": "2024-08-29T14:41:59.996207Z",
+				"transactionAmount": {
+					"amount": "-120.00",
+					"currency": "EUR"
+				},
+				"creditorName": "Sumup  *moonvillagegam",
+				"remittanceInformationUnstructuredArray": ["Sumup *moonvillagegam"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "513addb300fedca4288a4e326caa1321"
+			},
+			{
+				"transactionId": "66cdc9a9-e7f4-a898-b0d6-4e614df419fb",
+				"bookingDate": "2024-08-27",
+				"valueDate": "2024-08-29",
+				"bookingDateTime": "2024-08-27T12:42:17.594195Z",
+				"valueDateTime": "2024-08-29T01:41:16.014678Z",
+				"transactionAmount": {
+					"amount": "-65.69",
+					"currency": "EUR"
+				},
+				"creditorName": "Casetify",
+				"remittanceInformationUnstructuredArray": ["Casetify"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "93299648d41582a37059679a1fc7d017"
+			},
+			{
+				"transactionId": "66cd2a17-bb59-a47e-9a63-af5705e6ee39",
+				"bookingDate": "2024-08-27",
+				"valueDate": "2024-08-27",
+				"bookingDateTime": "2024-08-27T01:21:27.945905Z",
+				"valueDateTime": "2024-08-27T01:21:27.946115Z",
+				"transactionAmount": {
+					"amount": "-135.00",
+					"currency": "EUR"
+				},
+				"remittanceInformationUnstructuredArray": ["Metal Repricing 2 plan fee"],
+				"proprietaryBankTransactionCode": "FEE",
+				"internalTransactionId": "a6faf8d2564f0e46a814b83c1be04838"
+			},
+			{
+				"transactionId": "66cb26d2-aaa9-aad9-995d-2b3b95a0d13f",
+				"bookingDate": "2024-08-25",
+				"valueDate": "2024-08-26",
+				"bookingDateTime": "2024-08-25T12:42:58.250973Z",
+				"valueDateTime": "2024-08-26T01:51:47.560730Z",
+				"transactionAmount": {
+					"amount": "-4.40",
+					"currency": "EUR"
+				},
+				"creditorName": "Www.riverty.com*bvg",
+				"remittanceInformationUnstructuredArray": ["Www.riverty.com*bvg"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "46529417bae2d6d0aa14f48af713e1fb"
+			},
+			{
+				"transactionId": "66caec42-17ed-ac51-86e9-22ca43b386fa",
+				"bookingDate": "2024-08-25",
+				"valueDate": "2024-08-26",
+				"bookingDateTime": "2024-08-25T08:33:06.435344Z",
+				"valueDateTime": "2024-08-26T12:16:10.519367Z",
+				"transactionAmount": {
+					"amount": "-16.72",
+					"currency": "EUR"
+				},
+				"currencyExchange": {
+					"instructedAmount": {
+						"amount": "16.55",
+						"currency": "EUR"
+					},
+					"sourceCurrency": "EUR",
+					"exchangeRate": "0.845583219454666511208",
+					"unitCurrency": "EUR",
+					"targetCurrency": "GBP"
+				},
+				"creditorName": "Wh Smith Stansted",
+				"remittanceInformationUnstructuredArray": ["Wh Smith Stansted"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"additionalDataStructured": {
+					"chargeAmount": {
+						"amount": "0.17",
+						"currency": "EUR"
+					}
+				},
+				"internalTransactionId": "699a7cffa83cf19dcb0e7e233e4c0a75"
+			},
+			{
+				"transactionId": "66cb4b23-b2f5-aade-b66c-0be4cfac987a",
+				"bookingDate": "2024-08-25",
+				"valueDate": "2024-08-25",
+				"bookingDateTime": "2024-08-25T15:17:55.304Z",
+				"valueDateTime": "2024-08-25T15:17:55.449991Z",
+				"transactionAmount": {
+					"amount": "-700.00",
+					"currency": "EUR"
+				},
+				"creditorName": "INVESTMENT ACCOUNT",
+				"debtorName": "DAVID JOHAN ARUN GRANZIN",
+				"debtorAccount": {
+					"iban": "LT093250055815608860"
+				},
+				"remittanceInformationUnstructuredArray": ["To investment account"],
+				"proprietaryBankTransactionCode": "TRANSFER",
+				"internalTransactionId": "5470ead2efb444e371dbaf2e19a4b69f"
+			},
+			{
+				"transactionId": "66caf787-f190-ac3b-8295-2149d4d01cc9",
+				"bookingDate": "2024-08-25",
+				"valueDate": "2024-08-25",
+				"bookingDateTime": "2024-08-25T09:21:11.408949Z",
+				"valueDateTime": "2024-08-25T15:31:31.057557Z",
+				"transactionAmount": {
+					"amount": "-51.96",
+					"currency": "EUR"
+				},
+				"currencyExchange": {
+					"instructedAmount": {
+						"amount": "51.45",
+						"currency": "EUR"
+					},
+					"sourceCurrency": "EUR",
+					"exchangeRate": "0.845583219454666511208",
+					"unitCurrency": "EUR",
+					"targetCurrency": "GBP"
+				},
+				"creditorName": "Hmshost Stansted Airpo",
+				"remittanceInformationUnstructuredArray": ["Hmshost Stansted Airpo"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"additionalDataStructured": {
+					"chargeAmount": {
+						"amount": "0.51",
+						"currency": "EUR"
+					}
+				},
+				"internalTransactionId": "66754b85e456096e5a409f0b9500c845"
+			},
+			{
+				"transactionId": "66ca3915-2d25-ae45-bbb0-97977f69a99b",
+				"bookingDate": "2024-08-24",
+				"valueDate": "2024-08-25",
+				"bookingDateTime": "2024-08-24T19:48:37.799467Z",
+				"valueDateTime": "2024-08-25T11:23:14.157156Z",
+				"transactionAmount": {
+					"amount": "-65.26",
+					"currency": "EUR"
+				},
+				"currencyExchange": {
+					"instructedAmount": {
+						"amount": "64.61",
+						"currency": "EUR"
+					},
+					"sourceCurrency": "EUR",
+					"exchangeRate": "0.845583219454666511208",
+					"unitCurrency": "EUR",
+					"targetCurrency": "GBP"
+				},
+				"creditorName": "G Ramsay Street Pizza",
+				"remittanceInformationUnstructuredArray": ["Gordon Ramsay Street P"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"additionalDataStructured": {
+					"chargeAmount": {
+						"amount": "0.65",
+						"currency": "EUR"
+					}
+				},
+				"internalTransactionId": "0189a577ab6e1a802bd1334c6c2f1a39"
+			},
+			{
+				"transactionId": "66c9c835-993b-a39d-8d2a-4c1d067c16e0",
+				"bookingDate": "2024-08-24",
+				"valueDate": "2024-08-25",
+				"bookingDateTime": "2024-08-24T11:47:01.039736Z",
+				"valueDateTime": "2024-08-25T01:39:56.366306Z",
+				"transactionAmount": {
+					"amount": "-8.99",
+					"currency": "EUR"
+				},
+				"creditorName": "Amznprime De*ko4w34wb5",
+				"remittanceInformationUnstructuredArray": ["Amznprime De"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"internalTransactionId": "935804ef8f9b7fcd683e8ae1a85e8452"
+			},
+			{
+				"transactionId": "66c9d22b-8ffd-aa65-a784-5e2cee4e31f5",
+				"bookingDate": "2024-08-24",
+				"valueDate": "2024-08-24",
+				"bookingDateTime": "2024-08-24T12:29:31.320730Z",
+				"valueDateTime": "2024-08-24T12:30:04.638529Z",
+				"transactionAmount": {
+					"amount": "2000.00",
+					"currency": "EUR"
+				},
+				"debtorName": "DAVID JOHAN ARUN GRANZIN",
+				"debtorAccount": {
+					"iban": "DE11100500001068942378"
+				},
+				"remittanceInformationUnstructuredArray": [
+					"OBA topup from DAVID JOHAN ARUN GRANZIN",
+					"OBA3NKO8UB31K8Z4R"
+				],
+				"proprietaryBankTransactionCode": "TOPUP",
+				"internalTransactionId": "75be98e4a94358b388bcf5c6a65691fe"
+			},
+			{
+				"transactionId": "66c9b0a3-93ad-ad76-9039-872341601e42",
+				"bookingDate": "2024-08-24",
+				"valueDate": "2024-08-24",
+				"bookingDateTime": "2024-08-24T10:06:27.758138Z",
+				"valueDateTime": "2024-08-24T15:32:10.523899Z",
+				"transactionAmount": {
+					"amount": "-95.20",
+					"currency": "EUR"
+				},
+				"currencyExchange": {
+					"instructedAmount": {
+						"amount": "94.26",
+						"currency": "EUR"
+					},
+					"sourceCurrency": "EUR",
+					"exchangeRate": "0.845583219454666511208",
+					"unitCurrency": "EUR",
+					"targetCurrency": "GBP"
+				},
+				"creditorName": "Uniqlo 1 Oxford Street",
+				"remittanceInformationUnstructuredArray": ["Uniqlo 1 Oxford Street"],
+				"proprietaryBankTransactionCode": "CARD_PAYMENT",
+				"additionalDataStructured": {
+					"chargeAmount": {
+						"amount": "0.94",
+						"currency": "EUR"
+					}
+				},
+				"internalTransactionId": "ba93f16437c8dedbc959c0c32ead3247"
+			}
+		],
+		"pending": []
+	}
+}

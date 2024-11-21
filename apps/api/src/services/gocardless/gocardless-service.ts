@@ -9,7 +9,7 @@ import {
 	GetTransactionsResponse,
 	Institution,
 	NewTokenResponse,
-} from "./models"
+} from "../../payment-engine/provider/go-cardless/models"
 
 export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCardlessService", {
 	effect: Effect.gen(function* () {
@@ -146,6 +146,8 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 			}) =>
 				Effect.gen(function* () {
 					const { access } = yield* getAccessToken()
+
+					yield* Effect.logInfo("Creating link", access)
 
 					return yield* HttpClientRequest.post("/api/v2/requisitions/").pipe(
 						HttpClientRequest.prependUrl(baseUrl),

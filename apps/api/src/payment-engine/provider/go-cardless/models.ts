@@ -10,20 +10,20 @@ export class Institution extends Schema.Class<Institution>("Institution")({
 	max_access_valid_for_days: Schema.NumberFromString,
 }) {}
 
-export class Transaction extends Schema.Class<Transaction>("Transaction")({
+export class Transaction extends Schema.Class<Transaction>("@GoCardless/Transaction")({
 	transactionId: Schema.String,
-	debtorName: Schema.String,
-	debtorAccount: Schema.Struct({
-		iban: Schema.String,
-	}),
+	bookingDate: Schema.DateFromString,
+	valueDate: Schema.DateFromString,
+	bookingDateTime: Schema.DateFromString,
+	valueDateTime: Schema.DateFromString,
 	transactionAmount: Schema.Struct({
 		currency: Schema.String,
 		amount: Schema.String,
 	}),
-	bankTransactionCode: Schema.String,
-	bookingDate: Schema.DateFromString,
-	valueDate: Schema.DateFromString,
-	remittanceInformationUnstructured: Schema.String,
+	creditorName: Schema.String,
+	remittanceInformationUnstructuredArray: Schema.Array(Schema.String),
+	proprietaryBankTransactionCode: Schema.String,
+	internalTransactionId: Schema.String,
 }) {}
 
 export class Balance extends Schema.Class<Balance>("Balance")({
