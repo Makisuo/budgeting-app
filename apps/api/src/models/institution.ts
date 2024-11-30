@@ -9,6 +9,8 @@ export class Institution extends Model.Class<Institution>("Institution")({
 	name: Schema.String,
 	logo: Schema.NullOr(Schema.String),
 
+	countries: Schema.Array(Schema.String),
+
 	provider: Schema.Literal("plaid", "gocardless"),
 
 	...baseFields,

@@ -22,6 +22,9 @@ export const HttpAdminLive = HttpApiBuilder.group(Api, "admin", (handlers) =>
 							name: institution.name,
 							transactionTotalDays: institution.transaction_total_days,
 							logo: institution.logo,
+
+							countries: institution.countries,
+
 							provider: "gocardless",
 							deletedAt: null,
 						})

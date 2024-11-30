@@ -15,10 +15,10 @@ export class Account extends Schema.Class<Account>("Account")({
 }) {}
 
 export class AccountDetails extends Schema.Class<AccountDetails>("AccountDetails")({
-	resourceId: Schema.String,
-	iban: Schema.String,
-	currency: Schema.String,
-	ownerName: Schema.String,
+	resourceId: Schema.NullishOr(Schema.String),
+	iban: Schema.NullishOr(Schema.String),
+	currency: Schema.NullishOr(Schema.String),
+	ownerName: Schema.NullishOr(Schema.String),
 	name: Schema.NullishOr(Schema.String),
 	product: Schema.NullishOr(Schema.String),
 	bic: Schema.NullishOr(Schema.String),

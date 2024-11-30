@@ -80,12 +80,12 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 							yield* accountRepo.insert(
 								Account.insert.make({
 									id: accountId,
-									name: account.ownerName,
+									name: account.ownerName || "No name",
 									// iban: account.iban,
 									institutionId: requisition.value.institutionId,
 									type: "depository",
 									deletedAt: null,
-									currency: "",
+									currency: account.currency || "",
 									balanceAmount: 0,
 									balanceCurrency: "",
 								}),

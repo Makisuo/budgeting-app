@@ -53,7 +53,7 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 					</SidebarItem>
 					<AccountItems />
 					<ConnectBankAccountItem2 />
-					<ConnectBankAccountItem />
+					{/* <ConnectBankAccountItem /> */}
 				</Sidebar.Section>
 			</Sidebar.Content>
 			<Sidebar.Footer className="hidden items-center lg:flex lg:flex-row">

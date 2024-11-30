@@ -9,6 +9,8 @@ model Institution {
   logo     String?
   provider String
 
+  countries Json @db.JsonB
+
   transactionTotalDays Int @map("transaction_total_days")
 
   createdAt DateTime  @default(now()) @map("created_at")
