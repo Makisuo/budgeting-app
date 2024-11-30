@@ -17,22 +17,12 @@ export class Account extends Schema.Class<Account>("Account")({
 export class AccountDetails extends Schema.Class<AccountDetails>("AccountDetails")({
 	resourceId: Schema.String,
 	iban: Schema.String,
-	bban: Schema.String,
-	scan: Schema.String,
-	msisdn: Schema.String,
 	currency: Schema.String,
 	ownerName: Schema.String,
-	name: Schema.String,
-	displayName: Schema.String,
+	name: Schema.NullishOr(Schema.String),
 	product: Schema.String,
-	cashAccountType: Schema.String,
-	status: Schema.String,
 	bic: Schema.String,
-	linkedAccounts: Schema.String,
-	maskedPan: Schema.String,
 	usage: Schema.String,
-	details: Schema.String,
-	ownerAddressUnstructured: Schema.Array(Schema.String),
 }) {}
 
 export class Institution extends Schema.Class<Institution>("Institution")({

@@ -16,7 +16,7 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 
 	const createLinkTokenMutation = api.useMutation("post", "/gocardless/link", {
 		onSuccess: (data) => {
-			console.log(data.link)
+			window.location.href = data.link
 		},
 	})
 

@@ -20,7 +20,7 @@ export class RequisitionRepo extends Effect.Service<RequisitionRepo>()("Requisit
 		const findByReferenceIdSchema = SqlSchema.findOne({
 			Request: Schema.String,
 			Result: Requisition,
-			execute: (id) => sql`SELECT * FROM ${sql(TABLE_NAME)} WHERE reference_id = ${sql(id)}`,
+			execute: (id) => sql`SELECT * FROM ${sql(TABLE_NAME)} WHERE reference_id = ${id}`,
 		})
 
 		const findByReferenceId = (id: string) =>

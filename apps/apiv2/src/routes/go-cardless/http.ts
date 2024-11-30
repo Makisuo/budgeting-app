@@ -47,6 +47,7 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 						Requisition.insert.make({
 							id: res.id,
 							referenceId: referenceId,
+							institutionId: payload.institutionId,
 							status: "created",
 							deletedAt: null,
 						}),
