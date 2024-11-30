@@ -49,7 +49,9 @@
 
 	"exclude": ["test"],
 	"include": ["worker-configuration.d.ts", "src/**/*.ts"],
-src/models/requistion.tsfect/language-service"
+	"plugins": [
+		{
+			"name": "@effect/language-service"
 		}
 	]
 }
