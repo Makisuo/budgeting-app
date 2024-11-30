@@ -36,7 +36,7 @@ export class AccountDetails extends Schema.Class<AccountDetails>("AccountDetails
 }) {}
 
 export class Institution extends Schema.Class<Institution>("Institution")({
-	id: Schema.String,
+	id: InstitutionId,
 	name: Schema.String,
 	bic: Schema.String,
 	transaction_total_days: Schema.NumberFromString,

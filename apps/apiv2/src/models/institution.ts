@@ -5,7 +5,7 @@ import { baseFields } from "./utils"
 export const InstitutionId = Schema.String.pipe(Schema.brand("InstitutionId"))
 
 export class Institution extends Model.Class<Institution>("Institution")({
-	id: Model.Generated(InstitutionId),
+	id: Model.GeneratedByApp(InstitutionId),
 	name: Schema.String,
 	logo: Schema.NullOr(Schema.String),
 
