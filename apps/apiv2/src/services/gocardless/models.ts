@@ -20,9 +20,9 @@ export class AccountDetails extends Schema.Class<AccountDetails>("AccountDetails
 	currency: Schema.String,
 	ownerName: Schema.String,
 	name: Schema.NullishOr(Schema.String),
-	product: Schema.String,
-	bic: Schema.String,
-	usage: Schema.String,
+	product: Schema.NullishOr(Schema.String),
+	bic: Schema.NullishOr(Schema.String),
+	usage: Schema.NullishOr(Schema.String),
 }) {}
 
 export class Institution extends Schema.Class<Institution>("Institution")({

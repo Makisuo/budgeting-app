@@ -14,7 +14,8 @@ export const HttpAdminLive = HttpApiBuilder.group(Api, "admin", (handlers) =>
 			Effect.gen(function* () {
 				const institutions = yield* goCardless.getInstitutions(Option.none())
 
-				yield* Effect.forEach(institutions, (institution) =>
+				const dbInstitutions = yield* Effect.forEach(institutions, (institution) =>
+					// biome-ignore lint/correctness/useYield: <explanation>
 					Effect.gen(function* () {
 						const dbInstitutions = Institution.insert.make({
 							id: institution.id,
@@ -25,9 +26,11 @@ export const HttpAdminLive = HttpApiBuilder.group(Api, "admin", (handlers) =>
 							deletedAt: null,
 						})
 
-						yield* institiutionRepo.insert(dbInstitutions).pipe(Effect.tapError(Effect.logError))
+						return dbInstitutions
 					}),
 				)
+
+				yield* institiutionRepo.insertMultipleVoid(dbInstitutions).pipe(Effect.tapError(Effect.logError))
 
 				return institutions
 			}).pipe(

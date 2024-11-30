@@ -73,14 +73,16 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 
 					yield* Effect.forEach(newRequisition.accounts, (accountId) =>
 						Effect.gen(function* () {
-							const { account } = yield* goCardless.getAccount(accountId)
+							const { account } = yield* goCardless
+								.getAccount(accountId)
+								.pipe(Effect.tapErrorTag("ResponseError", (e) => Effect.logError(e)))
 
 							yield* accountRepo.insert(
 								Account.insert.make({
 									id: accountId,
 									name: account.ownerName,
 									// iban: account.iban,
-									institutionId: InstitutionId.make("TODO"),
+									institutionId: requisition.value.institutionId,
 									type: "depository",
 									deletedAt: null,
 									currency: "",

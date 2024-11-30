@@ -23,7 +23,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 		const defaultClient = yield* HttpClient.HttpClient
 		const httpClient = defaultClient.pipe(
 			HttpClient.filterStatusOk,
-			HttpClient.retry({ times: 3, schedule: Schedule.exponential("300 millis") }),
+			// HttpClient.retry({ times: 3, schedule: Schedule.exponential("300 millis") }),
 		)
 
 		// TODO: Should be saved in KV and then refreshed
