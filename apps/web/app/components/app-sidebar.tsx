@@ -2,9 +2,7 @@
 
 import type * as React from "react"
 
-import { useMutation, useQuery } from "@tanstack/react-query"
 import { useLocation } from "@tanstack/react-router"
-import { useServerFn } from "@tanstack/start"
 import { IconAlbum, IconBrandApple, IconCreditCard, IconCube, IconDashboard, IconPlus, IconSettings } from "justd-icons"
 import { useState } from "react"
 import {
@@ -13,8 +11,7 @@ import {
 	type PlaidLinkOptions,
 	usePlaidLink,
 } from "react-plaid-link"
-import { createLinkTokenAction } from "~/actions"
-import { Link, Loader, Sidebar, useSidebar } from "~/components/ui"
+import { Link, Sidebar, useSidebar } from "~/components/ui"
 import { Route } from "~/routes/_app"
 import { useBankAccounts } from "~/utils/electric/hooks"
 import { BankConnector } from "./bank-connector"
@@ -96,16 +93,7 @@ const AccountItems = () => {
 }
 
 const ConnectBankAccountItem = () => {
-	const { auth } = Route.useRouteContext()
-
 	const { linkToken } = Route.useLoaderData()
-
-	// const { data } = useQuery({
-	// 	queryKey: ["createLinkToken"],
-	// 	queryFn: () => createLinkToken(),
-	// })
-
-	// console.log(data)
 
 	const config = {
 		token: linkToken,
@@ -122,7 +110,7 @@ const ConnectBankAccountItem = () => {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Bearer ${auth.session.id}`,
+					Authorization: `Bearer ${"TODO"}`,
 				},
 
 				body: JSON.stringify({ publicToken: publicToken }),

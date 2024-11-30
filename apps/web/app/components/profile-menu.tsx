@@ -1,3 +1,4 @@
+import { useUser } from "@clerk/tanstack-start"
 import { useNavigate } from "@tanstack/react-router"
 import { IconChevronLgDown, IconCirclePerson, IconLogout, IconMoon, IconSettings, IconSun } from "justd-icons"
 import { Route } from "~/routes/_app"
@@ -12,14 +13,14 @@ export const ProfileMenu = ({ collapsed = false }: ProfileMenuProps) => {
 	const { auth } = Route.useRouteContext()
 	const { theme, setTheme } = useTheme()
 
-	const navigate = useNavigate()
+	const { user } = useUser()
 
 	return (
 		<Menu>
 			<Button appearance="plain" aria-label="Profile" slot="menu-trigger" className="group">
-				<Avatar size="small" shape="square" src={auth.user.image} />
+				<Avatar size="small" shape="square" src={user?.imageUrl} />
 				<span className="flex items-center justify-center group-data-[collapsible=dock]:hidden">
-					{auth.user.name}
+					{user?.username}
 					<IconChevronLgDown className="absolute right-3 size-4 transition-transform group-pressed:rotate-180" />
 				</span>
 			</Button>

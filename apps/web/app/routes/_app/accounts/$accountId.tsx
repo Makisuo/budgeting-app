@@ -1,6 +1,5 @@
 import { createFileRoute, notFound } from "@tanstack/react-router"
 import { IconCirclePlaceholderDashed } from "justd-icons"
-import { getBankAccount } from "~/actions"
 import { Card } from "~/components/ui"
 import { Badge } from "~/components/ui/badge"
 import { Table } from "~/components/ui/table"
@@ -9,21 +8,10 @@ import { currencyFormatter } from "~/utils/formatters"
 
 export const Route = createFileRoute("/_app/accounts/$accountId")({
 	component: RouteComponent,
-	loader: async ({ params }) => {
-		const bankAccount = await getBankAccount({ data: params.accountId })
-
-		if (!bankAccount) {
-			throw notFound()
-		}
-
-		return {
-			bankAccount,
-		}
-	},
 })
 
 function RouteComponent() {
-	const { bankAccount } = Route.useLoaderData()
+	const bankAccount = {}
 
 	console.log(bankAccount)
 

@@ -7,8 +7,10 @@ import { Container, Sidebar } from "~/components/ui"
 export const Route = createFileRoute("/_app")({
 	component: RouteComponent,
 	beforeLoad: async ({ context }) => {
-		if (!context.auth) {
-			throw redirect({ to: "/auth/signin" })
+		if (!context.auth.userId) {
+			throw redirect({
+				to: "/auth/signin/$",
+			})
 		}
 
 		return {

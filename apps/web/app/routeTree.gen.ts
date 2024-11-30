@@ -13,11 +13,11 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AppImport } from './routes/_app'
 import { Route as AppIndexImport } from './routes/_app/index'
-import { Route as AuthSigninImport } from './routes/auth/signin'
-import { Route as AuthRegisterImport } from './routes/auth/register'
 import { Route as AppSubscriptionsImport } from './routes/_app/subscriptions'
 import { Route as AppSettingsImport } from './routes/_app/settings'
 import { Route as AppAccountsIndexImport } from './routes/_app/accounts/index'
+import { Route as AuthSignupSplatImport } from './routes/auth/signup.$'
+import { Route as AuthSigninSplatImport } from './routes/auth/signin.$'
 import { Route as AppAccountsAccountIdImport } from './routes/_app/accounts/$accountId'
 
 // Create/Update Routes
@@ -31,18 +31,6 @@ const AppIndexRoute = AppIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppRoute,
-} as any)
-
-const AuthSigninRoute = AuthSigninImport.update({
-  id: '/auth/signin',
-  path: '/auth/signin',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AuthRegisterRoute = AuthRegisterImport.update({
-  id: '/auth/register',
-  path: '/auth/register',
-  getParentRoute: () => rootRoute,
 } as any)
 
 const AppSubscriptionsRoute = AppSubscriptionsImport.update({
@@ -61,6 +49,18 @@ const AppAccountsIndexRoute = AppAccountsIndexImport.update({
   id: '/accounts/',
   path: '/accounts/',
   getParentRoute: () => AppRoute,
+} as any)
+
+const AuthSignupSplatRoute = AuthSignupSplatImport.update({
+  id: '/auth/signup/$',
+  path: '/auth/signup/$',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthSigninSplatRoute = AuthSigninSplatImport.update({
+  id: '/auth/signin/$',
+  path: '/auth/signin/$',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const AppAccountsAccountIdRoute = AppAccountsAccountIdImport.update({
@@ -94,20 +94,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSubscriptionsImport
       parentRoute: typeof AppImport
     }
-    '/auth/register': {
-      id: '/auth/register'
-      path: '/auth/register'
-      fullPath: '/auth/register'
-      preLoaderRoute: typeof AuthRegisterImport
-      parentRoute: typeof rootRoute
-    }
-    '/auth/signin': {
-      id: '/auth/signin'
-      path: '/auth/signin'
-      fullPath: '/auth/signin'
-      preLoaderRoute: typeof AuthSigninImport
-      parentRoute: typeof rootRoute
-    }
     '/_app/': {
       id: '/_app/'
       path: '/'
@@ -121,6 +107,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/accounts/$accountId'
       preLoaderRoute: typeof AppAccountsAccountIdImport
       parentRoute: typeof AppImport
+    }
+    '/auth/signin/$': {
+      id: '/auth/signin/$'
+      path: '/auth/signin/$'
+      fullPath: '/auth/signin/$'
+      preLoaderRoute: typeof AuthSigninSplatImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/signup/$': {
+      id: '/auth/signup/$'
+      path: '/auth/signup/$'
+      fullPath: '/auth/signup/$'
+      preLoaderRoute: typeof AuthSignupSplatImport
+      parentRoute: typeof rootRoute
     }
     '/_app/accounts/': {
       id: '/_app/accounts/'
@@ -156,20 +156,20 @@ export interface FileRoutesByFullPath {
   '': typeof AppRouteWithChildren
   '/settings': typeof AppSettingsRoute
   '/subscriptions': typeof AppSubscriptionsRoute
-  '/auth/register': typeof AuthRegisterRoute
-  '/auth/signin': typeof AuthSigninRoute
   '/': typeof AppIndexRoute
   '/accounts/$accountId': typeof AppAccountsAccountIdRoute
+  '/auth/signin/$': typeof AuthSigninSplatRoute
+  '/auth/signup/$': typeof AuthSignupSplatRoute
   '/accounts': typeof AppAccountsIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/settings': typeof AppSettingsRoute
   '/subscriptions': typeof AppSubscriptionsRoute
-  '/auth/register': typeof AuthRegisterRoute
-  '/auth/signin': typeof AuthSigninRoute
   '/': typeof AppIndexRoute
   '/accounts/$accountId': typeof AppAccountsAccountIdRoute
+  '/auth/signin/$': typeof AuthSigninSplatRoute
+  '/auth/signup/$': typeof AuthSignupSplatRoute
   '/accounts': typeof AppAccountsIndexRoute
 }
 
@@ -178,10 +178,10 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/_app/settings': typeof AppSettingsRoute
   '/_app/subscriptions': typeof AppSubscriptionsRoute
-  '/auth/register': typeof AuthRegisterRoute
-  '/auth/signin': typeof AuthSigninRoute
   '/_app/': typeof AppIndexRoute
   '/_app/accounts/$accountId': typeof AppAccountsAccountIdRoute
+  '/auth/signin/$': typeof AuthSigninSplatRoute
+  '/auth/signup/$': typeof AuthSignupSplatRoute
   '/_app/accounts/': typeof AppAccountsIndexRoute
 }
 
@@ -191,43 +191,43 @@ export interface FileRouteTypes {
     | ''
     | '/settings'
     | '/subscriptions'
-    | '/auth/register'
-    | '/auth/signin'
     | '/'
     | '/accounts/$accountId'
+    | '/auth/signin/$'
+    | '/auth/signup/$'
     | '/accounts'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/settings'
     | '/subscriptions'
-    | '/auth/register'
-    | '/auth/signin'
     | '/'
     | '/accounts/$accountId'
+    | '/auth/signin/$'
+    | '/auth/signup/$'
     | '/accounts'
   id:
     | '__root__'
     | '/_app'
     | '/_app/settings'
     | '/_app/subscriptions'
-    | '/auth/register'
-    | '/auth/signin'
     | '/_app/'
     | '/_app/accounts/$accountId'
+    | '/auth/signin/$'
+    | '/auth/signup/$'
     | '/_app/accounts/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
-  AuthRegisterRoute: typeof AuthRegisterRoute
-  AuthSigninRoute: typeof AuthSigninRoute
+  AuthSigninSplatRoute: typeof AuthSigninSplatRoute
+  AuthSignupSplatRoute: typeof AuthSignupSplatRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
-  AuthRegisterRoute: AuthRegisterRoute,
-  AuthSigninRoute: AuthSigninRoute,
+  AuthSigninSplatRoute: AuthSigninSplatRoute,
+  AuthSignupSplatRoute: AuthSignupSplatRoute,
 }
 
 export const routeTree = rootRoute
@@ -241,8 +241,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_app",
-        "/auth/register",
-        "/auth/signin"
+        "/auth/signin/$",
+        "/auth/signup/$"
       ]
     },
     "/_app": {
@@ -263,12 +263,6 @@ export const routeTree = rootRoute
       "filePath": "_app/subscriptions.tsx",
       "parent": "/_app"
     },
-    "/auth/register": {
-      "filePath": "auth/register.tsx"
-    },
-    "/auth/signin": {
-      "filePath": "auth/signin.tsx"
-    },
     "/_app/": {
       "filePath": "_app/index.tsx",
       "parent": "/_app"
@@ -276,6 +270,12 @@ export const routeTree = rootRoute
     "/_app/accounts/$accountId": {
       "filePath": "_app/accounts/$accountId.tsx",
       "parent": "/_app"
+    },
+    "/auth/signin/$": {
+      "filePath": "auth/signin.$.tsx"
+    },
+    "/auth/signup/$": {
+      "filePath": "auth/signup.$.tsx"
     },
     "/_app/accounts/": {
       "filePath": "_app/accounts/index.tsx",
