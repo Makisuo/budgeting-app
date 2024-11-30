@@ -1,9 +1,13 @@
 {
 	"name": "budgeting-app",
-	"scripts": {},
-	"workspaces": ["apps/*", "packages/*"],
-	"devDependencies": {
-		"@biomejs/biome": "^1.9.4"
+	"scripts": {
+		"db": "prisma db"
 	},
-	"private": true
+	"workspaces": ["apps/*"],
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"prisma": "^6.0.0"
+	},
+	"private": true,
+	"trustedDependencies": ["@prisma/engines", "esbuild", "prisma", "protobufjs", "workerd"]
 }

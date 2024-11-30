@@ -7,24 +7,24 @@ app = 'maple-electric-dev'
 primary_region = 'ams'
 
 [build]
-  image = 'electricsql/electric:latest'
+image = 'electricsql/electric:latest'
 
 [env]
-  DATABASE_URL = 'postgresql://postgres:NWGy1qw0J6h2OVB3@db.xepyxdvdqehtpuapdxrr.supabase.co:5432/postgres'
-  ELECTRIC_DATABASE_USE_IPV6 = 'true'
+DATABASE_URL = 'postgresql://postgres:NWGy1qw0J6h2OVB3@db.xepyxdvdqehtpuapdxrr.supabase.co:5432/postgres'
+ELECTRIC_DATABASE_USE_IPV6 = 'true'
 
 [http_service]
-  internal_port = 3000
-  force_https = true
+internal_port = 3000
+force_https = true
 
-  [[http_service.checks]]
-    interval = '10s'
-    timeout = '2s'
-    grace_period = '20s'
-    method = 'GET'
-    path = '/v1/health'
+[[http_service.checks]]
+interval = '10s'
+timeout = '2s'
+grace_period = '20s'
+method = 'GET'
+path = '/v1/health'
 
 [[vm]]
-  memory = '1gb'
-  cpu_kind = 'shared'
-  cpus = 1
+memory = '1gb'
+cpu_kind = 'shared'
+cpus = 1
