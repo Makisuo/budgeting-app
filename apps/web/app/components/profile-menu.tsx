@@ -1,15 +1,6 @@
 import { useNavigate } from "@tanstack/react-router"
-import {
-	IconChevronLgDown,
-	IconCirclePerson,
-	IconLogout,
-	IconMoon,
-	IconSettings,
-	IconShield,
-	IconSun,
-} from "justd-icons"
+import { IconChevronLgDown, IconCirclePerson, IconLogout, IconMoon, IconSettings, IconSun } from "justd-icons"
 import { Route } from "~/routes/_app"
-import { signOut } from "~/utils/auth-client"
 import { useTheme } from "./theme-provider"
 import { Avatar, Button, Menu } from "./ui"
 
@@ -52,14 +43,16 @@ export const ProfileMenu = ({ collapsed = false }: ProfileMenuProps) => {
 				</Menu.Item>
 				<Menu.Separator />
 				<Menu.Item
-					onAction={() =>
-						signOut({
-							fetchOptions: {
-								onSuccess: () => {
-									navigate({ to: "/auth/signin" }) // redirect to login page
-								},
-							},
-						})
+					onAction={
+						() => {}
+						// TODO:
+						// signOut({
+						// 	fetchOptions: {
+						// 		onSuccess: () => {
+						// 			navigate({ to: "/auth/signin" }) // redirect to login page
+						// 		},
+						// 	},
+						// })
 					}
 				>
 					<IconLogout />

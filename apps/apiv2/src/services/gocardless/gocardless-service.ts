@@ -11,6 +11,8 @@ import {
 	NewTokenResponse,
 } from "./models"
 
+import type { RequisitionId } from "~/models/requistion"
+
 export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCardlessService", {
 	effect: Effect.gen(function* () {
 		const baseUrl = "https://bankaccountdata.gocardless.com"
@@ -43,7 +45,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 			})
 
 		return {
-			getRequistion: (id: string) =>
+			getRequistion: (id: typeof RequisitionId.Type) =>
 				Effect.gen(function* () {
 					const { access } = yield* getAccessToken()
 

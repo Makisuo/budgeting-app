@@ -9,6 +9,8 @@ model Institution {
   logo     String?
   provider String
 
+  transactionTotalDays Int @map("transaction_total_days")
+
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @default(now()) @map("updated_at")
   deletedAt DateTime? @map("deleted_at")

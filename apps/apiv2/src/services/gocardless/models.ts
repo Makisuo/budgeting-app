@@ -1,4 +1,39 @@
 import { Schema } from "effect"
+import { AccountId } from "~/models/account"
+import { InstitutionId } from "~/models/institution"
+import { RequisitionId } from "~/models/requistion"
+
+export class Account extends Schema.Class<Account>("Account")({
+	id: AccountId,
+	created: Schema.DateFromString,
+	last_accessed: Schema.DateFromString,
+	iban: Schema.String,
+	bban: Schema.String,
+	status: Schema.String,
+	institution_id: InstitutionId,
+	owner_name: Schema.String,
+}) {}
+
+export class AccountDetails extends Schema.Class<AccountDetails>("AccountDetails")({
+	resourceId: Schema.String,
+	iban: Schema.String,
+	bban: Schema.String,
+	scan: Schema.String,
+	msisdn: Schema.String,
+	currency: Schema.String,
+	ownerName: Schema.String,
+	name: Schema.String,
+	displayName: Schema.String,
+	product: Schema.String,
+	cashAccountType: Schema.String,
+	status: Schema.String,
+	bic: Schema.String,
+	linkedAccounts: Schema.String,
+	maskedPan: Schema.String,
+	usage: Schema.String,
+	details: Schema.String,
+	ownerAddressUnstructured: Schema.Array(Schema.String),
+}) {}
 
 export class Institution extends Schema.Class<Institution>("Institution")({
 	id: Schema.String,
@@ -35,15 +70,8 @@ export class Balance extends Schema.Class<Balance>("Balance")({
 	referenceDate: Schema.DateFromString,
 }) {}
 
-export class Account extends Schema.Class<Account>("Account")({
-	resourceId: Schema.String,
-	iban: Schema.String,
-	currency: Schema.String,
-	ownerName: Schema.String,
-}) {}
-
 export class GetAccountDetailsResponse extends Schema.Class<GetAccountDetailsResponse>("GetAccountDetailsResponse")({
-	account: Account,
+	account: AccountDetails,
 }) {}
 
 export class NewTokenResponse extends Schema.Class<NewTokenResponse>("NewTokenResponse")({
@@ -75,7 +103,7 @@ export class CreateAgreementResponse extends Schema.Class<CreateAgreementRespons
 }) {}
 
 export class CreateLinkResponse extends Schema.Class<CreateLinkResponse>("CreateLinkResponse")({
-	id: Schema.String,
+	id: RequisitionId,
 	redirect: Schema.String,
 	status: Schema.String,
 	agreement: Schema.String,
@@ -88,6 +116,6 @@ export class CreateLinkResponse extends Schema.Class<CreateLinkResponse>("Create
 export class GetRequisitionResponse extends Schema.Class<GetRequisitionResponse>("GetRequisitionResponse")({
 	id: Schema.String,
 	status: Schema.String,
-	accounts: Schema.Array(Schema.String),
+	accounts: Schema.Array(AccountId),
 	reference: Schema.String,
 }) {}

@@ -11,17 +11,18 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@clerk/nextjs": "^6.5.1",
+		"@clerk/tanstack-start": "^0.5.4",
 		"@electric-sql/react": "^0.5.2",
 		"@tanstack/react-query": "^5.60.5",
 		"@tanstack/react-router": "^1.82.0",
 		"@tanstack/router-devtools": "^1.82.0",
 		"@tanstack/start": "^1.82.0",
-		"better-auth": "^0.8.5",
 		"clsx": "^2.1.1",
 		"cmdk": "^1.0.4",
 		"date-fns": "^4.1.0",
 		"date-fns-tz": "^3.2.0",
-		"effect": "^3.10.15",
+		"effect": "^3.10.19",
 		"framer-motion": "^11.11.17",
 		"justd-icons": "^1.7.9",
 		"next-themes": "^0.4.3",
@@ -39,7 +40,7 @@
 		"vinxi": "0.4.3"
 	},
 	"devDependencies": {
-		"@types/node": "^22.9.0",
+		"@types/node": "^22.10.1",
 		"@types/react": "^18.3.12",
 		"@types/react-dom": "^18.3.1",
 		"@vitejs/plugin-react": "^4.3.3",
@@ -47,7 +48,7 @@
 		"justd-cli": "^1.2.42",
 		"postcss": "^8.4.49",
 		"tailwindcss": "^3.4.15",
-		"typescript": "^5.6.3",
+		"typescript": "^5.7.2",
 		"vite-tsconfig-paths": "^5.1.2"
 	}
 }

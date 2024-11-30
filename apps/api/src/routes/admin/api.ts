@@ -1,7 +1,7 @@
 import { HttpApiEndpoint, HttpApiGroup } from "@effect/platform"
 import { Schema } from "effect"
 import { InternalError } from "~/errors"
-import { Institution } from "~/payment-engine/provider/go-cardless/models"
+import { Institution } from "~/services/gocardless/models"
 
 export class AdminApi extends HttpApiGroup.make("admin").add(
 	HttpApiEndpoint.get("syncInstitutions", "/admin/sync/institutions")

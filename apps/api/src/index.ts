@@ -6,7 +6,6 @@ import { AccountRepo } from "./routes/plaid/account-repo"
 import { TransactionRepo } from "./routes/plaid/transaction-repo"
 import { TransactionService } from "./routes/plaid/transactions"
 import { BetterAuthService } from "./services/auth-service"
-import { DrizzleLive } from "./services/db-service"
 import { GoCardlessService } from "./services/gocardless/gocardless-service"
 import { PlaidService } from "./services/plaid-service"
 
@@ -70,7 +69,6 @@ const workflows = {
 
 const Live = HttpLive.pipe(
 	Layer.provide(AuthorizationLive),
-	Layer.provide(DrizzleLive),
 	Layer.provide(PlaidService.Default),
 	Layer.provide(GoCardlessService.Default),
 	Layer.provide(TransactionService.Default),

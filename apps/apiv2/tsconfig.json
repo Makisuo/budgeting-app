@@ -48,7 +48,7 @@
 	},
 
 	"exclude": ["test"],
-	"include": ["worker-configuration.d.ts", "src/**/*.ts", "../apiv2/src/models/requistion.ts"],
+	"include": ["worker-configuration.d.ts", "src/**/*.ts"],
 	"plugins": [
 		{
 			"name": "@effect/language-service"

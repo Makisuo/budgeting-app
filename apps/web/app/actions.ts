@@ -2,19 +2,19 @@ import { createServerFn } from "@tanstack/start"
 import { CountryCode, Products } from "plaid"
 import { getWebRequest, setResponseStatus } from "vinxi/http"
 import { plaidClient } from "./routes/api/plaid/create-link-token"
-import { auth } from "./utils/auth"
-import { db } from "./utils/db"
+
+import { getAuth } from "@clerk/tanstack-start/server"
 
 export const createLinkTokenAction = createServerFn({ method: "POST" }).handler(async () => {
 	const session = await fetchUserSession()
 
-	if (!session?.user) {
+	if (!session.user.userId) {
 		throw new Error("Unauthorized")
 	}
 
 	try {
 		const tokenResponse = await plaidClient.linkTokenCreate({
-			user: { client_user_id: session.user.id },
+			user: { client_user_id: session.user.userId },
 			client_name: "Maple",
 			webhook: `${process.env.VITE_APP_BACKEND_URL}/webhook`,
 			products: [Products.Transactions],
@@ -31,29 +31,10 @@ export const createLinkTokenAction = createServerFn({ method: "POST" }).handler(
 	}
 })
 
-export const fetchUserSession = createServerFn().handler(async () => {
-	const request = getWebRequest()
+export const fetchUserSession = createServerFn({ method: "GET" }).handler(async () => {
+	const user = await getAuth(getWebRequest())
 
-	const session = await auth.api.getSession({
-		headers: request.headers,
-	})
-
-	return session
+	return {
+		user,
+	}
 })
-
-export const getBankAccount = createServerFn({ method: "GET" })
-	.validator((input: string) => input)
-	.handler(async ({ data }) => {
-		const session = await fetchUserSession()
-
-		if (!session) {
-			throw new Error("Unauthorized")
-		}
-
-		// TODO: Should be filtered by userId, whcih isnt part of bankAccounts rn
-		const bankAccount = await db.query.bankAccount.findFirst({
-			where: (table, { eq, and }) => eq(table.id, data),
-		})
-
-		return bankAccount
-	})
