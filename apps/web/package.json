@@ -8,7 +8,8 @@
 		"build": "vinxi build",
 		"start": "vinxi start",
 		"justd": "justd-cli",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "tsc --noEmit",
+		"openapi-typescript": "openapi-typescript http://localhost:8787/openapi.json -o ./app/lib/api/v1.d.ts"
 	},
 	"dependencies": {
 		"@clerk/nextjs": "^6.5.1",
@@ -26,6 +27,8 @@
 		"framer-motion": "^11.11.17",
 		"justd-icons": "^1.7.9",
 		"next-themes": "^0.4.3",
+		"openapi-fetch": "^0.13.0",
+		"openapi-react-query": "^0.2.5",
 		"plaid": "^30.0.0",
 		"react": "^18.3.1",
 		"react-aria-components": "^1.4.1",
@@ -46,6 +49,7 @@
 		"@vitejs/plugin-react": "^4.3.3",
 		"autoprefixer": "^10.4.20",
 		"justd-cli": "^1.2.42",
+		"openapi-typescript": "^7.4.3",
 		"postcss": "^8.4.49",
 		"tailwindcss": "^3.4.15",
 		"typescript": "^5.7.2",

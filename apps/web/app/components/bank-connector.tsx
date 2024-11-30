@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query"
 import { useMemo, useState } from "react"
+import { useApi } from "~/lib/api/client"
 import { useInstitutions } from "~/utils/electric/hooks"
 import { CommandMenu } from "./ui"
 
@@ -11,22 +12,11 @@ export interface BankConnectorProps {
 export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 	const { data } = useInstitutions()
 
-	const createLinkTokenMutation = useMutation({
-		mutationFn: async (institutionId: string) => {
-			const res = await fetch(`${import.meta.env.VITE_APP_BACKEND_URL}/gocardless/link`, {
-				method: "POST",
-				body: JSON.stringify({
-					institutionId: institutionId,
-				}),
-			})
+	const api = useApi()
 
-			const body = await res.json()
-
-			return body.link
-		},
-
-		onSuccess: (link) => {
-			window.location.href = link
+	const createLinkTokenMutation = api.useMutation("post", "/gocardless/link", {
+		onSuccess: (data) => {
+			console.log(data.link)
 		},
 	})
 
@@ -82,7 +72,15 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 						{filteredInstitutions.map((institution) => (
 							<CommandMenu.Item asChild key={institution.id}>
 								{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-								<div onClick={() => createLinkTokenMutation.mutate(institution.id)}>
+								<div
+									onClick={() =>
+										createLinkTokenMutation.mutate({
+											body: {
+												institutionId: institution.id,
+											},
+										})
+									}
+								>
 									<img className="h-3 pr-2" src={institution.logo} alt={institution.name} />{" "}
 									{institution.name}
 								</div>
