@@ -2,6 +2,7 @@ import { Schema } from "effect"
 import { AccountId } from "~/models/account"
 import { InstitutionId } from "~/models/institution"
 import { RequisitionId } from "~/models/requistion"
+import { Transaction } from "./transaction"
 
 export class Account extends Schema.Class<Account>("Account")({
 	id: AccountId,
@@ -35,22 +36,6 @@ export class Institution extends Schema.Class<Institution>("Institution")({
 	max_access_valid_for_days: Schema.NumberFromString,
 }) {}
 
-export class Transaction extends Schema.Class<Transaction>("@GoCardless/Transaction")({
-	transactionId: Schema.String,
-	bookingDate: Schema.DateFromString,
-	valueDate: Schema.DateFromString,
-	bookingDateTime: Schema.DateFromString,
-	valueDateTime: Schema.DateFromString,
-	transactionAmount: Schema.Struct({
-		currency: Schema.String,
-		amount: Schema.String,
-	}),
-	creditorName: Schema.String,
-	remittanceInformationUnstructuredArray: Schema.Array(Schema.String),
-	proprietaryBankTransactionCode: Schema.String,
-	internalTransactionId: Schema.String,
-}) {}
-
 export class Balance extends Schema.Class<Balance>("Balance")({
 	balanceAmount: Schema.Struct({
 		currency: Schema.String,
@@ -70,6 +55,8 @@ export class NewTokenResponse extends Schema.Class<NewTokenResponse>("NewTokenRe
 	refresh: Schema.String,
 	refresh_expires: Schema.Number,
 }) {}
+
+export { Transaction }
 
 export class GetBalancesResponse extends Schema.Class<GetBalancesResponse>("GetBalancesResponse")({
 	balances: Schema.Array(Balance),

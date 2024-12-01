@@ -1,7 +1,7 @@
 import { DateTime, Match } from "effect"
 
 import { Transaction, TransactionId } from "~/models/transaction"
-import type * as GoCardlessSchema from "./models"
+import type * as GoCardlessSchema from "./models/models"
 
 const matchTransactionCategory = Match.type<GoCardlessSchema.Transaction>().pipe(
 	Match.when(

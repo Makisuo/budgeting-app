@@ -9,7 +9,7 @@ import {
 	GetTransactionsResponse,
 	Institution,
 	NewTokenResponse,
-} from "./models"
+} from "./models/models"
 
 import type { AccountId } from "~/models/account"
 import type { RequisitionId } from "~/models/requistion"
