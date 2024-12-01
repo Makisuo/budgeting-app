@@ -69,7 +69,7 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 						We work with a variety of banking providers to support as many banks as possible.
 					</Modal.Description>
 				</Modal.Header>
-				<Modal.Body className="space-y-6">
+				<Modal.Body className="space-y-6 pb-4">
 					<div className="flex gap-2">
 						<TextField
 							className="w-full"

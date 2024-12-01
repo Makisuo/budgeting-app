@@ -9,6 +9,12 @@ export const useBankAccounts = () => {
 	return useShape<typeof Account.Encoded>(bankAccountShape())
 }
 
+export const useBankAccount = (id: string) => {
+	const { data, ...rest } = useBankAccounts()
+
+	return { data: data?.find((item) => item.id === id), ...rest }
+}
+
 export const useTransactions = () => {
 	return useShape<typeof Transaction.Encoded>(transactionShape())
 }

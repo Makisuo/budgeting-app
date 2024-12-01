@@ -79,6 +79,12 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 								.getAccount(accountId)
 								.pipe(Effect.tapErrorTag("ResponseError", (e) => Effect.logError(e)))
 
+							const { balances } = yield* goCardless.getBalances(accountId)
+
+							yield* Effect.logInfo("balances", balances)
+
+							const balance = balances[0]
+
 							yield* accountRepo.insert(
 								Account.insert.make({
 									id: accountId,
@@ -89,8 +95,8 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 
 									deletedAt: null,
 									currency: account.currency || "",
-									balanceAmount: 0,
-									balanceCurrency: "",
+									balanceAmount: +(balance?.balanceAmount.amount || 0),
+									balanceCurrency: balance?.balanceAmount.currency || "",
 								}),
 							)
 						}),

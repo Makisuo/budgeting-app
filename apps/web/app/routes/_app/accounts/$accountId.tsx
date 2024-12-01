@@ -3,7 +3,7 @@ import { IconCirclePlaceholderDashed } from "justd-icons"
 import { Card } from "~/components/ui"
 import { Badge } from "~/components/ui/badge"
 import { Table } from "~/components/ui/table"
-import { useTransactions } from "~/utils/electric/hooks"
+import { useBankAccount, useTransactions } from "~/utils/electric/hooks"
 import { currencyFormatter } from "~/utils/formatters"
 
 export const Route = createFileRoute("/_app/accounts/$accountId")({
@@ -11,13 +11,17 @@ export const Route = createFileRoute("/_app/accounts/$accountId")({
 })
 
 function RouteComponent() {
-	const bankAccount = {}
+	const { accountId } = Route.useParams()
 
-	console.log(bankAccount)
+	const { data: bankAccount } = useBankAccount(accountId)
 
 	const { data: transactions } = useTransactions()
 
 	console.log(transactions)
+
+	if (!bankAccount) {
+		return <div>Account not found</div>
+	}
 
 	return (
 		<div className="space-y-4">
@@ -25,12 +29,11 @@ function RouteComponent() {
 				<Card.Header>
 					<div>
 						<Card.Title>{bankAccount.name}</Card.Title>
-						<Card.Description>{bankAccount.officialName}</Card.Description>
 					</div>
 				</Card.Header>
 				<Card.Content>
-					{currencyFormatter(bankAccount.isoCurrencyCode ?? "USD").format(
-						Number(bankAccount.availableBalance) ?? 0,
+					{currencyFormatter(bankAccount.balance_currency ?? "USD").format(
+						Number(bankAccount.balance_amount) ?? 0,
 					)}
 				</Card.Content>
 			</Card>
