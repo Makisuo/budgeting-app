@@ -46,15 +46,22 @@ export const transformTransaction = (transaction: GoCardlessSchema.Transaction, 
 		amount: +transaction.transactionAmount.amount,
 		currency: transaction.transactionAmount.currency,
 
+		name:
+			transaction.creditorName ||
+			transaction.debtorName ||
+			transaction.remittanceInformationUnstructuredArray.at(0) ||
+			transaction.proprietaryBankTransactionCode ||
+			"No Info",
+		description: transaction.remittanceInformationUnstructuredArray.join(", "),
+
 		status: status,
 		balance: null,
 		category: null,
-		description: null,
 		currencyRate: null,
 		currencySource: null,
-		deletedAt: null,
 		date: date,
-		method: "",
-		name: "",
+		method: mapTransactionMethod(transaction.proprietaryBankTransactionCode),
+
+		deletedAt: null,
 	})
 }
