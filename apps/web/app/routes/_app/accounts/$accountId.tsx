@@ -63,16 +63,16 @@ function RouteComponent() {
 									</Table.Cell>
 									<Table.Cell>
 										<Badge intent={Number(transaction.amount) < 0 ? "danger" : "success"}>
-											{currencyFormatter(transaction.iso_currency_code ?? "USD").format(
+											{currencyFormatter(transaction.currency ?? "USD").format(
 												transaction.amount,
 											)}
 										</Badge>
 									</Table.Cell>
-									<Table.Cell>{transaction.personal_category || "Unknown"}</Table.Cell>
+									<Table.Cell>{transaction.category || "Unknown"}</Table.Cell>
 									<Table.Cell>{transaction.date}</Table.Cell>
 									<Table.Cell>
-										<Badge intent={transaction.pending ? "info" : "primary"}>
-											{transaction.pending ? "Pending" : "Completed"}
+										<Badge intent={transaction.status === "pending" ? "info" : "primary"}>
+											{transaction.status === "pending" ? "Pending" : "Completed"}
 										</Badge>
 									</Table.Cell>
 								</Table.Row>

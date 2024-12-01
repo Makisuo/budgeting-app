@@ -43,6 +43,7 @@
 		"vinxi": "0.4.3"
 	},
 	"devDependencies": {
+		"api": "workspace:*",
 		"@types/node": "^22.10.1",
 		"@types/react": "^18.3.12",
 		"@types/react-dom": "^18.3.1",
