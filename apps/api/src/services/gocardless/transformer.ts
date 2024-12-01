@@ -1,8 +1,6 @@
-import { DateTime, Effect, Match, Schema } from "effect"
+import { DateTime, Match } from "effect"
 
-import { Account } from "~/models/account"
-import type { Institution } from "~/models/institution"
-import { Transaction } from "~/models/transaction"
+import { Transaction, TransactionId } from "~/models/transaction"
 import type * as GoCardlessSchema from "./models"
 
 const matchTransactionCategory = Match.type<GoCardlessSchema.Transaction>().pipe(
@@ -41,17 +39,22 @@ export const mapTransactionMethod = (type: string | undefined) => {
 	}
 }
 
-// const transformAccount = (account: GoCardlessSchema.Account) =>
-// 	Effect.gen(function* () {
-// 		const now = yield* DateTime.now
+export const transformTransaction = (transaction: GoCardlessSchema.Transaction, status: "posted" | "pending") => {
+	const date = DateTime.unsafeFromDate(transaction.bookingDateTime)
+	return Transaction.insert.make({
+		id: TransactionId.make(transaction.transactionId),
+		amount: +transaction.transactionAmount.amount,
+		currency: transaction.transactionAmount.currency,
 
-// 		return Account.insert.make({
-// 			name: account.owner_name,
-// 			currency: account.c,
-// 			type: "depository",
-// 			balanceAmount: account.balanceAmount.amount,
-// 			balanceCurrency: account.balanceAmount.currency,
-// 			deletedAt: null,
-// 			institutionId: undefined,
-// 		})
-// 	})
+		status: status,
+		balance: null,
+		category: null,
+		description: null,
+		currencyRate: null,
+		currencySource: null,
+		deletedAt: null,
+		date: date,
+		method: "",
+		name: "",
+	})
+}

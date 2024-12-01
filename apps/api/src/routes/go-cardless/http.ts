@@ -3,12 +3,13 @@ import { Arbitrary, Effect, FastCheck, Option, Schema, pipe } from "effect"
 import { Api } from "~/api"
 import { NotFound } from "~/errors"
 import { Account } from "~/models/account"
-import { InstitutionId } from "~/models/institution"
 import { Requisition } from "~/models/requistion"
 import { AccountRepo } from "~/repositories/account-repo"
 import { InstitutionRepo } from "~/repositories/institution-repo"
 import { RequisitionRepo } from "~/repositories/requisition-repo"
+import { TranscationRepo } from "~/repositories/transaction-repo"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
+import { transformTransaction } from "~/services/gocardless/transformer"
 import { CreateLinkResponse } from "./models"
 
 export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handlers) =>
@@ -18,6 +19,7 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 		const institutionRepo = yield* InstitutionRepo
 		const requisitionRepo = yield* RequisitionRepo
 		const accountRepo = yield* AccountRepo
+		const transactionRepo = yield* TranscationRepo
 
 		return handlers
 			.handle("createLink", ({ payload }) =>
@@ -84,6 +86,7 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 									// iban: account.iban,
 									institutionId: requisition.value.institutionId,
 									type: "depository",
+
 									deletedAt: null,
 									currency: account.currency || "",
 									balanceAmount: 0,
@@ -108,16 +111,31 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 			)
 			.handle("sync", ({ path }) =>
 				Effect.gen(function* () {
-					const requisition = yield* requisitionRepo.findByReferenceId(path.referenceId)
+					const account = yield* accountRepo.findById(path.accountId)
 
-					if (Option.isNone(requisition)) {
-						return yield* Effect.fail(new NotFound({ message: "Requisition not found" }))
+					if (Option.isNone(account)) {
+						return yield* Effect.fail(new NotFound({ message: "Account not found" }))
 					}
 
-					// yield* syncWorkflow.create({ params: { requisitionId: requisition.id } })
+					const transactions = yield* goCardless.getTransactions(account.value.id)
+
+					const mappedBookedTransactions = transactions.transactions.booked.map((v) =>
+						transformTransaction(v, "posted"),
+					)
+					const mappedPendingTransactions = transactions.transactions.pending.map((v) =>
+						transformTransaction(v, "pending"),
+					)
+
+					yield* transactionRepo.insertMultipleVoid([
+						...mappedBookedTransactions,
+						...mappedPendingTransactions,
+					])
 
 					return "Sucesfully started sync job"
-				}).pipe(Effect.tapError((error) => Effect.logError(error))),
+				}).pipe(
+					Effect.tapError((error) => Effect.logError(error)),
+					Effect.orDie,
+				),
 			)
 	}),
 )

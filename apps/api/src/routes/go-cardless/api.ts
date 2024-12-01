@@ -1,6 +1,7 @@
 import { HttpApiEndpoint, HttpApiGroup } from "@effect/platform"
 import { Schema } from "effect"
 import { InternalError, NotFound } from "~/errors"
+import { AccountId } from "~/models/account"
 import { InstitutionId } from "~/models/institution"
 import { CreateLinkResponse } from "./models"
 
@@ -23,10 +24,10 @@ export class GoCardlessApi extends HttpApiGroup.make("gocardless")
 			.addError(NotFound),
 	)
 	.add(
-		HttpApiEndpoint.get("sync", "/gocardless/sync/:referenceId")
+		HttpApiEndpoint.get("sync", "/gocardless/sync/:accountId")
 			.setPath(
 				Schema.Struct({
-					referenceId: Schema.String,
+					accountId: AccountId,
 				}),
 			)
 			.addError(InternalError)

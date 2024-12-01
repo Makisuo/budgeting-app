@@ -11,6 +11,7 @@ import {
 	NewTokenResponse,
 } from "./models"
 
+import type { AccountId } from "~/models/account"
 import type { RequisitionId } from "~/models/requistion"
 
 export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCardlessService", {
@@ -57,7 +58,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 						Effect.scoped,
 					)
 				}),
-			getAccount: (id: string) =>
+			getAccount: (id: typeof AccountId.Type) =>
 				Effect.gen(function* () {
 					const { access } = yield* getAccessToken()
 
@@ -69,7 +70,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 						Effect.scoped,
 					)
 				}),
-			getBalances: (accountId: string) =>
+			getBalances: (accountId: typeof AccountId.Type) =>
 				Effect.gen(function* () {
 					const { access } = yield* getAccessToken()
 
@@ -81,7 +82,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 						Effect.scoped,
 					)
 				}),
-			getTransactions: (accountId: string) =>
+			getTransactions: (accountId: typeof AccountId.Type) =>
 				Effect.gen(function* () {
 					const { access } = yield* getAccessToken()
 

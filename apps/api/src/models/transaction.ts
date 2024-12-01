@@ -6,7 +6,7 @@ import { baseFields } from "./utils"
 export const TransactionId = Schema.String.pipe(Schema.brand("TransactionId"))
 
 export class Transaction extends Model.Class<Transaction>("Transaction")({
-	id: Model.Generated(TransactionId),
+	id: Model.GeneratedByApp(TransactionId),
 	amount: Schema.Number,
 	currency: Schema.String,
 

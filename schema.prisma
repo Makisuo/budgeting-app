@@ -21,7 +21,6 @@ model Institution {
   @@map("institutions")
 }
 
-
 model Account {
   id       String      @id @default(uuid())
   name     String
@@ -31,7 +30,7 @@ model Account {
   institutionId String      @map("institution_id")
   institution   Institution @relation(fields: [institutionId], references: [id])
 
-  balanceAmount   Float @map("balance_amount")
+  balanceAmount   Float  @map("balance_amount")
   balanceCurrency String @map("balance_currency")
 
   createdAt DateTime  @default(now()) @map("created_at")
@@ -63,10 +62,10 @@ model Transaction {
 }
 
 model Requisition {
-  id       String  @id @default(uuid())
-  status   String
- 
-  referenceId String @map("reference_id")
+  id     String @id @default(uuid())
+  status String
+
+  referenceId   String @map("reference_id")
   institutionId String @map("institution_id")
 
   createdAt DateTime  @default(now()) @map("created_at")
