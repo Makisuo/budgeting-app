@@ -20,3 +20,6 @@ export * from './container';
 export * from './chart';
 export * from './command-menu';
 export * from './separator';
+export * from './combo-box';
+export * from './list-box';
+export * from './progress-circle';

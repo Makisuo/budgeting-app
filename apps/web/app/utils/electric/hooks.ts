@@ -1,10 +1,12 @@
 import { useShape } from "@electric-sql/react"
 import { bankAccountShape, institutionShape, transactionShape } from "./shapes"
 
+import type { Account } from "api/src/models/account"
+import type { Institution } from "api/src/models/institution"
 import type { Transaction } from "api/src/models/transaction"
 
 export const useBankAccounts = () => {
-	return useShape<any>(bankAccountShape())
+	return useShape<typeof Account.Encoded>(bankAccountShape())
 }
 
 export const useTransactions = () => {
@@ -12,5 +14,5 @@ export const useTransactions = () => {
 }
 
 export const useInstitutions = () => {
-	return useShape<any>(institutionShape())
+	return useShape<typeof Institution.Encoded>(institutionShape())
 }

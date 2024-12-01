@@ -11,7 +11,7 @@ export class Institution extends Model.Class<Institution>("Institution")({
 
 	provider: Schema.Literal("plaid", "gocardless"),
 
-	countries: Model.JsonFromString(Schema.Array(Schema.String)),
+	countries: Schema.Array(Schema.String),
 
 	transactionTotalDays: Schema.Number,
 
