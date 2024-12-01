@@ -1,5 +1,6 @@
 import { DateTime, Match } from "effect"
 
+import type { AccountId } from "~/models/account"
 import { Transaction, TransactionId } from "~/models/transaction"
 import type * as GoCardlessSchema from "./models/models"
 
@@ -39,20 +40,25 @@ export const mapTransactionMethod = (type: string | undefined) => {
 	}
 }
 
-export const transformTransaction = (transaction: GoCardlessSchema.Transaction, status: "posted" | "pending") => {
-	const date = DateTime.unsafeFromDate(transaction.bookingDateTime)
+export const transformTransaction = (
+	accountId: typeof AccountId.Type,
+	transaction: GoCardlessSchema.Transaction,
+	status: "posted" | "pending",
+) => {
+	const date = DateTime.unsafeFromDate(transaction.bookingDateTime ?? transaction.bookingDate)
 	return Transaction.insert.make({
 		id: TransactionId.make(transaction.transactionId),
+		accountId,
 		amount: +transaction.transactionAmount.amount,
 		currency: transaction.transactionAmount.currency,
 
 		name:
 			transaction.creditorName ||
 			transaction.debtorName ||
-			transaction.remittanceInformationUnstructuredArray.at(0) ||
+			transaction.remittanceInformationUnstructuredArray?.at(0) ||
 			transaction.proprietaryBankTransactionCode ||
 			"No Info",
-		description: transaction.remittanceInformationUnstructuredArray.join(", "),
+		description: transaction.remittanceInformationUnstructuredArray?.join(", ") || "No Info",
 
 		status: status,
 		balance: null,

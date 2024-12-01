@@ -126,10 +126,10 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 					const transactions = yield* goCardless.getTransactions(account.value.id)
 
 					const mappedBookedTransactions = transactions.transactions.booked.map((v) =>
-						transformTransaction(v, "posted"),
+						transformTransaction(path.accountId, v, "posted"),
 					)
 					const mappedPendingTransactions = transactions.transactions.pending.map((v) =>
-						transformTransaction(v, "pending"),
+						transformTransaction(path.accountId, v, "pending"),
 					)
 
 					yield* transactionRepo.insertMultipleVoid([

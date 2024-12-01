@@ -24,7 +24,7 @@ export class GoCardlessApi extends HttpApiGroup.make("gocardless")
 			.addError(NotFound),
 	)
 	.add(
-		HttpApiEndpoint.get("sync", "/gocardless/sync/:accountId")
+		HttpApiEndpoint.post("sync", "/gocardless/sync/:accountId")
 			.setPath(
 				Schema.Struct({
 					accountId: AccountId,

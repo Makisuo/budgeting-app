@@ -42,7 +42,7 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 	}, [data, selectedCountry])
 
 	const filteredInstitutions = useMemo(() => {
-		const baseResults = countryFilteredInstitutions.slice(0, 100)
+		const baseResults = countryFilteredInstitutions
 		if (!bankFilter) return baseResults
 
 		const searchTerm = bankFilter.toLowerCase()

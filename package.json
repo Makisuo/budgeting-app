@@ -1,7 +1,8 @@
 {
 	"name": "budgeting-app",
 	"scripts": {
-		"db": "prisma db"
+		"db": "prisma db",
+		"db:migrate": "prisma migrate"
 	},
 	"workspaces": ["apps/*"],
 	"devDependencies": {

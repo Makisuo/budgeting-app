@@ -15,8 +15,14 @@ export const useBankAccount = (id: string) => {
 	return { data: data?.find((item) => item.id === id), ...rest }
 }
 
-export const useTransactions = () => {
+export const useAllTransactions = () => {
 	return useShape<typeof Transaction.Encoded>(transactionShape())
+}
+
+export const useTransactions = (accountId: string) => {
+	const { data, ...rest } = useAllTransactions()
+
+	return { data: data?.filter((item) => item.accountId === accountId), ...rest }
 }
 
 export const useInstitutions = () => {

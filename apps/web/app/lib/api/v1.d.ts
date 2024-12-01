@@ -53,16 +53,32 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/gocardless/sync/{referenceId}": {
+    "/gocardless/sync/{accountId}": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        get: operations["gocardless.sync"];
+        get?: never;
         put?: never;
-        post?: never;
+        post: operations["gocardless.sync"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/sync/institutions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["admin.syncInstitutions"];
         delete?: never;
         options?: never;
         head?: never;
@@ -113,6 +129,22 @@ export interface components {
             /** @enum {unknown} */
             _tag: "NotFound";
         };
+        /**
+         * Institution
+         * @description an instance of Institution
+         */
+        Institution: {
+            /** string & Brand<"InstitutionId"> */
+            id: string;
+            name: string;
+            bic: string;
+            transaction_total_days: components["schemas"]["NumberFromString"];
+            countries: string[];
+            logo: string;
+            max_access_valid_for_days: components["schemas"]["NumberFromString"];
+        };
+        /** @description a string that will be parsed into a number */
+        NumberFromString: string;
     };
     responses: never;
     parameters: never;
@@ -257,7 +289,7 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                referenceId: string;
+                accountId: string;
             };
             cookie?: never;
         };
@@ -288,6 +320,44 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["NotFound"];
+                };
+            };
+            /** @description an instance of InternalError */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InternalError"];
+                };
+            };
+        };
+    };
+    "admin.syncInstitutions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Institution"][];
+                };
+            };
+            /** @description The request did not match the expected schema */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HttpApiDecodeError"];
                 };
             };
             /** @description an instance of InternalError */

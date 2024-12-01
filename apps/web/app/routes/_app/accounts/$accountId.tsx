@@ -1,8 +1,9 @@
-import { createFileRoute, notFound } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import { IconCirclePlaceholderDashed } from "justd-icons"
-import { Card } from "~/components/ui"
+import { Button, Card } from "~/components/ui"
 import { Badge } from "~/components/ui/badge"
 import { Table } from "~/components/ui/table"
+import { useApi } from "~/lib/api/client"
 import { useBankAccount, useTransactions } from "~/utils/electric/hooks"
 import { currencyFormatter } from "~/utils/formatters"
 
@@ -13,11 +14,13 @@ export const Route = createFileRoute("/_app/accounts/$accountId")({
 function RouteComponent() {
 	const { accountId } = Route.useParams()
 
+	const $api = useApi()
+
 	const { data: bankAccount } = useBankAccount(accountId)
 
-	const { data: transactions } = useTransactions()
+	const { data: transactions } = useTransactions(accountId)
 
-	console.log(transactions)
+	const syncTransactionMutation = $api.useMutation("post", "/gocardless/sync/{accountId}")
 
 	if (!bankAccount) {
 		return <div>Account not found</div>
@@ -25,6 +28,9 @@ function RouteComponent() {
 
 	return (
 		<div className="space-y-4">
+			<Button onPress={() => syncTransactionMutation.mutate({ params: { path: { accountId: accountId } } })}>
+				Sync Transactions
+			</Button>
 			<Card>
 				<Card.Header>
 					<div>

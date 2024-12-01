@@ -20,11 +20,11 @@ export class Transaction extends S.Class<Transaction>("Transaction")({
 	transactionId: S.String,
 	bookingDate: S.DateFromString,
 	valueDate: S.optional(S.Union(S.Null, S.DateFromString)),
-	bookingDateTime: S.DateFromString,
+	bookingDateTime: S.NullishOr(S.DateFromString),
 	valueDateTime: S.optional(S.Union(S.Null, S.DateFromString)),
 	transactionAmount: Amount,
 	creditorName: S.optional(S.Union(S.Null, S.String)),
-	remittanceInformationUnstructuredArray: S.Array(S.String),
+	remittanceInformationUnstructuredArray: S.NullishOr(S.Array(S.String)),
 	proprietaryBankTransactionCode: S.String,
 	internalTransactionId: S.NullishOr(S.String),
 	debtorName: S.optional(S.Union(S.Null, S.String)),
@@ -35,8 +35,8 @@ export class Transaction extends S.Class<Transaction>("Transaction")({
 		),
 	),
 	additionalDataStructured: S.optional(S.Union(AdditionalDataStructured, S.Null)),
-	debtorAccount: S.optional(S.Union(TorAccount, S.Null)),
-	creditorAccount: S.optional(S.Union(TorAccount, S.Null)),
+	debtorAccount: S.NullishOr(S.Union(TorAccount, S.Struct({}))),
+	creditorAccount: S.NullishOr(S.Union(TorAccount, S.Struct({}))),
 }) {}
 
 export class CurrencyExchange extends S.Class<CurrencyExchange>("CurrencyExchange")({
