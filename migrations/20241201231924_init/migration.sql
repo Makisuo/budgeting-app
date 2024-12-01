@@ -1,11 +1,11 @@
 -- CreateEnum
-CREATE TYPE "transactionStatus" AS ENUM ('posted', 'pending');
+CREATE TYPE IF NOT EXISTS "transactionStatus" AS ENUM ('posted', 'pending');
 
 -- CreateEnum
-CREATE TYPE "accountType" AS ENUM ('depository', 'credit', 'other_asset', 'loan', 'other_liability');
+CREATE TYPE IF NOT EXISTS  "accountType" AS ENUM ('depository', 'credit', 'other_asset', 'loan', 'other_liability');
 
 -- CreateTable
-CREATE TABLE "institutions" (
+CREATE TABLE IF NOT EXISTS "institutions" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "logo" TEXT,
@@ -20,7 +20,7 @@ CREATE TABLE "institutions" (
 );
 
 -- CreateTable
-CREATE TABLE "accounts" (
+CREATE TABLE IF NOT EXISTS  "accounts" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "currency" TEXT NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE "accounts" (
 );
 
 -- CreateTable
-CREATE TABLE "transactions" (
+CREATE TABLE IF NOT EXISTS  "transactions" (
     "id" TEXT NOT NULL,
     "amount" DOUBLE PRECISION NOT NULL,
     "currency" TEXT NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE "transactions" (
 );
 
 -- CreateTable
-CREATE TABLE "requisitions" (
+CREATE TABLE IF NOT EXISTS  "requisitions" (
     "id" TEXT NOT NULL,
     "status" TEXT NOT NULL,
     "reference_id" TEXT NOT NULL,
