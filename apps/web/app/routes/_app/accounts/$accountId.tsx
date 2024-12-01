@@ -17,6 +17,8 @@ function RouteComponent() {
 
 	const { data: transactions } = useTransactions()
 
+	console.log(transactions)
+
 	return (
 		<div className="space-y-4">
 			<Card>
@@ -60,9 +62,9 @@ function RouteComponent() {
 										{transaction.name}
 									</Table.Cell>
 									<Table.Cell>
-										<Badge intent={Number(transaction.amount) > 0 ? "danger" : "success"}>
+										<Badge intent={Number(transaction.amount) < 0 ? "danger" : "success"}>
 											{currencyFormatter(transaction.iso_currency_code ?? "USD").format(
-												-Number(transaction.amount),
+												transaction.amount,
 											)}
 										</Badge>
 									</Table.Cell>
