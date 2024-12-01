@@ -4,7 +4,7 @@ import { useApi } from "~/lib/api/client"
 import { useInstitutions } from "~/utils/electric/hooks"
 import { Button, ComboBox, Modal, ProgressCircle, TextField } from "./ui"
 
-import { VList } from "virtua"
+import { ListBox, ListBoxItem, Text } from "react-aria-components"
 
 export interface BankConnectorProps {
 	isOpen: boolean
@@ -25,16 +25,7 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 	const [bankFilter, setBankFilter] = useState<string>("")
 	const [selectedCountry, setSelectedCountry] = useState<string>("DE")
 
-	const uniqueCountries = useMemo(
-		() =>
-			data.reduce((acc, item) => {
-				if (!acc.includes(item.countries[0])) {
-					acc.push(item.countries[0])
-				}
-				return acc
-			}, [] as string[]),
-		[data],
-	)
+	const uniqueCountries = useMemo(() => Array.from(new Set(data.map((item) => item.countries[0]))), [data])
 
 	const mappedCountries = useMemo(() => {
 		return uniqueCountries.map((country) => ({
@@ -44,26 +35,29 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 	}, [uniqueCountries])
 
 	const countryFilteredInstitutions = useMemo(() => {
-		if (!selectedCountry) {
-			return []
-		}
+		if (!selectedCountry) return []
 
-		return data.filter((item) => {
-			if (selectedCountry) {
-				return item.countries.includes(selectedCountry)
-			}
-			return true
-		})
+		const countrySet = new Set([selectedCountry])
+		return data.filter((item) => item.countries.some((country) => countrySet.has(country)))
 	}, [data, selectedCountry])
 
 	const filteredInstitutions = useMemo(() => {
-		if (!bankFilter) {
-			return countryFilteredInstitutions
+		const baseResults = countryFilteredInstitutions.slice(0, 100)
+		if (!bankFilter) return baseResults
+
+		const searchTerm = bankFilter.toLowerCase()
+
+		// Pre-allocate array size for better memory management
+		const results = new Array(Math.min(baseResults.length, 100))
+		let count = 0
+
+		for (let i = 0; i < baseResults.length && count < 100; i++) {
+			if (baseResults[i].name.toLowerCase().includes(searchTerm)) {
+				results[count++] = baseResults[i]
+			}
 		}
 
-		return countryFilteredInstitutions.filter((institution) => {
-			return institution.name.toLowerCase().includes(bankFilter.toLowerCase())
-		})
+		return results.slice(0, count)
 	}, [countryFilteredInstitutions, bankFilter])
 
 	return (
@@ -103,9 +97,9 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 							</ComboBox.List>
 						</ComboBox>
 					</div>
-					<div className="flex flex-col gap-4">
-						{filteredInstitutions.map((institution) => (
-							<div key={institution.id} className="flex items-center justify-between gap-2">
+					<ListBox className="flex flex-col gap-4" items={filteredInstitutions}>
+						{(institution) => (
+							<ListBoxItem className="flex items-center justify-between gap-2 focus:outline-none">
 								<div className="flex gap-2">
 									{institution.logo && (
 										<img
@@ -114,9 +108,13 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 											alt={institution.name}
 										/>
 									)}
-									<div>
-										<p className="text-sm">{institution.name}</p>
-										<p className="text-muted-fg text-xs">GoCardless</p>
+									<div className="flex flex-col">
+										<Text slot="label" className="text-sm">
+											{institution.name}
+										</Text>
+										<Text slot="description" className="text-muted-fg text-xs">
+											GoCardless
+										</Text>
 									</div>
 								</div>
 								<Button
@@ -143,9 +141,9 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 										</>
 									)}
 								</Button>
-							</div>
-						))}
-					</div>
+							</ListBoxItem>
+						)}
+					</ListBox>
 				</Modal.Body>
 			</Modal.Content>
 		</Modal>

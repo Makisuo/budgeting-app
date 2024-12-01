@@ -9,5 +9,5 @@
 		"prisma": "^6.0.0"
 	},
 	"private": true,
-	"trustedDependencies": ["@prisma/engines", "esbuild", "prisma", "protobufjs", "workerd"]
+	"trustedDependencies": ["@biomejs/biome", "@clerk/shared", "prisma", "protobufjs", "sharp", "workerd"]
 }
