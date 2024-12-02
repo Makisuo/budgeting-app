@@ -1,10 +1,13 @@
 import { IconPlus } from "justd-icons"
 import { useMemo, useState } from "react"
 import { useApi } from "~/lib/api/client"
-import { useInstitutions } from "~/utils/electric/hooks"
 import { Button, ComboBox, Modal, ProgressCircle, TextField } from "./ui"
 
+import { useLiveQuery } from "@electric-sql/pglite-react"
+import { schema } from "db"
+import { sql } from "drizzle-orm"
 import { ListBox, ListBoxItem, Text } from "react-aria-components"
+import { useDrizzleLive, useDrizzleLiveIncremental } from "~/lib/hooks/use-drizzle-live"
 
 export interface BankConnectorProps {
 	isOpen: boolean
@@ -12,8 +15,6 @@ export interface BankConnectorProps {
 }
 
 export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
-	const { data } = useInstitutions()
-
 	const api = useApi()
 
 	const createLinkTokenMutation = api.useMutation("post", "/gocardless/link", {
@@ -25,44 +26,33 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 	const [bankFilter, setBankFilter] = useState<string>("")
 	const [selectedCountry, setSelectedCountry] = useState<string>("DE")
 
-	const uniqueCountries = useMemo(() => Array.from(new Set(data.map((item) => item.countries[0]))), [data])
+	const uniqueContriesQuery = useLiveQuery.sql<{ country: string }>`SELECT DISTINCT jsonb_array_elements(countries) AS country
+FROM public.institutions;`
+
+
+	const { rows: institutions } = useDrizzleLiveIncremental("id",(db) =>
+		db.query.institutions.findMany({
+			limit: 100,
+			where: (t, { and, sql, ilike }) =>
+				and(sql`${t.countries}::jsonb ? ${selectedCountry}`, ilike(t.name, `%${bankFilter}%`)),
+		}),
+	)
+
+
 
 	const mappedCountries = useMemo(() => {
-		return uniqueCountries.map((country) => ({
-			value: country,
-			label: country,
-		}))
-	}, [uniqueCountries])
-
-	const countryFilteredInstitutions = useMemo(() => {
-		if (!selectedCountry) return []
-
-		const countrySet = new Set([selectedCountry])
-		return data.filter((item) => item.countries.some((country) => countrySet.has(country)))
-	}, [data, selectedCountry])
-
-	const filteredInstitutions = useMemo(() => {
-		const baseResults = countryFilteredInstitutions
-		if (!bankFilter) return baseResults
-
-		const searchTerm = bankFilter.toLowerCase()
-
-		// Pre-allocate array size for better memory management
-		const results = new Array(Math.min(baseResults.length, 100))
-		let count = 0
-
-		for (let i = 0; i < baseResults.length && count < 100; i++) {
-			if (baseResults[i].name.toLowerCase().includes(searchTerm)) {
-				results[count++] = baseResults[i]
-			}
+		if(!uniqueContriesQuery?.rows.length){
+			return []
 		}
-
-		return results.slice(0, count)
-	}, [countryFilteredInstitutions, bankFilter])
+		return uniqueContriesQuery.rows.map((country) => ({
+			value: country.country,
+			label: country.country,
+		}))
+	}, [uniqueContriesQuery])
 
 	return (
 		<Modal isOpen={isOpen} onOpenChange={setIsOpen}>
-			<Modal.Content>
+			<Modal.Content aria-label="Bank Connector Dialog">
 				<Modal.Header>
 					<Modal.Title>Connect bank account</Modal.Title>
 					<Modal.Description>
@@ -76,8 +66,10 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 							value={bankFilter}
 							onChange={setBankFilter}
 							placeholder="Search bank"
+							aria-label="Search bank"
 						/>
 						<ComboBox
+							aria-label="Select country"
 							className={"w-auto"}
 							selectedKey={selectedCountry}
 							onSelectionChange={(value) => setSelectedCountry(value?.toString() || "DE")}
@@ -97,9 +89,13 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 							</ComboBox.List>
 						</ComboBox>
 					</div>
-					<ListBox className="flex flex-col gap-4" items={filteredInstitutions}>
-						{(institution) => (
-							<ListBoxItem className="flex items-center justify-between gap-2 focus:outline-none">
+					<ListBox className="flex flex-col gap-4">
+						{institutions.map((institution) => (
+							<ListBoxItem
+								key={institution.id}
+								textValue={institution.name}
+								className="flex items-center justify-between gap-2 focus:outline-none"
+							>
 								<div className="flex gap-2">
 									{institution.logo && (
 										<img
@@ -142,7 +138,7 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 									)}
 								</Button>
 							</ListBoxItem>
-						)}
+						))}
 					</ListBox>
 				</Modal.Body>
 			</Modal.Content>

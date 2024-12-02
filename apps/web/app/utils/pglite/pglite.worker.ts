@@ -34,8 +34,6 @@ worker({
 			primaryKey: ["id"],
 		})
 
-		console.log(await pg.exec("SELECT * FROM institutions"))
-
 		const shape1 = await pg.electric.syncShapeToTable({
 			shape: {
 				url: new URL("/v1/shape", ELECTRIC_URL).href,
@@ -55,11 +53,6 @@ worker({
 			table: "transactions",
 			primaryKey: ["id"],
 		})
-
-		console.log(shape2)
-
-		console.log(await pg.exec("SELECT * FROM transactions"))
-		console.log(await pg.exec("SELECT * FROM accounts"))
 
 		// await runMigrations(pg, DB_NAME)
 		// await syncTables(pg, ELECTRIC_URL)

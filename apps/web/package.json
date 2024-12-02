@@ -26,7 +26,9 @@
 		"cmdk": "^1.0.4",
 		"date-fns": "^4.1.0",
 		"date-fns-tz": "^3.2.0",
-		"effect": "^3.10.19",
+		"db": "workspace:*",
+		"drizzle-orm": "^0.36.4",
+		"effect": "^3.11.1",
 		"framer-motion": "^11.11.17",
 		"justd-icons": "^1.7.9",
 		"minisearch": "^7.1.1",
@@ -47,11 +49,11 @@
 		"vinxi": "0.4.3"
 	},
 	"devDependencies": {
-		"api": "workspace:*",
 		"@types/node": "^22.10.1",
 		"@types/react": "^18.3.12",
 		"@types/react-dom": "^18.3.1",
 		"@vitejs/plugin-react": "^4.3.3",
+		"api": "workspace:*",
 		"autoprefixer": "^10.4.20",
 		"justd-cli": "^1.2.42",
 		"openapi-typescript": "^7.4.3",

@@ -1,0 +1,25 @@
+{
+	"name": "db",
+	"version": "0.0.0",
+	"private": true,
+	"dependencies": {
+		"drizzle-orm": "^0.36.4",
+		"postgres": "^3.4.5"
+	},
+	"type": "module",
+	"description": "",
+	"types": "index.ts",
+	"main": "index.ts",
+	"devDependencies": {
+		"drizzle-kit": "^0.28.1",
+		"typescript": "^5.7.2"
+	},
+	"scripts": {
+		"db": "drizzle-kit",
+		"db:export": "bun run ./web/export.ts",
+		"db:generate": "drizzle-kit generate",
+		"db:generate:web": "drizzle-kit generate --config ./web/drizzle.config.ts",
+		"db:generate:all": "bun run db:generate && bun run db:generate:web && bun run db:export",
+		"db:migrate": "dotenvx run -- drizzle-kit migrate"
+	}
+}

@@ -52,8 +52,7 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 						All Bank Accounts
 					</SidebarItem>
 					<AccountItems />
-					<ConnectBankAccountItem2 />
-					{/* <ConnectBankAccountItem /> */}
+					<ConnectBankAccountItem />
 				</Sidebar.Section>
 			</Sidebar.Content>
 			<Sidebar.Footer className="hidden items-center lg:flex lg:flex-row">
@@ -92,50 +91,15 @@ const AccountItems = () => {
 	)
 }
 
+
+
 const ConnectBankAccountItem = () => {
-	const { linkToken } = Route.useLoaderData()
-
-	const config = {
-		token: linkToken,
-		onEvent: (event) => {
-			console.debug(event)
-		},
-		onExit: (error: PlaidLinkError | null, metadata: PlaidLinkOnExitMetadata) => {
-			console.debug("exit")
-			console.error(error, metadata)
-		},
-		onSuccess: async (publicToken, metadata) => {
-			console.debug("HI", publicToken, metadata)
-			const res = await fetch(`${import.meta.env.VITE_APP_BACKEND_URL}/exchange-token`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${"TODO"}`,
-				},
-
-				body: JSON.stringify({ publicToken: publicToken }),
-			})
-
-			console.debug(await res.text())
-		},
-	} as PlaidLinkOptions
-
-	const { open, ready } = usePlaidLink(config)
-
-	return (
-		<Sidebar.Item onPress={() => open()} isDisabled={!ready} icon={IconPlus}>
-			Connect Bank Account
-		</Sidebar.Item>
-	)
-}
-
-const ConnectBankAccountItem2 = () => {
 	const [isOpen, setIsOpen] = useState(false)
 
 	return (
 		<>
 			<Sidebar.Item icon={IconPlus} onPress={() => setIsOpen((open) => !open)}>
-				GoCardless
+				Connect Bank Account
 			</Sidebar.Item>
 			<BankConnector isOpen={isOpen} setIsOpen={setIsOpen} />
 		</>

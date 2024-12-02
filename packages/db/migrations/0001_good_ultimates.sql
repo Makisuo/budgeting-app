@@ -1,0 +1,2 @@
+CREATE INDEX IF NOT EXISTS "name_index" ON "institutions" USING btree ("name");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "name_country_index" ON "institutions" USING btree ("name","countries");
