@@ -3,7 +3,6 @@ import { createLinkTokenAction } from "~/actions"
 import { AppSidebar } from "~/components/app-sidebar"
 import { ProfileMenu } from "~/components/profile-menu"
 import { Container, Sidebar } from "~/components/ui"
-import { PgRepl } from "~/utils/pglite/pg-repl"
 import { PgLiteProvider } from "~/utils/pglite/pglite.provider"
 
 export const Route = createFileRoute("/_app")({
@@ -31,6 +30,7 @@ export const Route = createFileRoute("/_app")({
 		}
 	},
 })
+
 
 function RouteComponent() {
 	return (

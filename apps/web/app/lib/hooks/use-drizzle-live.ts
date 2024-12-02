@@ -37,6 +37,7 @@ export const useDrizzleLiveIncremental = <T extends unknown[]>(
     const drizzle = createPgLiteClient(pg)
     const data = fn(drizzle).toSQL()
 
+
     const items = useLiveIncrementalQuery<T[0]>(
         data.sql, 
         data.params, 

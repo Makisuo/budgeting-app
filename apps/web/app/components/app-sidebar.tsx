@@ -5,17 +5,11 @@ import type * as React from "react"
 import { useLocation } from "@tanstack/react-router"
 import { IconAlbum, IconBrandApple, IconCreditCard, IconCube, IconDashboard, IconPlus, IconSettings } from "justd-icons"
 import { useState } from "react"
-import {
-	type PlaidLinkError,
-	type PlaidLinkOnExitMetadata,
-	type PlaidLinkOptions,
-	usePlaidLink,
-} from "react-plaid-link"
+
 import { Link, Sidebar, useSidebar } from "~/components/ui"
-import { Route } from "~/routes/_app"
-import { useBankAccounts } from "~/utils/electric/hooks"
 import { BankConnector } from "./bank-connector"
 import { ProfileMenu } from "./profile-menu"
+import { useDrizzleLive, useDrizzleLiveIncremental } from "~/lib/hooks/use-drizzle-live"
 
 export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 	const { state } = useSidebar()
@@ -78,13 +72,23 @@ export const SidebarItem = ({ href, ...rest }: React.ComponentProps<typeof Sideb
 }
 
 const AccountItems = () => {
-	const { data } = useBankAccounts()
+	const { rows: accounts } = useDrizzleLive((db) =>
+		db.query.accounts.findMany({
+			limit: 100,
+			with: {
+				institution:true
+			}
+		}),
+	)
+
+	console.log(accounts)
 
 	return (
 		<>
-			{data.map((item) => (
-				<SidebarItem icon={IconCube} key={item.id} href={`/accounts/${item.id}` as "/accounts/$accountId"}>
-					{item.name}
+			{accounts.map((account) => (
+				<SidebarItem icon={IconCube} key={account.id} href={`/accounts/${account.id}` as "/accounts/$accountId"}>
+					{account.institution.logo && <img className="h-3 pr-2" src={account.institution.logo} alt={account.institution.name} />}
+					{account.name}
 				</SidebarItem>
 			))}
 		</>

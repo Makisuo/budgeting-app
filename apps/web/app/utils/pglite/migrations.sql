@@ -1,17 +1,16 @@
 -- CreateEnum
 DO $$ 
 BEGIN 
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'transactionStatus') THEN
-        CREATE TYPE "transactionStatus" AS ENUM ('posted', 'pending');
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'transaction_status') THEN
+        CREATE TYPE "transaction_status" AS ENUM ('posted', 'pending');
     END IF;
 END $$;
 
 -- CreateEnum
--- CreateEnum
 DO $$ 
 BEGIN 
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'accountType') THEN
-        CREATE TYPE "accountType" AS ENUM ('depository', 'credit', 'other_asset', 'loan', 'other_liability');
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'account_type') THEN
+        CREATE TYPE "account_type" AS ENUM ('depository', 'credit', 'other_asset', 'loan', 'other_liability');
     END IF;
 END $$;
 
@@ -35,7 +34,7 @@ CREATE TABLE IF NOT EXISTS  "accounts" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "currency" TEXT NOT NULL,
-    "type" "accountType" NOT NULL,
+    "type" "account_type" NOT NULL,
     "institution_id" TEXT NOT NULL,
     "balance_amount" DOUBLE PRECISION NOT NULL,
     "balance_currency" TEXT NOT NULL,
@@ -52,7 +51,7 @@ CREATE TABLE IF NOT EXISTS "transactions" (
     "amount" DOUBLE PRECISION NOT NULL,
     "currency" TEXT NOT NULL,
     "date" TIMESTAMP(3) NOT NULL,
-    "status" "transactionStatus" NOT NULL,
+    "status" "transaction_status" NOT NULL,
     "balance" DOUBLE PRECISION,
     "category" TEXT,
     "method" TEXT NOT NULL,
@@ -60,7 +59,7 @@ CREATE TABLE IF NOT EXISTS "transactions" (
     "description" TEXT,
     "currency_rate" DOUBLE PRECISION,
     "currency_source" TEXT,
-    "account_id" TEXT NOT NULL,
+    "s_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "deleted_at" TIMESTAMP(3),

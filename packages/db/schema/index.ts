@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm"
+import { relations, sql } from "drizzle-orm"
 import {
 	doublePrecision,
 	foreignKey,
@@ -11,8 +11,9 @@ import {
 	timestamp,
 } from "drizzle-orm/pg-core"
 
-export const accountType = pgEnum("accountType", ["depository", "credit", "other_asset", "loan", "other_liability"])
-export const transactionStatus = pgEnum("transactionStatus", ["posted", "pending"])
+
+export const accountType = pgEnum("account_type", ["depository", "credit", "other_asset", "loan", "other_liability"])
+export const transactionStatus = pgEnum("transaction_status", ["posted", "pending"])
 
 const defaultFields = {
 	createdAt: timestamp("created_at", { precision: 3, mode: "string" }).default(sql`CURRENT_TIMESTAMP`).notNull(),
@@ -102,3 +103,23 @@ export const transactions = pgTable(
 		}
 	},
 )
+
+export const accountsRelations = relations(accounts, ({ one, many }) => ({
+	institution: one(institutions, {
+		fields: [accounts.institutionId],
+		references: [institutions.id],
+	}),
+	transactions: many(transactions),
+}))
+
+export const institutionsRelations = relations(institutions, ({ many }) => ({
+	accounts: many(accounts),
+}))
+
+export const transactionsRelations = relations(transactions, ({ one }) => ({
+	account: one(accounts, {
+		fields: [transactions.accountId],
+		references: [accounts.id],
+	}),
+}))
+
