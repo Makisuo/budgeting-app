@@ -3,11 +3,13 @@ import { Schema } from "effect"
 import { InstitutionId } from "./institution"
 import { baseFields } from "./utils"
 
-export const RequisitionId = Schema.String.pipe(Schema.brand("RequisitionId"))
+export const RequisitionId = Schema.String.pipe(Schema.brand("@GoCardless/RequisitionId"))
+
+export const ReferenceId = Schema.UUID.pipe(Schema.brand("@GoCardless/ReferenceId"))
 
 export class Requisition extends Model.Class<Requisition>("Requisition")({
 	id: RequisitionId,
-	referenceId: Schema.String,
+	referenceId: ReferenceId,
 
 	institutionId: InstitutionId,
 

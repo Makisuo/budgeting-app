@@ -3,7 +3,7 @@ import { Arbitrary, Effect, FastCheck, Option, Schema, pipe } from "effect"
 import { Api } from "~/api"
 import { NotFound } from "~/errors"
 import { Account } from "~/models/account"
-import { Requisition } from "~/models/requistion"
+import { ReferenceId, Requisition } from "~/models/requistion"
 import { AccountRepo } from "~/repositories/account-repo"
 import { InstitutionRepo } from "~/repositories/institution-repo"
 import { RequisitionRepo } from "~/repositories/requisition-repo"
@@ -34,8 +34,7 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 						maxHistoricalDays: institution.value.transactionTotalDays,
 					})
 
-					// TODO: Make this ID a brand type
-					const referenceId = FastCheck.sample(Arbitrary.make(Schema.UUID), 1)[0]!
+					const referenceId = ReferenceId.make(FastCheck.sample(Arbitrary.make(Schema.UUID), 1)[0]!)
 
 					const res = yield* goCardless.createLink({
 						redirect: `http://localhost:8787/gocardless/callback/${referenceId}`,
