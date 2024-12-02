@@ -13,6 +13,7 @@ export class InstitutionRepo extends Effect.Service<InstitutionRepo>()("Institut
 
 		const insertMultipleVoidSchema = SqlSchema.void({
 			Request: Schema.Array(Institution.insert),
+			// @ts-expect-error This is an effect type error, works though :)
 			execute: (request) => sql`insert into ${sql(TABLE_NAME)} ${sql.insert(request)}`,
 		})
 		const insertMultipleVoid = (insert: (typeof Institution.insert.Type)[]) =>

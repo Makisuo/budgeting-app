@@ -1,4 +1,4 @@
-import { Schema } from "effect"
+import { Brand, Schema } from "effect"
 import { AccountId } from "~/models/account"
 import { InstitutionId } from "~/models/institution"
 import { RequisitionId } from "~/models/requistion"
@@ -69,8 +69,13 @@ export class GetTransactionsResponse extends Schema.Class<GetTransactionsRespons
 	}),
 }) {}
 
+export type AgreementId = Brand.Branded<string, "@GoCardless/AgreementId">
+export const AgreementId = Brand.nominal<AgreementId>()
+
+const AgreementIdFromString = Schema.String.pipe(Schema.fromBrand(AgreementId))
+
 export class CreateAgreementResponse extends Schema.Class<CreateAgreementResponse>("CreateAgreementResponse")({
-	id: Schema.String,
+	id: AgreementIdFromString,
 	created: Schema.String,
 	max_historical_days: Schema.Number,
 	access_valid_for_days: Schema.Number,

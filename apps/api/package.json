@@ -16,20 +16,20 @@
 		"@effect/language-service": "^0.2.0",
 		"@types/node": "^22.10.1",
 		"typescript": "^5.7.2",
-		"vitest": "2.1.6",
+		"vitest": "2.1.8",
 		"wrangler": "^3.91.0"
 	},
 	"dependencies": {
-		"@effect/experimental": "^0.32.14",
-		"@effect/opentelemetry": "^0.39.19",
-		"@effect/platform": "^0.69.30",
-		"@effect/sql": "^0.21.1",
-		"@effect/sql-drizzle": "^0.20.1",
-		"@effect/sql-pg": "^0.22.1",
+		"@effect/experimental": "^0.33.1",
+		"@effect/opentelemetry": "^0.40.1",
+		"@effect/platform": "^0.70.1",
+		"@effect/sql": "^0.22.1",
+		"@effect/sql-drizzle": "^0.21.1",
+		"@effect/sql-pg": "^0.23.1",
 		"@opentelemetry/exporter-trace-otlp-http": "^0.55.0",
 		"@opentelemetry/sdk-trace-base": "^1.28.0",
 		"@opentelemetry/sdk-trace-node": "^1.28.0",
-		"effect": "^3.10.19",
+		"effect": "^3.11.1",
 		"plaid": "^30.0.0"
 	}
 }
