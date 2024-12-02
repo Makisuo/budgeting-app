@@ -1,3 +1,4 @@
+import { useLiveQuery, usePGlite } from "@electric-sql/pglite-react"
 import { createFileRoute } from "@tanstack/react-router"
 import { Card } from "~/components/ui"
 
@@ -11,22 +12,20 @@ export const Route = createFileRoute("/_app/")({
 function Home() {
 	const { auth } = Route.useRouteContext()
 
-	const { data } = useBankAccounts()
+	const pg = usePGlite()
 
-	const syncBankAccount = async () => {
-		const res = await fetch("http://localhost:8787/sync-bank-accounts", {
-			method: "POST",
-			headers: {
-				Authorization: `Bearer ${auth.session.id}`,
-			},
-		})
+	const items = useLiveQuery(
+		`
+		SELECT *
+		FROM institutions
+	  `,
+		[],
+	)
 
-		console.info(res)
-	}
+	console.log(items, "XD")
 
 	return (
 		<div>
-			<Button onPress={syncBankAccount}>Sync Bank Accounts</Button>
 			<Card>
 				<Card.Header>
 					<Card.Title>Monthly Report</Card.Title>

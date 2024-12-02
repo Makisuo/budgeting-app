@@ -1,8 +1,19 @@
 -- CreateEnum
-CREATE TYPE "transactionStatus" AS ENUM ('posted', 'pending');
+DO $$ 
+BEGIN 
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'transactionStatus') THEN
+        CREATE TYPE "transactionStatus" AS ENUM ('posted', 'pending');
+    END IF;
+END $$;
 
 -- CreateEnum
-CREATE TYPE "accountType" AS ENUM ('depository', 'credit', 'other_asset', 'loan', 'other_liability');
+-- CreateEnum
+DO $$ 
+BEGIN 
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'accountType') THEN
+        CREATE TYPE "accountType" AS ENUM ('depository', 'credit', 'other_asset', 'loan', 'other_liability');
+    END IF;
+END $$;
 
 -- CreateTable
 CREATE TABLE IF NOT EXISTS "institutions" (
@@ -20,7 +31,7 @@ CREATE TABLE IF NOT EXISTS "institutions" (
 );
 
 -- CreateTable
-CREATE TABLE IF NOT EXISTS "accounts" (
+CREATE TABLE IF NOT EXISTS  "accounts" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "currency" TEXT NOT NULL,
@@ -36,7 +47,7 @@ CREATE TABLE IF NOT EXISTS "accounts" (
 );
 
 -- CreateTable
-CREATE TABLE IF NOT EXISTS  "transactions" (
+CREATE TABLE IF NOT EXISTS "transactions" (
     "id" TEXT NOT NULL,
     "amount" DOUBLE PRECISION NOT NULL,
     "currency" TEXT NOT NULL,
@@ -58,7 +69,7 @@ CREATE TABLE IF NOT EXISTS  "transactions" (
 );
 
 -- CreateTable
-CREATE TABLE IF NOT EXISTS  "requisitions" (
+CREATE TABLE IF NOT EXISTS "requisitions" (
     "id" TEXT NOT NULL,
     "status" TEXT NOT NULL,
     "reference_id" TEXT NOT NULL,
@@ -70,8 +81,6 @@ CREATE TABLE IF NOT EXISTS  "requisitions" (
     CONSTRAINT "requisitions_pkey" PRIMARY KEY ("id")
 );
 
--- AddForeignKey
-ALTER TABLE "accounts" ADD CONSTRAINT "accounts_institution_id_fkey" FOREIGN KEY ("institution_id") REFERENCES "institutions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
--- AddForeignKey
-ALTER TABLE "transactions" ADD CONSTRAINT "transactions_account_id_fkey" FOREIGN KEY ("account_id") REFERENCES "accounts"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+

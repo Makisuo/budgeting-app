@@ -10,5 +10,8 @@
 		"prisma": "^6.0.0"
 	},
 	"private": true,
-	"trustedDependencies": ["@biomejs/biome", "@clerk/shared", "prisma", "protobufjs", "sharp", "workerd"]
+	"trustedDependencies": ["@biomejs/biome", "@clerk/shared", "prisma", "protobufjs", "sharp", "workerd"],
+	"dependencies": {
+		"@electric-sql/pglite-repl": "^0.2.14"
+	}
 }

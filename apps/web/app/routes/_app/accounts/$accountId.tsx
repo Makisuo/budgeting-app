@@ -1,4 +1,6 @@
+import { usePGlite } from "@electric-sql/pglite-react"
 import { createFileRoute } from "@tanstack/react-router"
+import { console } from "inspector"
 import { IconCirclePlaceholderDashed } from "justd-icons"
 import { Button, Card } from "~/components/ui"
 import { Badge } from "~/components/ui/badge"
