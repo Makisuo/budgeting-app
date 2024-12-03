@@ -4,7 +4,7 @@ import { getWebRequest } from "vinxi/http"
 
 const publicTable = ["institutions"]
 
-export const Route = createAPIFileRoute("/api/electric/v1/shape")({
+export const APIRoute = createAPIFileRoute("/api/electric/v1/shape")({
 	GET: async ({ request }) => {
 		const { userId } = await getAuth(getWebRequest())
 
