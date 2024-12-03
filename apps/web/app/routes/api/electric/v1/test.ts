@@ -1,10 +1,17 @@
-import { json } from "@tanstack/start"
+import { getAuth } from "@clerk/tanstack-start/server"
 import { createAPIFileRoute } from "@tanstack/start/api"
+import { getWebRequest } from "vinxi/http"
 
 const publicTable = ["institutions"]
 
 export const APIRoute = createAPIFileRoute("/api/electric/v1/test")({
 	GET: async ({ request }) => {
+		const { userId } = await getAuth(getWebRequest())
+
+		if (!userId) {
+			return new Response("Not Authenticated", { status: 401 })
+		}
+
 		const url = new URL(request.url)
 		const table = url.searchParams.get("table") as string
 
