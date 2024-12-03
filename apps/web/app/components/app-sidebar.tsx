@@ -81,6 +81,8 @@ const AccountItems = () => {
 		}),
 	)
 
+	console.log(accounts)
+
 	return (
 		<>
 			{accounts.map((account) => (
@@ -92,7 +94,7 @@ const AccountItems = () => {
 					{account.institution?.logo && (
 						<img className="h-3 pr-2" src={account.institution.logo} alt={account.institution.name} />
 					)}
-					{account.name}
+					{account.institution.name} {account.type}
 				</SidebarItem>
 			))}
 		</>

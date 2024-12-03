@@ -13,7 +13,9 @@ export class TranscationRepo extends Effect.Service<TranscationRepo>()("Transcat
 
 		const insertMultipleVoidSchema = SqlSchema.void({
 			Request: Schema.Array(Transaction.insert),
-			execute: (request) => sql`insert into ${sql(TABLE_NAME)} ${sql.insert(request)}`,
+			// TODO: This should update later on its fine for now though
+			execute: (request) => sql`INSERT INTO ${sql(TABLE_NAME)} ${sql.insert(request)}
+			ON CONFLICT (id) DO NOTHING`,
 		})
 		const insertMultipleVoid = (insert: (typeof Transaction.insert.Type)[]) =>
 			insertMultipleVoidSchema(insert).pipe(

@@ -23,8 +23,6 @@ function RouteComponent() {
 		}),
 	)
 
-	console.log(bankAccount)
-
 	const { data: transactions } = useDrizzleLive((db) =>
 		db.query.transactions.findMany({
 			where: (table, { eq }) => eq(table.accountId, accountId),
