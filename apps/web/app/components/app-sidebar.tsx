@@ -61,7 +61,8 @@ export const SidebarItem = ({ href, ...rest }: React.ComponentProps<typeof Sideb
 
 	const isMatch = matchRoute({ to: href })
 
-	return <Sidebar.Item isCurrent={!!isMatch} href={href} {...rest} />
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	return useMemo(() => <Sidebar.Item isCurrent={!!isMatch} href={href} {...rest} />, [isMatch, href])
 }
 
 const AccountItems = () => {

@@ -8,13 +8,13 @@ import { getAuth } from "@clerk/tanstack-start/server"
 export const createLinkTokenAction = createServerFn({ method: "POST" }).handler(async () => {
 	const session = await fetchUserSession()
 
-	if (!session.user.userId) {
+	if (!session.userId) {
 		throw new Error("Unauthorized")
 	}
 
 	try {
 		const tokenResponse = await plaidClient.linkTokenCreate({
-			user: { client_user_id: session.user.userId },
+			user: { client_user_id: session.userId },
 			client_name: "Maple",
 			webhook: `${process.env.VITE_APP_BACKEND_URL}/webhook`,
 			products: [Products.Transactions],
@@ -35,6 +35,8 @@ export const fetchUserSession = createServerFn({ method: "GET" }).handler(async 
 	const user = await getAuth(getWebRequest())
 
 	return {
-		user,
+		userId: user.userId,
+		orgId: user.orgId,
+		orgRole: user.orgRole,
 	}
 })

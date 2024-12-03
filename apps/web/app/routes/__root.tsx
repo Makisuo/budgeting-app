@@ -55,7 +55,7 @@ export const Route = createRootRoute({
 		const auth = await fetchUserSession()
 
 		return {
-			auth: auth.user,
+			auth: auth,
 		}
 	},
 	component: RootComponent,
