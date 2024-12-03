@@ -1,5 +1,6 @@
 import { DateTime, Match } from "effect"
 
+import type { TenantId } from "~/authorization"
 import type { AccountId } from "~/models/account"
 import { Transaction, TransactionId } from "~/models/transaction"
 import type * as GoCardlessSchema from "./models/models"
@@ -42,6 +43,7 @@ export const mapTransactionMethod = (type: string | undefined) => {
 
 export const transformTransaction = (
 	accountId: typeof AccountId.Type,
+	tenantId: typeof TenantId.Type,
 	transaction: GoCardlessSchema.Transaction,
 	status: "posted" | "pending",
 ) => {
@@ -49,6 +51,7 @@ export const transformTransaction = (
 	return Transaction.insert.make({
 		id: TransactionId.make(transaction.transactionId),
 		accountId,
+		tenantId,
 		amount: +transaction.transactionAmount.amount,
 		currency: transaction.transactionAmount.currency,
 

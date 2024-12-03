@@ -5,7 +5,7 @@ import { type PGliteWorkerOptions, worker } from "@electric-sql/pglite/worker"
 
 import M1 from "./migrations.sql?raw"
 
-const ELECTRIC_URL = import.meta.env.VITE_APP_ELECTRIC_URL
+const ELECTRIC_URL = new URL("/api/electric/v1/shape", import.meta.env.VITE_BASE_URL).href
 
 export const DB_NAME = "maple_db"
 
@@ -25,7 +25,7 @@ worker({
 
 		await pg.electric.syncShapeToTable({
 			shape: {
-				url: new URL("/v1/shape", ELECTRIC_URL).href,
+				url: ELECTRIC_URL,
 				table: "institutions",
 				onError: (error) => console.log(error),
 			},
@@ -35,7 +35,7 @@ worker({
 
 		await pg.electric.syncShapeToTable({
 			shape: {
-				url: new URL("/v1/shape", ELECTRIC_URL).href,
+				url: ELECTRIC_URL,
 				table: "accounts",
 				onError: (error) => console.log(error),
 			},
@@ -45,7 +45,7 @@ worker({
 
 		await pg.electric.syncShapeToTable({
 			shape: {
-				url: new URL("/v1/shape", ELECTRIC_URL).href,
+				url: ELECTRIC_URL,
 				table: "transactions",
 				onError: (error) => console.log(error),
 			},

@@ -1,5 +1,5 @@
 {
-  "id": "5a932814-a9f4-4fa3-8d38-005c5f24512f",
+  "id": "0e61c11f-13b1-4cdf-b79c-6c54dd5e1e3f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -51,23 +51,29 @@
           "primaryKey": false,
           "notNull": true
         },
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp(3)",
+          "type": "timestamp (3)",
           "primaryKey": false,
           "notNull": true,
           "default": "CURRENT_TIMESTAMP"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "timestamp(3)",
+          "type": "timestamp (3)",
           "primaryKey": false,
           "notNull": true,
           "default": "CURRENT_TIMESTAMP"
         },
         "deleted_at": {
           "name": "deleted_at",
-          "type": "timestamp(3)",
+          "type": "timestamp (3)",
           "primaryKey": false,
           "notNull": false
         }
@@ -136,21 +142,21 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp(3)",
+          "type": "timestamp (3)",
           "primaryKey": false,
           "notNull": true,
           "default": "CURRENT_TIMESTAMP"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "timestamp(3)",
+          "type": "timestamp (3)",
           "primaryKey": false,
           "notNull": true,
           "default": "CURRENT_TIMESTAMP"
         },
         "deleted_at": {
           "name": "deleted_at",
-          "type": "timestamp(3)",
+          "type": "timestamp (3)",
           "primaryKey": false,
           "notNull": false
         }
@@ -228,23 +234,29 @@
           "primaryKey": false,
           "notNull": true
         },
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp(3)",
+          "type": "timestamp (3)",
           "primaryKey": false,
           "notNull": true,
           "default": "CURRENT_TIMESTAMP"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "timestamp(3)",
+          "type": "timestamp (3)",
           "primaryKey": false,
           "notNull": true,
           "default": "CURRENT_TIMESTAMP"
         },
         "deleted_at": {
           "name": "deleted_at",
-          "type": "timestamp(3)",
+          "type": "timestamp (3)",
           "primaryKey": false,
           "notNull": false
         }
@@ -281,7 +293,7 @@
         },
         "date": {
           "name": "date",
-          "type": "timestamp(3)",
+          "type": "timestamp (3)",
           "primaryKey": false,
           "notNull": true
         },
@@ -340,23 +352,29 @@
           "primaryKey": false,
           "notNull": true
         },
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp(3)",
+          "type": "timestamp (3)",
           "primaryKey": false,
           "notNull": true,
           "default": "CURRENT_TIMESTAMP"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "timestamp(3)",
+          "type": "timestamp (3)",
           "primaryKey": false,
           "notNull": true,
           "default": "CURRENT_TIMESTAMP"
         },
         "deleted_at": {
           "name": "deleted_at",
-          "type": "timestamp(3)",
+          "type": "timestamp (3)",
           "primaryKey": false,
           "notNull": false
         }

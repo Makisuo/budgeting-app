@@ -1,6 +1,6 @@
 import { HttpApiBuilder, HttpApiScalar, HttpServer } from "@effect/platform"
 import { Layer, pipe } from "effect"
-import { Api } from "./api"
+import { Api, AuthorizationLive } from "./api"
 import { HttpAdminLive } from "./routes/admin/http"
 import { HttpGoCardlessLive } from "./routes/go-cardless/http"
 import { HttpRootLive } from "./routes/root/http"
@@ -18,6 +18,8 @@ export const HttpAppLive = pipe(
 
 	Layer.provide(withLogFormat),
 	Layer.provide(withMinimalLogLevel),
+
+	Layer.provide(AuthorizationLive),
 
 	// Layer.provide(Logger.minimumLogLevel(LogLevel.All)),
 	// Layer.provide(Logger.structured),

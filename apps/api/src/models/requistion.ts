@@ -1,5 +1,6 @@
 import { Model } from "@effect/sql"
 import { Schema } from "effect"
+import { TenantId } from "~/authorization"
 import { InstitutionId } from "./institution"
 import { baseFields } from "./utils"
 
@@ -12,6 +13,7 @@ export class Requisition extends Model.Class<Requisition>("Requisition")({
 	referenceId: ReferenceId,
 
 	institutionId: InstitutionId,
+	tenantId: Model.GeneratedByApp(TenantId),
 
 	status: Schema.Literal("created", "pending", "active"),
 

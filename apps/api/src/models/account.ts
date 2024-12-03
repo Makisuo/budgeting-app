@@ -1,6 +1,7 @@
 import { Model } from "@effect/sql"
 
 import { Schema } from "effect"
+import { TenantId } from "~/authorization"
 import { InstitutionId } from "./institution"
 import { baseFields } from "./utils"
 
@@ -17,6 +18,8 @@ export class Account extends Model.Class<Account>("Account")({
 
 	balanceAmount: Schema.Number,
 	balanceCurrency: Schema.String,
+
+	tenantId: Model.GeneratedByApp(TenantId),
 
 	...baseFields,
 }) {}

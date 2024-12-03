@@ -1,6 +1,7 @@
 import { HttpApiBuilder, HttpApp, HttpServerResponse } from "@effect/platform"
 import { Arbitrary, Effect, FastCheck, Option, Schema, pipe } from "effect"
 import { Api } from "~/api"
+import { Authorization } from "~/authorization"
 import { NotFound } from "~/errors"
 import { Account } from "~/models/account"
 import { ReferenceId, Requisition } from "~/models/requistion"
@@ -24,6 +25,8 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 		return handlers
 			.handle("createLink", ({ payload }) =>
 				Effect.gen(function* () {
+					const currentUser = yield* Authorization.provides
+
 					const institution = yield* institutionRepo.findById(payload.institutionId)
 
 					if (!Option.isSome(institution)) {
@@ -48,6 +51,7 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 						Requisition.insert.make({
 							id: res.id,
 							referenceId: referenceId,
+							tenantId: currentUser.tenantId,
 							institutionId: payload.institutionId,
 							status: "created",
 							deletedAt: null,
@@ -90,6 +94,8 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 									name: account.ownerName || "No name",
 									// iban: account.iban,
 									institutionId: requisition.value.institutionId,
+									tenantId: requisition.value.tenantId,
+
 									type: "depository",
 
 									deletedAt: null,
@@ -125,10 +131,10 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 					const transactions = yield* goCardless.getTransactions(account.value.id)
 
 					const mappedBookedTransactions = transactions.transactions.booked.map((v) =>
-						transformTransaction(path.accountId, v, "posted"),
+						transformTransaction(path.accountId, account.value.tenantId, v, "posted"),
 					)
 					const mappedPendingTransactions = transactions.transactions.pending.map((v) =>
-						transformTransaction(path.accountId, v, "pending"),
+						transformTransaction(path.accountId, account.value.tenantId, v, "pending"),
 					)
 
 					yield* transactionRepo.insertMultipleVoid([

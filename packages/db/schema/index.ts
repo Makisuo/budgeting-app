@@ -20,14 +20,19 @@ const defaultFields = {
 	deletedAt: timestamp("deleted_at", { precision: 3 }),
 }
 
+// Internal Table
 export const requisitions = pgTable("requisitions", {
 	id: text().primaryKey().notNull(),
 	status: text().notNull(),
 	referenceId: text("reference_id").notNull(),
 	institutionId: text("institution_id").notNull(),
+
+	tenantId: text("tenant_id").notNull(),
+
 	...defaultFields,
 })
 
+// Public Table
 export const institutions = pgTable(
 	"institutions",
 	{
@@ -57,6 +62,8 @@ export const accounts = pgTable(
 		institutionId: text("institution_id").notNull(),
 		balanceAmount: doublePrecision("balance_amount").notNull(),
 		balanceCurrency: text("balance_currency").notNull(),
+
+		tenantId: text("tenant_id").notNull(),
 		...defaultFields,
 	},
 	(table) => {
@@ -88,6 +95,8 @@ export const transactions = pgTable(
 		currencyRate: doublePrecision("currency_rate"),
 		currencySource: text("currency_source"),
 		accountId: text("account_id").notNull(),
+
+		tenantId: text("tenant_id").notNull(),
 		...defaultFields,
 	},
 	(table) => {

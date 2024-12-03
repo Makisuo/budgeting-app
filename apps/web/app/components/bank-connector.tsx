@@ -113,8 +113,6 @@ FROM public.institutions;`
 								<Button
 									appearance="outline"
 									size="small"
-									isPending={createLinkTokenMutation.isPending}
-									isDisabled={createLinkTokenMutation.isPending}
 									onPress={() =>
 										createLinkTokenMutation.mutate({
 											body: {

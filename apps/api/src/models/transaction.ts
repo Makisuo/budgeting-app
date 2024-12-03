@@ -1,6 +1,7 @@
 import { Model } from "@effect/sql"
 import { DateTimeFromDate } from "@effect/sql/Model"
 import { Schema } from "effect"
+import { TenantId } from "~/authorization"
 import { AccountId } from "./account"
 import { baseFields } from "./utils"
 
@@ -24,6 +25,8 @@ export class Transaction extends Model.Class<Transaction>("Transaction")({
 	description: Schema.NullOr(Schema.String),
 	currencyRate: Schema.NullOr(Schema.Number),
 	currencySource: Schema.NullOr(Schema.String),
+
+	tenantId: Model.GeneratedByApp(TenantId),
 
 	...baseFields,
 }) {}

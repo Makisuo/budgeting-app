@@ -22,9 +22,10 @@ CREATE TABLE IF NOT EXISTS "accounts" (
 	"institution_id" text NOT NULL,
 	"balance_amount" double precision NOT NULL,
 	"balance_currency" text NOT NULL,
-	"created_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	"updated_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	"deleted_at" timestamp(3)
+	"tenant_id" text NOT NULL,
+	"created_at" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"updated_at" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"deleted_at" timestamp (3)
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "institutions" (
@@ -34,9 +35,9 @@ CREATE TABLE IF NOT EXISTS "institutions" (
 	"provider" text NOT NULL,
 	"countries" jsonb NOT NULL,
 	"transaction_total_days" integer NOT NULL,
-	"created_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	"updated_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	"deleted_at" timestamp(3)
+	"created_at" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"updated_at" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"deleted_at" timestamp (3)
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "requisitions" (
@@ -44,16 +45,17 @@ CREATE TABLE IF NOT EXISTS "requisitions" (
 	"status" text NOT NULL,
 	"reference_id" text NOT NULL,
 	"institution_id" text NOT NULL,
-	"created_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	"updated_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	"deleted_at" timestamp(3)
+	"tenant_id" text NOT NULL,
+	"created_at" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"updated_at" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"deleted_at" timestamp (3)
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "transactions" (
 	"id" text PRIMARY KEY NOT NULL,
 	"amount" double precision NOT NULL,
 	"currency" text NOT NULL,
-	"date" timestamp(3) NOT NULL,
+	"date" timestamp (3) NOT NULL,
 	"status" "transaction_status" NOT NULL,
 	"balance" double precision,
 	"category" text,
@@ -63,9 +65,10 @@ CREATE TABLE IF NOT EXISTS "transactions" (
 	"currency_rate" double precision,
 	"currency_source" text,
 	"account_id" text NOT NULL,
-	"created_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	"updated_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	"deleted_at" timestamp(3)
+	"tenant_id" text NOT NULL,
+	"created_at" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"updated_at" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"deleted_at" timestamp (3)
 );
 
 
