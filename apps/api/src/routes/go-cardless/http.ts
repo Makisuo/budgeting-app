@@ -1,5 +1,5 @@
 import { HttpApiBuilder, HttpApp, HttpServerResponse } from "@effect/platform"
-import { Arbitrary, Effect, FastCheck, Option, Schema, pipe } from "effect"
+import { Arbitrary, Config, Effect, FastCheck, Option, Schema, pipe } from "effect"
 import { Api } from "~/api"
 import { Authorization } from "~/authorization"
 import { NotFound } from "~/errors"
@@ -27,6 +27,8 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 				Effect.gen(function* () {
 					const currentUser = yield* Authorization.provides
 
+					const apiBaseUrl = yield* Config.string("API_BASE_URL")
+
 					const institution = yield* institutionRepo.findById(payload.institutionId)
 
 					if (!Option.isSome(institution)) {
@@ -40,7 +42,7 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 					const referenceId = ReferenceId.make(FastCheck.sample(Arbitrary.make(Schema.UUID), 1)[0]!)
 
 					const res = yield* goCardless.createLink({
-						redirect: `http://localhost:8787/gocardless/callback/${referenceId}`,
+						redirect: `${apiBaseUrl}/gocardless/callback/${referenceId}`,
 						institutionId: payload.institutionId,
 						agreementId: agreement.id,
 						reference: referenceId,
@@ -69,6 +71,8 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 			.handle("callback", ({ path }) =>
 				Effect.gen(function* () {
 					const requisition = yield* requisitionRepo.findByReferenceId(path.id)
+
+					const appBaseUrl = yield* Config.string("APP_BASE_URL")
 
 					if (Option.isNone(requisition)) {
 						return yield* Effect.fail(new NotFound({ message: "Requisition not found" }))
@@ -111,7 +115,7 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 
 					yield* HttpApp.appendPreResponseHandler((_req, res) =>
 						pipe(
-							HttpServerResponse.setHeader(res, "Location", "http://localhost:3000"),
+							HttpServerResponse.setHeader(res, "Location", appBaseUrl),
 							HttpServerResponse.setStatus(302),
 						),
 					)
