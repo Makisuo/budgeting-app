@@ -1,11 +1,12 @@
 import { IconPlus } from "justd-icons"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { useApi } from "~/lib/api/client"
 import { Button, ComboBox, Modal, ProgressCircle, TextField } from "./ui"
 
 import { useLiveQuery } from "@electric-sql/pglite-react"
 import { ListBox, ListBoxItem, Text } from "react-aria-components"
 import { useDrizzleLiveIncremental } from "~/lib/hooks/use-drizzle-live"
+import { DebouncedTextField } from "./debounced-input"
 
 export interface BankConnectorProps {
 	isOpen: boolean
@@ -21,7 +22,8 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 		},
 	})
 
-	const [bankFilter, setBankFilter] = useState<string>("")
+	const [bankFilter, setBankFilter] = useState("")
+
 	const [selectedCountry, setSelectedCountry] = useState<string>("DE")
 
 	const uniqueContriesQuery = useLiveQuery.sql<{
@@ -58,10 +60,9 @@ FROM public.institutions;`
 				</Modal.Header>
 				<Modal.Body className="space-y-6 pb-4">
 					<div className="flex gap-2">
-						<TextField
+						<DebouncedTextField
 							className="w-full"
-							value={bankFilter}
-							onChange={setBankFilter}
+							onDebouncedChange={setBankFilter}
 							placeholder="Search bank"
 							aria-label="Search bank"
 						/>
@@ -77,6 +78,7 @@ FROM public.institutions;`
 									<ComboBox.Option id={item.value} textValue={item.label}>
 										<img
 											className="h-3 pr-2"
+											loading="lazy"
 											src={`https://flagcdn.com/h48/${item.value.toLowerCase()}.png`}
 											alt={item.label}
 										/>{" "}
