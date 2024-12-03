@@ -8,7 +8,10 @@ const publicTable = ["institutions"]
 
 export const Route = createAPIFileRoute("/api/electric/v1/shape")({
 	GET: async ({ request }) => {
-		const { userId } = await getAuth(getWebRequest())
+		// const { userId } = await getAuth(getWebRequest())
+
+		console.log("WOW")
+		const userId = ""
 
 		if (!userId) {
 			return new Response(null, { status: 401 })
