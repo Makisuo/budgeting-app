@@ -32,6 +32,6 @@ export const APIRoute = createAPIFileRoute("/api/electric/v1/test")({
 			})
 		}
 
-		return new Response("Hello World!", { status: 200 })
+		return new Response(originUrl.href, { status: 200 })
 	},
 })
