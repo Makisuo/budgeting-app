@@ -37,6 +37,7 @@ worker({
 			shape: {
 				url: ELECTRIC_URL,
 				table: "accounts",
+
 				onError: (error) => console.log(error),
 			},
 			table: "accounts",
