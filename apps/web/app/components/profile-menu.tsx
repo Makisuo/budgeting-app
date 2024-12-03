@@ -10,14 +10,13 @@ export type ProfileMenuProps = {
 }
 
 export const ProfileMenu = ({ collapsed = false }: ProfileMenuProps) => {
-	const { auth } = Route.useRouteContext()
 	const { theme, setTheme } = useTheme()
 
 	const { user } = useUser()
 
 	return (
 		<Menu>
-			<Button appearance="plain" aria-label="Profile" slot="menu-trigger" className="group">
+			<Button appearance="plain" aria-label="Profile" slot="menu-trigger" className="group w-full justify-start">
 				<Avatar size="small" shape="square" src={user?.imageUrl} />
 				<span className="flex items-center justify-center group-data-[collapsible=dock]:hidden">
 					{user?.username}

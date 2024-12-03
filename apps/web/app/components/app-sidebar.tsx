@@ -81,8 +81,6 @@ const AccountItems = () => {
 		}),
 	)
 
-	console.log(accounts)
-
 	return (
 		<>
 			{accounts.map((account) => (
