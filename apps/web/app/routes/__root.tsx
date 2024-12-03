@@ -11,7 +11,10 @@ import { ClerkProvider } from "@clerk/tanstack-start"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { fetchUserSession } from "~/actions"
 
+import { useEffect } from "react"
 import appCss from "~/styles/app.css?url"
+
+import { scan } from "react-scan"
 
 const queryClient = new QueryClient()
 
@@ -59,6 +62,15 @@ export const Route = createRootRoute({
 })
 
 function RootComponent() {
+	useEffect(() => {
+		scan({
+			enabled: import.meta.env.DEV,
+			log: true,
+			includeChildren: true,
+			report: true,
+		})
+	}, [])
+
 	return (
 		<ClerkProvider>
 			<RootDocument>
@@ -77,12 +89,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 		<html lang="en">
 			<head>
 				<Meta />
-				{/* <script src="https://unpkg.com/react-scan/dist/auto.global.js" /> */}
 			</head>
 			<body>
 				{children}
 				<ScrollRestoration />
-				<TanStackRouterDevtools position="bottom-right" />
+
+				<TanStackRouterDevtools position="bottom-left" />
 				<Scripts />
 			</body>
 		</html>

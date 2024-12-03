@@ -2,12 +2,12 @@
 
 import type * as React from "react"
 
-import { useLocation } from "@tanstack/react-router"
+import { useLocation, useMatch, useMatchRoute } from "@tanstack/react-router"
 import { IconAlbum, IconBrandApple, IconCreditCard, IconCube, IconDashboard, IconPlus, IconSettings } from "justd-icons"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 import { Link, Sidebar, useSidebar } from "~/components/ui"
-import { useDrizzleLive, useDrizzleLiveIncremental } from "~/lib/hooks/use-drizzle-live"
+import { useDrizzleLive } from "~/lib/hooks/use-drizzle-live"
 import { BankConnector } from "./bank-connector"
 import { ProfileMenu } from "./profile-menu"
 
@@ -56,19 +56,12 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 	)
 }
 
-function useIsCurrentRoute(path: string): boolean {
-	const location = useLocation()
-
-	// Normalize paths by removing trailing slashes
-	const normalizedPath = path.endsWith("/") ? path.slice(0, -1) : path
-	const normalizedPathname = location.pathname.endsWith("/") ? location.pathname.slice(0, -1) : location.pathname
-
-	return normalizedPathname === normalizedPath
-}
-
 export const SidebarItem = ({ href, ...rest }: React.ComponentProps<typeof Sidebar.Item>) => {
-	const isMatch = useIsCurrentRoute(href || "x.x")
-	return <Sidebar.Item isCurrent={isMatch} href={href} {...rest} />
+	const matchRoute = useMatchRoute()
+
+	const isMatch = matchRoute({ to: href })
+
+	return <Sidebar.Item isCurrent={!!isMatch} href={href} {...rest} />
 }
 
 const AccountItems = () => {
