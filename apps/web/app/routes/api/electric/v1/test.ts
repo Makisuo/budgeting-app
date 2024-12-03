@@ -4,7 +4,7 @@ import { createAPIFileRoute } from "@tanstack/start/api"
 const publicTable = ["institutions"]
 
 export const APIRoute = createAPIFileRoute("/api/electric/v1/test")({
-	GET: ({ request, params }) => {
+	GET: async ({ request, params }) => {
 		const url = new URL(request.url)
 		const table = url.searchParams.get("table") as string
 
@@ -19,6 +19,18 @@ export const APIRoute = createAPIFileRoute("/api/electric/v1/test")({
 				originUrl.searchParams.set(key, value)
 			}
 		})
+
+		let resp = await fetch(originUrl.toString())
+		if (resp.headers.get("content-encoding")) {
+			const headers = new Headers(resp.headers)
+			headers.delete("content-encoding")
+			headers.delete("content-length")
+			resp = new Response(resp.body, {
+				status: resp.status,
+				statusText: resp.statusText,
+				headers,
+			})
+		}
 
 		return new Response("Hello World!", { status: 200 })
 	},
