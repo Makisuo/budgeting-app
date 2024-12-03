@@ -1,13 +1,13 @@
--- Current sql file was generated after introspecting the database
--- If you want to run this migration please uncomment this code before executing migrations
-
-CREATE TYPE "public"."accountType" AS ENUM('depository', 'credit', 'other_asset', 'loan', 'other_liability');--> statement-breakpoint
-CREATE TYPE "public"."transactionStatus" AS ENUM('posted', 'pending');--> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "requisitions" (
+CREATE TYPE "public"."account_type" AS ENUM('depository', 'credit', 'other_asset', 'loan', 'other_liability');--> statement-breakpoint
+CREATE TYPE "public"."transaction_status" AS ENUM('posted', 'pending');--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "accounts" (
 	"id" text PRIMARY KEY NOT NULL,
-	"status" text NOT NULL,
-	"reference_id" text NOT NULL,
+	"name" text NOT NULL,
+	"currency" text NOT NULL,
+	"type" "account_type" NOT NULL,
 	"institution_id" text NOT NULL,
+	"balance_amount" double precision NOT NULL,
+	"balance_currency" text NOT NULL,
 	"created_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	"updated_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	"deleted_at" timestamp(3)
@@ -25,14 +25,11 @@ CREATE TABLE IF NOT EXISTS "institutions" (
 	"deleted_at" timestamp(3)
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "accounts" (
+CREATE TABLE IF NOT EXISTS "requisitions" (
 	"id" text PRIMARY KEY NOT NULL,
-	"name" text NOT NULL,
-	"currency" text NOT NULL,
-	"type" "accountType" NOT NULL,
+	"status" text NOT NULL,
+	"reference_id" text NOT NULL,
 	"institution_id" text NOT NULL,
-	"balance_amount" double precision NOT NULL,
-	"balance_currency" text NOT NULL,
 	"created_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	"updated_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	"deleted_at" timestamp(3)
@@ -43,7 +40,7 @@ CREATE TABLE IF NOT EXISTS "transactions" (
 	"amount" double precision NOT NULL,
 	"currency" text NOT NULL,
 	"date" timestamp(3) NOT NULL,
-	"status" "transactionStatus" NOT NULL,
+	"status" "transaction_status" NOT NULL,
 	"balance" double precision,
 	"category" text,
 	"method" text NOT NULL,
@@ -68,4 +65,6 @@ DO $$ BEGIN
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
-
+--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "name_index" ON "institutions" USING btree ("name");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "name_country_index" ON "institutions" USING btree ("name","countries");

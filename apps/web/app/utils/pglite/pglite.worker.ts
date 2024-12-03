@@ -24,7 +24,7 @@ worker({
 
 		await pg.exec(M1)
 
-		const shape = await pg.electric.syncShapeToTable({
+		await pg.electric.syncShapeToTable({
 			shape: {
 				url: new URL("/v1/shape", ELECTRIC_URL).href,
 				table: "institutions",
@@ -34,7 +34,7 @@ worker({
 			primaryKey: ["id"],
 		})
 
-		const shape1 = await pg.electric.syncShapeToTable({
+		await pg.electric.syncShapeToTable({
 			shape: {
 				url: new URL("/v1/shape", ELECTRIC_URL).href,
 				table: "accounts",
@@ -44,7 +44,7 @@ worker({
 			primaryKey: ["id"],
 		})
 
-		const shape2 = await pg.electric.syncShapeToTable({
+		await pg.electric.syncShapeToTable({
 			shape: {
 				url: new URL("/v1/shape", ELECTRIC_URL).href,
 				table: "transactions",

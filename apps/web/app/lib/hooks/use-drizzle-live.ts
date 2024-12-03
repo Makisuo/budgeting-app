@@ -11,6 +11,7 @@ import {
 import type { PgRelationalQuery } from "drizzle-orm/pg-core/query-builders/query"
 import { drizzle as PgLiteDrizzle, type PgliteDatabase } from "drizzle-orm/pglite"
 
+import type { LiveQueryResults } from "@electric-sql/pglite/live"
 import { schema } from "db"
 
 export type DrizzleClient = PgliteDatabase<typeof schema>
@@ -18,90 +19,48 @@ export type DrizzleClient = PgliteDatabase<typeof schema>
 const createPgLiteClient = (client: any) => {
 	return PgLiteDrizzle(client, {
 		schema,
+		casing: "camelCase",
 	})
 }
 
-const useDrizzleLiveImlp = <T extends PgRelationalQuery<unknown>>(fn: (db: DrizzleClient) => T) => {
-	const pg = usePGlite()
-
-	const drizzle = createPgLiteClient(pg)
-
-	const query = fn(drizzle)
-	const sqlData = query.toSQL()
-
-	const drizzleInternalQuery = (query as any)._getQuery()
-
-	const items = useLiveQuery(sqlData.sql, sqlData.params)
-
-	const mode: "many" | "one" = (query as any).mode
-
-	const rawRows = items?.rows || []
-
-	const mappedRows = rawRows.map((row) => {
+function processQueryResults<T>(
+	query: T,
+	rawRows: any[],
+	drizzleCasingConvert?: (key: string) => string,
+): Record<string, any>[] {
+	return rawRows.map((row) => {
 		return Object.fromEntries(
 			Object.entries(row).map(([key, value]) => {
 				if (Array.isArray(value)) {
 					return [
-						key,
-						// @ts-expect-error This uses a bunch of drizzle internal fields
-						mapRelationalRow(query.schema, query.tableConfig, value, drizzleInternalQuery.selection),
+						drizzleCasingConvert ? drizzleCasingConvert(key) : key,
+						mapRelationalRow(
+							(query as any).schema,
+							(query as any).tableConfig,
+							value,
+							(query as any)._getQuery().selection,
+						),
 					]
 				}
-
-				return [key, value]
+				return [drizzleCasingConvert ? drizzleCasingConvert(key) : key, value]
 			}),
 		)
 	})
-
-	const data = mode === "many" ? mappedRows : mappedRows[0] || undefined
-
-	return {
-		data: data as Awaited<T>,
-		affectedRows: items?.affectedRows || 0,
-		fields: items?.fields || [],
-		blob: items?.blob,
-	}
 }
 
-const useDrizzleLiveIncrementalImpl = <T extends PgRelationalQuery<unknown>>(
-	diffKey: string,
-	fn: (db: DrizzleClient) => T,
-) => {
-	const pg = usePGlite()
+interface QueryResult {
+	affectedRows: number
+	fields: any[]
+	blob: any
+}
 
-	const drizzle = createPgLiteClient(pg)
-
-	const query = fn(drizzle)
-	const sqlData = query.toSQL()
-
-	const drizzleInternalQuery = (query as any)._getQuery()
-
-	const items = useLiveIncrementalQuery(sqlData.sql, sqlData.params, diffKey)
-
-	const mode: "many" | "one" = (query as any).mode
-
-	const rawRows = items?.rows || []
-
-	const mappedRows = rawRows.map((row) => {
-		return Object.fromEntries(
-			Object.entries(row).map(([key, value]) => {
-				if (Array.isArray(value)) {
-					return [
-						key,
-						// @ts-expect-error This uses a bunch of drizzle internal fields
-						mapRelationalRow(query.schema, query.tableConfig, value, drizzleInternalQuery.selection),
-					]
-				}
-
-				return [key, value]
-			}),
-		)
-	})
-
-	const data = mode === "many" ? mappedRows : mappedRows[0] || undefined
-
+function createQueryResult<T extends PgRelationalQuery<unknown>>(
+	mappedRows: Record<string, any>[],
+	mode: "many" | "one",
+	items?: { affectedRows?: number; fields?: any[]; blob?: any },
+): { data: Awaited<T> } & Omit<LiveQueryResults<unknown>, "rows"> {
 	return {
-		data: data as Awaited<T>,
+		data: (mode === "many" ? mappedRows : mappedRows[0] || undefined) as Awaited<T>,
 		affectedRows: items?.affectedRows || 0,
 		fields: items?.fields || [],
 		blob: items?.blob,
@@ -109,7 +68,16 @@ const useDrizzleLiveIncrementalImpl = <T extends PgRelationalQuery<unknown>>(
 }
 
 export const useDrizzleLive = <T extends PgRelationalQuery<unknown>>(fn: (db: DrizzleClient) => T) => {
-	return useDrizzleLiveImlp(fn)
+	const pg = usePGlite()
+
+	const drizzle = createPgLiteClient(pg)
+	const query = fn(drizzle)
+	const sqlData = query.toSQL()
+	const items = useLiveQuery(sqlData.sql, sqlData.params)
+	const mode = (query as any).mode
+	const mappedRows = processQueryResults(query, items?.rows || [], (query as any).dialect.casing.convert)
+
+	return createQueryResult<T>(mappedRows, mode, items)
 }
 
 /*
@@ -119,7 +87,15 @@ export const useDrizzleLiveIncremental = <T extends PgRelationalQuery<unknown>>(
 	diffKey: string,
 	fn: (db: DrizzleClient) => T,
 ) => {
-	return useDrizzleLiveIncrementalImpl(diffKey, fn)
+	const pg = usePGlite()
+	const drizzle = createPgLiteClient(pg)
+	const query = fn(drizzle)
+	const sqlData = query.toSQL()
+	const items = useLiveIncrementalQuery(sqlData.sql, sqlData.params, diffKey)
+	const mode = (query as any).mode
+	const mappedRows = processQueryResults(query, items?.rows || [])
+
+	return createQueryResult<T>(mappedRows, mode, items)
 }
 
 function mapRelationalRow(

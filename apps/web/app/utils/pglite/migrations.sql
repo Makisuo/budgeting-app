@@ -14,70 +14,58 @@ BEGIN
     END IF;
 END $$;
 
--- CreateTable
+CREATE TABLE IF NOT EXISTS "accounts" (
+	"id" text PRIMARY KEY NOT NULL,
+	"name" text NOT NULL,
+	"currency" text NOT NULL,
+	"type" "account_type" NOT NULL,
+	"institution_id" text NOT NULL,
+	"balance_amount" double precision NOT NULL,
+	"balance_currency" text NOT NULL,
+	"created_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"updated_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"deleted_at" timestamp(3)
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "institutions" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "logo" TEXT,
-    "provider" TEXT NOT NULL,
-    "countries" JSONB NOT NULL,
-    "transaction_total_days" INTEGER NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "deleted_at" TIMESTAMP(3),
-
-    CONSTRAINT "institutions_pkey" PRIMARY KEY ("id")
+	"id" text PRIMARY KEY NOT NULL,
+	"name" text NOT NULL,
+	"logo" text,
+	"provider" text NOT NULL,
+	"countries" jsonb NOT NULL,
+	"transaction_total_days" integer NOT NULL,
+	"created_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"updated_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"deleted_at" timestamp(3)
 );
-
--- CreateTable
-CREATE TABLE IF NOT EXISTS  "accounts" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "currency" TEXT NOT NULL,
-    "type" "account_type" NOT NULL,
-    "institution_id" TEXT NOT NULL,
-    "balance_amount" DOUBLE PRECISION NOT NULL,
-    "balance_currency" TEXT NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "deleted_at" TIMESTAMP(3),
-
-    CONSTRAINT "accounts_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE IF NOT EXISTS "transactions" (
-    "id" TEXT NOT NULL,
-    "amount" DOUBLE PRECISION NOT NULL,
-    "currency" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
-    "status" "transaction_status" NOT NULL,
-    "balance" DOUBLE PRECISION,
-    "category" TEXT,
-    "method" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "description" TEXT,
-    "currency_rate" DOUBLE PRECISION,
-    "currency_source" TEXT,
-    "s_id" TEXT NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "deleted_at" TIMESTAMP(3),
-
-    CONSTRAINT "transactions_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "requisitions" (
-    "id" TEXT NOT NULL,
-    "status" TEXT NOT NULL,
-    "reference_id" TEXT NOT NULL,
-    "institution_id" TEXT NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "deleted_at" TIMESTAMP(3),
-
-    CONSTRAINT "requisitions_pkey" PRIMARY KEY ("id")
+	"id" text PRIMARY KEY NOT NULL,
+	"status" text NOT NULL,
+	"reference_id" text NOT NULL,
+	"institution_id" text NOT NULL,
+	"created_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"updated_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"deleted_at" timestamp(3)
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "transactions" (
+	"id" text PRIMARY KEY NOT NULL,
+	"amount" double precision NOT NULL,
+	"currency" text NOT NULL,
+	"date" timestamp(3) NOT NULL,
+	"status" "transaction_status" NOT NULL,
+	"balance" double precision,
+	"category" text,
+	"method" text NOT NULL,
+	"name" text NOT NULL,
+	"description" text,
+	"currency_rate" double precision,
+	"currency_source" text,
+	"account_id" text NOT NULL,
+	"created_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"updated_at" timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	"deleted_at" timestamp(3)
 );
 
 

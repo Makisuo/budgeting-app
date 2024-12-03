@@ -1,10 +1,11 @@
-import { usePGlite } from "@electric-sql/pglite-react"
 import { createFileRoute } from "@tanstack/react-router"
+import { format } from "date-fns"
 import { IconCirclePlaceholderDashed } from "justd-icons"
 import { Button, Card } from "~/components/ui"
 import { Badge } from "~/components/ui/badge"
 import { Table } from "~/components/ui/table"
 import { useApi } from "~/lib/api/client"
+import { useDrizzleLive } from "~/lib/hooks/use-drizzle-live"
 import { useBankAccount, useTransactions } from "~/utils/electric/hooks"
 import { currencyFormatter } from "~/utils/formatters"
 
@@ -17,9 +18,19 @@ function RouteComponent() {
 
 	const $api = useApi()
 
-	const { data: bankAccount } = useBankAccount(accountId)
+	const { data: bankAccount } = useDrizzleLive((db) =>
+		db.query.accounts.findFirst({
+			where: (table, { eq }) => eq(table.id, accountId),
+		}),
+	)
 
-	const { data: transactions } = useTransactions(accountId)
+	console.log(bankAccount)
+
+	const { data: transactions } = useDrizzleLive((db) =>
+		db.query.transactions.findMany({
+			where: (table, { eq }) => eq(table.accountId, accountId),
+		}),
+	)
 
 	const syncTransactionMutation = $api.useMutation("post", "/gocardless/sync/{accountId}")
 
@@ -39,8 +50,8 @@ function RouteComponent() {
 					</div>
 				</Card.Header>
 				<Card.Content>
-					{currencyFormatter(bankAccount.balance_currency ?? "USD").format(
-						Number(bankAccount.balance_amount) ?? 0,
+					{currencyFormatter(bankAccount.balanceCurrency ?? "USD").format(
+						Number(bankAccount.balanceAmount) ?? 0,
 					)}
 				</Card.Content>
 			</Card>
@@ -64,11 +75,7 @@ function RouteComponent() {
 							{transactions.map((transaction) => (
 								<Table.Row key={transaction.id}>
 									<Table.Cell className="flex items-center gap-2">
-										{transaction.logo_url ? (
-											<img className="size-6" src={transaction.logo_url} alt={transaction.name} />
-										) : (
-											<IconCirclePlaceholderDashed className="size-6" />
-										)}
+										<IconCirclePlaceholderDashed className="size-6" />
 										{transaction.name}
 									</Table.Cell>
 									<Table.Cell>
@@ -79,7 +86,7 @@ function RouteComponent() {
 										</Badge>
 									</Table.Cell>
 									<Table.Cell>{transaction.category || "Unknown"}</Table.Cell>
-									<Table.Cell>{transaction.date}</Table.Cell>
+									<Table.Cell>{format(transaction.date, "dd/MM/yyyy")}</Table.Cell>
 									<Table.Cell>
 										<Badge intent={transaction.status === "pending" ? "info" : "primary"}>
 											{transaction.status === "pending" ? "Pending" : "Completed"}

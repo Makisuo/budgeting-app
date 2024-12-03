@@ -11,14 +11,13 @@ import {
 	timestamp,
 } from "drizzle-orm/pg-core"
 
-
 export const accountType = pgEnum("account_type", ["depository", "credit", "other_asset", "loan", "other_liability"])
 export const transactionStatus = pgEnum("transaction_status", ["posted", "pending"])
 
 const defaultFields = {
-	createdAt: timestamp("created_at", { precision: 3, mode: "string" }).default(sql`CURRENT_TIMESTAMP`).notNull(),
-	updatedAt: timestamp("updated_at", { precision: 3, mode: "string" }).default(sql`CURRENT_TIMESTAMP`).notNull(),
-	deletedAt: timestamp("deleted_at", { precision: 3, mode: "string" }),
+	createdAt: timestamp("created_at", { precision: 3 }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+	updatedAt: timestamp("updated_at", { precision: 3 }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+	deletedAt: timestamp("deleted_at", { precision: 3 }),
 }
 
 export const requisitions = pgTable("requisitions", {
@@ -79,7 +78,7 @@ export const transactions = pgTable(
 		id: text().primaryKey().notNull(),
 		amount: doublePrecision().notNull(),
 		currency: text().notNull(),
-		date: timestamp({ precision: 3, mode: "string" }).notNull(),
+		date: timestamp({ precision: 3 }).notNull(),
 		status: transactionStatus().notNull(),
 		balance: doublePrecision(),
 		category: text(),
@@ -122,4 +121,3 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
 		references: [accounts.id],
 	}),
 }))
-

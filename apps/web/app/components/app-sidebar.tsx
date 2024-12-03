@@ -89,7 +89,7 @@ const AccountItems = () => {
 					key={account.id}
 					href={`/accounts/${account.id}` as "/accounts/$accountId"}
 				>
-					{account.institution.logo && (
+					{account.institution?.logo && (
 						<img className="h-3 pr-2" src={account.institution.logo} alt={account.institution.name} />
 					)}
 					{account.name}
