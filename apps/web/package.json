@@ -43,6 +43,7 @@
 		"tailwind-variants": "^0.3.0",
 		"tailwindcss-animate": "^1.0.7",
 		"tailwindcss-react-aria-components": "^1.2.0",
+		"unenv": "^1.10.0",
 		"vinxi": "0.5.0"
 	},
 	"devDependencies": {
