@@ -9,7 +9,7 @@ export const APIRoute = createAPIFileRoute("/api/electric/v1/shape")({
 		const { userId } = await getAuth(getWebRequest())
 
 		if (!userId) {
-			return new Response(null, { status: 401 })
+			return new Response("Not Authenticated", { status: 401 })
 		}
 
 		const url = new URL(request.url)
