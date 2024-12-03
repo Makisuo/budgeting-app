@@ -5,8 +5,7 @@ import { type PGliteWorkerOptions, worker } from "@electric-sql/pglite/worker"
 
 import M1 from "./migrations.sql?raw"
 
-// const ELECTRIC_URL = new URL("/api/electric/v1/shape", import.meta.env.VITE_BASE_URL).href
-const ELECTRIC_URL = "https://maple-electric-dev.fly.dev/v1/shape"
+const ELECTRIC_URL = new URL("/api/electric/v1/shape", import.meta.env.VITE_BASE_URL).href
 
 export const DB_NAME = "maple_db"
 

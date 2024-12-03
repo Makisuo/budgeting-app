@@ -2,16 +2,11 @@ import { getAuth } from "@clerk/tanstack-start/server"
 import { createAPIFileRoute } from "@tanstack/start/api"
 import { getWebRequest } from "vinxi/http"
 
-const ELECTRIC_URL = import.meta.env.ELECTRIC_URL
-
 const publicTable = ["institutions"]
 
 export const Route = createAPIFileRoute("/api/electric/v1/shape")({
 	GET: async ({ request }) => {
-		// const { userId } = await getAuth(getWebRequest())
-
-		console.log("WOW")
-		const userId = ""
+		const { userId } = await getAuth(getWebRequest())
 
 		if (!userId) {
 			return new Response(null, { status: 401 })
@@ -20,7 +15,7 @@ export const Route = createAPIFileRoute("/api/electric/v1/shape")({
 		const url = new URL(request.url)
 		const table = url.searchParams.get("table") as string
 
-		const originUrl = new URL("/v1/shape", ELECTRIC_URL)
+		const originUrl = new URL("/v1/shape", process.env.ELECTRIC_URL)
 
 		if (!publicTable.includes(table)) {
 			originUrl.searchParams.set("where", `tenant_id = '${userId}'`)
