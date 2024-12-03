@@ -1,93 +1,92 @@
+generator kysely {
+  provider     = "prisma-kysely"
+  output       = "./apps/web/app/lib/db"
+  fileName     = "types.ts"
+  enumFileName = "enums.ts"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DIRECT_DATABASE_URL")
 }
 
 model Institution {
-  id       String  @id @default(uuid())
-  name     String
-  logo     String?
-  provider String
+  id                   String    @id @default(uuid())
+  name                 String
+  logo                 String?
+  provider             String
+  countries            Json
+  transactionTotalDays Int       @map("transaction_total_days")
+  createdAt            DateTime  @default(now()) @map("created_at")
+  updatedAt            DateTime  @default(now()) @map("updated_at")
+  deletedAt            DateTime? @map("deleted_at")
+  Account              Account[]
 
-  countries Json @db.JsonB
-
-  transactionTotalDays Int @map("transaction_total_days")
-
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @default(now()) @map("updated_at")
-  deletedAt DateTime? @map("deleted_at")
-  Account   Account[]
-
+  @@index([name, countries], map: "name_country_index")
+  @@index([name], map: "name_index")
   @@map("institutions")
 }
 
 model Account {
-  id       String      @id @default(uuid())
-  name     String
-  currency String
-  type     accountType
-
-  institutionId String      @map("institution_id")
-  institution   Institution @relation(fields: [institutionId], references: [id])
-
-  balanceAmount   Float  @map("balance_amount")
-  balanceCurrency String @map("balance_currency")
-
-  createdAt   DateTime      @default(now()) @map("created_at")
-  updatedAt   DateTime      @default(now()) @map("updated_at")
-  deletedAt   DateTime?     @map("deleted_at")
-  Transaction Transaction[]
+  id              String        @id @default(uuid())
+  name            String
+  currency        String
+  type            account_type
+  institutionId   String        @map("institution_id")
+  balanceAmount   Float         @map("balance_amount")
+  balanceCurrency String        @map("balance_currency")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @default(now()) @map("updated_at")
+  deletedAt       DateTime?     @map("deleted_at")
+  institution     Institution   @relation(fields: [institutionId], references: [id])
+  Transaction     Transaction[]
 
   @@map("accounts")
 }
 
 model Transaction {
-  id             String            @id @default(uuid())
+  id             String             @id @default(uuid())
   amount         Float
   currency       String
   date           DateTime
-  status         transactionStatus
+  status         transaction_status
   balance        Float?
   category       String?
   method         String
   name           String
   description    String?
-  currencyRate   Float?            @map("currency_rate")
-  currencySource String?           @map("currency_source")
-
-  accountId String  @map("account_id")
-  account   Account @relation(fields: [accountId], references: [id])
-
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @default(now()) @map("updated_at")
-  deletedAt DateTime? @map("deleted_at")
+  currencyRate   Float?             @map("currency_rate")
+  currencySource String?            @map("currency_source")
+  accountId      String             @map("account_id")
+  createdAt      DateTime           @default(now()) @map("created_at")
+  updatedAt      DateTime           @default(now()) @map("updated_at")
+  deletedAt      DateTime?          @map("deleted_at")
+  account        Account            @relation(fields: [accountId], references: [id])
 
   @@map("transactions")
 }
 
 model Requisition {
-  id     String @id @default(uuid())
-  status String
-
-  referenceId   String @map("reference_id")
-  institutionId String @map("institution_id")
-
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @default(now()) @map("updated_at")
-  deletedAt DateTime? @map("deleted_at")
+  id            String    @id @default(uuid())
+  status        String
+  referenceId   String    @map("reference_id")
+  institutionId String    @map("institution_id")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @default(now()) @map("updated_at")
+  deletedAt     DateTime? @map("deleted_at")
 
   @@map("requisitions")
 }
 
-enum transactionStatus {
-  posted
-  pending
-}
-
-enum accountType {
+enum account_type {
   depository
   credit
   other_asset
   loan
   other_liability
+}
+
+enum transaction_status {
+  posted
+  pending
 }

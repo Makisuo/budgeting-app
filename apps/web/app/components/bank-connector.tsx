@@ -4,10 +4,8 @@ import { useApi } from "~/lib/api/client"
 import { Button, ComboBox, Modal, ProgressCircle, TextField } from "./ui"
 
 import { useLiveQuery } from "@electric-sql/pglite-react"
-import { schema } from "db"
-import { sql } from "drizzle-orm"
 import { ListBox, ListBoxItem, Text } from "react-aria-components"
-import { useDrizzleLive, useDrizzleLiveIncremental } from "~/lib/hooks/use-drizzle-live"
+import { useDrizzleLiveIncremental } from "~/lib/hooks/use-drizzle-live"
 
 export interface BankConnectorProps {
 	isOpen: boolean
@@ -26,11 +24,12 @@ export const BankConnector = ({ isOpen, setIsOpen }: BankConnectorProps) => {
 	const [bankFilter, setBankFilter] = useState<string>("")
 	const [selectedCountry, setSelectedCountry] = useState<string>("DE")
 
-	const uniqueContriesQuery = useLiveQuery.sql<{ country: string }>`SELECT DISTINCT jsonb_array_elements(countries) AS country
+	const uniqueContriesQuery = useLiveQuery.sql<{
+		country: string
+	}>`SELECT DISTINCT jsonb_array_elements(countries) AS country
 FROM public.institutions;`
 
-
-	const { rows: institutions } = useDrizzleLiveIncremental("id",(db) =>
+	const { data: institutions } = useDrizzleLiveIncremental("id", (db) =>
 		db.query.institutions.findMany({
 			limit: 100,
 			where: (t, { and, sql, ilike }) =>
@@ -38,10 +37,8 @@ FROM public.institutions;`
 		}),
 	)
 
-
-
 	const mappedCountries = useMemo(() => {
-		if(!uniqueContriesQuery?.rows.length){
+		if (!uniqueContriesQuery?.rows.length) {
 			return []
 		}
 		return uniqueContriesQuery.rows.map((country) => ({

@@ -7,9 +7,9 @@ import { IconAlbum, IconBrandApple, IconCreditCard, IconCube, IconDashboard, Ico
 import { useState } from "react"
 
 import { Link, Sidebar, useSidebar } from "~/components/ui"
+import { useDrizzleLive, useDrizzleLiveIncremental } from "~/lib/hooks/use-drizzle-live"
 import { BankConnector } from "./bank-connector"
 import { ProfileMenu } from "./profile-menu"
-import { useDrizzleLive, useDrizzleLiveIncremental } from "~/lib/hooks/use-drizzle-live"
 
 export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 	const { state } = useSidebar()
@@ -72,30 +72,32 @@ export const SidebarItem = ({ href, ...rest }: React.ComponentProps<typeof Sideb
 }
 
 const AccountItems = () => {
-	const { rows: accounts } = useDrizzleLive((db) =>
+	const { data: accounts } = useDrizzleLive((db) =>
 		db.query.accounts.findMany({
 			limit: 100,
 			with: {
-				institution:true
-			}
+				institution: true,
+			},
 		}),
 	)
-
-	console.log(accounts)
 
 	return (
 		<>
 			{accounts.map((account) => (
-				<SidebarItem icon={IconCube} key={account.id} href={`/accounts/${account.id}` as "/accounts/$accountId"}>
-					{account.institution.logo && <img className="h-3 pr-2" src={account.institution.logo} alt={account.institution.name} />}
+				<SidebarItem
+					icon={IconCube}
+					key={account.id}
+					href={`/accounts/${account.id}` as "/accounts/$accountId"}
+				>
+					{account.institution.logo && (
+						<img className="h-3 pr-2" src={account.institution.logo} alt={account.institution.name} />
+					)}
 					{account.name}
 				</SidebarItem>
 			))}
 		</>
 	)
 }
-
-
 
 const ConnectBankAccountItem = () => {
 	const [isOpen, setIsOpen] = useState(false)

@@ -1,6 +1,7 @@
 {
 	"name": "budgeting-app",
-	"scripts": {},
+	"scripts": {
+	},
 	"workspaces": ["apps/*", "packages/*"],
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4"
