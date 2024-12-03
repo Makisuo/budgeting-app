@@ -8,6 +8,7 @@ yarn.lock
 .vercel
 .output
 .vinxi
+.wrangler
 
 dist
 /build/

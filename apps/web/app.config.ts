@@ -1,8 +1,6 @@
 import { defineConfig } from "@tanstack/start/config"
 import tsConfigPaths from "vite-tsconfig-paths"
 
-import { cloudflare } from "unenv"
-
 export default defineConfig({
 	vite: {
 		ssr: {
@@ -21,7 +19,6 @@ export default defineConfig({
 		],
 	},
 	server: {
-		unenv: cloudflare,
-		preset: "cloudflare-pages",
+		preset: "vercel",
 	},
 })
