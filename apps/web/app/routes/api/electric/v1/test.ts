@@ -20,6 +20,6 @@ export const APIRoute = createAPIFileRoute("/api/electric/v1/test")({
 			}
 		})
 
-		return json({ message: 'Hello "/api/electric/v1/test"!' })
+		return new Response("Hello World!", { status: 200 })
 	},
 })
