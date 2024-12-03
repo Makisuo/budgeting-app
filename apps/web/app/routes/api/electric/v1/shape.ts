@@ -38,7 +38,6 @@ export const Route = createAPIFileRoute("/api/electric/v1/shape")({
 				headers,
 			})
 		}
-
-		return new Response(`User ID: ${userId}`)
+		return resp
 	},
 })
