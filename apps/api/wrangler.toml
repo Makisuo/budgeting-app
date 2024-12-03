@@ -10,10 +10,6 @@ enabled = true
 [placement]
 mode = "smart"
 
-[vars]
-API_BASE_URL = "http://localhost:8787"
-APP_BASE_URL = "http://localhost:3000"
-
 [env.production.vars]
 API_BASE_URL = "https://api.maple.dev"
 APP_BASE_URL = "https://app.maple.dev"
