@@ -2,7 +2,7 @@ import { type PGliteWithLive, live } from "@electric-sql/pglite/live"
 import { useEffect, useState } from "react"
 
 import { PGliteProvider } from "@electric-sql/pglite-react"
-// @ts-expect-error
+
 import PGWorker from "./pglite.worker.js?worker"
 
 import { PGliteWorker } from "@electric-sql/pglite/worker"

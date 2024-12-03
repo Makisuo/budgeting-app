@@ -18,6 +18,7 @@
 			"~/*": ["./app/*"],
 			"@/*": ["./app/*"]
 		},
+		"types": ["vite/client"],
 		"noEmit": true
 	}
 }

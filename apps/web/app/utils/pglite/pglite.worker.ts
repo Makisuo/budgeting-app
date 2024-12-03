@@ -1,9 +1,8 @@
-import { PGlite } from "@electric-sql/pglite"
+import { IdbFs, PGlite } from "@electric-sql/pglite"
 import { electricSync } from "@electric-sql/pglite-sync"
 import { live } from "@electric-sql/pglite/live"
 import { type PGliteWorkerOptions, worker } from "@electric-sql/pglite/worker"
 
-// @ts-expect-error
 import M1 from "./migrations.sql?raw"
 
 const ELECTRIC_URL = import.meta.env.VITE_APP_ELECTRIC_URL
@@ -13,7 +12,7 @@ export const DB_NAME = "maple_db"
 worker({
 	async init(options: PGliteWorkerOptions) {
 		const pg = await PGlite.create({
-			dataDir: `idb://${DB_NAME}`,
+			fs: new IdbFs(DB_NAME),
 			relaxedDurability: true,
 			extensions: {
 				electric: electricSync({ debug: options?.debug !== undefined }),

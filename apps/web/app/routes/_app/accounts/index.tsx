@@ -1,13 +1,13 @@
 import { Link, createFileRoute } from "@tanstack/react-router"
 import { Card } from "~/components/ui"
-import { useBankAccounts } from "~/utils/electric/hooks"
+import { useDrizzleLiveIncremental } from "~/lib/hooks/use-drizzle-live"
 
 export const Route = createFileRoute("/_app/accounts/")({
 	component: RouteComponent,
 })
 
 function RouteComponent() {
-	const { data } = useBankAccounts()
+	const { data } = useDrizzleLiveIncremental("id", (db) => db.query.accounts.findMany({}))
 
 	return (
 		<div>

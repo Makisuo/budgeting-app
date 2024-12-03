@@ -6,7 +6,6 @@ import { Badge } from "~/components/ui/badge"
 import { Table } from "~/components/ui/table"
 import { useApi } from "~/lib/api/client"
 import { useDrizzleLive } from "~/lib/hooks/use-drizzle-live"
-import { useBankAccount, useTransactions } from "~/utils/electric/hooks"
 import { currencyFormatter } from "~/utils/formatters"
 
 export const Route = createFileRoute("/_app/accounts/$accountId")({
@@ -29,6 +28,7 @@ function RouteComponent() {
 	const { data: transactions } = useDrizzleLive((db) =>
 		db.query.transactions.findMany({
 			where: (table, { eq }) => eq(table.accountId, accountId),
+			limit: 100,
 		}),
 	)
 
