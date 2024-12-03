@@ -7,15 +7,18 @@ import type {
   ButtonProps,
   MenuItemProps as MenuItemPrimitiveProps,
   MenuProps as MenuPrimitiveProps,
+  MenuSectionProps,
   MenuTriggerProps as MenuTriggerPrimitiveProps,
   PopoverProps,
   SeparatorProps
 } from "react-aria-components"
 import {
   Button,
+  Collection,
   Header,
   Menu as MenuPrimitive,
   MenuItem,
+  MenuSection,
   MenuTrigger as MenuTriggerPrimitive,
   Separator,
   SubmenuTrigger as SubmenuTriggerPrimitive
@@ -23,7 +26,7 @@ import {
 import type { VariantProps } from "tailwind-variants"
 import { tv } from "tailwind-variants"
 
-import { DropdownItemDetails, dropdownItemStyles, DropdownSection } from "./dropdown"
+import { DropdownItemDetails, dropdownItemStyles, dropdownSectionStyles } from "./dropdown"
 import { Keyboard } from "./keyboard"
 import { Popover } from "./popover"
 import { cn, cr } from "./primitive"
@@ -119,13 +122,13 @@ const Item = ({ className, isDanger = false, children, ...props }: MenuItemProps
   const textValue = props.textValue || (typeof children === "string" ? children : undefined)
   return (
     <MenuItem
-      textValue={textValue}
       className={cr(className, (className, renderProps) =>
         dropdownItemStyles({
           ...renderProps,
           className
         })
       )}
+      textValue={textValue}
       data-danger={isDanger ? "true" : undefined}
       {...props}
     >
@@ -147,7 +150,7 @@ const MenuHeader = ({ className, separator = false, ...props }: MenuHeaderProps)
   <Header
     className={cn(
       "p-2 text-base font-semibold sm:text-sm",
-      separator && "-mx-1 border-b border-b-border px-3 pb-[0.625rem]",
+      separator && "-mx-1 border-b px-3 pb-[0.625rem]",
       className
     )}
     {...props}
@@ -155,7 +158,7 @@ const MenuHeader = ({ className, separator = false, ...props }: MenuHeaderProps)
 )
 
 const MenuSeparator = ({ className, ...props }: SeparatorProps) => (
-  <Separator className={cn("-mx-1 my-1 h-px border-b border-b-muted", className)} {...props} />
+  <Separator className={cn("-mx-1 my-1 h-px border-b", className)} {...props} />
 )
 
 const Checkbox = ({ className, children, ...props }: MenuItemProps) => (
@@ -192,6 +195,21 @@ const Radio = ({ className, children, ...props }: MenuItemProps) => (
   </Item>
 )
 
+const { section, header } = dropdownSectionStyles()
+
+interface SectionProps<T> extends MenuSectionProps<T> {
+  title?: string
+}
+
+const Section = <T extends object>({ className, ...props }: SectionProps<T>) => {
+  return (
+    <MenuSection className={section({ className })} {...props}>
+      {"title" in props && <Header className={header()}>{props.title}</Header>}
+      <Collection items={props.items}>{props.children}</Collection>
+    </MenuSection>
+  )
+}
+
 Menu.Primitive = MenuPrimitive
 Menu.Content = Content
 Menu.Header = MenuHeader
@@ -200,7 +218,7 @@ Menu.Content = Content
 Menu.Keyboard = Keyboard
 Menu.Checkbox = Checkbox
 Menu.Radio = Radio
-Menu.Section = DropdownSection
+Menu.Section = Section
 Menu.Separator = MenuSeparator
 Menu.Trigger = Trigger
 Menu.ItemDetails = DropdownItemDetails

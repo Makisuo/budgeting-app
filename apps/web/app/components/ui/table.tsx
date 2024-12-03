@@ -98,7 +98,7 @@ interface TableCellProps extends CellProps {
 }
 
 const cellStyles = tv({
-  base: "group whitespace-nowrap px-3 py-3 outline-none",
+  base: "group px-3 py-3 outline-none",
   variants: {
     allowResize: {
       true: "overflow-hidden truncate"
@@ -128,7 +128,7 @@ interface TableColumnProps extends ColumnProps {
   isResizable?: boolean
 }
 
-const TableColumn = ({ children, isResizable = false, className, ...props }: TableColumnProps) => {
+const TableColumn = ({ isResizable = false, className, ...props }: TableColumnProps) => {
   return (
     <Column
       {...props}
@@ -140,7 +140,7 @@ const TableColumn = ({ children, isResizable = false, className, ...props }: Tab
       {({ allowsSorting, sortDirection, isHovered }) => (
         <div className="flex [&_[data-slot=icon]]:shrink-0 items-center gap-2">
           <>
-            {children}
+            {props.children as React.ReactNode}
             {allowsSorting && (
               <>
                 <span className={cellIcon({ className: isHovered ? "bg-secondary-fg/10" : "" })}>
