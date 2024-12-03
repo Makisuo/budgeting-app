@@ -4,7 +4,7 @@ import { createAPIFileRoute } from "@tanstack/start/api"
 const publicTable = ["institutions"]
 
 export const APIRoute = createAPIFileRoute("/api/electric/v1/test")({
-	GET: async ({ request, params }) => {
+	GET: async ({ request }) => {
 		const url = new URL(request.url)
 		const table = url.searchParams.get("table") as string
 
@@ -32,6 +32,6 @@ export const APIRoute = createAPIFileRoute("/api/electric/v1/test")({
 			})
 		}
 
-		return new Response(originUrl.href, { status: 200 })
+		return resp
 	},
 })
