@@ -14,7 +14,7 @@ import { fetchUserSession } from "~/actions"
 import { useEffect } from "react"
 import appCss from "~/styles/app.css?url"
 
-// import { scan } from "react-scan"
+import { scan } from "react-scan"
 
 const queryClient = new QueryClient()
 
@@ -62,14 +62,14 @@ export const Route = createRootRoute({
 })
 
 function RootComponent() {
-	// useEffect(() => {
-	// 	scan({
-	// 		enabled: import.meta.env.DEV,
-	// 		log: true,
-	// 		includeChildren: true,
-	// 		report: true,
-	// 	})
-	// }, [])
+	useEffect(() => {
+		scan({
+			enabled: import.meta.env.DEV,
+			log: true,
+			includeChildren: true,
+			report: true,
+		})
+	}, [])
 
 	return (
 		<ClerkProvider>
