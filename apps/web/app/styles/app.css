@@ -73,6 +73,50 @@
     --highlight-chart: 198.44 93.2% 59.61%;
     --accent-chart: 204 93.75% 93.73%
   }
+  .pastel {
+    --bg: 0 0% 98%;
+    --fg: 278 35% 20%;
+    
+    --primary: 337 100% 89%;
+    --primary-fg: 337 50% 20%;
+    
+    --secondary: 338 100% 84%;
+    --secondary-fg: 338 50% 20%;
+    
+    --tertiary: 278, 35%, 78%;
+    --tertiary-fg: 208 50% 20%;
+    
+    --accent: 209 100% 82%;
+    --accent-fg: 209 50% 20%;
+    
+    --accent-subtle: 209 80% 90%;
+    --accent-subtle-fg: 209 50% 25%;
+    
+    --overlay: 0 0% 98%;
+    --overlay-fg: 278 50% 20%;
+    
+    --muted: 278 20% 85%;
+    --muted-fg: 278 25% 40%;
+    
+    --info: 208 97% 87%;
+    --info-fg: 208 50% 20%;
+    
+    --success: 141 45.5% 50.6%;
+    --success-fg: 141 45.5% 40.6%;
+    
+    --toggle: 278 30% 85%;
+    --border: 222.93 9% 63%;
+    --input: 222.93 9% 63%;
+    --ring: 337 100% 89%;
+    
+    --primary-chart: 337 100% 89%;
+    --secondary-chart: 338 100% 84%;
+    --tertiary-chart: 208 97% 87%;
+    --highlight-chart: 209 100% 82%;
+    --accent-chart: 278 35% 78%;
+}
+
+
 }
 
 @layer base {

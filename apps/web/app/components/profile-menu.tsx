@@ -1,7 +1,5 @@
 import { useUser } from "@clerk/tanstack-start"
-import { useNavigate } from "@tanstack/react-router"
 import { IconChevronLgDown, IconCirclePerson, IconLogout, IconMoon, IconSettings, IconSun } from "justd-icons"
-import { Route } from "~/routes/_app"
 import { useTheme } from "./theme-provider"
 import { Avatar, Button, Menu } from "./ui"
 

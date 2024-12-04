@@ -2,7 +2,7 @@
 
 import type * as React from "react"
 
-import { useLocation, useMatch, useMatchRoute } from "@tanstack/react-router"
+import { useMatchRoute } from "@tanstack/react-router"
 import { IconAlbum, IconBrandApple, IconCreditCard, IconCube, IconDashboard, IconPlus, IconSettings } from "justd-icons"
 import { useMemo, useState } from "react"
 
@@ -22,7 +22,7 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 					className="flex items-center gap-x-2 group-data-[collapsible=dock]:size-10 group-data-[collapsible=dock]:justify-center"
 					href="/"
 				>
-					<IconBrandApple className="size-5" />
+					{/* <IconBrandApple className="size-5" /> */}
 					<strong className="font-medium group-data-[collapsible=dock]:hidden">Maple</strong>
 				</Link>
 			</Sidebar.Header>
