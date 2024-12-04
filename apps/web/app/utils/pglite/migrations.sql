@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS "accounts" (
 	"balance_amount" double precision NOT NULL,
 	"balance_currency" text NOT NULL,
 	"tenant_id" text NOT NULL,
+	"last_sync" timestamp (3),
 	"created_at" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	"updated_at" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	"deleted_at" timestamp (3)
