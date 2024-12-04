@@ -31,6 +31,7 @@ worker({
 			},
 			table: "institutions",
 			primaryKey: ["id"],
+			shapeKey: "institutions",
 		})
 
 		await pg.electric.syncShapeToTable({
@@ -42,6 +43,7 @@ worker({
 			},
 			table: "accounts",
 			primaryKey: ["id"],
+			shapeKey: "accounts",
 		})
 
 		await pg.electric.syncShapeToTable({
@@ -52,6 +54,7 @@ worker({
 			},
 			table: "transactions",
 			primaryKey: ["id"],
+			shapeKey: "transactions",
 		})
 
 		// await runMigrations(pg, DB_NAME)

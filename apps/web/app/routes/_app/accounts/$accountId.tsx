@@ -69,8 +69,8 @@ function RouteComponent() {
 							<Table.Column>Date</Table.Column>
 							<Table.Column>Status</Table.Column>
 						</Table.Header>
-						<Table.Body>
-							{transactions.map((transaction) => (
+						<Table.Body items={transactions}>
+							{(transaction) => (
 								<Table.Row key={transaction.id}>
 									<Table.Cell className="flex items-center gap-2">
 										<IconCirclePlaceholderDashed className="size-6" />
@@ -91,7 +91,7 @@ function RouteComponent() {
 										</Badge>
 									</Table.Cell>
 								</Table.Row>
-							))}
+							)}
 						</Table.Body>
 					</Table>
 				</Card.Content>
