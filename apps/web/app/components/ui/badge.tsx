@@ -9,7 +9,7 @@ const badgeIntents = {
 		"bg-primary/10 dark:bg-primary/15 text-primary dark:text-primary group-hover:bg-primary/15 dark:group-hover:bg-primary/20",
 	secondary: "bg-secondary group-hover:bg-muted dark:bg-secondary dark:group-hover:bg-muted text-secondary-fg",
 	success:
-		"bg-success/15 text-success-fg group-hover:bg-success/25 dark:bg-success/10 dark:group-hover:bg-success/20",
+		"bg-emerald-500/15 text-emerald-700 group-hover:bg-emerald-500/25 dark:bg-emerald-500/10 dark:text-emerald-400 dark:group-hover:bg-emerald-500/20",
 	info: "bg-info/15 dark:bg-info/15 text-info group-hover:bg-info/20 dark:group-hover:bg-info/20",
 	warning:
 		"bg-warning/10 dark:bg-warning/15 text-warning-fg dark:text-warning group-hover:bg-warning/15 dark:group-hover:bg-warning/20",
