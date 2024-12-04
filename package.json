@@ -6,8 +6,5 @@
 		"@biomejs/biome": "^1.9.4"
 	},
 	"private": true,
-	"trustedDependencies": ["@biomejs/biome", "@clerk/shared", "prisma", "protobufjs", "sharp", "workerd"],
-	"dependencies": {
-		"react-scan": "^0.0.35"
-	}
+	"trustedDependencies": ["@biomejs/biome", "@clerk/shared", "prisma", "protobufjs", "sharp", "workerd"]
 }
