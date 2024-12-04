@@ -47,6 +47,10 @@ function RouteComponent() {
 				<Card.Header>
 					<div>
 						<Card.Title>{bankAccount.name}</Card.Title>
+						<Card.Description>
+							Last Sync{" "}
+							{bankAccount.lastSync ? format(bankAccount.lastSync, "dd/MM/yyyy HH:mm") : "Never"}
+						</Card.Description>
 					</div>
 				</Card.Header>
 				<Card.Content>
