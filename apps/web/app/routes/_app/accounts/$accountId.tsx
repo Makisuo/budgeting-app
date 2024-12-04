@@ -38,9 +38,11 @@ function RouteComponent() {
 
 	return (
 		<div className="space-y-4">
-			<Button onPress={() => syncTransactionMutation.mutate({ params: { path: { accountId: accountId } } })}>
-				Sync Transactions
-			</Button>
+			{import.meta.env.DEV && (
+				<Button onPress={() => syncTransactionMutation.mutate({ params: { path: { accountId: accountId } } })}>
+					Sync Transactions
+				</Button>
+			)}
 			<Card>
 				<Card.Header>
 					<div>
