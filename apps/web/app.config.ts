@@ -4,10 +4,10 @@ import tsConfigPaths from "vite-tsconfig-paths"
 export default defineConfig({
 	vite: {
 		ssr: {
-			noExternal: ["@electric-sql/pglite-react"],
+			noExternal: ["@electric-sql/pglite-react", "react-scan"],
 		},
 		optimizeDeps: {
-			exclude: ["@electric-sql/pglite"],
+			exclude: ["@electric-sql/pglite", "react-scan"],
 		},
 		worker: {
 			format: "es",
