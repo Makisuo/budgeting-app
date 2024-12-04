@@ -24,7 +24,7 @@ export class AccountRepo extends Effect.Service<AccountRepo>()("AccountRepo", {
 			execute: () =>
 				sql`SELECT *
 					FROM ${sql(TABLE_NAME)}
-					WHERE last_sync IS NULL OR last_sync < NOW() - INTERVAL '12 hours';`,
+					WHERE last_sync IS NULL OR last_sync < NOW() - INTERVAL '6 hours';`,
 		})
 
 		const getAccountsReadyForSync = () =>
