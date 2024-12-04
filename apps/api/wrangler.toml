@@ -14,6 +14,10 @@ mode = "smart"
 API_BASE_URL = "https://api.maple.dev"
 APP_BASE_URL = "https://app.maple.dev"
 
+
+[triggers]
+crons = ["*/30 * * * *"]
+
 # name = "sync-account-workflow"
 # binding = "SYNC_ACCOUNT_WORKFLOW"
 # class_name = "SyncAccountWorkflow"

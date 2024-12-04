@@ -64,6 +64,8 @@ export const accounts = pgTable(
 		balanceCurrency: text("balance_currency").notNull(),
 
 		tenantId: text("tenant_id").notNull(),
+
+		lastSync: timestamp("last_sync", { precision: 3 }),
 		...defaultFields,
 	},
 	(table) => {

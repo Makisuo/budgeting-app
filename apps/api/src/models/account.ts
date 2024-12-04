@@ -19,6 +19,8 @@ export class Account extends Model.Class<Account>("Account")({
 	balanceAmount: Schema.Number,
 	balanceCurrency: Schema.String,
 
+	lastSync: Model.GeneratedByApp(Schema.NullOr(Schema.DateFromString)),
+
 	tenantId: Model.GeneratedByApp(TenantId),
 
 	...baseFields,

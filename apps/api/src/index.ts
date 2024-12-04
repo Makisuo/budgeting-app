@@ -1,10 +1,11 @@
 import { HttpApiBuilder, HttpMiddleware } from "@effect/platform"
-import { Layer, pipe } from "effect"
+import { Effect, Layer, Runtime, pipe } from "effect"
 import { HttpAppLive } from "./http"
 import { AccountRepo } from "./repositories/account-repo"
 import { InstitutionRepo } from "./repositories/institution-repo"
 import { RequisitionRepo } from "./repositories/requisition-repo"
 import { TranscationRepo } from "./repositories/transaction-repo"
+import { CronService } from "./services/cron"
 import { GoCardlessService } from "./services/gocardless/gocardless-service"
 import { TracingLive } from "./services/tracing"
 
@@ -38,5 +39,21 @@ export default {
 		})
 
 		return handler.handler(request)
+	},
+	async scheduled(controller, env) {
+		Object.assign(globalThis, {
+			env,
+		})
+		Object.assign(process, {
+			env: { ...env },
+		})
+
+		const program = Effect.gen(function* () {
+			const cron = yield* CronService
+
+			yield* cron.run()
+		}).pipe(Effect.provide(CronService.Default), Effect.provide(MainLayer))
+
+		await Runtime.runPromise(Runtime.defaultRuntime)(program)
 	},
 } satisfies ExportedHandler<Env>
