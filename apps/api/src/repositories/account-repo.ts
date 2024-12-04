@@ -23,8 +23,8 @@ export class AccountRepo extends Effect.Service<AccountRepo>()("AccountRepo", {
 			// TODO: Should be more type safe and have a dyanmic duration
 			execute: () =>
 				sql`SELECT *
-FROM ${sql(TABLE_NAME)}
-WHERE last_sync IS NULL OR last_sync < NOW() - INTERVAL '12 hours';`,
+					FROM ${sql(TABLE_NAME)}
+					WHERE last_sync IS NULL OR last_sync < NOW() - INTERVAL '12 hours';`,
 		})
 
 		const getAccountsReadyForSync = () =>

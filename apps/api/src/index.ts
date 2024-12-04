@@ -5,12 +5,18 @@ import { AccountRepo } from "./repositories/account-repo"
 import { InstitutionRepo } from "./repositories/institution-repo"
 import { RequisitionRepo } from "./repositories/requisition-repo"
 import { TranscationRepo } from "./repositories/transaction-repo"
+import { Workflows } from "./services/cloudflare/workflows"
 import { CronService } from "./services/cron"
 import { GoCardlessService } from "./services/gocardless/gocardless-service"
 import { TracingLive } from "./services/tracing"
+import { workflows } from "./workflows"
+
+export * from "./workflows"
 
 declare global {
 	var env: Env
+
+	type WorkflowsBinding = typeof workflows
 }
 
 const MainLayer = Layer.mergeAll(
@@ -19,7 +25,8 @@ const MainLayer = Layer.mergeAll(
 	RequisitionRepo.Default,
 	AccountRepo.Default,
 	TranscationRepo.Default,
-)
+	Workflows.fromRecord(() => workflows),
+).pipe()
 
 const HttpLive = Layer.mergeAll(HttpAppLive)
 

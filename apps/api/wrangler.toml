@@ -18,6 +18,11 @@ APP_BASE_URL = "https://app.maple.dev"
 [triggers]
 crons = ["*/30 * * * *"]
 
+[[workflows]]
+name = "workflow-transactions-sync"
+binding = "SYNC_TRANSACTIONS_WORKFLOW"
+class_name = "SyncTransactionsWorkflow"
+
 # name = "sync-account-workflow"
 # binding = "SYNC_ACCOUNT_WORKFLOW"
 # class_name = "SyncAccountWorkflow"

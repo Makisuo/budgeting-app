@@ -19,7 +19,11 @@ export class Account extends Model.Class<Account>("Account")({
 	balanceAmount: Schema.Number,
 	balanceCurrency: Schema.String,
 
-	lastSync: Model.GeneratedByApp(Schema.NullOr(Schema.DateFromString)),
+	lastSync: Model.GeneratedByApp(
+		Schema.NullOr(Model.DateTimeFromDate).annotations({
+			jsonSchema: Schema.NullOr(Schema.DateTimeUtc),
+		}),
+	),
 
 	tenantId: Model.GeneratedByApp(TenantId),
 

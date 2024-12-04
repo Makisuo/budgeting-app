@@ -9,6 +9,7 @@ import { AccountRepo } from "~/repositories/account-repo"
 import { InstitutionRepo } from "~/repositories/institution-repo"
 import { RequisitionRepo } from "~/repositories/requisition-repo"
 import { TranscationRepo } from "~/repositories/transaction-repo"
+import { Workflows } from "~/services/cloudflare/workflows"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
 import { transformTransaction } from "~/services/gocardless/transformer"
 import { CreateLinkResponse } from "./models"
@@ -21,6 +22,9 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 		const requisitionRepo = yield* RequisitionRepo
 		const accountRepo = yield* AccountRepo
 		const transactionRepo = yield* TranscationRepo
+
+		const workflow = yield* Workflows
+		const syncTransactionWorkflow = workflow.getWorkflow<WorkflowsBinding>("SyncTransactionsWorkflow")
 
 		return handlers
 			.handle("createLink", ({ payload }) =>
@@ -104,14 +108,15 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 
 									deletedAt: null,
 									currency: account.currency || "",
+									lastSync: null,
 									balanceAmount: +(balance?.balanceAmount.amount || 0),
 									balanceCurrency: balance?.balanceAmount.currency || "",
 								}),
 							)
+
+							yield* syncTransactionWorkflow.create({ params: { accountId } })
 						}),
 					)
-
-					// TODO: Start Sync here
 
 					yield* HttpApp.appendPreResponseHandler((_req, res) =>
 						pipe(
@@ -132,19 +137,7 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 						return yield* Effect.fail(new NotFound({ message: "Account not found" }))
 					}
 
-					const transactions = yield* goCardless.getTransactions(account.value.id)
-
-					const mappedBookedTransactions = transactions.transactions.booked.map((v) =>
-						transformTransaction(path.accountId, account.value.tenantId, v, "posted"),
-					)
-					const mappedPendingTransactions = transactions.transactions.pending.map((v) =>
-						transformTransaction(path.accountId, account.value.tenantId, v, "pending"),
-					)
-
-					yield* transactionRepo.insertMultipleVoid([
-						...mappedBookedTransactions,
-						...mappedPendingTransactions,
-					])
+					yield* syncTransactionWorkflow.create({ params: { accountId: path.accountId } })
 
 					return "Sucesfully started sync job"
 				}).pipe(
