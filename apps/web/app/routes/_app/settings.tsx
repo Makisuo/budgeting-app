@@ -1,6 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router"
+import { useState } from "react"
 import { useTheme } from "~/components/theme-provider"
-import { Button, Card, Container } from "~/components/ui"
+import { Button, Card } from "~/components/ui"
+import { Checkbox } from "~/components/ui/checkbox"
+
+import { useAtom } from "jotai/react"
+import { atomWithStorage } from "jotai/utils"
+
+export const catModeAtom = atomWithStorage("catMode", false)
 
 export const Route = createFileRoute("/_app/settings")({
 	component: RouteComponent,
@@ -21,6 +28,26 @@ function RouteComponent() {
 				</Card.Content>
 				<Card.Footer>Footer</Card.Footer>
 			</Card>
+			<CatModeSetting />
 		</>
+	)
+}
+
+const CatModeSetting = () => {
+	const [catMode, setCatMode] = useAtom(catModeAtom)
+
+	return (
+		<Card>
+			<Card.Header>
+				<Card.Title>Cat Mode</Card.Title>
+				<Card.Description>CAT MODE CAT MODE CAT MODE</Card.Description>
+			</Card.Header>
+			<Card.Content>
+				<Checkbox isSelected={catMode} onChange={setCatMode}>
+					Enable Cat Mode
+				</Checkbox>
+			</Card.Content>
+			<Card.Footer />
+		</Card>
 	)
 }

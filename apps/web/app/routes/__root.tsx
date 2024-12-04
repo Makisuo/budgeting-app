@@ -11,10 +11,13 @@ import { ClerkProvider } from "@clerk/tanstack-start"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { fetchUserSession } from "~/actions"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import appCss from "~/styles/app.css?url"
 
+import { useAtom } from "jotai/react"
 import { scan } from "react-scan"
+import { RandomCat } from "~/components/random-cat"
+import { catModeAtom } from "./_app/settings"
 
 const queryClient = new QueryClient()
 
@@ -93,10 +96,20 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<body>
 				{children}
 				<ScrollRestoration />
-
-				<TanStackRouterDevtools position="bottom-left" />
+				<CatMode />
+				{import.meta.env.DEV && <TanStackRouterDevtools position="top-right" />}
 				<Scripts />
 			</body>
 		</html>
 	)
+}
+
+const CatMode = () => {
+	const [catMode, setCatMode] = useAtom(catModeAtom)
+
+	if (!catMode) {
+		return <></>
+	}
+
+	return <RandomCat />
 }
