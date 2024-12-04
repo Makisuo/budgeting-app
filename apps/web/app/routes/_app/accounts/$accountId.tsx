@@ -1,8 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { format } from "date-fns"
 import { TransactionTable } from "~/components/transaction-table"
-import { Button, Card } from "~/components/ui"
-import { useApi } from "~/lib/api/client"
+import { Card } from "~/components/ui"
 import { useDrizzleLive } from "~/lib/hooks/use-drizzle-live"
 import { currencyFormatter } from "~/utils/formatters"
 
@@ -13,15 +12,11 @@ export const Route = createFileRoute("/_app/accounts/$accountId")({
 function RouteComponent() {
 	const { accountId } = Route.useParams()
 
-	const $api = useApi()
-
 	const { data: bankAccount } = useDrizzleLive((db) =>
 		db.query.accounts.findFirst({
 			where: (table, { eq }) => eq(table.id, accountId),
 		}),
 	)
-
-	const syncTransactionMutation = $api.useMutation("post", "/gocardless/sync/{accountId}")
 
 	if (!bankAccount) {
 		return <div>Account not found</div>
@@ -29,11 +24,6 @@ function RouteComponent() {
 
 	return (
 		<div className="space-y-4">
-			{import.meta.env.DEV && (
-				<Button onPress={() => syncTransactionMutation.mutate({ params: { path: { accountId: accountId } } })}>
-					Sync Transactions
-				</Button>
-			)}
 			<Card>
 				<Card.Header>
 					<div>
