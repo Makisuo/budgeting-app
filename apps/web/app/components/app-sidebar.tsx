@@ -75,19 +75,24 @@ const AccountItems = () => {
 		}),
 	)
 
-	console.log(accounts)
-
 	return (
 		<>
 			{accounts.map((account) => (
 				<SidebarItem
-					icon={IconCube}
+					icon={
+						account.institution?.logo
+							? () => (
+									<img
+										className="size-4"
+										src={account.institution.logo!}
+										alt={account.institution.name}
+									/>
+								)
+							: IconCube
+					}
 					key={account.id}
 					href={`/accounts/${account.id}` as "/accounts/$accountId"}
 				>
-					{account.institution?.logo && (
-						<img className="h-3 pr-2" src={account.institution.logo} alt={account.institution.name} />
-					)}
 					{account.institution.name} {account.type}
 				</SidebarItem>
 			))}
