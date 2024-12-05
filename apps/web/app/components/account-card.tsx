@@ -3,10 +3,12 @@ import type { Account, Institution, Transaction } from "db"
 import { IconCube } from "justd-icons"
 import { useMemo } from "react"
 import { Bar, BarChart } from "recharts"
+import { cn } from "~/utils/classes"
 import { currencyFormatter } from "~/utils/formatters"
 import { Card, Chart, type ChartConfig } from "./ui"
 
 export interface AccountCardProps {
+	className?: string
 	account: Account & {
 		institution: Institution
 		transactions: Transaction[]
@@ -74,7 +76,7 @@ const aggregateDailyTransactions = (transactions: Transaction[]) => {
 	}, dateRange)
 }
 
-export const AccountCard = ({ account }: AccountCardProps) => {
+export const AccountCard = ({ account, className }: AccountCardProps) => {
 	const dailyTransactions = useMemo(
 		() => Object.values(aggregateDailyTransactions(account.transactions)),
 		[account.transactions],
@@ -82,7 +84,7 @@ export const AccountCard = ({ account }: AccountCardProps) => {
 
 	return (
 		<Link to={"/accounts/$accountId"} params={{ accountId: account.id }}>
-			<Card className="min-w-[220px]">
+			<Card className={cn("min-w-[220px]", className)}>
 				<Card.Header>
 					<div className="flex flex-row items-center gap-2">
 						{account.institution.logo ? (

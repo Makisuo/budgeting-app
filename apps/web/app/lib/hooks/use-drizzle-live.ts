@@ -8,11 +8,12 @@ import {
 	type TablesRelationalConfig,
 	is,
 } from "drizzle-orm"
-import type { PgRelationalQuery } from "drizzle-orm/pg-core/query-builders/query"
+import { PgRelationalQuery } from "drizzle-orm/pg-core/query-builders/query"
 import { drizzle as PgLiteDrizzle, type PgliteDatabase } from "drizzle-orm/pglite"
 
 import type { LiveQueryResults } from "@electric-sql/pglite/live"
 import { schema } from "db"
+import type { AnyPgSelect } from "drizzle-orm/pg-core"
 
 export type DrizzleClient = PgliteDatabase<typeof schema>
 
@@ -34,7 +35,7 @@ function processQueryResults<T>(query: T, rawRows: any[]): Record<string, any>[]
 	})
 }
 
-function createQueryResult<T extends PgRelationalQuery<unknown>>(
+function createQueryResult<T extends PgRelationalQuery<unknown> | AnyPgSelect>(
 	mappedRows: Record<string, any>[],
 	mode: "many" | "one",
 	items?: { affectedRows?: number; fields?: any[]; blob?: any },
@@ -47,23 +48,29 @@ function createQueryResult<T extends PgRelationalQuery<unknown>>(
 	}
 }
 
-export const useDrizzleLive = <T extends PgRelationalQuery<unknown>>(fn: (db: DrizzleClient) => T) => {
+export const useDrizzleLive = <T extends PgRelationalQuery<unknown> | AnyPgSelect>(fn: (db: DrizzleClient) => T) => {
 	const pg = usePGlite()
 
 	const drizzle = createPgLiteClient(pg)
 	const query = fn(drizzle)
+
 	const sqlData = query.toSQL()
 	const items = useLiveQuery(sqlData.sql, sqlData.params)
-	const mode = (query as any).mode
-	const mappedRows = processQueryResults(query, items?.rows || [])
 
-	return createQueryResult<T>(mappedRows, mode, items)
+	if (is(query, PgRelationalQuery)) {
+		const mode = (query as any).mode
+		const mappedRows = processQueryResults(query, items?.rows || [])
+
+		return createQueryResult<T>(mappedRows, mode, items)
+	}
+
+	return createQueryResult<T>(items?.rows || [], "many", items)
 }
 
 /*
 This hook is better for reactivity but doesnt work with include queries 
 */
-export const useDrizzleLiveIncremental = <T extends PgRelationalQuery<unknown>>(
+export const useDrizzleLiveIncremental = <T extends PgRelationalQuery<unknown> | AnyPgSelect>(
 	diffKey: string,
 	fn: (db: DrizzleClient) => T,
 ) => {
@@ -72,10 +79,15 @@ export const useDrizzleLiveIncremental = <T extends PgRelationalQuery<unknown>>(
 	const query = fn(drizzle)
 	const sqlData = query.toSQL()
 	const items = useLiveIncrementalQuery(sqlData.sql, sqlData.params, diffKey)
-	const mode = (query as any).mode
-	const mappedRows = processQueryResults(query, items?.rows || [])
 
-	return createQueryResult<T>(mappedRows, mode, items)
+	if (is(query, PgRelationalQuery)) {
+		const mode = (query as any).mode
+		const mappedRows = processQueryResults(query, items?.rows || [])
+
+		return createQueryResult<T>(mappedRows, mode, items)
+	}
+
+	return createQueryResult<T>(items?.rows || [], "many", items)
 }
 
 function mapRelationalRow(

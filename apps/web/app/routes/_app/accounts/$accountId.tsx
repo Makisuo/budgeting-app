@@ -1,5 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { format } from "date-fns"
+import { schema } from "db"
+import { AccountCard } from "~/components/account-card"
+import { DateValue } from "~/components/date-value"
 import { TransactionTable } from "~/components/transaction-table"
 import { Card } from "~/components/ui"
 import { useDrizzleLive } from "~/lib/hooks/use-drizzle-live"
@@ -15,6 +18,12 @@ function RouteComponent() {
 	const { data: bankAccount } = useDrizzleLive((db) =>
 		db.query.accounts.findFirst({
 			where: (table, { eq }) => eq(table.id, accountId),
+			with: {
+				institution: true,
+				transactions: {
+					where: (table, { sql }) => sql`${table.date} > NOW() - INTERVAL '14 days'`,
+				},
+			},
 		}),
 	)
 
@@ -24,22 +33,7 @@ function RouteComponent() {
 
 	return (
 		<div className="space-y-4">
-			<Card>
-				<Card.Header>
-					<div>
-						<Card.Title>{bankAccount.name}</Card.Title>
-						<Card.Description>
-							Last Sync{" "}
-							{bankAccount.lastSync ? format(bankAccount.lastSync, "dd/MM/yyyy HH:mm") : "Never"}
-						</Card.Description>
-					</div>
-				</Card.Header>
-				<Card.Content>
-					{currencyFormatter(bankAccount.balanceCurrency ?? "USD").format(
-						Number(bankAccount.balanceAmount) ?? 0,
-					)}
-				</Card.Content>
-			</Card>
+			<AccountCard className="max-w-[300px]" account={bankAccount} />
 
 			<Card>
 				<Card.Header className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">

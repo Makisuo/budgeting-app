@@ -2,6 +2,7 @@ import { format } from "date-fns"
 import { IconCirclePlaceholderDashed } from "justd-icons"
 import { useDrizzleLive } from "~/lib/hooks/use-drizzle-live"
 import { currencyFormatter } from "~/utils/formatters"
+import { DateValue } from "./date-value"
 import { Badge } from "./ui/badge"
 import { Table } from "./ui/table"
 
@@ -36,7 +37,9 @@ export const TransactionTable = ({ accountId }: { accountId: string }) => {
 							</Badge>
 						</Table.Cell>
 						<Table.Cell>{transaction.category || "Unknown"}</Table.Cell>
-						<Table.Cell>{format(transaction.date, "dd/MM/yyyy")}</Table.Cell>
+						<Table.Cell>
+							<DateValue date={transaction.date} />
+						</Table.Cell>
 						<Table.Cell>
 							<Badge intent={transaction.status === "pending" ? "info" : "primary"}>
 								{transaction.status === "pending" ? "Pending" : "Completed"}
