@@ -23,35 +23,15 @@ const createPgLiteClient = (client: any) => {
 	})
 }
 
-function processQueryResults<T>(
-	query: T,
-	rawRows: any[],
-	drizzleCasingConvert?: (key: string) => string,
-): Record<string, any>[] {
+function processQueryResults<T>(query: T, rawRows: any[]): Record<string, any>[] {
 	return rawRows.map((row) => {
-		return Object.fromEntries(
-			Object.entries(row).map(([key, value]) => {
-				if (Array.isArray(value)) {
-					return [
-						drizzleCasingConvert ? drizzleCasingConvert(key) : key,
-						mapRelationalRow(
-							(query as any).schema,
-							(query as any).tableConfig,
-							value,
-							(query as any)._getQuery().selection,
-						),
-					]
-				}
-				return [drizzleCasingConvert ? drizzleCasingConvert(key) : key, value]
-			}),
+		return mapRelationalRow(
+			(query as any).schema,
+			(query as any).tableConfig,
+			Object.values(row),
+			(query as any)._getQuery().selection,
 		)
 	})
-}
-
-interface QueryResult {
-	affectedRows: number
-	fields: any[]
-	blob: any
 }
 
 function createQueryResult<T extends PgRelationalQuery<unknown>>(
@@ -75,7 +55,7 @@ export const useDrizzleLive = <T extends PgRelationalQuery<unknown>>(fn: (db: Dr
 	const sqlData = query.toSQL()
 	const items = useLiveQuery(sqlData.sql, sqlData.params)
 	const mode = (query as any).mode
-	const mappedRows = processQueryResults(query, items?.rows || [], (query as any).dialect.casing.convert)
+	const mappedRows = processQueryResults(query, items?.rows || [])
 
 	return createQueryResult<T>(mappedRows, mode, items)
 }
