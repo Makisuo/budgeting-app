@@ -40,6 +40,9 @@ const runMyWorkflow = ({ accountId }: typeof WorkflowParams.Type) =>
 
 		const transactions = yield* goCardless.getTransactions(account.id)
 
+		yield* Effect.logInfo("Found booked transactions", transactions.transactions.booked.length)
+		yield* Effect.logInfo("Found pending transactions", transactions.transactions.pending.length)
+
 		const mappedBookedTransactions = transactions.transactions.booked.map((v) =>
 			transformTransaction(accountId, account.tenantId, v, "posted"),
 		)
