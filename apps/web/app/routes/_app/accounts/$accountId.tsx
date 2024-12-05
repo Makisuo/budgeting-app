@@ -1,12 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { format } from "date-fns"
-import { schema } from "db"
 import { AccountCard } from "~/components/account-card"
-import { DateValue } from "~/components/date-value"
 import { TransactionTable } from "~/components/transaction-table"
 import { Card } from "~/components/ui"
 import { useDrizzleLive } from "~/lib/hooks/use-drizzle-live"
-import { currencyFormatter } from "~/utils/formatters"
 
 export const Route = createFileRoute("/_app/accounts/$accountId")({
 	component: RouteComponent,
