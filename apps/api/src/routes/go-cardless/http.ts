@@ -8,10 +8,8 @@ import { ReferenceId, Requisition } from "~/models/requistion"
 import { AccountRepo } from "~/repositories/account-repo"
 import { InstitutionRepo } from "~/repositories/institution-repo"
 import { RequisitionRepo } from "~/repositories/requisition-repo"
-import { TranscationRepo } from "~/repositories/transaction-repo"
 import { Workflows } from "~/services/cloudflare/workflows"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
-import { transformTransaction } from "~/services/gocardless/transformer"
 import { CreateLinkResponse } from "./models"
 
 export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handlers) =>
@@ -21,7 +19,6 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 		const institutionRepo = yield* InstitutionRepo
 		const requisitionRepo = yield* RequisitionRepo
 		const accountRepo = yield* AccountRepo
-		const transactionRepo = yield* TranscationRepo
 
 		const workflow = yield* Workflows
 		const syncTransactionWorkflow = workflow.getWorkflow<WorkflowsBinding>("SyncTransactionsWorkflow")
@@ -90,12 +87,6 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 								.getAccount(accountId)
 								.pipe(Effect.tapErrorTag("ResponseError", (e) => Effect.logError(e)))
 
-							const { balances } = yield* goCardless.getBalances(accountId)
-
-							yield* Effect.logInfo("balances", balances)
-
-							const balance = balances[0]
-
 							yield* accountRepo.insert(
 								Account.insert.make({
 									id: accountId,
@@ -109,8 +100,8 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 									deletedAt: null,
 									currency: account.currency || "",
 									lastSync: null,
-									balanceAmount: +(balance?.balanceAmount.amount || 0),
-									balanceCurrency: balance?.balanceAmount.currency || "",
+									balanceAmount: 0,
+									balanceCurrency: "USD",
 								}),
 							)
 
