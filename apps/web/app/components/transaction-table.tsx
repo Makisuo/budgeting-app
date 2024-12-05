@@ -10,6 +10,7 @@ export const TransactionTable = ({ accountId }: { accountId: string }) => {
 		db.query.transactions.findMany({
 			where: (table, { eq }) => eq(table.accountId, accountId),
 			limit: 100,
+			orderBy: (table, { desc }) => desc(table.date),
 		}),
 	)
 
