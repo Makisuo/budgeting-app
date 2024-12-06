@@ -1,5 +1,6 @@
 import { DateTime, Match } from "effect"
 
+import { nanoid } from "nanoid"
 import type { TenantId } from "~/authorization"
 import type { AccountId } from "~/models/account"
 import { Transaction, TransactionId } from "~/models/transaction"
@@ -48,8 +49,11 @@ export const transformTransaction = (
 	status: "posted" | "pending",
 ) => {
 	const date = DateTime.unsafeFromDate(transaction.bookingDateTime ?? transaction.bookingDate)
+
+	const transactionId = transaction.transactionId || transaction.internalTransactionId || `maple_trs_${nanoid()}`
+
 	return Transaction.insert.make({
-		id: TransactionId.make(transaction.transactionId),
+		id: TransactionId.make(transactionId),
 		accountId,
 		tenantId,
 		amount: +transaction.transactionAmount.amount,

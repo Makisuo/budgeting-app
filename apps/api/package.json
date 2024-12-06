@@ -30,6 +30,7 @@
 		"@opentelemetry/sdk-trace-base": "^1.29.0",
 		"@opentelemetry/sdk-trace-node": "^1.29.0",
 		"effect": "^3.11.2",
+		"nanoid": "^5.0.9",
 		"plaid": "^30.0.0"
 	}
 }

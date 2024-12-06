@@ -17,7 +17,7 @@ export class AdditionalDataStructured extends S.Class<AdditionalDataStructured>(
 }) {}
 
 export class Transaction extends S.Class<Transaction>("Transaction")({
-	transactionId: S.String,
+	transactionId: S.NullishOr(S.String),
 	bookingDate: S.DateFromString,
 	valueDate: S.optional(S.Union(S.Null, S.DateFromString)),
 	bookingDateTime: S.NullishOr(S.DateFromString),
