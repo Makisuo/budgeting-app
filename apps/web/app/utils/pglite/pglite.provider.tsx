@@ -6,6 +6,7 @@ import { PGliteProvider } from "@electric-sql/pglite-react"
 import PGWorker from "./pglite.worker.js?worker"
 
 import { PGliteWorker } from "@electric-sql/pglite/worker"
+import { LoadingScreen } from "~/components/loading-screen"
 
 const loadPglite = async () => {
 	const pgPromise = PGliteWorker.create(new PGWorker(), {
@@ -25,7 +26,7 @@ export const PgLiteProvider = ({ children }: { children: React.ReactNode }) => {
 		loadPglite().then(setPgForProvider)
 	}, [])
 
-	if (!pgForProvider) return <div>Loading...</div>
+	if (!pgForProvider) return <LoadingScreen />
 
 	return <PGliteProvider db={pgForProvider}>{children}</PGliteProvider>
 }
