@@ -42,7 +42,7 @@ export class Balance extends Schema.Class<Balance>("Balance")({
 		amount: Schema.String,
 	}),
 	balanceType: Schema.String,
-	referenceDate: Schema.DateFromString,
+	referenceDate: Schema.NullishOr(Schema.DateFromString),
 }) {}
 
 export class GetAccountDetailsResponse extends Schema.Class<GetAccountDetailsResponse>("GetAccountDetailsResponse")({
