@@ -13,6 +13,7 @@ export interface AccountCardProps {
 		institution: Institution
 		transactions: Transaction[]
 	}
+	compact?: boolean
 }
 
 const config = {
@@ -25,20 +26,6 @@ const config = {
 		color: "hsl(var(--danger))",
 	},
 } satisfies ChartConfig
-
-const chartData = [
-	{ month: "January", income: 186, outgoings: 80 },
-	{ month: "February", income: 305, outgoings: 200 },
-	{ month: "March", income: 237, outgoings: 120 },
-	{ month: "April", income: 73, outgoings: 190 },
-	{ month: "May", income: 209, outgoings: 130 },
-	{ month: "June", income: 214, outgoings: 140 },
-	{ month: "July", income: 186, outgoings: 80 },
-	{ month: "August", income: 305, outgoings: 200 },
-	{ month: "September", income: 237, outgoings: 120 },
-	{ month: "October", income: 73, outgoings: 190 },
-	{ month: "November", income: 209, outgoings: 130 },
-]
 
 const aggregateDailyTransactions = (transactions: Transaction[]) => {
 	const endDate = new Date()
@@ -76,7 +63,7 @@ const aggregateDailyTransactions = (transactions: Transaction[]) => {
 	}, dateRange)
 }
 
-export const AccountCard = ({ account, className }: AccountCardProps) => {
+export const AccountCard = ({ account, className, compact }: AccountCardProps) => {
 	const dailyTransactions = useMemo(
 		() => Object.values(aggregateDailyTransactions(account.transactions)),
 		[account.transactions],
@@ -99,13 +86,15 @@ export const AccountCard = ({ account, className }: AccountCardProps) => {
 					<Card.Description>Current Balance</Card.Description>
 					{currencyFormatter(account.balanceCurrency).format(account.balanceAmount)}
 				</Card.Content>
-				<Chart className="h-[60px] w-full" config={config}>
-					<BarChart accessibilityLayer data={dailyTransactions}>
-						<Chart.Tooltip cursor={false} content={<Chart.TooltipContent hideLabel />} />
-						<Bar dataKey="income" stackId={account.id} fill="var(--color-income)" radius={3} />
-						<Bar dataKey="outgoings" stackId={account.id} fill="var(--color-outgoings)" radius={3} />
-					</BarChart>
-				</Chart>
+				{!compact && (
+					<Chart className="h-[60px] w-full" config={config}>
+						<BarChart accessibilityLayer data={dailyTransactions}>
+							<Chart.Tooltip cursor={false} content={<Chart.TooltipContent hideLabel />} />
+							<Bar dataKey="income" stackId={account.id} fill="var(--color-income)" radius={3} />
+							<Bar dataKey="outgoings" stackId={account.id} fill="var(--color-outgoings)" radius={3} />
+						</BarChart>
+					</Chart>
+				)}
 			</Card>
 		</Link>
 	)

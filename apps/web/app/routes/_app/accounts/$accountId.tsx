@@ -29,7 +29,7 @@ function RouteComponent() {
 
 	return (
 		<div className="space-y-4">
-			<AccountCard className="max-w-[300px]" account={bankAccount} />
+			<AccountCard className="max-w-[300px]" account={bankAccount} compact />
 
 			<Card>
 				<Card.Header className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
