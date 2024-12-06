@@ -13,6 +13,7 @@ export default defineConfig({
 			format: "es",
 		},
 		plugins: [
+			// @ts-expect-error
 			tsConfigPaths({
 				projects: ["./tsconfig.json"],
 			}),

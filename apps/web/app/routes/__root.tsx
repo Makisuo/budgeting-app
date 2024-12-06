@@ -11,11 +11,9 @@ import { ClerkProvider } from "@clerk/tanstack-start"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { fetchUserSession } from "~/actions"
 
-import { useEffect, useState } from "react"
 import appCss from "~/styles/app.css?url"
 
 import { useAtom } from "jotai/react"
-import { scan } from "react-scan"
 import { RandomCat } from "~/components/random-cat"
 import { catModeAtom } from "./_app/settings"
 
@@ -65,15 +63,6 @@ export const Route = createRootRoute({
 })
 
 function RootComponent() {
-	useEffect(() => {
-		scan({
-			enabled: import.meta.env.DEV,
-			log: true,
-			includeChildren: true,
-			report: true,
-		})
-	}, [])
-
 	return (
 		<ClerkProvider>
 			<RootDocument>
