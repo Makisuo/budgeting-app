@@ -3,6 +3,8 @@ import { electricSync } from "@electric-sql/pglite-sync"
 import { live } from "@electric-sql/pglite/live"
 import { type PGliteWorkerOptions, worker } from "@electric-sql/pglite/worker"
 
+import { readMigrationFiles } from "drizzle-orm/migrator"
+import { createPgLiteClient } from "~/lib/hooks/use-drizzle-live"
 import M1 from "./migrations.sql?raw"
 
 const ELECTRIC_URL = new URL("/api/electric/v1/shape", import.meta.env.VITE_BASE_URL).href

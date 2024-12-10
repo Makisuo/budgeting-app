@@ -14,6 +14,9 @@ import {
 export const accountType = pgEnum("account_type", ["depository", "credit", "other_asset", "loan", "other_liability"])
 export const transactionStatus = pgEnum("transaction_status", ["posted", "pending"])
 
+export const subscriptionFrequency = pgEnum("subscription_frequency", ["monthly", "yearly", "weekly"])
+export const subscriptionStatus = pgEnum("subscription_status", ["active", "canceled", "expired"])
+
 const defaultFields = {
 	createdAt: timestamp("created_at", { precision: 3 }).default(sql`CURRENT_TIMESTAMP`).notNull(),
 	updatedAt: timestamp("updated_at", { precision: 3 }).default(sql`CURRENT_TIMESTAMP`).notNull(),
@@ -82,6 +85,20 @@ export const accounts = pgTable(
 	},
 )
 
+export const subscriptions = pgTable("subscriptions", {
+	id: text().primaryKey().notNull(),
+	frequency: subscriptionFrequency().notNull(),
+
+	status: subscriptionStatus().notNull(),
+	nextExpectedPayment: timestamp("next_expected_payment", { precision: 3 }),
+
+	currency: text().notNull(),
+	amount: doublePrecision("amount").notNull(),
+
+	tenantId: text("tenant_id").notNull(),
+	...defaultFields,
+})
+
 export const transactions = pgTable(
 	"transactions",
 	{
@@ -114,8 +131,6 @@ export const transactions = pgTable(
 		}
 	},
 )
-
-export const subscriptionStatus = pgEnum("subscription_status", ["active", "canceled", "expired"])
 
 export const accountsRelations = relations(accounts, ({ one, many }) => ({
 	institution: one(institutions, {

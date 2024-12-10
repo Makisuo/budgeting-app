@@ -17,7 +17,7 @@ import type { AnyPgSelect } from "drizzle-orm/pg-core"
 
 export type DrizzleClient = PgliteDatabase<typeof schema>
 
-const createPgLiteClient = (client: any) => {
+export const createPgLiteClient = (client: any) => {
 	return PgLiteDrizzle(client, {
 		schema,
 		casing: "camelCase",
