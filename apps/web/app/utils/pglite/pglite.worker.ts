@@ -26,8 +26,10 @@ worker({
 		await pg.electric.syncShapeToTable({
 			shape: {
 				url: ELECTRIC_URL,
-				table: "institutions",
 				onError: (error) => console.log(error),
+				params: {
+					table: "institutions",
+				},
 			},
 			table: "institutions",
 			primaryKey: ["id"],
@@ -37,10 +39,12 @@ worker({
 		await pg.electric.syncShapeToTable({
 			shape: {
 				url: ELECTRIC_URL,
-				table: "accounts",
-
 				onError: (error) => console.log(error),
+				params: {
+					table: "accounts",
+				},
 			},
+
 			table: "accounts",
 			primaryKey: ["id"],
 			shapeKey: "accounts",
@@ -49,8 +53,10 @@ worker({
 		await pg.electric.syncShapeToTable({
 			shape: {
 				url: ELECTRIC_URL,
-				table: "transactions",
 				onError: (error) => console.log(error),
+				params: {
+					table: "transactions",
+				},
 			},
 			table: "transactions",
 			primaryKey: ["id"],

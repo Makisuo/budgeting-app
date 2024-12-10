@@ -7,7 +7,7 @@ app = 'maple-electric-dev'
 primary_region = 'ams'
 
 [build]
-image = 'electricsql/electric:0.9.4'
+image = 'electricsql/electric:1.0.0-beta.1'
 
 [env]
 DATABASE_URL = 'postgresql://postgres:5FduiVxNbt5Ye8Qi@db.hxwmftwwlibnzjzeqhgv.supabase.co:5432/postgres'

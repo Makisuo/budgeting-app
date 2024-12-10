@@ -115,6 +115,8 @@ export const transactions = pgTable(
 	},
 )
 
+export const subscriptionStatus = pgEnum("subscription_status", ["active", "canceled", "expired"])
+
 export const accountsRelations = relations(accounts, ({ one, many }) => ({
 	institution: one(institutions, {
 		fields: [accounts.institutionId],
