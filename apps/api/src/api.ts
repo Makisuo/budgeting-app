@@ -7,6 +7,7 @@ import { GoCardlessApi } from "./routes/go-cardless/api"
 import { RootApi } from "./routes/root/api"
 
 import { createClerkClient } from "@clerk/backend"
+import { SubscriptionApi } from "./routes/subscriptions/api"
 
 export const AuthorizationLive = Layer.effect(
 	Authorization,
@@ -52,4 +53,5 @@ export class Api extends HttpApi.empty
 	.add(RootApi)
 	.add(GoCardlessApi)
 	.add(AdminApi)
+	.add(SubscriptionApi)
 	.annotate(OpenApi.Title, "Hazel API") {}

@@ -3,7 +3,7 @@ import { NotFound } from "~/errors"
 import { AccountId } from "~/models/account"
 import { AccountRepo } from "~/repositories/account-repo"
 import { TranscationRepo } from "~/repositories/transaction-repo"
-import { makeWorkflow } from "~/services/cloudflare/workflows"
+import { makeWorkflowEntrypoint } from "~/services/cloudflare/workflows"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
 import { transformTransaction } from "~/services/gocardless/transformer"
 
@@ -53,7 +53,7 @@ const runMyWorkflow = ({ accountId }: typeof WorkflowParams.Type) =>
 		yield* transactionRepo.insertMultipleVoid([...mappedBookedTransactions, ...mappedPendingTransactions])
 	})
 
-export const SyncBalanceWorkflow = makeWorkflow(
+export const SyncBalanceWorkflow = makeWorkflowEntrypoint(
 	{ name: "SyncBalanceWorkflow", binding: "SYNC_BALANCE_WORKFLOW", schema: WorkflowParams },
 	flow(
 		runMyWorkflow,

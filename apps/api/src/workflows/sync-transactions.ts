@@ -4,7 +4,7 @@ import { NotFound } from "~/errors"
 import { AccountId } from "~/models/account"
 import { AccountRepo } from "~/repositories/account-repo"
 import { TranscationRepo } from "~/repositories/transaction-repo"
-import { Workflow, makeWorkflow } from "~/services/cloudflare/workflows"
+import { Workflow, makeWorkflowEntrypoint } from "~/services/cloudflare/workflows"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
 import { transformTransaction } from "~/services/gocardless/transformer"
 
@@ -14,15 +14,22 @@ const WorkflowParams = Schema.Struct({
 
 class WorkflowEventError extends Data.TaggedError("WorkflowEventError")<{ message?: string; cause?: unknown }> {}
 
+class StepSyncBalanceError extends Schema.TaggedError<StepSyncBalanceError>("StepSyncBalanceError")(
+	"StepSyncBalanceError",
+	{
+		cause: Schema.Defect,
+	},
+) {}
+
 class StepSyncBalanceRequest extends Schema.TaggedRequest<StepSyncBalanceRequest>()("StepSyncBalanceRequest", {
-	failure: Schema.Never,
+	failure: StepSyncBalanceError,
 	success: Schema.Void,
 	payload: {
 		event: Schema.Struct({ accountId: AccountId }),
 	},
 }) {}
 
-const stepSyncBalance = Workflow.fn(
+const stepSyncBalance = Workflow.schema(
 	StepSyncBalanceRequest,
 	({ event: { accountId } }) =>
 		Effect.gen(function* () {
@@ -60,10 +67,17 @@ const stepSyncBalance = Workflow.fn(
 	},
 )
 
+class StepSyncTransactionsError extends Schema.TaggedError<StepSyncTransactionsError>("StepSyncTransactionsError")(
+	"StepSyncTransactionsError",
+	{
+		cause: Schema.Defect,
+	},
+) {}
+
 class StepSyncTransactionsRequest extends Schema.TaggedRequest<StepSyncTransactionsRequest>()(
 	"StepSyncTransactionsRequest",
 	{
-		failure: Schema.Never,
+		failure: StepSyncTransactionsError,
 		success: Schema.Void,
 		payload: {
 			event: Schema.Struct({ accountId: AccountId, tenantId: TenantId }),
@@ -71,7 +85,7 @@ class StepSyncTransactionsRequest extends Schema.TaggedRequest<StepSyncTransacti
 	},
 ) {}
 
-const stepSyncTransactions = Workflow.fn(
+const stepSyncTransactions = Workflow.schema(
 	StepSyncTransactionsRequest,
 	({ event: { accountId, tenantId } }) =>
 		Effect.gen(function* () {
@@ -128,7 +142,7 @@ const runMyWorkflow = ({ accountId }: typeof WorkflowParams.Type) =>
 		yield* stepSyncTransactions({ event: { accountId, tenantId: account.tenantId } })
 	})
 
-export const SyncTransactionsWorkflow = makeWorkflow(
+export const SyncTransactionsWorkflow = makeWorkflowEntrypoint(
 	{ name: "SyncTransactionsWorkflow", binding: "SYNC_TRANSACTIONS_WORKFLOW", schema: WorkflowParams },
 	flow(
 		runMyWorkflow,
