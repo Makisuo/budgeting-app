@@ -13,9 +13,14 @@ import { drizzle as PgLiteDrizzle, type PgliteDatabase } from "drizzle-orm/pglit
 
 import type { LiveQueryResults } from "@electric-sql/pglite/live"
 import { schema } from "db"
-import type { AnyPgSelect } from "drizzle-orm/pg-core"
+import type { AnyPgSelect, AnyPgSelectQueryBuilder, PgSelectWithout } from "drizzle-orm/pg-core"
 
 export type DrizzleClient = PgliteDatabase<typeof schema>
+
+type DrizzleQueryType =
+	| PgRelationalQuery<unknown>
+	| AnyPgSelect
+	| PgSelectWithout<AnyPgSelectQueryBuilder, boolean, any>
 
 export const createPgLiteClient = (client: any) => {
 	return PgLiteDrizzle(client, {
@@ -35,7 +40,7 @@ function processQueryResults<T>(query: T, rawRows: any[]): Record<string, any>[]
 	})
 }
 
-function createQueryResult<T extends PgRelationalQuery<unknown> | AnyPgSelect>(
+function createQueryResult<T extends DrizzleQueryType>(
 	mappedRows: Record<string, any>[],
 	mode: "many" | "one",
 	items?: { affectedRows?: number; fields?: any[]; blob?: any },
@@ -48,13 +53,13 @@ function createQueryResult<T extends PgRelationalQuery<unknown> | AnyPgSelect>(
 	}
 }
 
-export const useDrizzleLive = <T extends PgRelationalQuery<unknown> | AnyPgSelect>(fn: (db: DrizzleClient) => T) => {
+export const useDrizzleLive = <T extends DrizzleQueryType>(fn: (db: DrizzleClient) => T) => {
 	const pg = usePGlite()
 
 	const drizzle = createPgLiteClient(pg)
 	const query = fn(drizzle)
 
-	const sqlData = query.toSQL()
+	const sqlData = (query as any).toSQL()
 	const items = useLiveQuery(sqlData.sql, sqlData.params)
 
 	if (is(query, PgRelationalQuery)) {
@@ -70,14 +75,15 @@ export const useDrizzleLive = <T extends PgRelationalQuery<unknown> | AnyPgSelec
 /*
 This hook is better for reactivity but doesnt work with include queries 
 */
-export const useDrizzleLiveIncremental = <T extends PgRelationalQuery<unknown> | AnyPgSelect>(
+export const useDrizzleLiveIncremental = <T extends DrizzleQueryType>(
 	diffKey: string,
 	fn: (db: DrizzleClient) => T,
 ) => {
 	const pg = usePGlite()
 	const drizzle = createPgLiteClient(pg)
 	const query = fn(drizzle)
-	const sqlData = query.toSQL()
+	const sqlData = (query as any).toSQL()
+
 	const items = useLiveIncrementalQuery(sqlData.sql, sqlData.params, diffKey)
 
 	if (is(query, PgRelationalQuery)) {
