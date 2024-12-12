@@ -16,10 +16,8 @@
 	},
 	"scripts": {
 		"db": "drizzle-kit",
-		"db:export": "bun run ./web/export.ts",
+		"db:export": "bun run ./export.ts",
 		"db:generate": "drizzle-kit generate",
-		"db:generate:web": "drizzle-kit generate --config ./web/drizzle.config.ts",
-		"db:generate:all": "bun run db:generate && bun run db:generate:web && bun run db:export",
 		"db:migrate": "dotenvx run -- drizzle-kit migrate"
 	}
 }

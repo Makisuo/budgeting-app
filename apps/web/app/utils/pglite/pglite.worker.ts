@@ -3,10 +3,11 @@ import { electricSync } from "@electric-sql/pglite-sync"
 import { live } from "@electric-sql/pglite/live"
 import { type PGliteWorkerOptions, worker } from "@electric-sql/pglite/worker"
 
-import type { schema } from "db"
+import { frontMigrations, type schema } from "db"
 import type { ExtractTablesWithRelations } from "drizzle-orm"
+import { PgDialect } from "drizzle-orm/pg-core"
+import { drizzle } from "drizzle-orm/pglite"
 import { syncShapeToTable } from "~/lib/hooks/use-drizzle-live"
-import M1 from "./migrations.sql?raw"
 
 const ELECTRIC_URL = new URL("/api/electric/v1/shape", import.meta.env.VITE_BASE_URL).href
 
@@ -26,7 +27,7 @@ worker({
 			debug: options.debug,
 		})
 
-		await pg.exec(M1)
+		await runMigrations(pg, DB_NAME)
 
 		await syncShapeToTable(pg, {
 			table: "institutions",
@@ -64,3 +65,23 @@ worker({
 		return pg
 	},
 })
+
+async function runMigrations(pg: PGlite, dbName: string) {
+	const db = drizzle(pg)
+
+	const start = performance.now()
+	try {
+		await new PgDialect().migrate(
+			frontMigrations,
+			//@ts-ignore
+			db._.session,
+			dbName,
+		)
+		console.info(`✅ Local database ready in ${performance.now() - start}ms`)
+	} catch (cause) {
+		console.error("❌ Local database schema migration failed", cause)
+		throw cause
+	}
+
+	return pg
+}

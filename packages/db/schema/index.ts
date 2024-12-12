@@ -1,15 +1,5 @@
 import { relations, sql } from "drizzle-orm"
-import {
-	doublePrecision,
-	foreignKey,
-	index,
-	integer,
-	jsonb,
-	pgEnum,
-	pgTable,
-	text,
-	timestamp,
-} from "drizzle-orm/pg-core"
+import { doublePrecision, index, integer, jsonb, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core"
 
 export const accountType = pgEnum("account_type", ["depository", "credit", "other_asset", "loan", "other_liability"])
 export const transactionStatus = pgEnum("transaction_status", ["posted", "pending"])
@@ -55,35 +45,21 @@ export const institutions = pgTable(
 	},
 )
 
-export const accounts = pgTable(
-	"accounts",
-	{
-		id: text().primaryKey().notNull(),
-		name: text().notNull(),
-		currency: text().notNull(),
-		type: accountType().notNull(),
-		institutionId: text("institution_id").notNull(),
-		balanceAmount: doublePrecision("balance_amount").notNull(),
-		balanceCurrency: text("balance_currency").notNull(),
+export const accounts = pgTable("accounts", {
+	id: text().primaryKey().notNull(),
+	name: text().notNull(),
+	currency: text().notNull(),
+	type: accountType().notNull(),
+	institutionId: text("institution_id").notNull(),
+	balanceAmount: doublePrecision("balance_amount").notNull(),
+	balanceCurrency: text("balance_currency").notNull(),
 
-		tenantId: text("tenant_id").notNull(),
+	tenantId: text("tenant_id").notNull(),
 
-		lastSync: timestamp("last_sync", { precision: 3 }),
+	lastSync: timestamp("last_sync", { precision: 3 }),
 
-		...defaultFields,
-	},
-	(table) => {
-		return {
-			accountsInstitutionIdFkey: foreignKey({
-				columns: [table.institutionId],
-				foreignColumns: [institutions.id],
-				name: "accounts_institution_id_fkey",
-			})
-				.onUpdate("cascade")
-				.onDelete("restrict"),
-		}
-	},
-)
+	...defaultFields,
+})
 
 export const subscriptions = pgTable("subscriptions", {
 	id: text().primaryKey().notNull(),
@@ -99,38 +75,24 @@ export const subscriptions = pgTable("subscriptions", {
 	...defaultFields,
 })
 
-export const transactions = pgTable(
-	"transactions",
-	{
-		id: text().primaryKey().notNull(),
-		amount: doublePrecision().notNull(),
-		currency: text().notNull(),
-		date: timestamp({ precision: 3 }).notNull(),
-		status: transactionStatus().notNull(),
-		balance: doublePrecision(),
-		category: text(),
-		method: text().notNull(),
-		name: text().notNull(),
-		description: text(),
-		currencyRate: doublePrecision("currency_rate"),
-		currencySource: text("currency_source"),
-		accountId: text("account_id").notNull(),
+export const transactions = pgTable("transactions", {
+	id: text().primaryKey().notNull(),
+	amount: doublePrecision().notNull(),
+	currency: text().notNull(),
+	date: timestamp({ precision: 3 }).notNull(),
+	status: transactionStatus().notNull(),
+	balance: doublePrecision(),
+	category: text(),
+	method: text().notNull(),
+	name: text().notNull(),
+	description: text(),
+	currencyRate: doublePrecision("currency_rate"),
+	currencySource: text("currency_source"),
+	accountId: text("account_id").notNull(),
 
-		tenantId: text("tenant_id").notNull(),
-		...defaultFields,
-	},
-	(table) => {
-		return {
-			transactionsAccountIdFkey: foreignKey({
-				columns: [table.accountId],
-				foreignColumns: [accounts.id],
-				name: "transactions_account_id_fkey",
-			})
-				.onUpdate("cascade")
-				.onDelete("restrict"),
-		}
-	},
-)
+	tenantId: text("tenant_id").notNull(),
+	...defaultFields,
+})
 
 export const accountsRelations = relations(accounts, ({ one, many }) => ({
 	institution: one(institutions, {
