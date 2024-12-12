@@ -14,13 +14,13 @@
 		"@cloudflare/vitest-pool-workers": "^0.5.36",
 		"@cloudflare/workers-types": "^4.20241205.0",
 		"@effect/language-service": "^0.2.0",
-		"@types/node": "^22.10.1",
+		"@types/node": "^22.10.2",
 		"typescript": "^5.7.2",
 		"vitest": "2.1.8",
 		"wrangler": "^3.95.0"
 	},
 	"dependencies": {
-		"@clerk/backend": "^1.21.0",
+		"@clerk/backend": "^1.21.1",
 		"@effect/experimental": "^0.33.7",
 		"@effect/opentelemetry": "^0.41.3",
 		"@effect/platform": "^0.70.7",
