@@ -1,6 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { schema } from "db"
-import { eq } from "drizzle-orm"
 import { AccountCard } from "~/components/account-card"
 import { useDrizzleLive } from "~/lib/hooks/use-drizzle-live"
 
