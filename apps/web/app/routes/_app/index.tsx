@@ -11,7 +11,6 @@ export const Route = createFileRoute("/_app/")({
 
 const getTotalAggregatedStats = (accounts: Account[]) => {
 	const totals = accounts.reduce((totals: { [currency: string]: number }, account) => {
-		console.log(account)
 		return {
 			// biome-ignore lint/performance/noAccumulatingSpread: <explanation>
 			...totals,
