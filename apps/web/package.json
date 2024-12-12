@@ -17,7 +17,7 @@
 		"@electric-sql/pglite-react": "^0.2.15",
 		"@electric-sql/pglite-repl": "^0.2.15",
 		"@electric-sql/pglite-sync": "^0.2.17",
-		"@makisuo/pglite-drizzle": "npm:@jsr/makisuo__pglite-drizzle@0.0.6",
+		"@makisuo/pglite-drizzle": "npm:@jsr/makisuo__pglite-drizzle@0.0.8",
 		"@tanstack/react-query": "^5.62.7",
 		"@tanstack/react-router": "^1.87.9",
 		"@tanstack/react-virtual": "^3.11.1",
