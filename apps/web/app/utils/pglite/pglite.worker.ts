@@ -1,15 +1,42 @@
 import { IdbFs, PGlite } from "@electric-sql/pglite"
-import { electricSync } from "@electric-sql/pglite-sync"
+import { type SyncShapeToTableOptions, type SyncShapeToTableResult, electricSync } from "@electric-sql/pglite-sync"
 import { live } from "@electric-sql/pglite/live"
 import { type PGliteWorkerOptions, worker } from "@electric-sql/pglite/worker"
 
-import { readMigrationFiles } from "drizzle-orm/migrator"
-import { createPgLiteClient } from "~/lib/hooks/use-drizzle-live"
+import type { ShapeStreamOptions } from "@electric-sql/client"
+
+import type { schema } from "db"
+import type { ExtractTablesWithRelations } from "drizzle-orm"
 import M1 from "./migrations.sql?raw"
 
 const ELECTRIC_URL = new URL("/api/electric/v1/shape", import.meta.env.VITE_BASE_URL).href
 
 export const DB_NAME = "maple_db"
+
+export type ExtractedTables = ExtractTablesWithRelations<typeof schema>
+
+const syncTable = <
+	TTableKey extends keyof ExtractedTables,
+	TPrimaryKey extends keyof ExtractedTables[TTableKey]["columns"],
+>(
+	pgLite: PGlite & {
+		electric: {
+			initMetadataTables: () => Promise<void>
+			syncShapeToTable: (options: SyncShapeToTableOptions) => Promise<SyncShapeToTableResult>
+		}
+	},
+	options: {
+		table: TTableKey
+		primaryKey: TPrimaryKey
+	} & Omit<SyncShapeToTableOptions, "table" | "primaryKey">,
+) => {
+	return pgLite.electric.syncShapeToTable({
+		shape: options.shape,
+		table: options.table,
+		primaryKey: [options.primaryKey as string],
+		shapeKey: options.shapeKey,
+	})
+}
 
 worker({
 	async init(options: PGliteWorkerOptions) {
@@ -25,7 +52,10 @@ worker({
 
 		await pg.exec(M1)
 
-		await pg.electric.syncShapeToTable({
+		await syncTable(pg, {
+			table: "institutions",
+			primaryKey: "id",
+			shapeKey: "institutions",
 			shape: {
 				url: ELECTRIC_URL,
 				onError: (error) => console.log(error),
@@ -33,12 +63,12 @@ worker({
 					table: "institutions",
 				},
 			},
-			table: "institutions",
-			primaryKey: ["id"],
-			shapeKey: "institutions",
 		})
 
-		await pg.electric.syncShapeToTable({
+		await syncTable(pg, {
+			table: "accounts",
+			primaryKey: "id",
+			shapeKey: "accounts",
 			shape: {
 				url: ELECTRIC_URL,
 				onError: (error) => console.log(error),
@@ -46,13 +76,12 @@ worker({
 					table: "accounts",
 				},
 			},
-
-			table: "accounts",
-			primaryKey: ["id"],
-			shapeKey: "accounts",
 		})
 
-		await pg.electric.syncShapeToTable({
+		await syncTable(pg, {
+			table: "transactions",
+			primaryKey: "id",
+			shapeKey: "transactions",
 			shape: {
 				url: ELECTRIC_URL,
 				onError: (error) => console.log(error),
@@ -60,9 +89,6 @@ worker({
 					table: "transactions",
 				},
 			},
-			table: "transactions",
-			primaryKey: ["id"],
-			shapeKey: "transactions",
 		})
 
 		// await runMigrations(pg, DB_NAME)
