@@ -3,8 +3,6 @@ import { type SyncShapeToTableOptions, type SyncShapeToTableResult, electricSync
 import { live } from "@electric-sql/pglite/live"
 import { type PGliteWorkerOptions, worker } from "@electric-sql/pglite/worker"
 
-import type { ShapeStreamOptions } from "@electric-sql/client"
-
 import type { schema } from "db"
 import type { ExtractTablesWithRelations } from "drizzle-orm"
 import M1 from "./migrations.sql?raw"

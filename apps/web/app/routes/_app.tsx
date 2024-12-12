@@ -1,9 +1,7 @@
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router"
 import { createLinkTokenAction } from "~/actions"
 import { AppSidebar } from "~/components/app-sidebar"
-import { Cat } from "~/components/cat"
 import { ProfileMenu } from "~/components/profile-menu"
-import { RandomCat } from "~/components/random-cat"
 import { Container, Sidebar } from "~/components/ui"
 import { PgLiteProvider } from "~/utils/pglite/pglite.provider"
 
