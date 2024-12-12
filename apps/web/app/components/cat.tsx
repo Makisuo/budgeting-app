@@ -22,8 +22,10 @@ const catAnimations = {
 } satisfies Record<CatState, string>
 
 const CAT_WIDTH = 64
-const MOVEMENT_SPEED = 0.1
-const JUMP_DURATION = 500
+const MOVEMENT_SPEED = 0.3
+const JUMP_FORCE = 0.6
+const GRAVITY = 0.002
+const MAX_JUMP_HEIGHT = 120
 
 const useWindowWidth = () => {
 	const [windowWidth, setWindowWidth] = useState<number>(0)
@@ -41,7 +43,6 @@ const useWindowWidth = () => {
 		return () => window.removeEventListener("resize", handleResize)
 	}, [])
 
-	// Return 0 during SSR, actual width after mount
 	return isMounted ? windowWidth : 0
 }
 
@@ -53,12 +54,13 @@ export const Cat = ({
 	onDirectionChange,
 	onJumpComplete,
 }: CatProps) => {
-	const positionRef = useRef({ x: 0 })
+	const positionRef = useRef({ x: 0, y: 0 })
+	const velocityRef = useRef({ x: 0, y: 0 })
+	const isJumpingRef = useRef(false)
 	const animationFrameRef = useRef<number>()
 	const lastTimeRef = useRef<number>(0)
 
 	const windowWidth = useWindowWidth()
-
 	const computedContainerWidth = containerWidth ?? windowWidth
 
 	const updatePosition = useCallback(
@@ -66,27 +68,58 @@ export const Cat = ({
 			if (!lastTimeRef.current) lastTimeRef.current = timestamp
 			const deltaTime = timestamp - lastTimeRef.current
 
-			if (state === "walk") {
+			// Update horizontal movement
+			if (state === "walk" || isJumpingRef.current) {
 				const directionMultiplier = direction === "right" ? 1 : -1
-				let newX = positionRef.current.x + MOVEMENT_SPEED * deltaTime * directionMultiplier
+				velocityRef.current.x = MOVEMENT_SPEED * directionMultiplier
+			} else {
+				velocityRef.current.x = 0
+			}
 
-				// Handle boundaries
-				if (newX < 0) {
-					newX = 0
-					onDirectionChange?.("right")
-				} else if (newX > computedContainerWidth - CAT_WIDTH) {
-					newX = computedContainerWidth - CAT_WIDTH
-					onDirectionChange?.("left")
+			// Update vertical movement (jumping)
+			if (state === "jump" && !isJumpingRef.current) {
+				isJumpingRef.current = true
+				velocityRef.current.y = JUMP_FORCE
+			}
+
+			if (isJumpingRef.current) {
+				velocityRef.current.y -= GRAVITY * deltaTime
+				positionRef.current.y += velocityRef.current.y * deltaTime
+
+				// Ground collision
+				if (positionRef.current.y <= 0) {
+					positionRef.current.y = 0
+					velocityRef.current.y = 0
+					isJumpingRef.current = false
+					onJumpComplete?.()
 				}
 
-				positionRef.current.x = newX
-				onPositionChange?.(newX)
+				// Cap maximum jump height
+				if (positionRef.current.y > MAX_JUMP_HEIGHT) {
+					positionRef.current.y = MAX_JUMP_HEIGHT
+					velocityRef.current.y = 0
+				}
 			}
+
+			// Update horizontal position
+			let newX = positionRef.current.x + velocityRef.current.x * deltaTime
+
+			// Handle boundaries
+			if (newX < 0) {
+				newX = 0
+				onDirectionChange?.("right")
+			} else if (newX > computedContainerWidth - CAT_WIDTH) {
+				newX = computedContainerWidth - CAT_WIDTH
+				onDirectionChange?.("left")
+			}
+
+			positionRef.current.x = newX
+			onPositionChange?.(newX)
 
 			lastTimeRef.current = timestamp
 			animationFrameRef.current = requestAnimationFrame(updatePosition)
 		},
-		[computedContainerWidth, direction, state, onPositionChange, onDirectionChange],
+		[computedContainerWidth, direction, state, onPositionChange, onDirectionChange, onJumpComplete],
 	)
 
 	useEffect(() => {
@@ -98,21 +131,14 @@ export const Cat = ({
 		}
 	}, [updatePosition])
 
-	// Jump effect
-	useEffect(() => {
-		if (state === "jump") {
-			const timer = setTimeout(() => {
-				onJumpComplete?.()
-			}, JUMP_DURATION)
-			return () => clearTimeout(timer)
-		}
-	}, [state, onJumpComplete])
-
 	const styleCat: React.CSSProperties = {
-		transform: `translate(${positionRef.current.x}px, 0) scale(${direction === "right" ? "1" : "-1"}, 1)`,
-		bottom: state === "jump" ? "50px" : "0px", // Simple up/down jump
+		transform: `translate3d(${positionRef.current.x}px, ${-positionRef.current.y}px, 0) scaleX(${
+			direction === "right" ? "1" : "-1"
+		})`,
 		position: "absolute",
-		transition: "bottom 0.5s ease-out",
+		bottom: 0,
+		left: 0,
+		transition: "transform 0.05s linear",
 		imageRendering: "pixelated",
 		zIndex: 50,
 	}

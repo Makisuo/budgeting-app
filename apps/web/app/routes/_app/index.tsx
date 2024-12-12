@@ -238,7 +238,7 @@ function Home() {
 			</div>
 
 			<div className="grid grid-cols-12 gap-3">
-				<Card className="col-span-12 md:col-span-6 xl:col-span-4">
+				<Card className="col-span-12 xl:col-span-4">
 					<Card.Header>
 						<Card.Title>Daily Financial Activity</Card.Title>
 						<Card.Description>{dateRanges.daily}</Card.Description>
