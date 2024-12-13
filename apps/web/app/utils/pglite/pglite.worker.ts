@@ -7,7 +7,7 @@ import { frontMigrations, type schema } from "db"
 import type { ExtractTablesWithRelations } from "drizzle-orm"
 import { PgDialect } from "drizzle-orm/pg-core"
 import { drizzle } from "drizzle-orm/pglite"
-import { syncShapeToTable } from "~/lib/hooks/use-drizzle-live"
+import { syncShapeToTable } from "../../lib/hooks/use-drizzle-live"
 
 const ELECTRIC_URL = new URL("/api/electric/v1/shape", import.meta.env.VITE_BASE_URL).href
 
