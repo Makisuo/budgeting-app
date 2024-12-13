@@ -18,5 +18,14 @@
     "bps": true,
     "folderMillis": 1734107755866,
     "hash": "2b9a311d25ad358d5aa27b297aa7b851206f6315bf3bdac8b518a564cdc8befd"
+  },
+  {
+    "sql": [
+      "CREATE TABLE \"categories\" (\n\t\"id\" text PRIMARY KEY NOT NULL,\n\t\"name\" text NOT NULL,\n\t\"type\" text NOT NULL\n);\n",
+      "\nALTER TABLE \"transactions\" RENAME COLUMN \"category\" TO \"category_id\";"
+    ],
+    "bps": true,
+    "folderMillis": 1734126282872,
+    "hash": "e858d56c19c1d25b151aab9d252a045c4a8b0c1f73e6630b0d1e341903115f43"
   }
 ]

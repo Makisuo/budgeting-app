@@ -1,6 +1,8 @@
 import { relations, sql } from "drizzle-orm"
 import { doublePrecision, index, integer, jsonb, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core"
 
+import type { category_types } from "../data/base-categories"
+
 export const accountType = pgEnum("account_type", ["depository", "credit", "other_asset", "loan", "other_liability"])
 export const transactionStatus = pgEnum("transaction_status", ["posted", "pending"])
 
@@ -25,20 +27,6 @@ export const requisitions = pgTable("requisitions", {
 	...defaultFields,
 })
 
-export const companies = pgTable(
-	"companies",
-	{
-		id: text().primaryKey().notNull(),
-		name: text().notNull(),
-		url: text("url").notNull(),
-
-		patterns: jsonb().notNull().$type<string[]>(),
-	},
-	(table) => ({
-		patternsIdx: index("patterns_idx").using("gin", table.patterns),
-	}),
-)
-
 // Public Table
 export const institutions = pgTable(
 	"institutions",
@@ -59,6 +47,27 @@ export const institutions = pgTable(
 	},
 )
 
+export const companies = pgTable(
+	"companies",
+	{
+		id: text().primaryKey().notNull(),
+		name: text().notNull(),
+		url: text("url").notNull(),
+
+		patterns: jsonb().notNull().$type<string[]>(),
+	},
+	(table) => ({
+		patternsIdx: index("patterns_idx").using("gin", table.patterns),
+	}),
+)
+
+export const categories = pgTable("categories", {
+	id: text().primaryKey().notNull(),
+	name: text().notNull(),
+	type: text().notNull().$type<(typeof category_types)[number]>(),
+})
+
+// User Tables
 export const accounts = pgTable("accounts", {
 	id: text().primaryKey().notNull(),
 	name: text().notNull(),
@@ -96,7 +105,7 @@ export const transactions = pgTable("transactions", {
 	date: timestamp({ precision: 3 }).notNull(),
 	status: transactionStatus().notNull(),
 	balance: doublePrecision(),
-	category: text(),
+	categoryId: text("category_id"),
 	method: text().notNull(),
 	name: text().notNull(),
 	description: text(),
@@ -130,5 +139,9 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
 	company: one(companies, {
 		fields: [transactions.companyId],
 		references: [companies.id],
+	}),
+	category: one(categories, {
+		fields: [transactions.categoryId],
+		references: [categories.id],
 	}),
 }))

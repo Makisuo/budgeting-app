@@ -8,6 +8,7 @@ export type Account = InferSelectModel<typeof schema.accounts>
 export type Institution = InferSelectModel<typeof schema.institutions>
 export type Transaction = InferSelectModel<typeof schema.transactions>
 export type Company = InferSelectModel<typeof schema.companies>
+export type Category = InferSelectModel<typeof schema.categories>
 
 export type InsertCompany = InferInsertModel<typeof schema.companies>
 

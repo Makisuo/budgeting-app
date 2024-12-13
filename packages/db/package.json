@@ -19,6 +19,6 @@
 		"db:export": "bun run ./scripts/export.ts",
 		"db:generate": "drizzle-kit generate",
 		"db:migrate": "dotenvx run -- drizzle-kit migrate",
-		"sync:companies": "bun run ./scripts/load-companies.ts"
+		"sync:data": "bun run ./scripts/load-data.ts"
 	}
 }
