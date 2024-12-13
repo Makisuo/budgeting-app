@@ -3,6 +3,7 @@ import { DateTimeFromDate } from "@effect/sql/Model"
 import { Schema } from "effect"
 import { TenantId } from "~/authorization"
 import { AccountId } from "./account"
+import { CategoryId } from "./categories"
 import { CompanyId } from "./company"
 import { baseFields } from "./utils"
 
@@ -21,7 +22,6 @@ export class Transaction extends Model.Class<Transaction>("Transaction")({
 
 	status: Schema.Literal("posted", "pending"),
 	balance: Schema.NullOr(Schema.Number),
-	category: Schema.NullOr(Schema.String),
 	method: Schema.String,
 	name: Schema.String,
 	description: Schema.NullOr(Schema.String),
@@ -29,6 +29,7 @@ export class Transaction extends Model.Class<Transaction>("Transaction")({
 	currencySource: Schema.NullOr(Schema.String),
 
 	companyId: Schema.NullOr(CompanyId),
+	categoryId: Schema.NullOr(CategoryId),
 
 	tenantId: Model.GeneratedByApp(TenantId),
 

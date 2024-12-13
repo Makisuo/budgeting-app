@@ -1,0 +1,1 @@
+ALTER TABLE "companies" ADD COLUMN "category_id" text NOT NULL;

@@ -18,6 +18,7 @@ import type { RequisitionId } from "~/models/requistion"
 
 import { nanoid } from "nanoid"
 import type { TenantId } from "~/authorization"
+import { CategoryId } from "~/models/categories"
 import { Transaction, TransactionId } from "~/models/transaction"
 import { TransactionHelpers } from "../transaction"
 import type * as GoCardlessSchema from "./models/models"
@@ -219,7 +220,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 
 				status: status,
 				balance: null,
-				category: null,
+				categoryId: company?.categoryId || CategoryId.make("uncategorized"),
 				currencyRate: null,
 				currencySource: null,
 				date: date,

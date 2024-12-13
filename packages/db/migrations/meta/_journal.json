@@ -15,6 +15,13 @@
       "when": 1734126282872,
       "tag": "0001_careful_marvel_zombies",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1734128212502,
+      "tag": "0002_ordinary_silver_sable",
+      "breakpoints": true
     }
   ]
 }

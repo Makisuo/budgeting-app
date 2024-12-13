@@ -27,5 +27,13 @@
     "bps": true,
     "folderMillis": 1734126282872,
     "hash": "e858d56c19c1d25b151aab9d252a045c4a8b0c1f73e6630b0d1e341903115f43"
+  },
+  {
+    "sql": [
+      "ALTER TABLE \"companies\" ADD COLUMN \"category_id\" text NOT NULL;"
+    ],
+    "bps": true,
+    "folderMillis": 1734128212502,
+    "hash": "f6754a8a61dbb4a7427bbcb51ffa63a0954621dd75b951356921c6acca2a2b6e"
   }
 ]
