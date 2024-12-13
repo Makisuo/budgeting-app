@@ -67,6 +67,9 @@ export const transformTransaction = (
 			"No Info",
 		description: transaction.remittanceInformationUnstructuredArray?.join(", ") || "No Info",
 
+		// TODO: Check here if you find one
+		companyId: null,
+
 		status: status,
 		balance: null,
 		category: null,

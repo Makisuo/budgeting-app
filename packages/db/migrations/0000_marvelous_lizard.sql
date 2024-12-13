@@ -18,12 +18,10 @@ CREATE TABLE "accounts" (
 );
 --> statement-breakpoint
 CREATE TABLE "companies" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"id" text PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
-	"asset_type" text NOT NULL,
-	"asset_id" text NOT NULL,
-	"patterns" jsonb NOT NULL,
-	CONSTRAINT "companies_assetId_unique" UNIQUE("asset_id")
+	"url" text NOT NULL,
+	"patterns" jsonb NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "institutions" (
@@ -76,7 +74,7 @@ CREATE TABLE "transactions" (
 	"currency_rate" double precision,
 	"currency_source" text,
 	"account_id" text NOT NULL,
-	"company_id" integer,
+	"company_id" text,
 	"tenant_id" text NOT NULL,
 	"created_at" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	"updated_at" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,

@@ -33,7 +33,7 @@ export const TransactionTable = ({ accountId }: { accountId: string }) => {
 							{transaction.company ? (
 								<img
 									className="size-6 rounded-md"
-									src={`https://assets.parqet.com/logos/${transaction.company.assetType}/${transaction.company.assetId}`}
+									src={`https://cdn.brandfetch.io/${transaction.company.url}/w/512/h/512?c=1id0IQ-4i8Z46-n-DfQ`}
 									alt={transaction.company.name}
 								/>
 							) : (

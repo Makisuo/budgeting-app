@@ -28,10 +28,9 @@ export const requisitions = pgTable("requisitions", {
 export const companies = pgTable(
 	"companies",
 	{
-		id: serial().primaryKey().notNull(),
+		id: text().primaryKey().notNull(),
 		name: text().notNull(),
-		assetType: text("asset_type").notNull().$type<"isin" | "symbol" | "wkn" | "crypto">(),
-		assetId: text("asset_id").notNull().unique(),
+		url: text("url").notNull(),
 
 		patterns: jsonb().notNull().$type<string[]>(),
 	},
@@ -105,7 +104,7 @@ export const transactions = pgTable("transactions", {
 	currencySource: text("currency_source"),
 	accountId: text("account_id").notNull(),
 
-	companyId: integer("company_id"),
+	companyId: text("company_id"),
 
 	tenantId: text("tenant_id").notNull(),
 	...defaultFields,

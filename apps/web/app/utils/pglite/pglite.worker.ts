@@ -76,7 +76,7 @@ worker({
 	},
 })
 
-async function runMigrations(pg: PGlite, dbName: string) {
+async function runMigrations(pg: PGlite, dbName: string, firstTry = true) {
 	const db = drizzle(pg)
 
 	const start = performance.now()
@@ -90,6 +90,12 @@ async function runMigrations(pg: PGlite, dbName: string) {
 		console.info(`✅ Local database ready in ${performance.now() - start}ms`)
 	} catch (cause) {
 		console.error("❌ Local database schema migration failed", cause)
+
+		if (firstTry) {
+			indexedDB.deleteDatabase(dbName)
+			return runMigrations(pg, dbName, false)
+		}
+
 		throw cause
 	}
 

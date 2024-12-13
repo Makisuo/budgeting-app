@@ -1,5 +1,5 @@
 {
-  "id": "f3d98577-b037-44e3-b2e6-978fa2a49c47",
+  "id": "35f70a1f-3d34-4988-bd4c-58db3714d3f9",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -98,7 +98,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "text",
           "primaryKey": true,
           "notNull": true
         },
@@ -108,14 +108,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "asset_type": {
-          "name": "asset_type",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "asset_id": {
-          "name": "asset_id",
+        "url": {
+          "name": "url",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -146,15 +140,7 @@
       },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "companies_assetId_unique": {
-          "name": "companies_assetId_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "asset_id"
-          ]
-        }
-      },
+      "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -490,7 +476,7 @@
         },
         "company_id": {
           "name": "company_id",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
