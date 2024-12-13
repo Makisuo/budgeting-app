@@ -26,6 +26,12 @@ export const companies: Company[] = [
 		patterns: ["cloudflare"],
 	},
 	{
+		id: "uber",
+		name: "Uber",
+		url: "uber.com",
+		patterns: ["Ubr* Pending.uber.com"],
+	},
+	{
 		id: "ubereats",
 		name: "Uber Eats",
 		url: "ubereats.com",
@@ -143,7 +149,7 @@ export const companies: Company[] = [
 		id: "northandescoffee",
 		name: "North Andes Coffee",
 		url: "northandescoffee.de",
-		patterns: ["North Andes Coffee"],
+		patterns: ["%*north Andes Co"],
 	},
 	{
 		id: "coffee-follows",
@@ -192,5 +198,47 @@ export const companies: Company[] = [
 		name: "Fressnapf",
 		url: "fressnapf.de",
 		patterns: ["Fressnapf"],
+	},
+	{
+		id: "statetlyai",
+		name: "Statetly",
+		url: "statetly.ai",
+		patterns: ["Stately.ai*%"],
+	},
+	{
+		id: "getraenke-hoffmann",
+		name: "Getränke Hoffmann",
+		url: "getraenke-hoffmann.de",
+		patterns: ["Getränke Hoffmann Gmbh"],
+	},
+	{
+		id: "kaufland",
+		name: "Kaufland",
+		url: "kaufland.de",
+		patterns: ["Kaufland%"],
+	},
+	{
+		id: "clickhouse",
+		name: "Clickhouse",
+		url: "clickhouse.com",
+		patterns: ["Clickhouse"],
+	},
+	{
+		id: "github",
+		name: "GitHub",
+		url: "github.com",
+		patterns: ["GitHub", "Github, Inc."],
+	},
+	{
+		id: "triplit",
+		name: "Triplit",
+		url: "triplit.dev",
+		patterns: ["Triplit"],
+	},
+	{
+		id: "anthropic",
+		name: "Anthropic",
+		url: "anthropic.com",
+		patterns: ["Anthropic"],
 	},
 ]
