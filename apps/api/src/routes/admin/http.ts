@@ -52,11 +52,7 @@ export const HttpAdminLive = HttpApiBuilder.group(Api, "admin", (handlers) =>
 
 					yield* Effect.logInfo("Found unidentified transactions", transactions.length)
 
-					const transaction = transactions.filter((t) => t.name.includes("apple"))
-
-					console.log("Transaction", transaction)
-
-					const detected = yield* Effect.forEach(transaction, (transaction) =>
+					yield* Effect.forEach(transactions, (transaction) =>
 						Effect.gen(function* () {
 							yield* transactionHelpers.detectCompany(transaction.name).pipe(
 								Effect.flatMap(

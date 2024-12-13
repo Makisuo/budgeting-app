@@ -16,8 +16,6 @@ export class TransactionHelpers extends Effect.Service<TransactionHelpers>()("Tr
 
 			const company = yield* companyRepo.findByPattern(transactionName)
 
-			console.log("Company", company)
-
 			return company
 		})
 
