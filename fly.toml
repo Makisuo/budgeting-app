@@ -10,7 +10,6 @@ primary_region = 'ams'
 image = 'electricsql/electric:1.0.0-beta.1'
 
 [env]
-DATABASE_URL = 'postgresql://postgres:5FduiVxNbt5Ye8Qi@db.hxwmftwwlibnzjzeqhgv.supabase.co:5432/postgres'
 ELECTRIC_DATABASE_USE_IPV6 = 'true'
 
 [http_service]
