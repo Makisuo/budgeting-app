@@ -49,7 +49,7 @@ export const AuthorizationLive = Layer.effect(
 	}),
 )
 
-export class Api extends HttpApi.empty
+export class Api extends HttpApi.make("api")
 	.add(RootApi)
 	.add(GoCardlessApi)
 	.add(AdminApi)
