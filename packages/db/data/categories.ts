@@ -12,9 +12,11 @@ export const category_types = [
 	"other",
 	"savings",
 	"utilities",
+	"shopping",
+	"charity",
 ] as const
 
-export const categories: Category[] = [
+export const categories = [
 	// Food
 	{
 		id: "coffee",
@@ -56,6 +58,11 @@ export const categories: Category[] = [
 	{
 		id: "donations",
 		name: "Donations",
+		type: "finances",
+	},
+	{
+		id: "subscriptions",
+		name: "Subscriptions",
 		type: "finances",
 	},
 	// Entertainment
@@ -163,6 +170,18 @@ export const categories: Category[] = [
 		name: "Bike",
 		type: "travel",
 	},
+	// Shopping
+	{
+		id: "shopping",
+		name: "Shopping",
+		type: "shopping",
+	},
+	// Charity
+	{
+		id: "charity",
+		name: "Charity",
+		type: "charity",
+	},
 	// Other
 	{
 		id: "uncategorized",
@@ -197,8 +216,13 @@ export const categories: Category[] = [
 		type: "utilities",
 	},
 	{
+		id: "phone",
+		name: "Phone",
+		type: "utilities",
+	},
+	{
 		id: "gas",
 		name: "Gas",
 		type: "utilities",
 	},
-]
+] as const satisfies Category[]

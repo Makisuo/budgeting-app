@@ -1,7 +1,7 @@
 import { relations, sql } from "drizzle-orm"
 import { doublePrecision, index, integer, jsonb, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core"
 
-import type { category_types } from "../data/base-categories"
+import type { category_types } from "../data/categories"
 
 export const accountType = pgEnum("account_type", ["depository", "credit", "other_asset", "loan", "other_liability"])
 export const transactionStatus = pgEnum("transaction_status", ["posted", "pending"])
@@ -53,6 +53,8 @@ export const companies = pgTable(
 		id: text().primaryKey().notNull(),
 		name: text().notNull(),
 		url: text("url").notNull(),
+
+		categoryId: text("category_id").notNull(),
 
 		patterns: jsonb().notNull().$type<string[]>(),
 	},
