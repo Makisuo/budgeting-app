@@ -1,5 +1,5 @@
 import { relations, sql } from "drizzle-orm"
-import { doublePrecision, index, integer, jsonb, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core"
+import { doublePrecision, index, integer, jsonb, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core"
 
 export const accountType = pgEnum("account_type", ["depository", "credit", "other_asset", "loan", "other_liability"])
 export const transactionStatus = pgEnum("transaction_status", ["posted", "pending"])
@@ -24,6 +24,21 @@ export const requisitions = pgTable("requisitions", {
 
 	...defaultFields,
 })
+
+export const companies = pgTable(
+	"companies",
+	{
+		id: serial().primaryKey().notNull(),
+		name: text().notNull(),
+		assetType: text().notNull().$type<"isin" | "symbol" | "wkn" | "crypto">(),
+		assetId: text().notNull().unique(),
+
+		patterns: jsonb().notNull().$type<string[]>(),
+	},
+	(table) => ({
+		patternsIdx: index("patterns_idx").using("gin", table.patterns),
+	}),
+)
 
 // Public Table
 export const institutions = pgTable(

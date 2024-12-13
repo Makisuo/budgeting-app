@@ -10,4 +10,6 @@ export class AdminApi extends HttpApiGroup.make("admin")
 			.addSuccess(Schema.Array(Institution))
 			.addError(InternalError),
 	)
-	.middlewareEndpoints(Authorization) {}
+	.add(HttpApiEndpoint.post("syncAccounts", "/admin/sync/accounts").addError(InternalError)) {
+	// .middlewareEndpoints(Authorization) {}
+}

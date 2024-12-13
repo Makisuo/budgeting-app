@@ -320,7 +320,6 @@ function Home() {
 							}}
 							data={monthlyTotals}
 						>
-							<CartesianGrid horizontal={false} />
 							<Chart.Tooltip cursor={true} content={<Chart.TooltipContent hideLabel />} />
 							<XAxis type="number" tickLine={false} axisLine={false} />
 							<YAxis type="category" dataKey="month" tickLine={false} axisLine={false} />

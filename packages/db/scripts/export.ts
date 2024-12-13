@@ -1,6 +1,6 @@
 import fs from "node:fs/promises"
 import { readMigrationFiles } from "drizzle-orm/migrator"
-import { migrationsFolder } from "./drizzle.config"
+import { migrationsFolder } from "../drizzle.config"
 
 const file = `${migrationsFolder}/export.json`
 
