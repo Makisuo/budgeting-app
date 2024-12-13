@@ -65,6 +65,7 @@ export const HttpAdminLive = HttpApiBuilder.group(Api, "admin", (handlers) =>
 													transactionHelpers.updateTransaction(transaction.id, {
 														companyId: company.id,
 														name: company.name,
+														categoryId: company.categoryId,
 													}),
 												),
 											),

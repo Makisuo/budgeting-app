@@ -107,7 +107,7 @@ export const transactions = pgTable("transactions", {
 	date: timestamp({ precision: 3 }).notNull(),
 	status: transactionStatus().notNull(),
 	balance: doublePrecision(),
-	categoryId: text("category_id"),
+	categoryId: text("category_id").notNull(),
 	method: text().notNull(),
 	name: text().notNull(),
 	description: text(),

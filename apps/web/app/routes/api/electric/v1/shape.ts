@@ -2,7 +2,7 @@ import { getAuth } from "@clerk/tanstack-start/server"
 import { createAPIFileRoute } from "@tanstack/start/api"
 import { getWebRequest } from "vinxi/http"
 
-const publicTable = ["institutions", "companies"]
+const publicTable = ["institutions", "companies", "categories"]
 
 export const APIRoute = createAPIFileRoute("/api/electric/v1/shape")({
 	GET: async ({ request }) => {

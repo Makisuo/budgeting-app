@@ -14,7 +14,7 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 		const findUnidentifiedTransactions = SqlSchema.findAll({
 			Request: Schema.Void,
 			Result: Transaction,
-			execute: () => sql`SELECT * FROM ${sql(TABLE_NAME)}`,
+			execute: () => sql`SELECT * FROM ${sql(TABLE_NAME)} WHERE company_id IS NULL`,
 		})
 
 		const insertMultipleVoidSchema = SqlSchema.void({

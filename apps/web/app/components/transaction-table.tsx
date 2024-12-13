@@ -10,6 +10,7 @@ export const TransactionTable = ({ accountId }: { accountId: string }) => {
 		db.query.transactions.findMany({
 			with: {
 				company: true,
+				category: true,
 			},
 			where: (table, { eq }) => eq(table.accountId, accountId),
 			limit: 100,
@@ -47,7 +48,9 @@ export const TransactionTable = ({ accountId }: { accountId: string }) => {
 								{currencyFormatter(transaction.currency ?? "USD").format(transaction.amount)}
 							</Badge>
 						</Table.Cell>
-						<Table.Cell>{transaction.category || "Unknown"}</Table.Cell>
+						<Table.Cell>
+							<Badge>{transaction.category.name}</Badge>
+						</Table.Cell>
 						<Table.Cell>
 							<DateValue date={transaction.date} />
 						</Table.Cell>
