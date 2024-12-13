@@ -1,6 +1,6 @@
 {
-  "id": "44a41ddd-6cd9-470c-b2bc-6be862d67109",
-  "prevId": "83dd7081-28e4-4d2e-8c2e-30587e3e3dd6",
+  "id": "306c65f3-3119-4407-814f-62a65d9ccee8",
+  "prevId": "f3d98577-b037-44e3-b2e6-978fa2a49c47",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -146,7 +146,15 @@
       },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "companies_asset_id_unique": {
+          "name": "companies_asset_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "asset_id"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -479,6 +487,12 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "company_id": {
+          "name": "company_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
         },
         "tenant_id": {
           "name": "tenant_id",

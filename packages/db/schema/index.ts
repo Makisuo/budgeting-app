@@ -30,8 +30,8 @@ export const companies = pgTable(
 	{
 		id: serial().primaryKey().notNull(),
 		name: text().notNull(),
-		assetType: text().notNull().$type<"isin" | "symbol" | "wkn" | "crypto">(),
-		assetId: text().notNull().unique(),
+		assetType: text("asset_type").notNull().$type<"isin" | "symbol" | "wkn" | "crypto">(),
+		assetId: text("asset_id").notNull().unique(),
 
 		patterns: jsonb().notNull().$type<string[]>(),
 	},
@@ -127,5 +127,9 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
 	account: one(accounts, {
 		fields: [transactions.accountId],
 		references: [accounts.id],
+	}),
+	company: one(companies, {
+		fields: [transactions.companyId],
+		references: [companies.id],
 	}),
 }))

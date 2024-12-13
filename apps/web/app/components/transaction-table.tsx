@@ -8,6 +8,9 @@ import { Table } from "./ui/table"
 export const TransactionTable = ({ accountId }: { accountId: string }) => {
 	const { data: transactions } = useDrizzleLive((db) =>
 		db.query.transactions.findMany({
+			with: {
+				company: true,
+			},
 			where: (table, { eq }) => eq(table.accountId, accountId),
 			limit: 100,
 			orderBy: (table, { desc }) => desc(table.date),
@@ -27,8 +30,17 @@ export const TransactionTable = ({ accountId }: { accountId: string }) => {
 				{(transaction) => (
 					<Table.Row key={transaction.id}>
 						<Table.Cell className="flex items-center gap-2">
-							<IconCirclePlaceholderDashed className="size-6" />
-							{transaction.name}
+							{transaction.company ? (
+								<img
+									className="size-6 rounded-md"
+									src={`https://assets.parqet.com/logos/${transaction.company.assetType}/${transaction.company.assetId}`}
+									alt={transaction.company.name}
+								/>
+							) : (
+								<IconCirclePlaceholderDashed className="size-6" />
+							)}
+
+							{transaction.company?.name || transaction.name}
 						</Table.Cell>
 						<Table.Cell>
 							<Badge intent={Number(transaction.amount) < 0 ? "danger" : "success"}>

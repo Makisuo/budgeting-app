@@ -59,6 +59,16 @@ worker({
 			},
 		})
 
+		await syncShapeToTable(pg, {
+			table: "companies",
+			primaryKey: "id",
+			shapeKey: "companies",
+			shape: {
+				url: ELECTRIC_URL,
+				onError: (error) => console.log(error),
+			},
+		})
+
 		// await runMigrations(pg, DB_NAME)
 		// await syncTables(pg, ELECTRIC_URL)
 

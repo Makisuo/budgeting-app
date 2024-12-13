@@ -6,58 +6,26 @@
       "\nCREATE TYPE \"public\".\"subscription_status\" AS ENUM('active', 'canceled', 'expired');",
       "\nCREATE TYPE \"public\".\"transaction_status\" AS ENUM('posted', 'pending');",
       "\nCREATE TABLE \"accounts\" (\n\t\"id\" text PRIMARY KEY NOT NULL,\n\t\"name\" text NOT NULL,\n\t\"currency\" text NOT NULL,\n\t\"type\" \"account_type\" NOT NULL,\n\t\"institution_id\" text NOT NULL,\n\t\"balance_amount\" double precision NOT NULL,\n\t\"balance_currency\" text NOT NULL,\n\t\"tenant_id\" text NOT NULL,\n\t\"last_sync\" timestamp (3),\n\t\"created_at\" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,\n\t\"updated_at\" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,\n\t\"deleted_at\" timestamp (3)\n);\n",
+      "\nCREATE TABLE \"companies\" (\n\t\"id\" serial PRIMARY KEY NOT NULL,\n\t\"name\" text NOT NULL,\n\t\"asset_type\" text NOT NULL,\n\t\"asset_id\" text NOT NULL,\n\t\"patterns\" jsonb NOT NULL,\n\tCONSTRAINT \"companies_assetId_unique\" UNIQUE(\"asset_id\")\n);\n",
       "\nCREATE TABLE \"institutions\" (\n\t\"id\" text PRIMARY KEY NOT NULL,\n\t\"name\" text NOT NULL,\n\t\"logo\" text,\n\t\"provider\" text NOT NULL,\n\t\"countries\" jsonb NOT NULL,\n\t\"transaction_total_days\" integer NOT NULL,\n\t\"created_at\" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,\n\t\"updated_at\" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,\n\t\"deleted_at\" timestamp (3)\n);\n",
       "\nCREATE TABLE \"requisitions\" (\n\t\"id\" text PRIMARY KEY NOT NULL,\n\t\"status\" text NOT NULL,\n\t\"reference_id\" text NOT NULL,\n\t\"institution_id\" text NOT NULL,\n\t\"tenant_id\" text NOT NULL,\n\t\"created_at\" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,\n\t\"updated_at\" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,\n\t\"deleted_at\" timestamp (3)\n);\n",
       "\nCREATE TABLE \"subscriptions\" (\n\t\"id\" text PRIMARY KEY NOT NULL,\n\t\"frequency\" \"subscription_frequency\" NOT NULL,\n\t\"status\" \"subscription_status\" NOT NULL,\n\t\"next_expected_payment\" timestamp (3),\n\t\"currency\" text NOT NULL,\n\t\"amount\" double precision NOT NULL,\n\t\"tenant_id\" text NOT NULL,\n\t\"created_at\" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,\n\t\"updated_at\" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,\n\t\"deleted_at\" timestamp (3)\n);\n",
-      "\nCREATE TABLE \"transactions\" (\n\t\"id\" text PRIMARY KEY NOT NULL,\n\t\"amount\" double precision NOT NULL,\n\t\"currency\" text NOT NULL,\n\t\"date\" timestamp (3) NOT NULL,\n\t\"status\" \"transaction_status\" NOT NULL,\n\t\"balance\" double precision,\n\t\"category\" text,\n\t\"method\" text NOT NULL,\n\t\"name\" text NOT NULL,\n\t\"description\" text,\n\t\"currency_rate\" double precision,\n\t\"currency_source\" text,\n\t\"account_id\" text NOT NULL,\n\t\"tenant_id\" text NOT NULL,\n\t\"created_at\" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,\n\t\"updated_at\" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,\n\t\"deleted_at\" timestamp (3)\n);\n",
+      "\nCREATE TABLE \"transactions\" (\n\t\"id\" text PRIMARY KEY NOT NULL,\n\t\"amount\" double precision NOT NULL,\n\t\"currency\" text NOT NULL,\n\t\"date\" timestamp (3) NOT NULL,\n\t\"status\" \"transaction_status\" NOT NULL,\n\t\"balance\" double precision,\n\t\"category\" text,\n\t\"method\" text NOT NULL,\n\t\"name\" text NOT NULL,\n\t\"description\" text,\n\t\"currency_rate\" double precision,\n\t\"currency_source\" text,\n\t\"account_id\" text NOT NULL,\n\t\"company_id\" integer,\n\t\"tenant_id\" text NOT NULL,\n\t\"created_at\" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,\n\t\"updated_at\" timestamp (3) DEFAULT CURRENT_TIMESTAMP NOT NULL,\n\t\"deleted_at\" timestamp (3)\n);\n",
+      "\nCREATE INDEX \"patterns_idx\" ON \"companies\" USING gin (\"patterns\");",
       "\nCREATE INDEX \"name_index\" ON \"institutions\" USING btree (\"name\");",
       "\nCREATE INDEX \"name_country_index\" ON \"institutions\" USING btree (\"name\",\"countries\");"
     ],
     "bps": true,
-    "folderMillis": 1734041364595,
-    "hash": "9a4aecd3c332c627553e2745725daacf5fa865f166f5d6c67c7a5b45c48abbb0"
+    "folderMillis": 1734085283563,
+    "hash": "68981d8753a0a2a01946375283cd19be2e87f2c5df75e84fded318ea636be9f4"
   },
   {
     "sql": [
-      "CREATE TABLE \"companies\" (\n\t\"id\" serial PRIMARY KEY NOT NULL,\n\t\"name\" text NOT NULL,\n\t\"asset_type\" text NOT NULL,\n\t\"asset_id\" text NOT NULL,\n\t\"patterns\" jsonb NOT NULL\n);\n",
-      "\nCREATE INDEX \"patterns_idx\" ON \"companies\" USING gin (\"patterns\");"
+      "ALTER TABLE \"companies\" DROP CONSTRAINT \"companies_assetId_unique\";",
+      "\nALTER TABLE \"companies\" ADD CONSTRAINT \"companies_asset_id_unique\" UNIQUE(\"asset_id\");"
     ],
     "bps": true,
-    "folderMillis": 1734042565589,
-    "hash": "dc18f09d1360d8b9948b0570d13769cbcab4b6a4db2960f29c852d83e2ffbaa5"
-  },
-  {
-    "sql": [
-      "ALTER TABLE \"companies\" ADD CONSTRAINT \"companies_assetId_unique\" UNIQUE(\"asset_id\");"
-    ],
-    "bps": true,
-    "folderMillis": 1734042769373,
-    "hash": "6b0ab28aa0907dc2f50f9addc59c7421b378f84e9ec9f3a96cd6662de69d38a7"
-  },
-  {
-    "sql": [
-      "ALTER TABLE \"transactions\" ADD COLUMN \"company_id\" text;"
-    ],
-    "bps": true,
-    "folderMillis": 1734081169977,
-    "hash": "0a500ded156cef556ee6e626f4c185876950632e70135dabd247a5d04855df22"
-  },
-  {
-    "sql": [
-      "ALTER TABLE \"transactions\" ALTER COLUMN \"company_id\" SET DATA TYPE serial;",
-      "\nALTER TABLE \"transactions\" ALTER COLUMN \"company_id\" SET NOT NULL;"
-    ],
-    "bps": true,
-    "folderMillis": 1734084981661,
-    "hash": "bd3d3711000402d93e91de9c8133e028d62891a599c008d1e4d3ba0772cbb987"
-  },
-  {
-    "sql": [
-      "ALTER TABLE \"transactions\" ALTER COLUMN \"company_id\" SET DATA TYPE integer;",
-      "\nALTER TABLE \"transactions\" ALTER COLUMN \"company_id\" DROP NOT NULL;"
-    ],
-    "bps": true,
-    "folderMillis": 1734085098245,
-    "hash": "bbd0a7dbb8874f03cdec400e5dcaccdf64eb7b6ce8862c02547d1005e82d8874"
+    "folderMillis": 1734085692416,
+    "hash": "2ccc9c89717f22c4d0a0f70893cff044ef3a712cd683e3f0f1514888e8082fc5"
   }
 ]

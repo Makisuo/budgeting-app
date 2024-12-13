@@ -1,1 +1,0 @@
-ALTER TABLE "transactions" ADD COLUMN "company_id" text;
