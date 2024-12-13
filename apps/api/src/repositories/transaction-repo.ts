@@ -7,9 +7,15 @@ import { SqlLive } from "~/services/sql"
 const TABLE_NAME = "transactions"
 const SPAN_PREFIX = "TransactionRepo"
 
-export class TranscationRepo extends Effect.Service<TranscationRepo>()("TranscationRepo", {
+export class TransactionRepo extends Effect.Service<TransactionRepo>()("TransactionRepo", {
 	effect: Effect.gen(function* () {
 		const sql = yield* SqlClient.SqlClient
+
+		const findUnidentifiedTransactions = SqlSchema.findAll({
+			Request: Schema.Void,
+			Result: Transaction,
+			execute: () => sql`SELECT * FROM ${sql(TABLE_NAME)} WHERE company_id IS NULL`,
+		})
 
 		const insertMultipleVoidSchema = SqlSchema.void({
 			Request: Schema.Array(Transaction.insert),
@@ -32,7 +38,7 @@ export class TranscationRepo extends Effect.Service<TranscationRepo>()("Transcat
 			idColumn: "id",
 		})
 
-		return { ...baseRepository, insertMultipleVoid } as const
+		return { ...baseRepository, insertMultipleVoid, findUnidentifiedTransactions } as const
 	}),
 	dependencies: [SqlLive],
 }) {}

@@ -2,6 +2,7 @@ import { HttpApiEndpoint, HttpApiGroup } from "@effect/platform"
 import { Schema } from "effect"
 import { Authorization } from "~/authorization"
 import { InternalError } from "~/errors"
+import { Transaction } from "~/models/transaction"
 import { Institution } from "~/services/gocardless/models/models"
 
 export class AdminApi extends HttpApiGroup.make("admin")
@@ -10,6 +11,10 @@ export class AdminApi extends HttpApiGroup.make("admin")
 			.addSuccess(Schema.Array(Institution))
 			.addError(InternalError),
 	)
-	.add(HttpApiEndpoint.post("syncAccounts", "/admin/sync/accounts").addError(InternalError)) {
+	.add(
+		HttpApiEndpoint.post("processTransactions", "/admin/process/transactions")
+			.addError(InternalError)
+			.addSuccess(Schema.Array(Transaction.json)),
+	) {
 	// .middlewareEndpoints(Authorization) {}
 }

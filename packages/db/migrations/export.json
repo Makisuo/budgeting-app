@@ -33,5 +33,31 @@
     "bps": true,
     "folderMillis": 1734042769373,
     "hash": "6b0ab28aa0907dc2f50f9addc59c7421b378f84e9ec9f3a96cd6662de69d38a7"
+  },
+  {
+    "sql": [
+      "ALTER TABLE \"transactions\" ADD COLUMN \"company_id\" text;"
+    ],
+    "bps": true,
+    "folderMillis": 1734081169977,
+    "hash": "0a500ded156cef556ee6e626f4c185876950632e70135dabd247a5d04855df22"
+  },
+  {
+    "sql": [
+      "ALTER TABLE \"transactions\" ALTER COLUMN \"company_id\" SET DATA TYPE serial;",
+      "\nALTER TABLE \"transactions\" ALTER COLUMN \"company_id\" SET NOT NULL;"
+    ],
+    "bps": true,
+    "folderMillis": 1734084981661,
+    "hash": "bd3d3711000402d93e91de9c8133e028d62891a599c008d1e4d3ba0772cbb987"
+  },
+  {
+    "sql": [
+      "ALTER TABLE \"transactions\" ALTER COLUMN \"company_id\" SET DATA TYPE integer;",
+      "\nALTER TABLE \"transactions\" ALTER COLUMN \"company_id\" DROP NOT NULL;"
+    ],
+    "bps": true,
+    "folderMillis": 1734085098245,
+    "hash": "bbd0a7dbb8874f03cdec400e5dcaccdf64eb7b6ce8862c02547d1005e82d8874"
   }
 ]

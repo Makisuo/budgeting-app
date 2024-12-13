@@ -3,7 +3,7 @@ import { TenantId } from "~/authorization"
 import { NotFound } from "~/errors"
 import { AccountId } from "~/models/account"
 import { AccountRepo } from "~/repositories/account-repo"
-import { TranscationRepo } from "~/repositories/transaction-repo"
+import { TransactionRepo } from "~/repositories/transaction-repo"
 import { Workflow, makeWorkflowEntrypoint } from "~/services/cloudflare/workflows"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
 import { transformTransaction } from "~/services/gocardless/transformer"
@@ -89,7 +89,7 @@ const stepSyncTransactions = Workflow.schema(
 	StepSyncTransactionsRequest,
 	({ event: { accountId, tenantId } }) =>
 		Effect.gen(function* () {
-			const transactionRepo = yield* TranscationRepo
+			const transactionRepo = yield* TransactionRepo
 			const goCardless = yield* GoCardlessService
 
 			const transactions = yield* goCardless.getTransactions(accountId)
@@ -146,7 +146,7 @@ export const SyncTransactionsWorkflow = makeWorkflowEntrypoint(
 	{ name: "SyncTransactionsWorkflow", binding: "SYNC_TRANSACTIONS_WORKFLOW", schema: WorkflowParams },
 	flow(
 		runMyWorkflow,
-		Effect.provide([AccountRepo.Default, TranscationRepo.Default, GoCardlessService.Default]),
+		Effect.provide([AccountRepo.Default, TransactionRepo.Default, GoCardlessService.Default]),
 		Effect.mapError((error) => new WorkflowEventError({ cause: error })),
 		Effect.orDie,
 	),

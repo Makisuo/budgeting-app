@@ -1,11 +1,8 @@
 import { Model } from "@effect/sql"
 
 import { Schema } from "effect"
-import { TenantId } from "~/authorization"
-import { InstitutionId } from "./institution"
-import { baseFields } from "./utils"
 
-export const CompanyId = Schema.String.pipe(Schema.brand("CompanyId"))
+export const CompanyId = Schema.Number.pipe(Schema.brand("CompanyId"))
 
 export const CompanyType = Schema.Literal("depository", "credit", "other_asset", "loan", "other_liability")
 

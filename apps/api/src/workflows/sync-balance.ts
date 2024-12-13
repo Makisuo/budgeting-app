@@ -2,7 +2,7 @@ import { Data, DateTime, Effect, Option, Schema, flow } from "effect"
 import { NotFound } from "~/errors"
 import { AccountId } from "~/models/account"
 import { AccountRepo } from "~/repositories/account-repo"
-import { TranscationRepo } from "~/repositories/transaction-repo"
+import { TransactionRepo } from "~/repositories/transaction-repo"
 import { makeWorkflowEntrypoint } from "~/services/cloudflare/workflows"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
 import { transformTransaction } from "~/services/gocardless/transformer"
@@ -16,7 +16,7 @@ class WorkflowEventError extends Data.TaggedError("WorkflowEventError")<{ messag
 const runMyWorkflow = ({ accountId }: typeof WorkflowParams.Type) =>
 	Effect.gen(function* () {
 		const accountRepo = yield* AccountRepo
-		const transactionRepo = yield* TranscationRepo
+		const transactionRepo = yield* TransactionRepo
 
 		const goCardless = yield* GoCardlessService
 
@@ -57,7 +57,7 @@ export const SyncBalanceWorkflow = makeWorkflowEntrypoint(
 	{ name: "SyncBalanceWorkflow", binding: "SYNC_BALANCE_WORKFLOW", schema: WorkflowParams },
 	flow(
 		runMyWorkflow,
-		Effect.provide([AccountRepo.Default, TranscationRepo.Default, GoCardlessService.Default]),
+		Effect.provide([AccountRepo.Default, TransactionRepo.Default, GoCardlessService.Default]),
 		Effect.mapError((error) => new WorkflowEventError({ cause: error })),
 		Effect.orDie,
 	),

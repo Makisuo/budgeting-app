@@ -22,6 +22,27 @@
       "when": 1734042769373,
       "tag": "0002_lively_wind_dancer",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1734081169977,
+      "tag": "0003_lyrical_wiccan",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1734084981661,
+      "tag": "0004_oval_slyde",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1734085098245,
+      "tag": "0005_goofy_nebula",
+      "breakpoints": true
     }
   ]
 }

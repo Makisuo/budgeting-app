@@ -4,9 +4,15 @@ import { Api, AuthorizationLive } from "./api"
 import { HttpAdminLive } from "./routes/admin/http"
 import { HttpGoCardlessLive } from "./routes/go-cardless/http"
 import { HttpRootLive } from "./routes/root/http"
+import { HttpSubscriptionLive } from "./routes/subscriptions/http"
 import { withLogFormat, withMinimalLogLevel } from "./services/logger"
 
-export const ApiLive = Layer.provide(HttpApiBuilder.api(Api), [HttpRootLive, HttpGoCardlessLive, HttpAdminLive])
+export const ApiLive = Layer.provide(HttpApiBuilder.api(Api), [
+	HttpRootLive,
+	HttpGoCardlessLive,
+	HttpAdminLive,
+	HttpSubscriptionLive,
+])
 
 export const HttpAppLive = pipe(
 	HttpApiBuilder.Router.Live,

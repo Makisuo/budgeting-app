@@ -3,7 +3,7 @@ import { Effect } from "effect"
 import { Api } from "~/api"
 import { SubscriptionRepo } from "~/repositories/subscription-repo"
 
-export const HttpRootLive = HttpApiBuilder.group(Api, "Subscriptions", (handlers) =>
+export const HttpSubscriptionLive = HttpApiBuilder.group(Api, "Subscriptions", (handlers) =>
 	Effect.gen(function* () {
 		const subscriptionRepo = yield* SubscriptionRepo
 		return handlers.handle("create", ({ payload }) =>

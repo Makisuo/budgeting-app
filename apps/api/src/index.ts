@@ -4,11 +4,13 @@ import { HttpAppLive } from "./http"
 import { AccountRepo } from "./repositories/account-repo"
 import { InstitutionRepo } from "./repositories/institution-repo"
 import { RequisitionRepo } from "./repositories/requisition-repo"
-import { TranscationRepo } from "./repositories/transaction-repo"
+import { SubscriptionRepo } from "./repositories/subscription-repo"
+import { TransactionRepo } from "./repositories/transaction-repo"
 import { Workflows } from "./services/cloudflare/workflows"
 import { CronService } from "./services/cron"
 import { GoCardlessService } from "./services/gocardless/gocardless-service"
 import { TracingLive } from "./services/tracing"
+import { TransactionHelpers } from "./services/transaction"
 import { workflows } from "./workflows"
 
 export * from "./workflows"
@@ -24,7 +26,9 @@ const MainLayer = Layer.mergeAll(
 	InstitutionRepo.Default,
 	RequisitionRepo.Default,
 	AccountRepo.Default,
-	TranscationRepo.Default,
+	TransactionRepo.Default,
+	SubscriptionRepo.Default,
+	TransactionHelpers.Default,
 	Workflows.fromRecord(() => workflows),
 ).pipe()
 

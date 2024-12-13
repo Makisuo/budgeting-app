@@ -105,6 +105,8 @@ export const transactions = pgTable("transactions", {
 	currencySource: text("currency_source"),
 	accountId: text("account_id").notNull(),
 
+	companyId: integer("company_id"),
+
 	tenantId: text("tenant_id").notNull(),
 	...defaultFields,
 })

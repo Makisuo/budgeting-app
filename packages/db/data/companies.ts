@@ -8,4 +8,11 @@ export const companies: Company[] = [
 		assetId: "AAPL",
 		patterns: ["apple.com%"],
 	},
+	{
+		id: 2,
+		name: "PayPal",
+		assetType: "symbol",
+		assetId: "PYPL",
+		patterns: ["PayPal%"],
+	},
 ]

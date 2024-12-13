@@ -20,7 +20,11 @@ export class CompanyRepo extends Effect.Service<CompanyRepo>()("CompanyRepo", {
 		const findByPattern = SqlSchema.findOne({
 			Request: Schema.String,
 			Result: Company,
-			execute: (request) => sql`SELECT * FROM ${sql(TABLE_NAME)} WHERE  ARRAY[${request}] <@ patterns`,
+			execute: (request) => sql`SELECT * FROM ${sql(TABLE_NAME)}
+			WHERE EXISTS (
+				SELECT 1 FROM jsonb_array_elements_text(patterns) AS pattern
+				WHERE ${request} ILIKE pattern || '%' 
+			)`,
 		})
 
 		return { ...baseRepository, findByPattern } as const
