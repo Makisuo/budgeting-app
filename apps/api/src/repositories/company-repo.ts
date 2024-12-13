@@ -23,7 +23,7 @@ export class CompanyRepo extends Effect.Service<CompanyRepo>()("CompanyRepo", {
 			execute: (request) => sql`SELECT * FROM ${sql(TABLE_NAME)}
 			WHERE EXISTS (
 				SELECT 1 FROM jsonb_array_elements_text(patterns) AS pattern
-				WHERE ${request} ILIKE pattern || '%' 
+				WHERE ${request} ~~* pattern
 			)`,
 		})
 

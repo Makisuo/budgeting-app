@@ -1,5 +1,5 @@
 import { HttpApiBuilder } from "@effect/platform"
-import { Effect, Option } from "effect"
+import { Effect, Option, pipe } from "effect"
 import { Api } from "~/api"
 import { Institution } from "~/models/institution"
 import { InstitutionRepo } from "~/repositories/institution-repo"
@@ -59,10 +59,15 @@ export const HttpAdminLive = HttpApiBuilder.group(Api, "admin", (handlers) =>
 									Option.match({
 										onNone: () => Effect.succeed(null),
 										onSome: (company) =>
-											transactionHelpers.updateTransaction(transaction.id, {
-												companyId: company.id,
-												name: company.name,
-											}),
+											pipe(
+												Effect.logInfo("Found company", company.name),
+												Effect.flatMap(() =>
+													transactionHelpers.updateTransaction(transaction.id, {
+														companyId: company.id,
+														name: company.name,
+													}),
+												),
+											),
 									}),
 								),
 							)
