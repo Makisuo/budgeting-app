@@ -1,5 +1,5 @@
 import { FetchHttpClient, HttpClient, HttpClientRequest, HttpClientResponse } from "@effect/platform"
-import { Config, Effect, Option, Schedule, Schema } from "effect"
+import { Config, DateTime, Effect, Option, Schedule, Schema, pipe } from "effect"
 import {
 	type AgreementId,
 	CreateAgreementResponse,
@@ -16,8 +16,17 @@ import type { AccountId } from "~/models/account"
 import type { InstitutionId } from "~/models/institution"
 import type { RequisitionId } from "~/models/requistion"
 
+import { nanoid } from "nanoid"
+import type { TenantId } from "~/authorization"
+import { Transaction, TransactionId } from "~/models/transaction"
+import { TransactionHelpers } from "../transaction"
+import type * as GoCardlessSchema from "./models/models"
+import { mapTransactionMethod } from "./transformer"
+
 export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCardlessService", {
 	effect: Effect.gen(function* () {
+		const transactionHelpers = yield* TransactionHelpers
+
 		const baseUrl = "https://bankaccountdata.gocardless.com"
 
 		const secretId = yield* Config.string("GO_CARDLESS_SECRET_ID")
@@ -165,6 +174,61 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 			)
 		})
 
+		const transformTransaction = Effect.fn("transformTransaction")(function* (
+			accountId: typeof AccountId.Type,
+			tenantId: typeof TenantId.Type,
+			transaction: GoCardlessSchema.Transaction,
+			status: "posted" | "pending",
+		) {
+			const date = DateTime.unsafeFromDate(transaction.bookingDateTime ?? transaction.bookingDate)
+
+			const transactionId =
+				transaction.transactionId || transaction.internalTransactionId || `maple_trs_${nanoid()}`
+
+			const company = yield* Effect.if(!!transaction.debtorName, {
+				onTrue: () =>
+					pipe(
+						transactionHelpers.detectCompany(transaction.debtorName!),
+						Effect.flatMap(
+							Option.match({
+								onNone: () => Effect.succeed(null),
+								onSome: Effect.succeed,
+							}),
+						),
+					),
+
+				onFalse: () => Effect.succeed(null),
+			})
+
+			return Transaction.insert.make({
+				id: TransactionId.make(transactionId),
+				accountId,
+				tenantId,
+				amount: +transaction.transactionAmount.amount,
+				currency: transaction.transactionAmount.currency,
+
+				name:
+					transaction.creditorName ||
+					transaction.debtorName ||
+					transaction.remittanceInformationUnstructuredArray?.at(0) ||
+					transaction.proprietaryBankTransactionCode ||
+					"No Info",
+				description: transaction.remittanceInformationUnstructuredArray?.join(", ") || "No Info",
+
+				companyId: company?.id || null,
+
+				status: status,
+				balance: null,
+				category: null,
+				currencyRate: null,
+				currencySource: null,
+				date: date,
+				method: mapTransactionMethod(transaction.proprietaryBankTransactionCode),
+
+				deletedAt: null,
+			})
+		})
+
 		return {
 			getRequistion,
 			getAccount,
@@ -173,6 +237,9 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 			getInstitutions,
 			createAgreement,
 			createLink,
+			transformTransaction,
 		} as const
-	}).pipe(Effect.provide(FetchHttpClient.layer)),
+	}),
+
+	dependencies: [TransactionHelpers.Default, FetchHttpClient.layer],
 }) {}

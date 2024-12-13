@@ -233,7 +233,7 @@ export const companies: Company[] = [
 		id: "triplit",
 		name: "Triplit",
 		url: "triplit.dev",
-		patterns: ["Triplit"],
+		patterns: ["Triplit%"],
 	},
 	{
 		id: "anthropic",

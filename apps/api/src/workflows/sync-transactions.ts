@@ -6,7 +6,6 @@ import { AccountRepo } from "~/repositories/account-repo"
 import { TransactionRepo } from "~/repositories/transaction-repo"
 import { Workflow, makeWorkflowEntrypoint } from "~/services/cloudflare/workflows"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
-import { transformTransaction } from "~/services/gocardless/transformer"
 
 const WorkflowParams = Schema.Struct({
 	accountId: AccountId,
@@ -97,11 +96,12 @@ const stepSyncTransactions = Workflow.schema(
 			yield* Effect.logInfo("Found booked transactions", transactions.transactions.booked.length)
 			yield* Effect.logInfo("Found pending transactions", transactions.transactions.pending.length)
 
-			const mappedBookedTransactions = transactions.transactions.booked.map((v) =>
-				transformTransaction(accountId, tenantId, v, "posted"),
+			const mappedBookedTransactions = yield* Effect.forEach(transactions.transactions.booked, (transaction) =>
+				goCardless.transformTransaction(accountId, tenantId, transaction, "posted"),
 			)
-			const mappedPendingTransactions = transactions.transactions.pending.map((v) =>
-				transformTransaction(accountId, tenantId, v, "pending"),
+
+			const mappedPendingTransactions = yield* Effect.forEach(transactions.transactions.pending, (transaction) =>
+				goCardless.transformTransaction(accountId, tenantId, transaction, "pending"),
 			)
 
 			yield* transactionRepo.insertMultipleVoid([...mappedBookedTransactions, ...mappedPendingTransactions])

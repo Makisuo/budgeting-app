@@ -41,16 +41,6 @@ function RouteComponent() {
 					<TransactionTable accountId={accountId} />
 				</Card.Content>
 			</Card>
-			<div className="flex justify-center py-4">
-				<a
-					className="text-center text-muted-fg text-xs underline"
-					href="https://parqet.com/api"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Logos provided by Parqet
-				</a>
-			</div>
 		</div>
 	)
 }
