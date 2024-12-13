@@ -20,16 +20,16 @@
 		"wrangler": "^3.95.0"
 	},
 	"dependencies": {
-		"@clerk/backend": "^1.21.1",
-		"@effect/experimental": "^0.33.7",
-		"@effect/opentelemetry": "^0.41.3",
-		"@effect/platform": "^0.70.7",
-		"@effect/sql": "^0.22.7",
-		"@effect/sql-pg": "^0.23.7",
+		"@clerk/backend": "^1.21.2",
+		"@effect/experimental": "^0.34.2",
+		"@effect/opentelemetry": "^0.41.5",
+		"@effect/platform": "^0.71.2",
+		"@effect/sql": "^0.23.2",
+		"@effect/sql-pg": "^0.24.2",
 		"@opentelemetry/exporter-trace-otlp-http": "^0.56.0",
 		"@opentelemetry/sdk-trace-base": "^1.29.0",
 		"@opentelemetry/sdk-trace-node": "^1.29.0",
-		"effect": "^3.11.5",
+		"effect": "^3.11.7",
 		"nanoid": "^5.0.9",
 		"plaid": "^30.0.0"
 	}
