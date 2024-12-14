@@ -12,7 +12,7 @@
 		"openapi-typescript": "openapi-typescript http://localhost:8787/openapi.json -o ./app/lib/api/v1.d.ts"
 	},
 	"dependencies": {
-		"@clerk/tanstack-start": "0.8.1",
+		"@clerk/tanstack-start": "0.8.2",
 		"@electric-sql/pglite": "^0.2.15",
 		"@electric-sql/pglite-react": "^0.2.15",
 		"@electric-sql/pglite-repl": "^0.2.15",
