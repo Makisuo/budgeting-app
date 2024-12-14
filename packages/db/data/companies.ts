@@ -31,6 +31,21 @@ export const companies: Company[] = [
 		categoryId: "subscriptions",
 	},
 	{
+		id: "buhl",
+		name: "Buhl WISO Steuer",
+		url: "buhl.de",
+		patterns: ["BUHL-DATA-SERVICE"],
+		categoryId: "taxes",
+	},
+	{
+		// Kindergeld, possibly auch Bürgergeld und Co
+		id: "bundesagenturArbeit",
+		name: "Bundesagentur für Arbeit",
+		url: "arbeitsagentur.de",
+		patterns: ["Bundesagentur fur Arbeit"],
+		categoryId: "benefits",
+	},
+	{
 		id: "bvg",
 		name: "BVG",
 		url: "bvg.de",
@@ -80,6 +95,21 @@ export const companies: Company[] = [
 		categoryId: "restaurant",
 	},
 	{
+		id: "dm",
+		name: "DM Drogerie Markt",
+		url: "dm.de",
+		patterns: ["DM DROGERIEMARKT"],
+		// idk? could be pharmacy, beauty, hair care, a lot
+		categoryId: "pharmacy",
+	},
+	{
+		id: "eplus",
+		name: "AldiTalk",
+		url: "alditalk.de",
+		patterns: ["E-Plus", "%AldiTalk%"],
+		categoryId: "phone",
+	},
+	{
 		id: "flyio",
 		name: "Fly",
 		url: "fly.io",
@@ -92,6 +122,13 @@ export const companies: Company[] = [
 		url: "fressnapf.de",
 		patterns: ["Fressnapf"],
 		categoryId: "pet-supplies",
+	},
+	{
+		id: "generali",
+		name: "Generali",
+		url: "generali.de",
+		patterns: ["Generali"],
+		categoryId: "insurances",
 	},
 	{
 		id: "getraenke-hoffmann",
@@ -127,6 +164,14 @@ export const companies: Company[] = [
 		url: "lidl.de",
 		patterns: ["Lidl Sagt Danke"],
 		categoryId: "groceries",
+	},
+	{
+		id: "mediasaturn",
+		name: "MediaMarkt / Saturn",
+		url: "mediamarktsaturn.com",
+		patterns: ["Media-Saturn"],
+		// kann auch subscriptions sein (ich hab hier zB applecare)
+		categoryId: "shopping",
 	},
 	{
 		id: "myplace-selfstorage",
@@ -206,6 +251,13 @@ export const companies: Company[] = [
 		categoryId: "subscriptions",
 	},
 	{
+		id: "swk",
+		name: "SWK Energie",
+		url: "swk.de",
+		patterns: ["SWK Energie"],
+		categoryId: "electricity",
+	},
+	{
 		id: "telekom",
 		name: "Telekom",
 		url: "telekom.de",
@@ -218,6 +270,14 @@ export const companies: Company[] = [
 		url: "temporal.io",
 		patterns: ["Temporal Technologies"],
 		categoryId: "subscriptions",
+	},
+	{
+		id: "tfbank",
+		name: "TF Bank",
+		url: "tfbank.de",
+		patterns: ["TF Bank"],
+		// nur kreditkarten afaik, loan passt am beten?
+		categoryId: "loan",
 	},
 	{
 		id: "triplit",
