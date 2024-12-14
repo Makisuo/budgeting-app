@@ -44,6 +44,12 @@ export const categories = [
 		name: "Salary",
 		type: "earnings",
 	},
+	{
+		id: "benefits",
+		name: "Benefits",
+		type: "earnings",
+	},
+
 	// Finances
 	{
 		id: "taxes",
@@ -63,6 +69,11 @@ export const categories = [
 	{
 		id: "subscriptions",
 		name: "Subscriptions",
+		type: "finances",
+	},
+	{
+		id: "insurances",
+		name: "Insurances",
 		type: "finances",
 	},
 	// Entertainment
