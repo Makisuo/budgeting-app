@@ -21,7 +21,9 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 			Request: Schema.Array(Transaction.insert),
 			// TODO: This should update later on its fine for now though
 			execute: (request) => sql`INSERT INTO ${sql(TABLE_NAME)} ${sql.insert(request)}
-			ON CONFLICT (id) DO NOTHING`,
+			ON CONFLICT (id) DO UPDATE SET 
+			status = EXLUCDED.status,
+			date = EXCLUDED.date`,
 		})
 		const insertMultipleVoid = (insert: (typeof Transaction.insert.Type)[]) =>
 			insertMultipleVoidSchema(insert).pipe(
