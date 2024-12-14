@@ -38,7 +38,6 @@ export const companies: Company[] = [
 		categoryId: "taxes",
 	},
 	{
-		// Kindergeld, possibly auch Bürgergeld und Co
 		id: "bundesagenturArbeit",
 		name: "Bundesagentur für Arbeit",
 		url: "arbeitsagentur.de",
@@ -99,7 +98,6 @@ export const companies: Company[] = [
 		name: "DM Drogerie Markt",
 		url: "dm.de",
 		patterns: ["DM DROGERIEMARKT"],
-		// idk? could be pharmacy, beauty, hair care, a lot
 		categoryId: "pharmacy",
 	},
 	{
@@ -170,7 +168,6 @@ export const companies: Company[] = [
 		name: "MediaMarkt / Saturn",
 		url: "mediamarktsaturn.com",
 		patterns: ["Media-Saturn"],
-		// kann auch subscriptions sein (ich hab hier zB applecare)
 		categoryId: "shopping",
 	},
 	{
@@ -276,7 +273,6 @@ export const companies: Company[] = [
 		name: "TF Bank",
 		url: "tfbank.de",
 		patterns: ["TF Bank"],
-		// nur kreditkarten afaik, loan passt am beten?
 		categoryId: "loan",
 	},
 	{
