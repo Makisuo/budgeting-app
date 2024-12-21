@@ -1,5 +1,4 @@
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router"
-import { createLinkTokenAction } from "~/actions"
 import { AppSidebar } from "~/components/app-sidebar"
 import { ProfileMenu } from "~/components/profile-menu"
 import { Container, Sidebar } from "~/components/ui"
@@ -16,17 +15,6 @@ export const Route = createFileRoute("/_app")({
 
 		return {
 			auth: context.auth,
-		}
-	},
-	loader: async () => {
-		const res = await createLinkTokenAction()
-
-		if (!res.link_token) {
-			throw new Error("Error creating link token")
-		}
-
-		return {
-			linkToken: res.link_token,
 		}
 	},
 })
