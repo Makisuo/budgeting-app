@@ -1,6 +1,6 @@
 import { IconCirclePlaceholderDashed } from "justd-icons"
-import { useDrizzleLive } from "~/lib/hooks/use-drizzle-live"
 import { currencyFormatter } from "~/utils/formatters"
+import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 import { DateValue } from "./date-value"
 import { Badge } from "./ui/badge"
 import { Table } from "./ui/table"

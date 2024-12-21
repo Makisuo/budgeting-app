@@ -3,7 +3,7 @@ import type { Transaction } from "db"
 import { useMemo } from "react"
 import { Card, Heading } from "~/components/ui"
 import { Table } from "~/components/ui/table"
-import { useDrizzleLive } from "~/lib/hooks/use-drizzle-live"
+import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 
 export const Route = createFileRoute("/_app/subscriptions")({
 	component: RouteComponent,

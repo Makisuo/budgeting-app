@@ -5,7 +5,7 @@ import { Button, ComboBox, Modal, ProgressCircle, TextField } from "./ui"
 
 import { useLiveQuery } from "@electric-sql/pglite-react"
 import { ListBox, ListBoxItem, Text } from "react-aria-components"
-import { useDrizzleLiveIncremental } from "~/lib/hooks/use-drizzle-live"
+import { useDrizzleLiveIncremental } from "~/utils/pglite/drizzle-client"
 import { DebouncedTextField } from "./debounced-input"
 
 export interface BankConnectorProps {

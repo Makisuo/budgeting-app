@@ -4,8 +4,8 @@ import { useMemo } from "react"
 import { Bar, BarChart, CartesianGrid, Rectangle, XAxis, YAxis } from "recharts"
 import { Card } from "~/components/ui"
 import { Chart } from "~/components/ui/chart"
-import { useDrizzleLive } from "~/lib/hooks/use-drizzle-live"
 import { currencyFormatter } from "~/utils/formatters"
+import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 
 export const Route = createFileRoute("/_app/")({
 	component: Home,

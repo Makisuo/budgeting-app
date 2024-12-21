@@ -7,7 +7,7 @@ import { IconAlbum, IconBrandApple, IconCreditCard, IconCube, IconDashboard, Ico
 import { useMemo, useState } from "react"
 
 import { Link, Sidebar, useSidebar } from "~/components/ui"
-import { useDrizzleLive } from "~/lib/hooks/use-drizzle-live"
+import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 import { BankConnector } from "./bank-connector"
 import { ProfileMenu } from "./profile-menu"
 

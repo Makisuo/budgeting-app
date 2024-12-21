@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router"
 import { AccountCard } from "~/components/account-card"
 import { TransactionTable } from "~/components/transaction-table"
 import { Card } from "~/components/ui"
-import { useDrizzleLive } from "~/lib/hooks/use-drizzle-live"
+import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 
 export const Route = createFileRoute("/_app/accounts/$accountId")({
 	component: RouteComponent,
