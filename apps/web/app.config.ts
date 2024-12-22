@@ -32,6 +32,6 @@ export default defineConfig({
 		},
 	},
 	server: {
-		preset: "bun",
+		preset: "vercel",
 	},
 })
