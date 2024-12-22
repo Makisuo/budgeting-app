@@ -17,19 +17,19 @@
 		"@types/node": "^22.10.2",
 		"typescript": "^5.7.2",
 		"vitest": "2.1.8",
-		"wrangler": "^3.95.0"
+		"wrangler": "^3.99.0"
 	},
 	"dependencies": {
 		"@clerk/backend": "^1.21.2",
-		"@effect/experimental": "^0.34.2",
-		"@effect/opentelemetry": "^0.41.5",
-		"@effect/platform": "^0.71.2",
-		"@effect/sql": "^0.23.2",
-		"@effect/sql-pg": "^0.24.2",
-		"@opentelemetry/exporter-trace-otlp-http": "^0.56.0",
-		"@opentelemetry/sdk-trace-base": "^1.29.0",
-		"@opentelemetry/sdk-trace-node": "^1.29.0",
-		"effect": "^3.11.7",
+		"@effect/experimental": "^0.35.2",
+		"@effect/opentelemetry": "^0.41.7",
+		"@effect/platform": "^0.71.6",
+		"@effect/sql": "^0.24.2",
+		"@effect/sql-pg": "^0.25.2",
+		"@opentelemetry/exporter-trace-otlp-http": "^0.57.0",
+		"@opentelemetry/sdk-trace-base": "^1.30.0",
+		"@opentelemetry/sdk-trace-node": "^1.30.0",
+		"effect": "^3.11.9",
 		"nanoid": "^5.0.9",
 		"plaid": "^30.0.0"
 	}
