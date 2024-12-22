@@ -67,5 +67,5 @@
 	"overrides": {
 		"vite": "6.0.3"
 	},
-	"packageManager": "bun@1.1.33"
+	"packageManager": "bun@1.1.42"
 }
