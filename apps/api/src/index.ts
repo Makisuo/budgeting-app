@@ -41,8 +41,9 @@ export default {
 		Object.assign(globalThis, {
 			env,
 		})
+
 		Object.assign(process, {
-			env,
+			env: { ...env, DATABASE_URL: env.HYPERDRIVE.connectionString },
 		})
 
 		const handler = HttpApiBuilder.toWebHandler(Live, {
@@ -55,8 +56,9 @@ export default {
 		Object.assign(globalThis, {
 			env,
 		})
+
 		Object.assign(process, {
-			env: { ...env },
+			env: { ...env, DATABASE_URL: env.HYPERDRIVE.connectionString },
 		})
 
 		const program = Effect.gen(function* () {

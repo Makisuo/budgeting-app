@@ -216,7 +216,7 @@ export const makeWorkflowEntrypoint = <const Tag, A, I, E = never>(
 		static _binding = binding
 		static _schema = schema
 		run(...args: any) {
-			return runEffectWorkflow<A, I, E, unknown>(schema, run, this.env).apply(null, args)
+			return runEffectWorkflow<A, I, E>(schema, run, this.env).apply(null, args)
 		}
 	}
 
@@ -254,7 +254,7 @@ class WorkflowDoError extends Data.TaggedError("WorkflowDoError")<{
 	readonly error: Error
 }> {}
 
-export const runEffectWorkflow = <A, I, E = never, Env = unknown>(
+export const runEffectWorkflow = <A, I, E = never>(
 	schema: Schema.Schema<A, I>,
 	effect: (event: A) => Effect.Effect<void, E, Workflow | WorkflowEvent>,
 	env: Env,
@@ -534,7 +534,14 @@ export const runEffectWorkflow = <A, I, E = never, Env = unknown>(
 				})),
 			),
 			Effect.provide(Layer.succeed(WorkflowEvent, event)),
-			Effect.provide(Layer.setConfigProvider(ConfigProvider.fromJson(env))),
+			Effect.provide(
+				Layer.setConfigProvider(
+					ConfigProvider.fromJson({
+						...env,
+						DATABASE_URL: env.HYPERDRIVE.connectionString,
+					}),
+				),
+			),
 			DateTime.withCurrentZone(workerdZone),
 			Effect.runPromise,
 		)
