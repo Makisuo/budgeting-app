@@ -216,7 +216,7 @@ export const makeWorkflowEntrypoint = <const Tag, A, I, E = never>(
 		static _binding = binding
 		static _schema = schema
 		run(...args: any) {
-			return runEffectWorkflow<A, I, E>(schema, run, this.env).apply(null, args)
+			return runEffectWorkflow<A, I, E, unknown>(schema, run, this.env).apply(null, args)
 		}
 	}
 
@@ -228,7 +228,7 @@ const Defect = Schema.transform(Schema.Unknown, Schema.Unknown, {
 	strict: true,
 	decode: (u) => {
 		if (Predicate.isObject(u) && "message" in u && typeof u.message === "string") {
-			// @ts-expect-error
+			// @ts-expect-error: This is an effect type error, works though :)
 			const err = new Error(u.message, { cause: u })
 			if ("name" in u && typeof u.name === "string") {
 				err.name = u.name
@@ -254,7 +254,7 @@ class WorkflowDoError extends Data.TaggedError("WorkflowDoError")<{
 	readonly error: Error
 }> {}
 
-export const runEffectWorkflow = <A, I, E = never>(
+export const runEffectWorkflow = <A, I, E = never, Env = unknown>(
 	schema: Schema.Schema<A, I>,
 	effect: (event: A) => Effect.Effect<void, E, Workflow | WorkflowEvent>,
 	env: Env,
@@ -515,7 +515,7 @@ export const runEffectWorkflow = <A, I, E = never>(
 									console.error("parse exit error", error)
 								}
 
-								if (error && Cause.isCause(error)) {
+								if (Cause.isCause(error)) {
 									return Effect.failCause(error)
 								}
 
@@ -534,14 +534,7 @@ export const runEffectWorkflow = <A, I, E = never>(
 				})),
 			),
 			Effect.provide(Layer.succeed(WorkflowEvent, event)),
-			Effect.provide(
-				Layer.setConfigProvider(
-					ConfigProvider.fromJson({
-						...env,
-						DATABASE_URL: env.HYPERDRIVE.connectionString,
-					}),
-				),
-			),
+			Effect.provide(Layer.setConfigProvider(ConfigProvider.fromJson(env))),
 			DateTime.withCurrentZone(workerdZone),
 			Effect.runPromise,
 		)
