@@ -534,7 +534,11 @@ export const runEffectWorkflow = <A, I, E = never, Env = unknown>(
 				})),
 			),
 			Effect.provide(Layer.succeed(WorkflowEvent, event)),
-			Effect.provide(Layer.setConfigProvider(ConfigProvider.fromJson(env))),
+			Effect.provide(
+				Layer.setConfigProvider(
+					ConfigProvider.fromJson({ ...env, DATABASE_URL: env.HYPERDRIVE.connectionString }),
+				),
+			),
 			DateTime.withCurrentZone(workerdZone),
 			Effect.runPromise,
 		)
