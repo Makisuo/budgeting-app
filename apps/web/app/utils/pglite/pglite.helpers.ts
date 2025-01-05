@@ -3,6 +3,7 @@ import { PgDialect } from "drizzle-orm/pg-core"
 
 import { drizzle } from "drizzle-orm/pglite"
 
+import type { SyncShapeToTableResult } from "@electric-sql/pglite-sync"
 import { frontMigrations } from "db"
 import { syncShapeToTable } from "./drizzle-client"
 
@@ -58,7 +59,11 @@ export type TableToSync = {
 	primaryKey: string
 }
 
-export async function syncTables(pg: any, electricUrl: string, tables: TableToSync[]) {
+export async function syncTables(
+	pg: any,
+	electricUrl: string,
+	tables: TableToSync[],
+): Promise<SyncShapeToTableResult[]> {
 	const bearer = await requestBearer()
 
 	const errorHandler = async (error: Error) => {
@@ -74,18 +79,24 @@ export async function syncTables(pg: any, electricUrl: string, tables: TableToSy
 		throw error
 	}
 
+	const streams: SyncShapeToTableResult[] = []
+
 	for (const table of tables) {
-		await syncShapeToTable(pg, {
-			table: table.table as any,
-			primaryKey: table.primaryKey as any,
-			shapeKey: table.table,
-			shape: {
-				url: electricUrl,
-				headers: {
-					Authorization: `Bearer ${bearer}`,
+		streams.push(
+			await syncShapeToTable(pg, {
+				table: table.table as never,
+				primaryKey: table.primaryKey as any,
+				shapeKey: table.table,
+				shape: {
+					url: electricUrl,
+					headers: {
+						Authorization: `Bearer ${bearer}`,
+					},
+					onError: errorHandler,
 				},
-				onError: errorHandler,
-			},
-		})
+			}),
+		)
 	}
+
+	return streams
 }

@@ -23,7 +23,7 @@ worker({
 
 		await runMigrations(pg, DB_NAME)
 
-		await syncTables(pg, ELECTRIC_URL, tablesToSync)
+		const streams = await syncTables(pg, ELECTRIC_URL, tablesToSync)
 
 		return pg
 	},

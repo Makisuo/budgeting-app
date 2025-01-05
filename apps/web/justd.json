@@ -1,7 +1,9 @@
 {
-  "$schema": "https://getjustd.com",
-  "ui": "app/components/ui",
-  "classes": "./app/utils",
-  "theme": "Sky",
-  "css": "app/styles/app.css"
+	"$schema": "https://getjustd.com/schema.json",
+	"ui": "src/components/ui",
+	"utils": "src/utils",
+	"gray": "zinc",
+	"css": "src/index.css",
+	"alias": "~",
+	"classes": "src/utils"
 }
