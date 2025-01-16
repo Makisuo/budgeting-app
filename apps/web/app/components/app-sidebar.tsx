@@ -3,7 +3,7 @@
 import type * as React from "react"
 
 import { useMatchRoute } from "@tanstack/react-router"
-import { IconAlbum, IconBrandApple, IconCreditCard, IconCube, IconDashboard, IconPlus, IconSettings } from "justd-icons"
+import { IconAlbum, IconCreditCard, IconCube, IconDashboard, IconPlus, IconSettings } from "justd-icons"
 import { useMemo, useState } from "react"
 
 import { Link, Sidebar, useSidebar } from "~/components/ui"
