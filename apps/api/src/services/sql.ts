@@ -5,6 +5,9 @@ import { Config, Layer } from "effect"
 
 export const PgLive = PgClient.layerConfig({
 	url: Config.redacted("DATABASE_URL"),
+
+	connectTimeout: Config.succeed(3000),
+
 	// ssl: Config.boolean("isDev").pipe(
 	// 	Config.orElse(() => Config.succeed(false)),
 	// 	Config.map((isDev) => !isDev),

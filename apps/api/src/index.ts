@@ -54,6 +54,7 @@ export default {
 
 		ctx.waitUntil(handler.dispose())
 
+		const origin = request.headers.get("Origin")
 		res.headers.set("Access-Control-Allow-Origin", origin || "*")
 
 		return res

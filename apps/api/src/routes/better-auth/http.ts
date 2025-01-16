@@ -10,6 +10,7 @@ export const HttpBetterAuthLive = HttpApiBuilder.group(Api, "BetterAuth", (handl
 		return handlers
 			.handleRaw("betterAuthGet", () =>
 				Effect.gen(function* () {
+					console.log("betterAuthGet")
 					const req = yield* HttpServerRequest.HttpServerRequest
 					const raw = req.source as Request
 
@@ -24,6 +25,8 @@ export const HttpBetterAuthLive = HttpApiBuilder.group(Api, "BetterAuth", (handl
 			)
 			.handleRaw("betterAuthPost", () =>
 				Effect.gen(function* () {
+					console.log("betterAuthPost")
+
 					const req = yield* HttpServerRequest.HttpServerRequest
 					const raw = req.source as Request
 
