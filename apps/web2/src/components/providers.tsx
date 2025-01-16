@@ -1,19 +1,27 @@
-import { ThemeProvider } from './theme-provider'
-import { useRouter } from 'next/navigation'
-import { RouterProvider } from 'react-aria-components'
+"use client"
 
-declare module 'react-aria-components' {
-  interface RouterConfig {
-    routerOptions: NonNullable<Parameters<ReturnType<typeof useRouter>['push']>[1]>
-  }
+import { type NavigateOptions, type ToOptions, useRouter } from "@tanstack/react-router"
+import { RouterProvider } from "react-aria-components"
+import { ThemeProvider } from "./theme-provider"
+
+declare module "react-aria-components" {
+	interface RouterConfig {
+		href: ToOptions["to"]
+		params: ToOptions["params"]
+		routerOptions: Omit<NavigateOptions, "params">
+	}
 }
-
 export function Providers({ children }: { children: React.ReactNode }) {
-  const router = useRouter()
+	const router = useRouter()
 
-  return (
-    <RouterProvider navigate={router.push}>
-      <ThemeProvider enableSystem attribute="class">{children}</ThemeProvider>
-    </RouterProvider>
-  )
+	return (
+		<RouterProvider
+			navigate={(to, options) => router.navigate({ to, ...options })}
+			useHref={(to) => router.buildLocation({ to: to }).href}
+		>
+			<ThemeProvider attribute="class" themes={["light", "dark", "pastel"]}>
+				{children}
+			</ThemeProvider>
+		</RouterProvider>
+	)
 }

@@ -1,7 +1,7 @@
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router"
 import { AppSidebar } from "~/components/app-sidebar"
-import { ProfileMenu } from "~/components/profile-menu"
-import { Container, Sidebar } from "~/components/ui"
+import { AppSidebarNav } from "~/components/app-sidebar-nav"
+import { Container, SidebarInset, SidebarProvider } from "~/components/ui"
 import { PgLiteProvider } from "~/utils/pglite/pglite.provider"
 
 export const Route = createFileRoute("/_app")({
@@ -9,7 +9,7 @@ export const Route = createFileRoute("/_app")({
 	beforeLoad: async ({ context }) => {
 		if (!context.auth.userId) {
 			throw redirect({
-				to: "/auth/signin/$",
+				to: "/auth/login",
 			})
 		}
 
@@ -22,22 +22,15 @@ export const Route = createFileRoute("/_app")({
 function RouteComponent() {
 	return (
 		<PgLiteProvider>
-			<Sidebar.Provider>
+			<SidebarProvider>
 				<AppSidebar />
-				<Sidebar.Inset>
-					<Sidebar.Nav isSticky>
-						<span className="flex items-center gap-x-3">
-							<Sidebar.Trigger className="-mx-2" />
-						</span>
-						<div className="flex items-center gap-x-2 sm:hidden">
-							<ProfileMenu />
-						</div>
-					</Sidebar.Nav>
+				<SidebarInset>
+					<AppSidebarNav />
 					<Container className="overflow-hidden p-4 lg:p-6">
 						<Outlet />
 					</Container>
-				</Sidebar.Inset>
-			</Sidebar.Provider>
+				</SidebarInset>
+			</SidebarProvider>
 		</PgLiteProvider>
 	)
 }

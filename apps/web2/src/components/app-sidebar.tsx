@@ -45,14 +45,6 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 								<SidebarLabel>Profile</SidebarLabel>
 							</SidebarItem>
 
-							<SidebarItem
-								isDisabled={!session?.session.activeOrganizationId}
-								href="/dashboard/settings/team"
-							>
-								<IconPeople />
-								<SidebarLabel>Team</SidebarLabel>
-							</SidebarItem>
-
 							<SidebarItem href="/dashboard/settings/billings">
 								<IconCreditCard />
 								<SidebarLabel>Billings</SidebarLabel>

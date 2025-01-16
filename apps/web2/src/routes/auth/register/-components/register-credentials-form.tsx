@@ -1,14 +1,13 @@
 "use client"
 
-import { authClient } from "@/lib/auth/auth-client"
-import { appConfig } from "@/lib/config"
-import { useRouter } from "next/navigation"
+import { useNavigate } from "@tanstack/react-router"
 import { useTransition } from "react"
 import { toast } from "sonner"
 import { Button, Form, Link, Loader, TextField } from "ui"
+import { authClient } from "~/lib/auth/auth-client"
 
 export function RegisterCredentialsForm() {
-	const router = useRouter()
+	const navigate = useNavigate()
 
 	const [isPending, startTransition] = useTransition()
 
@@ -28,11 +27,11 @@ export function RegisterCredentialsForm() {
 					name,
 					email,
 					password,
-					callbackURL: appConfig.dashboardPath,
+					callbackURL: "/",
 				},
 				{
 					onSuccess: async () => {
-						router.push(`/auth/verify-email?email=${email}`)
+						navigate({ to: "/auth/verify-email", search: { email } })
 					},
 					onError: (ctx) => {
 						toast.error(ctx.error.message)
