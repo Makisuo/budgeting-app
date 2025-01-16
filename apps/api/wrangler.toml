@@ -26,4 +26,4 @@ class_name = "SyncTransactionsWorkflow"
 [[hyperdrive]]
 binding = "HYPERDRIVE"
 id = "20471f3545bc4210bbee3142f31367ec"
-localConnectionString = "postgresql://postgres:password@127.0.0.1:5455/postgres?sslmode=disable"
+localConnectionString = "postgres://postgres:password@127.0.0.1:5455/postgres?sslmode=disable"

@@ -29,6 +29,13 @@
       "when": 1734129212297,
       "tag": "0003_fixed_shriek",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1737061924390,
+      "tag": "0004_light_christian_walker",
+      "breakpoints": true
     }
   ]
 }
