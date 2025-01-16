@@ -1,0 +1,36 @@
+{
+	"name": "web2",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"typecheck": "tsc --noEmit",
+		"dev": "vite --port=3001",
+		"build": "vite build",
+		"serve": "vite preview",
+		"start": "vite",
+		"justd": "justd-cli"
+	},
+	"devDependencies": {
+		"@tailwindcss/vite": "^4.0.0-beta.9",
+		"@tanstack/router-plugin": "^1.97.1",
+		"@types/react": "^19.0.7",
+		"@types/react-dom": "^19.0.3",
+		"@vitejs/plugin-react": "^4.3.4",
+		"justd-cli": "^2.3.30",
+		"tailwind-merge": "^2.6.0",
+		"tailwind-variants": "^0.3.0",
+		"tailwindcss": "^4.0.0-beta.9",
+		"tailwindcss-animate": "^1.0.7",
+		"vite": "^6.0.7",
+		"vite-tsconfig-paths": "^5.1.4"
+	},
+	"dependencies": {
+		"@tanstack/react-router": "^1.97.1",
+		"@tanstack/router-devtools": "^1.97.1",
+		"justd-icons": "^1.10.20",
+		"react": "^19.0.0",
+		"react-aria-components": "^1.6.0",
+		"react-dom": "^19.0.0"
+	}
+}
