@@ -1,12 +1,10 @@
 "use client"
 
-import { Button, Loader } from "@/components/ui"
+import { Button, Loader } from "~/components/ui"
 
-import { authClient } from "@/lib/auth/auth-client"
-import { appConfig } from "@/lib/config"
+import { authClient } from "~/lib/auth/auth-client"
 
 import { IconBrandGithub, IconBrandGoogle } from "justd-icons"
-import { useRouter } from "next/navigation"
 import { type ReactNode, useState, useTransition } from "react"
 import { toast } from "sonner"
 
@@ -30,8 +28,6 @@ const providers = {
 } satisfies Record<OAuthProvider, { icon: ReactNode; label: string }>
 
 export const OAuthButton = ({ provider, redirect, prefix }: OAuthButtonProps) => {
-	const router = useRouter()
-
 	const { icon, label } = providers[provider]
 
 	const [isLastUsed, setIsLastUsed] = useState(false)
@@ -50,13 +46,11 @@ export const OAuthButton = ({ provider, redirect, prefix }: OAuthButtonProps) =>
 				startTransition(async () => {
 					await authClient.signIn.social({
 						provider,
-						callbackURL: appConfig.dashboardPath,
+						callbackURL: redirect ?? "/",
 
 						fetchOptions: {
 							onSuccess: () => {
 								localStorage.setItem("last-used-provider", provider)
-
-								router.push(redirect ?? appConfig.dashboardPath)
 							},
 							onError: (ctx) => {
 								toast.error(ctx.error.message ?? "Failed to sign in", {

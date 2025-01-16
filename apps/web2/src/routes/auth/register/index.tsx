@@ -1,15 +1,15 @@
-import { AUTH_PROVIDERS, ONE_TAP_ENABLED } from "@/lib/auth/auth-static"
-import { Card, ShowMore } from "ui"
-import { OAuthButton } from "../login/_components/oauth-button"
-import { OneTap } from "../login/_components/one-tap"
-import { RegisterCredentialsForm } from "./_components/register-credentials-form"
+import { createFileRoute } from "@tanstack/react-router"
+import { Card, ShowMore } from "~/components/ui"
+import { AUTH_PROVIDERS, ONE_TAP_ENABLED } from "~/lib/auth/auth-static"
+import { OAuthButton } from "../login/-components/oauth-button"
+import { OneTap } from "../login/-components/one-tap"
+import { RegisterCredentialsForm } from "./-components/register-credentials-form"
 
-export const metadata = {
-	title: "Register",
-	description: "Sign up to get started using your account.",
-}
+export const Route = createFileRoute("/auth/register/")({
+	component: RegisterPage,
+})
 
-export default function Page() {
+function RegisterPage() {
 	return (
 		<div className="flex flex-col gap-y-4">
 			<Card.Header

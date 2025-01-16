@@ -1,5 +1,5 @@
-import { Card, Link, ShowMore } from "@/components/ui"
-import { AUTH_PROVIDERS, ONE_TAP_ENABLED, PASSKEY_ENABLED } from "@/lib/auth/auth-static"
+import { Card, Link, ShowMore } from "~/components/ui"
+import { AUTH_PROVIDERS, ONE_TAP_ENABLED, PASSKEY_ENABLED } from "~/lib/auth/auth-static"
 import { Credentials } from "./credentials"
 import { OAuthButton } from "./oauth-button"
 import { OneTap } from "./one-tap"

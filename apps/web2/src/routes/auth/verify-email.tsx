@@ -1,13 +1,21 @@
-"use client"
-
-import { authClient } from "@/lib/auth/auth-client"
+import { createFileRoute } from "@tanstack/react-router"
+import { type } from "arktype"
 import { IconSend } from "justd-icons"
-import { useSearchParams } from "next/navigation"
 import { toast } from "sonner"
-import { Button, Card } from "ui"
+import { Button, Card } from "~/components/ui"
+import { authClient } from "~/lib/auth/auth-client"
 
-export function Client() {
-	const params = useSearchParams()
+const searchType = type({
+	email: "string.email",
+})
+
+export const Route = createFileRoute("/auth/verify-email")({
+	component: VerifyEmailPage,
+	validateSearch: searchType,
+})
+
+function VerifyEmailPage() {
+	const { email } = Route.useSearch()
 
 	return (
 		<Card>
@@ -21,7 +29,7 @@ export function Client() {
 						toast("Sending verification email...")
 
 						authClient.sendVerificationEmail({
-							email: params.get("email")!,
+							email: email,
 							fetchOptions: {
 								onSuccess: () => {
 									toast.success("Verification email sent successfully.")

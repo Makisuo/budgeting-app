@@ -1,14 +1,13 @@
 "use client"
 
-import { authClient } from "@/lib/auth/auth-client"
-import { appConfig } from "@/lib/config"
-import { useRouter } from "next/navigation"
+import { useNavigate } from "@tanstack/react-router"
 import { useTransition } from "react"
 import { toast } from "sonner"
 import { Button, Checkbox, Form, Link, Loader, TextField } from "ui"
+import { authClient } from "~/lib/auth/auth-client"
 
 export function Credentials() {
-	const router = useRouter()
+	const navigate = useNavigate()
 
 	const [isPending, startTransition] = useTransition()
 
@@ -29,13 +28,20 @@ export function Credentials() {
 				{
 					onError: (ctx) => {
 						if (ctx.error.code === "EMAIL_NOT_VERIFIED") {
-							router.push(`/auth/verify-email?email=${email}`)
+							navigate({
+								to: "/auth/verify-email",
+								search: {
+									email,
+								},
+							})
 						}
 
 						toast.error(ctx.error.message)
 					},
 					onSuccess: async () => {
-						router.push(appConfig.dashboardPath)
+						navigate({
+							to: "/",
+						})
 					},
 				},
 			)

@@ -1,7 +1,7 @@
 import { Card, ShowMore } from "@/components/ui"
 import { AUTH_PROVIDERS, ONE_TAP_ENABLED } from "@/lib/auth/auth-static"
-import { OAuthButton } from "../../login/_components/oauth-button"
-import { OneTap } from "../../login/_components/one-tap"
+import { OAuthButton } from "../../login/-components/oauth-button"
+import { OneTap } from "../../login/-components/one-tap"
 import { RegisterCredentialsForm } from "./register-credentials-form"
 
 export const RegisterCard = () => {

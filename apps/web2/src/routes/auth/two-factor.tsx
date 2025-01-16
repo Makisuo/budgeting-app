@@ -1,14 +1,19 @@
-"use client"
-
-import { Button, Card, Form, InputOTP } from "@/components/ui"
-import { authClient } from "@/lib/auth/auth-client"
-import { appConfig } from "@/lib/config"
-import { useRouter } from "next/navigation"
+import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { useTransition } from "react"
 import { toast } from "sonner"
+import { Button, Card, Form, InputOTP } from "~/components/ui"
+import { authClient } from "~/lib/auth/auth-client"
 
-export default function TwoFactor() {
-	const router = useRouter()
+export const Route = createFileRoute("/auth/two-factor")({
+	component: TwoFactorPage,
+})
+
+function RouteComponent() {
+	return <div>Hello "/auth/two-factor"!</div>
+}
+
+function TwoFactorPage() {
+	const navigate = useNavigate()
 
 	const [isPending, startTransition] = useTransition()
 
@@ -31,7 +36,7 @@ export default function TwoFactor() {
 									fetchOptions: {
 										onSuccess: (ctx) => {
 											toast.success("Successfully verified 2FA")
-											router.push(appConfig.dashboardPath)
+											navigate({ to: "/" })
 										},
 										onError: (ctx) => {
 											toast.error(ctx.error.message)

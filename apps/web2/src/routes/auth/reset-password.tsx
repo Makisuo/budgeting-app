@@ -1,16 +1,19 @@
-"use client"
-
-import { authClient } from "@/lib/auth/auth-client"
+import { createFileRoute } from "@tanstack/react-router"
 import { useTransition } from "react"
 import { toast } from "sonner"
-import { Button, Card, Form, Link, Loader, TextField } from "ui"
+import { Button, Card, Form, Link, Loader, TextField } from "~/components/ui"
+import { authClient } from "~/lib/auth/auth-client"
 
 const metadata = {
 	title: "Reset Password",
 	description: "Enter a new password to complete the reset process and regain access to your account.",
 }
 
-export default function Page() {
+export const Route = createFileRoute("/auth/reset-password")({
+	component: ResetPasswordPage,
+})
+
+function ResetPasswordPage() {
 	const [isPending, startTransition] = useTransition()
 
 	return (

@@ -1,14 +1,14 @@
 "use client"
 
-import { authClient } from "@/lib/auth/auth-client"
-import { appConfig } from "@/lib/config"
+import { useNavigate } from "@tanstack/react-router"
 import { IconPersonPasskey } from "justd-icons"
-import { useRouter } from "next/navigation"
 import { useTransition } from "react"
 import { Button, Loader } from "ui"
+import { authClient } from "~/lib/auth/auth-client"
 
 export function Passkey() {
-	const router = useRouter()
+	const navigate = useNavigate()
+
 	const [isPending, startTransition] = useTransition()
 
 	return (
@@ -23,13 +23,25 @@ export function Passkey() {
 
 				void authClient.signIn.passkey({
 					autoFill: true,
-					fetchOptions: { onSuccess: async () => router.push(appConfig.dashboardPath) },
+					fetchOptions: {
+						onSuccess: async () => {
+							navigate({
+								to: "/",
+							})
+						},
+					},
 				})
 			}}
 			onPress={() => {
 				startTransition(async () => {
 					await authClient.signIn.passkey({
-						fetchOptions: { onSuccess: async () => router.push(appConfig.dashboardPath) },
+						fetchOptions: {
+							onSuccess: async () => {
+								navigate({
+									to: "/",
+								})
+							},
+						},
 					})
 				})
 			}}

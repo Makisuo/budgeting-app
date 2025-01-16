@@ -14,21 +14,13 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as AboutImport } from './routes/about'
 import { Route as AppImport } from './routes/_app'
 import { Route as IndexImport } from './routes/index'
+import { Route as AuthVerifyEmailImport } from './routes/auth/verify-email'
+import { Route as AuthTwoFactorImport } from './routes/auth/two-factor'
+import { Route as AuthResetPasswordImport } from './routes/auth/reset-password'
 import { Route as AuthLayoutImport } from './routes/auth/layout'
 import { Route as AuthForgotPasswordImport } from './routes/auth/forgot-password'
-import { Route as AuthVerifyEmailPageImport } from './routes/auth/verify-email/page'
-import { Route as AuthVerifyEmailClientImport } from './routes/auth/verify-email/client'
-import { Route as AuthTwoFactorPageImport } from './routes/auth/two-factor/page'
-import { Route as AuthResetPasswordPageImport } from './routes/auth/reset-password/page'
-import { Route as AuthRegisterPageImport } from './routes/auth/register/page'
-import { Route as AuthLoginPageImport } from './routes/auth/login/page'
-import { Route as AuthRegisterComponentsRegisterCredentialsFormImport } from './routes/auth/register/_components/register-credentials-form'
-import { Route as AuthRegisterComponentsRegisterCardImport } from './routes/auth/register/_components/register-card'
-import { Route as AuthLoginComponentsPasskeyImport } from './routes/auth/login/_components/passkey'
-import { Route as AuthLoginComponentsOneTapImport } from './routes/auth/login/_components/one-tap'
-import { Route as AuthLoginComponentsOauthButtonImport } from './routes/auth/login/_components/oauth-button'
-import { Route as AuthLoginComponentsLoginCardImport } from './routes/auth/login/_components/login-card'
-import { Route as AuthLoginComponentsCredentialsImport } from './routes/auth/login/_components/credentials'
+import { Route as AuthRegisterIndexImport } from './routes/auth/register/index'
+import { Route as AuthLoginIndexImport } from './routes/auth/login/index'
 
 // Create/Update Routes
 
@@ -49,6 +41,24 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AuthVerifyEmailRoute = AuthVerifyEmailImport.update({
+  id: '/auth/verify-email',
+  path: '/auth/verify-email',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthTwoFactorRoute = AuthTwoFactorImport.update({
+  id: '/auth/two-factor',
+  path: '/auth/two-factor',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthResetPasswordRoute = AuthResetPasswordImport.update({
+  id: '/auth/reset-password',
+  path: '/auth/reset-password',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AuthLayoutRoute = AuthLayoutImport.update({
   id: '/auth/layout',
   path: '/auth/layout',
@@ -61,90 +71,17 @@ const AuthForgotPasswordRoute = AuthForgotPasswordImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthVerifyEmailPageRoute = AuthVerifyEmailPageImport.update({
-  id: '/auth/verify-email/page',
-  path: '/auth/verify-email/page',
+const AuthRegisterIndexRoute = AuthRegisterIndexImport.update({
+  id: '/auth/register/',
+  path: '/auth/register/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthVerifyEmailClientRoute = AuthVerifyEmailClientImport.update({
-  id: '/auth/verify-email/client',
-  path: '/auth/verify-email/client',
+const AuthLoginIndexRoute = AuthLoginIndexImport.update({
+  id: '/auth/login/',
+  path: '/auth/login/',
   getParentRoute: () => rootRoute,
 } as any)
-
-const AuthTwoFactorPageRoute = AuthTwoFactorPageImport.update({
-  id: '/auth/two-factor/page',
-  path: '/auth/two-factor/page',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AuthResetPasswordPageRoute = AuthResetPasswordPageImport.update({
-  id: '/auth/reset-password/page',
-  path: '/auth/reset-password/page',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AuthRegisterPageRoute = AuthRegisterPageImport.update({
-  id: '/auth/register/page',
-  path: '/auth/register/page',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AuthLoginPageRoute = AuthLoginPageImport.update({
-  id: '/auth/login/page',
-  path: '/auth/login/page',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AuthRegisterComponentsRegisterCredentialsFormRoute =
-  AuthRegisterComponentsRegisterCredentialsFormImport.update({
-    id: '/auth/register/_components/register-credentials-form',
-    path: '/auth/register/register-credentials-form',
-    getParentRoute: () => rootRoute,
-  } as any)
-
-const AuthRegisterComponentsRegisterCardRoute =
-  AuthRegisterComponentsRegisterCardImport.update({
-    id: '/auth/register/_components/register-card',
-    path: '/auth/register/register-card',
-    getParentRoute: () => rootRoute,
-  } as any)
-
-const AuthLoginComponentsPasskeyRoute = AuthLoginComponentsPasskeyImport.update(
-  {
-    id: '/auth/login/_components/passkey',
-    path: '/auth/login/passkey',
-    getParentRoute: () => rootRoute,
-  } as any,
-)
-
-const AuthLoginComponentsOneTapRoute = AuthLoginComponentsOneTapImport.update({
-  id: '/auth/login/_components/one-tap',
-  path: '/auth/login/one-tap',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AuthLoginComponentsOauthButtonRoute =
-  AuthLoginComponentsOauthButtonImport.update({
-    id: '/auth/login/_components/oauth-button',
-    path: '/auth/login/oauth-button',
-    getParentRoute: () => rootRoute,
-  } as any)
-
-const AuthLoginComponentsLoginCardRoute =
-  AuthLoginComponentsLoginCardImport.update({
-    id: '/auth/login/_components/login-card',
-    path: '/auth/login/login-card',
-    getParentRoute: () => rootRoute,
-  } as any)
-
-const AuthLoginComponentsCredentialsRoute =
-  AuthLoginComponentsCredentialsImport.update({
-    id: '/auth/login/_components/credentials',
-    path: '/auth/login/credentials',
-    getParentRoute: () => rootRoute,
-  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -185,95 +122,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLayoutImport
       parentRoute: typeof rootRoute
     }
-    '/auth/login/page': {
-      id: '/auth/login/page'
-      path: '/auth/login/page'
-      fullPath: '/auth/login/page'
-      preLoaderRoute: typeof AuthLoginPageImport
+    '/auth/reset-password': {
+      id: '/auth/reset-password'
+      path: '/auth/reset-password'
+      fullPath: '/auth/reset-password'
+      preLoaderRoute: typeof AuthResetPasswordImport
       parentRoute: typeof rootRoute
     }
-    '/auth/register/page': {
-      id: '/auth/register/page'
-      path: '/auth/register/page'
-      fullPath: '/auth/register/page'
-      preLoaderRoute: typeof AuthRegisterPageImport
+    '/auth/two-factor': {
+      id: '/auth/two-factor'
+      path: '/auth/two-factor'
+      fullPath: '/auth/two-factor'
+      preLoaderRoute: typeof AuthTwoFactorImport
       parentRoute: typeof rootRoute
     }
-    '/auth/reset-password/page': {
-      id: '/auth/reset-password/page'
-      path: '/auth/reset-password/page'
-      fullPath: '/auth/reset-password/page'
-      preLoaderRoute: typeof AuthResetPasswordPageImport
+    '/auth/verify-email': {
+      id: '/auth/verify-email'
+      path: '/auth/verify-email'
+      fullPath: '/auth/verify-email'
+      preLoaderRoute: typeof AuthVerifyEmailImport
       parentRoute: typeof rootRoute
     }
-    '/auth/two-factor/page': {
-      id: '/auth/two-factor/page'
-      path: '/auth/two-factor/page'
-      fullPath: '/auth/two-factor/page'
-      preLoaderRoute: typeof AuthTwoFactorPageImport
+    '/auth/login/': {
+      id: '/auth/login/'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginIndexImport
       parentRoute: typeof rootRoute
     }
-    '/auth/verify-email/client': {
-      id: '/auth/verify-email/client'
-      path: '/auth/verify-email/client'
-      fullPath: '/auth/verify-email/client'
-      preLoaderRoute: typeof AuthVerifyEmailClientImport
-      parentRoute: typeof rootRoute
-    }
-    '/auth/verify-email/page': {
-      id: '/auth/verify-email/page'
-      path: '/auth/verify-email/page'
-      fullPath: '/auth/verify-email/page'
-      preLoaderRoute: typeof AuthVerifyEmailPageImport
-      parentRoute: typeof rootRoute
-    }
-    '/auth/login/_components/credentials': {
-      id: '/auth/login/_components/credentials'
-      path: '/auth/login/credentials'
-      fullPath: '/auth/login/credentials'
-      preLoaderRoute: typeof AuthLoginComponentsCredentialsImport
-      parentRoute: typeof rootRoute
-    }
-    '/auth/login/_components/login-card': {
-      id: '/auth/login/_components/login-card'
-      path: '/auth/login/login-card'
-      fullPath: '/auth/login/login-card'
-      preLoaderRoute: typeof AuthLoginComponentsLoginCardImport
-      parentRoute: typeof rootRoute
-    }
-    '/auth/login/_components/oauth-button': {
-      id: '/auth/login/_components/oauth-button'
-      path: '/auth/login/oauth-button'
-      fullPath: '/auth/login/oauth-button'
-      preLoaderRoute: typeof AuthLoginComponentsOauthButtonImport
-      parentRoute: typeof rootRoute
-    }
-    '/auth/login/_components/one-tap': {
-      id: '/auth/login/_components/one-tap'
-      path: '/auth/login/one-tap'
-      fullPath: '/auth/login/one-tap'
-      preLoaderRoute: typeof AuthLoginComponentsOneTapImport
-      parentRoute: typeof rootRoute
-    }
-    '/auth/login/_components/passkey': {
-      id: '/auth/login/_components/passkey'
-      path: '/auth/login/passkey'
-      fullPath: '/auth/login/passkey'
-      preLoaderRoute: typeof AuthLoginComponentsPasskeyImport
-      parentRoute: typeof rootRoute
-    }
-    '/auth/register/_components/register-card': {
-      id: '/auth/register/_components/register-card'
-      path: '/auth/register/register-card'
-      fullPath: '/auth/register/register-card'
-      preLoaderRoute: typeof AuthRegisterComponentsRegisterCardImport
-      parentRoute: typeof rootRoute
-    }
-    '/auth/register/_components/register-credentials-form': {
-      id: '/auth/register/_components/register-credentials-form'
-      path: '/auth/register/register-credentials-form'
-      fullPath: '/auth/register/register-credentials-form'
-      preLoaderRoute: typeof AuthRegisterComponentsRegisterCredentialsFormImport
+    '/auth/register/': {
+      id: '/auth/register/'
+      path: '/auth/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthRegisterIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -287,19 +168,11 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/layout': typeof AuthLayoutRoute
-  '/auth/login/page': typeof AuthLoginPageRoute
-  '/auth/register/page': typeof AuthRegisterPageRoute
-  '/auth/reset-password/page': typeof AuthResetPasswordPageRoute
-  '/auth/two-factor/page': typeof AuthTwoFactorPageRoute
-  '/auth/verify-email/client': typeof AuthVerifyEmailClientRoute
-  '/auth/verify-email/page': typeof AuthVerifyEmailPageRoute
-  '/auth/login/credentials': typeof AuthLoginComponentsCredentialsRoute
-  '/auth/login/login-card': typeof AuthLoginComponentsLoginCardRoute
-  '/auth/login/oauth-button': typeof AuthLoginComponentsOauthButtonRoute
-  '/auth/login/one-tap': typeof AuthLoginComponentsOneTapRoute
-  '/auth/login/passkey': typeof AuthLoginComponentsPasskeyRoute
-  '/auth/register/register-card': typeof AuthRegisterComponentsRegisterCardRoute
-  '/auth/register/register-credentials-form': typeof AuthRegisterComponentsRegisterCredentialsFormRoute
+  '/auth/reset-password': typeof AuthResetPasswordRoute
+  '/auth/two-factor': typeof AuthTwoFactorRoute
+  '/auth/verify-email': typeof AuthVerifyEmailRoute
+  '/auth/login': typeof AuthLoginIndexRoute
+  '/auth/register': typeof AuthRegisterIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -308,19 +181,11 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/layout': typeof AuthLayoutRoute
-  '/auth/login/page': typeof AuthLoginPageRoute
-  '/auth/register/page': typeof AuthRegisterPageRoute
-  '/auth/reset-password/page': typeof AuthResetPasswordPageRoute
-  '/auth/two-factor/page': typeof AuthTwoFactorPageRoute
-  '/auth/verify-email/client': typeof AuthVerifyEmailClientRoute
-  '/auth/verify-email/page': typeof AuthVerifyEmailPageRoute
-  '/auth/login/credentials': typeof AuthLoginComponentsCredentialsRoute
-  '/auth/login/login-card': typeof AuthLoginComponentsLoginCardRoute
-  '/auth/login/oauth-button': typeof AuthLoginComponentsOauthButtonRoute
-  '/auth/login/one-tap': typeof AuthLoginComponentsOneTapRoute
-  '/auth/login/passkey': typeof AuthLoginComponentsPasskeyRoute
-  '/auth/register/register-card': typeof AuthRegisterComponentsRegisterCardRoute
-  '/auth/register/register-credentials-form': typeof AuthRegisterComponentsRegisterCredentialsFormRoute
+  '/auth/reset-password': typeof AuthResetPasswordRoute
+  '/auth/two-factor': typeof AuthTwoFactorRoute
+  '/auth/verify-email': typeof AuthVerifyEmailRoute
+  '/auth/login': typeof AuthLoginIndexRoute
+  '/auth/register': typeof AuthRegisterIndexRoute
 }
 
 export interface FileRoutesById {
@@ -330,19 +195,11 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/layout': typeof AuthLayoutRoute
-  '/auth/login/page': typeof AuthLoginPageRoute
-  '/auth/register/page': typeof AuthRegisterPageRoute
-  '/auth/reset-password/page': typeof AuthResetPasswordPageRoute
-  '/auth/two-factor/page': typeof AuthTwoFactorPageRoute
-  '/auth/verify-email/client': typeof AuthVerifyEmailClientRoute
-  '/auth/verify-email/page': typeof AuthVerifyEmailPageRoute
-  '/auth/login/_components/credentials': typeof AuthLoginComponentsCredentialsRoute
-  '/auth/login/_components/login-card': typeof AuthLoginComponentsLoginCardRoute
-  '/auth/login/_components/oauth-button': typeof AuthLoginComponentsOauthButtonRoute
-  '/auth/login/_components/one-tap': typeof AuthLoginComponentsOneTapRoute
-  '/auth/login/_components/passkey': typeof AuthLoginComponentsPasskeyRoute
-  '/auth/register/_components/register-card': typeof AuthRegisterComponentsRegisterCardRoute
-  '/auth/register/_components/register-credentials-form': typeof AuthRegisterComponentsRegisterCredentialsFormRoute
+  '/auth/reset-password': typeof AuthResetPasswordRoute
+  '/auth/two-factor': typeof AuthTwoFactorRoute
+  '/auth/verify-email': typeof AuthVerifyEmailRoute
+  '/auth/login/': typeof AuthLoginIndexRoute
+  '/auth/register/': typeof AuthRegisterIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -353,19 +210,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth/forgot-password'
     | '/auth/layout'
-    | '/auth/login/page'
-    | '/auth/register/page'
-    | '/auth/reset-password/page'
-    | '/auth/two-factor/page'
-    | '/auth/verify-email/client'
-    | '/auth/verify-email/page'
-    | '/auth/login/credentials'
-    | '/auth/login/login-card'
-    | '/auth/login/oauth-button'
-    | '/auth/login/one-tap'
-    | '/auth/login/passkey'
-    | '/auth/register/register-card'
-    | '/auth/register/register-credentials-form'
+    | '/auth/reset-password'
+    | '/auth/two-factor'
+    | '/auth/verify-email'
+    | '/auth/login'
+    | '/auth/register'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -373,19 +222,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth/forgot-password'
     | '/auth/layout'
-    | '/auth/login/page'
-    | '/auth/register/page'
-    | '/auth/reset-password/page'
-    | '/auth/two-factor/page'
-    | '/auth/verify-email/client'
-    | '/auth/verify-email/page'
-    | '/auth/login/credentials'
-    | '/auth/login/login-card'
-    | '/auth/login/oauth-button'
-    | '/auth/login/one-tap'
-    | '/auth/login/passkey'
-    | '/auth/register/register-card'
-    | '/auth/register/register-credentials-form'
+    | '/auth/reset-password'
+    | '/auth/two-factor'
+    | '/auth/verify-email'
+    | '/auth/login'
+    | '/auth/register'
   id:
     | '__root__'
     | '/'
@@ -393,19 +234,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth/forgot-password'
     | '/auth/layout'
-    | '/auth/login/page'
-    | '/auth/register/page'
-    | '/auth/reset-password/page'
-    | '/auth/two-factor/page'
-    | '/auth/verify-email/client'
-    | '/auth/verify-email/page'
-    | '/auth/login/_components/credentials'
-    | '/auth/login/_components/login-card'
-    | '/auth/login/_components/oauth-button'
-    | '/auth/login/_components/one-tap'
-    | '/auth/login/_components/passkey'
-    | '/auth/register/_components/register-card'
-    | '/auth/register/_components/register-credentials-form'
+    | '/auth/reset-password'
+    | '/auth/two-factor'
+    | '/auth/verify-email'
+    | '/auth/login/'
+    | '/auth/register/'
   fileRoutesById: FileRoutesById
 }
 
@@ -415,19 +248,11 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
   AuthLayoutRoute: typeof AuthLayoutRoute
-  AuthLoginPageRoute: typeof AuthLoginPageRoute
-  AuthRegisterPageRoute: typeof AuthRegisterPageRoute
-  AuthResetPasswordPageRoute: typeof AuthResetPasswordPageRoute
-  AuthTwoFactorPageRoute: typeof AuthTwoFactorPageRoute
-  AuthVerifyEmailClientRoute: typeof AuthVerifyEmailClientRoute
-  AuthVerifyEmailPageRoute: typeof AuthVerifyEmailPageRoute
-  AuthLoginComponentsCredentialsRoute: typeof AuthLoginComponentsCredentialsRoute
-  AuthLoginComponentsLoginCardRoute: typeof AuthLoginComponentsLoginCardRoute
-  AuthLoginComponentsOauthButtonRoute: typeof AuthLoginComponentsOauthButtonRoute
-  AuthLoginComponentsOneTapRoute: typeof AuthLoginComponentsOneTapRoute
-  AuthLoginComponentsPasskeyRoute: typeof AuthLoginComponentsPasskeyRoute
-  AuthRegisterComponentsRegisterCardRoute: typeof AuthRegisterComponentsRegisterCardRoute
-  AuthRegisterComponentsRegisterCredentialsFormRoute: typeof AuthRegisterComponentsRegisterCredentialsFormRoute
+  AuthResetPasswordRoute: typeof AuthResetPasswordRoute
+  AuthTwoFactorRoute: typeof AuthTwoFactorRoute
+  AuthVerifyEmailRoute: typeof AuthVerifyEmailRoute
+  AuthLoginIndexRoute: typeof AuthLoginIndexRoute
+  AuthRegisterIndexRoute: typeof AuthRegisterIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -436,21 +261,11 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AuthForgotPasswordRoute: AuthForgotPasswordRoute,
   AuthLayoutRoute: AuthLayoutRoute,
-  AuthLoginPageRoute: AuthLoginPageRoute,
-  AuthRegisterPageRoute: AuthRegisterPageRoute,
-  AuthResetPasswordPageRoute: AuthResetPasswordPageRoute,
-  AuthTwoFactorPageRoute: AuthTwoFactorPageRoute,
-  AuthVerifyEmailClientRoute: AuthVerifyEmailClientRoute,
-  AuthVerifyEmailPageRoute: AuthVerifyEmailPageRoute,
-  AuthLoginComponentsCredentialsRoute: AuthLoginComponentsCredentialsRoute,
-  AuthLoginComponentsLoginCardRoute: AuthLoginComponentsLoginCardRoute,
-  AuthLoginComponentsOauthButtonRoute: AuthLoginComponentsOauthButtonRoute,
-  AuthLoginComponentsOneTapRoute: AuthLoginComponentsOneTapRoute,
-  AuthLoginComponentsPasskeyRoute: AuthLoginComponentsPasskeyRoute,
-  AuthRegisterComponentsRegisterCardRoute:
-    AuthRegisterComponentsRegisterCardRoute,
-  AuthRegisterComponentsRegisterCredentialsFormRoute:
-    AuthRegisterComponentsRegisterCredentialsFormRoute,
+  AuthResetPasswordRoute: AuthResetPasswordRoute,
+  AuthTwoFactorRoute: AuthTwoFactorRoute,
+  AuthVerifyEmailRoute: AuthVerifyEmailRoute,
+  AuthLoginIndexRoute: AuthLoginIndexRoute,
+  AuthRegisterIndexRoute: AuthRegisterIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -468,19 +283,11 @@ export const routeTree = rootRoute
         "/about",
         "/auth/forgot-password",
         "/auth/layout",
-        "/auth/login/page",
-        "/auth/register/page",
-        "/auth/reset-password/page",
-        "/auth/two-factor/page",
-        "/auth/verify-email/client",
-        "/auth/verify-email/page",
-        "/auth/login/_components/credentials",
-        "/auth/login/_components/login-card",
-        "/auth/login/_components/oauth-button",
-        "/auth/login/_components/one-tap",
-        "/auth/login/_components/passkey",
-        "/auth/register/_components/register-card",
-        "/auth/register/_components/register-credentials-form"
+        "/auth/reset-password",
+        "/auth/two-factor",
+        "/auth/verify-email",
+        "/auth/login/",
+        "/auth/register/"
       ]
     },
     "/": {
@@ -498,44 +305,20 @@ export const routeTree = rootRoute
     "/auth/layout": {
       "filePath": "auth/layout.tsx"
     },
-    "/auth/login/page": {
-      "filePath": "auth/login/page.tsx"
+    "/auth/reset-password": {
+      "filePath": "auth/reset-password.tsx"
     },
-    "/auth/register/page": {
-      "filePath": "auth/register/page.tsx"
+    "/auth/two-factor": {
+      "filePath": "auth/two-factor.tsx"
     },
-    "/auth/reset-password/page": {
-      "filePath": "auth/reset-password/page.tsx"
+    "/auth/verify-email": {
+      "filePath": "auth/verify-email.tsx"
     },
-    "/auth/two-factor/page": {
-      "filePath": "auth/two-factor/page.tsx"
+    "/auth/login/": {
+      "filePath": "auth/login/index.tsx"
     },
-    "/auth/verify-email/client": {
-      "filePath": "auth/verify-email/client.tsx"
-    },
-    "/auth/verify-email/page": {
-      "filePath": "auth/verify-email/page.tsx"
-    },
-    "/auth/login/_components/credentials": {
-      "filePath": "auth/login/_components/credentials.tsx"
-    },
-    "/auth/login/_components/login-card": {
-      "filePath": "auth/login/_components/login-card.tsx"
-    },
-    "/auth/login/_components/oauth-button": {
-      "filePath": "auth/login/_components/oauth-button.tsx"
-    },
-    "/auth/login/_components/one-tap": {
-      "filePath": "auth/login/_components/one-tap.tsx"
-    },
-    "/auth/login/_components/passkey": {
-      "filePath": "auth/login/_components/passkey.tsx"
-    },
-    "/auth/register/_components/register-card": {
-      "filePath": "auth/register/_components/register-card.tsx"
-    },
-    "/auth/register/_components/register-credentials-form": {
-      "filePath": "auth/register/_components/register-credentials-form.tsx"
+    "/auth/register/": {
+      "filePath": "auth/register/index.tsx"
     }
   }
 }
