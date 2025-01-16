@@ -37,7 +37,7 @@ const HttpLive = Layer.mergeAll(HttpAppLive)
 const Live = HttpLive.pipe(Layer.provide(TracingLive), Layer.provide(MainLayer))
 
 export default {
-	async fetch(request, env): Promise<Response> {
+	async fetch(request, env, ctx): Promise<Response> {
 		Object.assign(globalThis, {
 			env,
 		})
@@ -50,7 +50,13 @@ export default {
 			middleware: pipe(HttpMiddleware.logger),
 		})
 
-		return handler.handler(request)
+		const res = await handler.handler(request)
+
+		ctx.waitUntil(handler.dispose())
+
+		res.headers.set("Access-Control-Allow-Origin", origin || "*")
+
+		return res
 	},
 	async scheduled(controller, env) {
 		Object.assign(globalThis, {

@@ -1,0 +1,74 @@
+import { betterAuth } from "better-auth"
+import { drizzleAdapter } from "better-auth/adapters/drizzle"
+import { drizzle } from "drizzle-orm/postgres-js"
+import { Config, Data, Effect } from "effect"
+import { betterAuthOptions } from "~/lib/auth"
+
+import { schema } from "db"
+
+export class BetterAuthApiError extends Data.TaggedError("BetterAuthApiError")<{
+	readonly error: unknown
+}> {}
+
+export class BetterAuth extends Effect.Service<BetterAuth>()("BetterAuth", {
+	effect: Effect.gen(function* () {
+		const DATBASE_URL = yield* Config.string("DATABASE_URL")
+		const db = drizzle(DATBASE_URL)
+
+		const githubClientId = yield* Config.string("GITHUB_CLIENT_ID")
+		const githubClientSecret = yield* Config.string("GITHUB_CLIENT_SECRET")
+
+		const googleClientId = yield* Config.string("GOOGLE_CLIENT_ID")
+		const googleClientSecret = yield* Config.string("GOOGLE_CLIENT_SECRET")
+
+		const auth = betterAuth({
+			...betterAuthOptions,
+			socialProviders: {
+				github: {
+					clientId: githubClientId,
+					clientSecret: githubClientSecret,
+					redirectURL: "https://api.electric-auth.com/better-auth/callback/github",
+				},
+				google: {
+					clientId: googleClientId,
+					clientSecret: googleClientSecret,
+					redirectURL: "https://api.electric-auth.com/better-auth/callback/google",
+				},
+			},
+			database: drizzleAdapter(db, {
+				provider: "pg",
+				schema: schema,
+			}),
+
+			emailVerification: {
+				sendOnSignUp: true,
+				sendVerificationEmail: async ({ url, user }, request) => {
+					// TODO: Send email
+					// const resend = new Resend(process.env.RESEND_API_KEY!)
+					// try {
+					// 	await resend.emails.send({
+					// 		from: "NoReply <no-reply@hazelapp.dev>",
+					// 		to: [user.email],
+					// 		subject: "Verify your email address",
+					// 		text: url,
+					// 	})
+					// } catch (err) {
+					// 	console.error(err, "Failed to send verification email")
+					// }
+
+					return
+				},
+			},
+		})
+
+		const call = <A>(f: (client: typeof auth, signal: AbortSignal) => Promise<A>) =>
+			Effect.tryPromise({
+				try: (signal) => f(auth, signal),
+				catch: (error) => new BetterAuthApiError({ error }),
+			})
+
+		return {
+			call,
+		} as const
+	}),
+}) {}
