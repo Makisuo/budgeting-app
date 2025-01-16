@@ -15,6 +15,8 @@ const defaultFields = {
 	deletedAt: timestamp("deleted_at", { precision: 3 }),
 }
 
+export * from "./auth-schema"
+
 // Internal Table
 export const requisitions = pgTable("requisitions", {
 	id: text().primaryKey().notNull(),

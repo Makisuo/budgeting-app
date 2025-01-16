@@ -1,6 +1,7 @@
+import * as PgDrizzle from "@effect/sql-drizzle/Pg"
 import { PgClient } from "@effect/sql-pg"
 import * as Effect from "effect"
-import { Config } from "effect"
+import { Config, Layer } from "effect"
 
 export const PgLive = PgClient.layerConfig({
 	url: Config.redacted("DATABASE_URL"),
@@ -12,4 +13,6 @@ export const PgLive = PgClient.layerConfig({
 	transformResultNames: Config.succeed(Effect.String.snakeToCamel),
 })
 
-export const SqlLive = PgLive.pipe()
+const DrizzleLive = PgDrizzle.layer.pipe(Effect.Layer.provide(PgLive))
+
+export const SqlLive = Layer.mergeAll(PgLive, DrizzleLive)

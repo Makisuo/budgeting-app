@@ -11,14 +11,14 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
-		"@cloudflare/vitest-pool-workers": "^0.5.40",
-		"@cloudflare/workers-types": "^4.20241224.0",
+		"@cloudflare/vitest-pool-workers": "^0.6.3",
+		"@cloudflare/workers-types": "^4.20250109.0",
 		"@effect/language-service": "^0.2.0",
 		"@types/node": "^22.10.7",
 		"typescript": "^5.7.3",
-		"vitest": "2.1.8",
+		"vitest": "3.0.1",
 		"wangler": "^0.0.7",
-		"wrangler": "^3.99.0"
+		"wrangler": "^3.103.1"
 	},
 	"dependencies": {
 		"@clerk/backend": "^1.21.4",
@@ -26,6 +26,7 @@
 		"@effect/opentelemetry": "^0.42.0",
 		"@effect/platform": "^0.72.0",
 		"@effect/sql": "^0.25.0",
+		"@effect/sql-drizzle": "^0.25.1",
 		"@effect/sql-pg": "^0.26.0",
 		"@opentelemetry/exporter-trace-otlp-http": "^0.57.0",
 		"@opentelemetry/sdk-trace-base": "^1.30.0",

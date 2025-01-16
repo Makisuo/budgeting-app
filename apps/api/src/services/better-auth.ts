@@ -1,10 +1,11 @@
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
-import { drizzle } from "drizzle-orm/postgres-js"
 import { Config, Data, Effect } from "effect"
 import { betterAuthOptions } from "~/lib/auth"
 
+import { PgDrizzle } from "@effect/sql-drizzle/Pg"
 import { schema } from "db"
+import { SqlLive } from "./sql"
 
 export class BetterAuthApiError extends Data.TaggedError("BetterAuthApiError")<{
 	readonly error: unknown
@@ -12,8 +13,7 @@ export class BetterAuthApiError extends Data.TaggedError("BetterAuthApiError")<{
 
 export class BetterAuth extends Effect.Service<BetterAuth>()("BetterAuth", {
 	effect: Effect.gen(function* () {
-		const DATBASE_URL = yield* Config.string("DATABASE_URL")
-		const db = drizzle(DATBASE_URL)
+		const db = yield* PgDrizzle
 
 		const githubClientId = yield* Config.string("GITHUB_CLIENT_ID")
 		const githubClientSecret = yield* Config.string("GITHUB_CLIENT_SECRET")
@@ -71,4 +71,5 @@ export class BetterAuth extends Effect.Service<BetterAuth>()("BetterAuth", {
 			call,
 		} as const
 	}),
+	dependencies: [SqlLive],
 }) {}
