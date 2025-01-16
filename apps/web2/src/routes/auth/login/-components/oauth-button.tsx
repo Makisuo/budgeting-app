@@ -46,7 +46,7 @@ export const OAuthButton = ({ provider, redirect, prefix }: OAuthButtonProps) =>
 				startTransition(async () => {
 					await authClient.signIn.social({
 						provider,
-						callbackURL: redirect ?? "/",
+						callbackURL: redirect ?? window.location.origin,
 
 						fetchOptions: {
 							onSuccess: () => {
