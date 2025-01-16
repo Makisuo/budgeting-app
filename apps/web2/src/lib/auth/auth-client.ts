@@ -3,7 +3,7 @@ import { createAuthClient } from "better-auth/react"
 import { toast } from "sonner"
 
 export const authClient = createAuthClient({
-	baseURL: import.meta.env.VITE_BETTER_AUTH_URL,
+	baseURL: `${import.meta.env.VITE_BACKEND_URL}/better-auth`,
 	plugins: [
 		oneTapClient({
 			clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,

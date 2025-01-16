@@ -16,5 +16,12 @@ export default defineConfig({
 	worker: {
 		format: "es",
 	},
-	plugins: [tsconfigPaths(), TanStackRouterVite({}), react(), tailwindcss()],
+	plugins: [
+		tsconfigPaths(),
+		TanStackRouterVite({
+			routeToken: "layout",
+		}),
+		react(),
+		tailwindcss(),
+	],
 })

@@ -7,6 +7,7 @@ import { PgLiteProvider } from "~/utils/pglite/pglite.provider"
 export const Route = createFileRoute("/_app")({
 	component: RouteComponent,
 	beforeLoad: async ({ context }) => {
+		console.log("beforeLoad", context.auth.userId)
 		if (!context.auth.userId) {
 			throw redirect({
 				to: "/auth/signin/$",

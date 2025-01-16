@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as AppImport } from './routes/_app'
+import { Route as AuthLayoutImport } from './routes/auth/layout'
 import { Route as AppIndexImport } from './routes/_app/index'
 import { Route as AuthVerifyEmailImport } from './routes/auth/verify-email'
 import { Route as AuthTwoFactorImport } from './routes/auth/two-factor'
@@ -33,6 +34,12 @@ const AppRoute = AppImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AuthLayoutRoute = AuthLayoutImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AppIndexRoute = AppIndexImport.update({
   id: '/',
   path: '/',
@@ -40,45 +47,52 @@ const AppIndexRoute = AppIndexImport.update({
 } as any)
 
 const AuthVerifyEmailRoute = AuthVerifyEmailImport.update({
-  id: '/auth/verify-email',
-  path: '/auth/verify-email',
-  getParentRoute: () => rootRoute,
+  id: '/verify-email',
+  path: '/verify-email',
+  getParentRoute: () => AuthLayoutRoute,
 } as any)
 
 const AuthTwoFactorRoute = AuthTwoFactorImport.update({
-  id: '/auth/two-factor',
-  path: '/auth/two-factor',
-  getParentRoute: () => rootRoute,
+  id: '/two-factor',
+  path: '/two-factor',
+  getParentRoute: () => AuthLayoutRoute,
 } as any)
 
 const AuthResetPasswordRoute = AuthResetPasswordImport.update({
-  id: '/auth/reset-password',
-  path: '/auth/reset-password',
-  getParentRoute: () => rootRoute,
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => AuthLayoutRoute,
 } as any)
 
 const AuthForgotPasswordRoute = AuthForgotPasswordImport.update({
-  id: '/auth/forgot-password',
-  path: '/auth/forgot-password',
-  getParentRoute: () => rootRoute,
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => AuthLayoutRoute,
 } as any)
 
 const AuthRegisterIndexRoute = AuthRegisterIndexImport.update({
-  id: '/auth/register/',
-  path: '/auth/register/',
-  getParentRoute: () => rootRoute,
+  id: '/register/',
+  path: '/register/',
+  getParentRoute: () => AuthLayoutRoute,
 } as any)
 
 const AuthLoginIndexRoute = AuthLoginIndexImport.update({
-  id: '/auth/login/',
-  path: '/auth/login/',
-  getParentRoute: () => rootRoute,
+  id: '/login/',
+  path: '/login/',
+  getParentRoute: () => AuthLayoutRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthLayoutImport
+      parentRoute: typeof rootRoute
+    }
     '/_app': {
       id: '/_app'
       path: ''
@@ -95,31 +109,31 @@ declare module '@tanstack/react-router' {
     }
     '/auth/forgot-password': {
       id: '/auth/forgot-password'
-      path: '/auth/forgot-password'
+      path: '/forgot-password'
       fullPath: '/auth/forgot-password'
       preLoaderRoute: typeof AuthForgotPasswordImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof AuthLayoutImport
     }
     '/auth/reset-password': {
       id: '/auth/reset-password'
-      path: '/auth/reset-password'
+      path: '/reset-password'
       fullPath: '/auth/reset-password'
       preLoaderRoute: typeof AuthResetPasswordImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof AuthLayoutImport
     }
     '/auth/two-factor': {
       id: '/auth/two-factor'
-      path: '/auth/two-factor'
+      path: '/two-factor'
       fullPath: '/auth/two-factor'
       preLoaderRoute: typeof AuthTwoFactorImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof AuthLayoutImport
     }
     '/auth/verify-email': {
       id: '/auth/verify-email'
-      path: '/auth/verify-email'
+      path: '/verify-email'
       fullPath: '/auth/verify-email'
       preLoaderRoute: typeof AuthVerifyEmailImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof AuthLayoutImport
     }
     '/_app/': {
       id: '/_app/'
@@ -130,22 +144,44 @@ declare module '@tanstack/react-router' {
     }
     '/auth/login/': {
       id: '/auth/login/'
-      path: '/auth/login'
+      path: '/login'
       fullPath: '/auth/login'
       preLoaderRoute: typeof AuthLoginIndexImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof AuthLayoutImport
     }
     '/auth/register/': {
       id: '/auth/register/'
-      path: '/auth/register'
+      path: '/register'
       fullPath: '/auth/register'
       preLoaderRoute: typeof AuthRegisterIndexImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof AuthLayoutImport
     }
   }
 }
 
 // Create and export the route tree
+
+interface AuthLayoutRouteChildren {
+  AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
+  AuthResetPasswordRoute: typeof AuthResetPasswordRoute
+  AuthTwoFactorRoute: typeof AuthTwoFactorRoute
+  AuthVerifyEmailRoute: typeof AuthVerifyEmailRoute
+  AuthLoginIndexRoute: typeof AuthLoginIndexRoute
+  AuthRegisterIndexRoute: typeof AuthRegisterIndexRoute
+}
+
+const AuthLayoutRouteChildren: AuthLayoutRouteChildren = {
+  AuthForgotPasswordRoute: AuthForgotPasswordRoute,
+  AuthResetPasswordRoute: AuthResetPasswordRoute,
+  AuthTwoFactorRoute: AuthTwoFactorRoute,
+  AuthVerifyEmailRoute: AuthVerifyEmailRoute,
+  AuthLoginIndexRoute: AuthLoginIndexRoute,
+  AuthRegisterIndexRoute: AuthRegisterIndexRoute,
+}
+
+const AuthLayoutRouteWithChildren = AuthLayoutRoute._addFileChildren(
+  AuthLayoutRouteChildren,
+)
 
 interface AppRouteChildren {
   AppIndexRoute: typeof AppIndexRoute
@@ -158,6 +194,7 @@ const AppRouteChildren: AppRouteChildren = {
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 export interface FileRoutesByFullPath {
+  '/auth': typeof AuthLayoutRouteWithChildren
   '': typeof AuthRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
@@ -169,6 +206,7 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
+  '/auth': typeof AuthLayoutRouteWithChildren
   '': typeof AuthRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
@@ -181,6 +219,7 @@ export interface FileRoutesByTo {
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
+  '/auth': typeof AuthLayoutRouteWithChildren
   '/_app': typeof AppRouteWithChildren
   '/_auth': typeof AuthRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
@@ -195,6 +234,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/auth'
     | ''
     | '/auth/forgot-password'
     | '/auth/reset-password'
@@ -205,6 +245,7 @@ export interface FileRouteTypes {
     | '/auth/register'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/auth'
     | ''
     | '/auth/forgot-password'
     | '/auth/reset-password'
@@ -215,6 +256,7 @@ export interface FileRouteTypes {
     | '/auth/register'
   id:
     | '__root__'
+    | '/auth'
     | '/_app'
     | '/_auth'
     | '/auth/forgot-password'
@@ -228,25 +270,15 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
+  AuthLayoutRoute: typeof AuthLayoutRouteWithChildren
   AppRoute: typeof AppRouteWithChildren
   AuthRoute: typeof AuthRoute
-  AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
-  AuthResetPasswordRoute: typeof AuthResetPasswordRoute
-  AuthTwoFactorRoute: typeof AuthTwoFactorRoute
-  AuthVerifyEmailRoute: typeof AuthVerifyEmailRoute
-  AuthLoginIndexRoute: typeof AuthLoginIndexRoute
-  AuthRegisterIndexRoute: typeof AuthRegisterIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  AuthLayoutRoute: AuthLayoutRouteWithChildren,
   AppRoute: AppRouteWithChildren,
   AuthRoute: AuthRoute,
-  AuthForgotPasswordRoute: AuthForgotPasswordRoute,
-  AuthResetPasswordRoute: AuthResetPasswordRoute,
-  AuthTwoFactorRoute: AuthTwoFactorRoute,
-  AuthVerifyEmailRoute: AuthVerifyEmailRoute,
-  AuthLoginIndexRoute: AuthLoginIndexRoute,
-  AuthRegisterIndexRoute: AuthRegisterIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -259,8 +291,14 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
+        "/auth",
         "/_app",
-        "/_auth",
+        "/_auth"
+      ]
+    },
+    "/auth": {
+      "filePath": "auth/layout.tsx",
+      "children": [
         "/auth/forgot-password",
         "/auth/reset-password",
         "/auth/two-factor",
@@ -279,26 +317,32 @@ export const routeTree = rootRoute
       "filePath": "_auth.tsx"
     },
     "/auth/forgot-password": {
-      "filePath": "auth/forgot-password.tsx"
+      "filePath": "auth/forgot-password.tsx",
+      "parent": "/auth"
     },
     "/auth/reset-password": {
-      "filePath": "auth/reset-password.tsx"
+      "filePath": "auth/reset-password.tsx",
+      "parent": "/auth"
     },
     "/auth/two-factor": {
-      "filePath": "auth/two-factor.tsx"
+      "filePath": "auth/two-factor.tsx",
+      "parent": "/auth"
     },
     "/auth/verify-email": {
-      "filePath": "auth/verify-email.tsx"
+      "filePath": "auth/verify-email.tsx",
+      "parent": "/auth"
     },
     "/_app/": {
       "filePath": "_app/index.tsx",
       "parent": "/_app"
     },
     "/auth/login/": {
-      "filePath": "auth/login/index.tsx"
+      "filePath": "auth/login/index.tsx",
+      "parent": "/auth"
     },
     "/auth/register/": {
-      "filePath": "auth/register/index.tsx"
+      "filePath": "auth/register/index.tsx",
+      "parent": "/auth"
     }
   }
 }

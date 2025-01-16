@@ -13,6 +13,8 @@ export const Route = createFileRoute("/_app")({
 	beforeLoad: async ({ context, location }) => {
 		const session = await context.queryClient.ensureQueryData(authQueryOptions)
 
+		console.log("beforeLoad", session)
+
 		if (!session) {
 			throw redirect({
 				to: "/auth/login",
