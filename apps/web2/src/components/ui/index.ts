@@ -22,5 +22,6 @@ export * from './sheet';
 export * from './show-more';
 export * from './sidebar';
 export * from './text-field';
+export * from './toast';
 export * from './tooltip';
 export * from './visually-hidden';

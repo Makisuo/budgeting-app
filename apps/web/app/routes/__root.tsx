@@ -8,7 +8,6 @@ import { Providers } from "~/components/providers"
 
 import { ClerkProvider } from "@clerk/tanstack-start"
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { fetchUserSession } from "~/actions"
 
 import appCss from "~/styles/app.css?url"
@@ -16,8 +15,6 @@ import appCss from "~/styles/app.css?url"
 import { useAtom } from "jotai/react"
 import { RandomCat } from "~/components/random-cat"
 import { catModeAtom } from "./_app/settings"
-
-const queryClient = new QueryClient()
 
 export const Route = createRootRoute({
 	head: () => ({
@@ -66,11 +63,9 @@ function RootComponent() {
 	return (
 		<ClerkProvider>
 			<RootDocument>
-				<QueryClientProvider client={queryClient}>
-					<Providers>
-						<Outlet />
-					</Providers>
-				</QueryClientProvider>
+				<Providers>
+					<Outlet />
+				</Providers>
 			</RootDocument>
 		</ClerkProvider>
 	)

@@ -5,19 +5,18 @@ import { PGliteProvider } from "@electric-sql/pglite-react"
 
 import PGWorker from "./pglite.worker.js?worker"
 
-import { useAuth } from "@clerk/clerk-react"
 import { PGliteWorker } from "@electric-sql/pglite/worker"
 import { LoadingScreen } from "~/components/loading-screen"
 
 export const PgLiteProvider = ({ children }: { children: React.ReactNode }) => {
-	const { getToken } = useAuth()
+	// TODO: add jwt here
 
 	const [pgForProvider, setPgForProvider] = useState<PGliteWithLive | undefined>(undefined)
 
 	const sendToken = useCallback(async () => {
 		const bc = new BroadcastChannel("auth")
-		bc.postMessage({ type: "bearer", payload: await getToken() })
-	}, [getToken])
+		bc.postMessage({ type: "bearer", payload: "" })
+	}, [])
 
 	useEffect(() => {
 		const bc = new BroadcastChannel("auth")
