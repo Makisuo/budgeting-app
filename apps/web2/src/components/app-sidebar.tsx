@@ -1,15 +1,6 @@
 "use client"
 
-import {
-	IconAlbum,
-	IconCreditCard,
-	IconCube,
-	IconDashboard,
-	IconGear,
-	IconPeople,
-	IconPlus,
-	IconSettings,
-} from "justd-icons"
+import { IconAlbum, IconCreditCard, IconCube, IconDashboard, IconGear, IconPeople, IconPlus } from "justd-icons"
 import { useState } from "react"
 import {
 	Sidebar,
@@ -68,12 +59,12 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 							<SidebarLabel>Settings</SidebarLabel>
 						</SidebarDisclosureTrigger>
 						<SidebarDisclosurePanel>
-							<SidebarItem href="/dashboard/settings">
+							<SidebarItem href="/settings">
 								<IconGear />
 								<SidebarLabel>Profile</SidebarLabel>
 							</SidebarItem>
 
-							<SidebarItem href="/dashboard/settings/billings">
+							<SidebarItem href="/settings/billings">
 								<IconCreditCard />
 								<SidebarLabel>Billings</SidebarLabel>
 							</SidebarItem>
@@ -116,21 +107,12 @@ const AccountItems = () => {
 	return (
 		<>
 			{accounts.map((account) => (
-				<SidebarItem
-					icon={
-						account.institution?.logo
-							? () => (
-									<img
-										className="size-4"
-										src={account.institution.logo!}
-										alt={account.institution.name}
-									/>
-								)
-							: IconCube
-					}
-					key={account.id}
-					href={`/accounts/${account.id}` as "/accounts/$accountId"}
-				>
+				<SidebarItem key={account.id} href={`/accounts/${account.id}` as "/accounts/$accountId"}>
+					{account.institution?.logo ? (
+						<img className="size-4" src={account.institution.logo!} alt={account.institution.name} />
+					) : (
+						<IconCube />
+					)}
 					{account.institution.name} {account.type}
 				</SidebarItem>
 			))}

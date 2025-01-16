@@ -26,6 +26,7 @@ export * from './separator';
 export * from './sheet';
 export * from './show-more';
 export * from './sidebar';
+export * from './table';
 export * from './text-field';
 export * from './toast';
 export * from './tooltip';

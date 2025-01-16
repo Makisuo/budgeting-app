@@ -32,6 +32,7 @@
 		"arktype": "^2.0.0-rc.33",
 		"better-auth": "^1.1.13",
 		"input-otp": "^1.4.2",
+		"jotai": "^2.11.0",
 		"justd-icons": "^1.10.20",
 		"react": "19.0.0",
 		"react-aria-components": "^1.6.0",

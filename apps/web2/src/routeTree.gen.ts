@@ -19,8 +19,12 @@ import { Route as AuthVerifyEmailImport } from './routes/auth/verify-email'
 import { Route as AuthTwoFactorImport } from './routes/auth/two-factor'
 import { Route as AuthResetPasswordImport } from './routes/auth/reset-password'
 import { Route as AuthForgotPasswordImport } from './routes/auth/forgot-password'
+import { Route as AppSubscriptionsImport } from './routes/_app/subscriptions'
+import { Route as AppSettingsImport } from './routes/_app/settings'
 import { Route as AuthRegisterIndexImport } from './routes/auth/register/index'
 import { Route as AuthLoginIndexImport } from './routes/auth/login/index'
+import { Route as AppAccountsIndexImport } from './routes/_app/accounts/index'
+import { Route as AppAccountsAccountIdImport } from './routes/_app/accounts/$accountId'
 
 // Create/Update Routes
 
@@ -70,6 +74,18 @@ const AuthForgotPasswordRoute = AuthForgotPasswordImport.update({
   getParentRoute: () => AuthLayoutRoute,
 } as any)
 
+const AppSubscriptionsRoute = AppSubscriptionsImport.update({
+  id: '/subscriptions',
+  path: '/subscriptions',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppSettingsRoute = AppSettingsImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+
 const AuthRegisterIndexRoute = AuthRegisterIndexImport.update({
   id: '/register/',
   path: '/register/',
@@ -80,6 +96,18 @@ const AuthLoginIndexRoute = AuthLoginIndexImport.update({
   id: '/login/',
   path: '/login/',
   getParentRoute: () => AuthLayoutRoute,
+} as any)
+
+const AppAccountsIndexRoute = AppAccountsIndexImport.update({
+  id: '/accounts/',
+  path: '/accounts/',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppAccountsAccountIdRoute = AppAccountsAccountIdImport.update({
+  id: '/accounts/$accountId',
+  path: '/accounts/$accountId',
+  getParentRoute: () => AppRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -106,6 +134,20 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof AuthImport
       parentRoute: typeof rootRoute
+    }
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsImport
+      parentRoute: typeof AppImport
+    }
+    '/_app/subscriptions': {
+      id: '/_app/subscriptions'
+      path: '/subscriptions'
+      fullPath: '/subscriptions'
+      preLoaderRoute: typeof AppSubscriptionsImport
+      parentRoute: typeof AppImport
     }
     '/auth/forgot-password': {
       id: '/auth/forgot-password'
@@ -140,6 +182,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AppIndexImport
+      parentRoute: typeof AppImport
+    }
+    '/_app/accounts/$accountId': {
+      id: '/_app/accounts/$accountId'
+      path: '/accounts/$accountId'
+      fullPath: '/accounts/$accountId'
+      preLoaderRoute: typeof AppAccountsAccountIdImport
+      parentRoute: typeof AppImport
+    }
+    '/_app/accounts/': {
+      id: '/_app/accounts/'
+      path: '/accounts'
+      fullPath: '/accounts'
+      preLoaderRoute: typeof AppAccountsIndexImport
       parentRoute: typeof AppImport
     }
     '/auth/login/': {
@@ -184,11 +240,19 @@ const AuthLayoutRouteWithChildren = AuthLayoutRoute._addFileChildren(
 )
 
 interface AppRouteChildren {
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppSubscriptionsRoute: typeof AppSubscriptionsRoute
   AppIndexRoute: typeof AppIndexRoute
+  AppAccountsAccountIdRoute: typeof AppAccountsAccountIdRoute
+  AppAccountsIndexRoute: typeof AppAccountsIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppSettingsRoute: AppSettingsRoute,
+  AppSubscriptionsRoute: AppSubscriptionsRoute,
   AppIndexRoute: AppIndexRoute,
+  AppAccountsAccountIdRoute: AppAccountsAccountIdRoute,
+  AppAccountsIndexRoute: AppAccountsIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
@@ -196,11 +260,15 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 export interface FileRoutesByFullPath {
   '/auth': typeof AuthLayoutRouteWithChildren
   '': typeof AuthRoute
+  '/settings': typeof AppSettingsRoute
+  '/subscriptions': typeof AppSubscriptionsRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/two-factor': typeof AuthTwoFactorRoute
   '/auth/verify-email': typeof AuthVerifyEmailRoute
   '/': typeof AppIndexRoute
+  '/accounts/$accountId': typeof AppAccountsAccountIdRoute
+  '/accounts': typeof AppAccountsIndexRoute
   '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
 }
@@ -208,11 +276,15 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/auth': typeof AuthLayoutRouteWithChildren
   '': typeof AuthRoute
+  '/settings': typeof AppSettingsRoute
+  '/subscriptions': typeof AppSubscriptionsRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/two-factor': typeof AuthTwoFactorRoute
   '/auth/verify-email': typeof AuthVerifyEmailRoute
   '/': typeof AppIndexRoute
+  '/accounts/$accountId': typeof AppAccountsAccountIdRoute
+  '/accounts': typeof AppAccountsIndexRoute
   '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
 }
@@ -222,11 +294,15 @@ export interface FileRoutesById {
   '/auth': typeof AuthLayoutRouteWithChildren
   '/_app': typeof AppRouteWithChildren
   '/_auth': typeof AuthRoute
+  '/_app/settings': typeof AppSettingsRoute
+  '/_app/subscriptions': typeof AppSubscriptionsRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/two-factor': typeof AuthTwoFactorRoute
   '/auth/verify-email': typeof AuthVerifyEmailRoute
   '/_app/': typeof AppIndexRoute
+  '/_app/accounts/$accountId': typeof AppAccountsAccountIdRoute
+  '/_app/accounts/': typeof AppAccountsIndexRoute
   '/auth/login/': typeof AuthLoginIndexRoute
   '/auth/register/': typeof AuthRegisterIndexRoute
 }
@@ -236,22 +312,30 @@ export interface FileRouteTypes {
   fullPaths:
     | '/auth'
     | ''
+    | '/settings'
+    | '/subscriptions'
     | '/auth/forgot-password'
     | '/auth/reset-password'
     | '/auth/two-factor'
     | '/auth/verify-email'
     | '/'
+    | '/accounts/$accountId'
+    | '/accounts'
     | '/auth/login'
     | '/auth/register'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/auth'
     | ''
+    | '/settings'
+    | '/subscriptions'
     | '/auth/forgot-password'
     | '/auth/reset-password'
     | '/auth/two-factor'
     | '/auth/verify-email'
     | '/'
+    | '/accounts/$accountId'
+    | '/accounts'
     | '/auth/login'
     | '/auth/register'
   id:
@@ -259,11 +343,15 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_app'
     | '/_auth'
+    | '/_app/settings'
+    | '/_app/subscriptions'
     | '/auth/forgot-password'
     | '/auth/reset-password'
     | '/auth/two-factor'
     | '/auth/verify-email'
     | '/_app/'
+    | '/_app/accounts/$accountId'
+    | '/_app/accounts/'
     | '/auth/login/'
     | '/auth/register/'
   fileRoutesById: FileRoutesById
@@ -310,11 +398,23 @@ export const routeTree = rootRoute
     "/_app": {
       "filePath": "_app.tsx",
       "children": [
-        "/_app/"
+        "/_app/settings",
+        "/_app/subscriptions",
+        "/_app/",
+        "/_app/accounts/$accountId",
+        "/_app/accounts/"
       ]
     },
     "/_auth": {
       "filePath": "_auth.tsx"
+    },
+    "/_app/settings": {
+      "filePath": "_app/settings.tsx",
+      "parent": "/_app"
+    },
+    "/_app/subscriptions": {
+      "filePath": "_app/subscriptions.tsx",
+      "parent": "/_app"
     },
     "/auth/forgot-password": {
       "filePath": "auth/forgot-password.tsx",
@@ -334,6 +434,14 @@ export const routeTree = rootRoute
     },
     "/_app/": {
       "filePath": "_app/index.tsx",
+      "parent": "/_app"
+    },
+    "/_app/accounts/$accountId": {
+      "filePath": "_app/accounts/$accountId.tsx",
+      "parent": "/_app"
+    },
+    "/_app/accounts/": {
+      "filePath": "_app/accounts/index.tsx",
       "parent": "/_app"
     },
     "/auth/login/": {
