@@ -20,7 +20,11 @@ export const HttpAppLive = pipe(
 	HttpApiBuilder.Router.Live,
 	Layer.provide(HttpApiScalar.layer()),
 	Layer.provideMerge(HttpApiBuilder.middlewareOpenApi()),
-	Layer.provideMerge(HttpApiBuilder.middlewareCors()),
+	Layer.provideMerge(
+		HttpApiBuilder.middlewareCors({
+			credentials: true,
+		}),
+	),
 	Layer.provideMerge(HttpServer.layerContext),
 	Layer.provideMerge(ApiLive),
 

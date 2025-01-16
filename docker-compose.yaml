@@ -1,0 +1,33 @@
+name: "maple-budgeting"
+
+services:
+  electric:
+    image: electricsql/electric:1.0.0-beta.3
+    environment:
+      # DATABASE_URL: postgresql://hazel-3edi:local@127.0.0.1:9500/hazel?sslmode=disable
+      DATABASE_URL: postgres://postgres:password@127.0.0.1:5455/postgres?sslmode=disable
+
+    ports:
+      - "3000:3000"
+    network_mode: host
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5455:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    command:
+      - -c
+      - listen_addresses=*
+      - -c
+      - wal_level=logical
+
+volumes:
+  postgres_data:
+    driver: local

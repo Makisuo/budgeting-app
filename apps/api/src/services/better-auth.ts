@@ -3,7 +3,8 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle"
 import { Config, Data, Effect } from "effect"
 import { betterAuthOptions } from "~/lib/auth"
 
-import { PgDrizzle } from "@effect/sql-drizzle/Pg"
+import { drizzle } from "drizzle-orm/postgres-js"
+
 import { schema } from "db"
 import { SqlLive } from "./sql"
 
@@ -13,7 +14,9 @@ export class BetterAuthApiError extends Data.TaggedError("BetterAuthApiError")<{
 
 export class BetterAuth extends Effect.Service<BetterAuth>()("BetterAuth", {
 	effect: Effect.gen(function* () {
-		const db = yield* PgDrizzle
+		const databaseUrl = yield* Config.string("DATABASE_URL")
+
+		const db = drizzle(databaseUrl)
 
 		const githubClientId = yield* Config.string("GITHUB_CLIENT_ID")
 		const githubClientSecret = yield* Config.string("GITHUB_CLIENT_SECRET")
