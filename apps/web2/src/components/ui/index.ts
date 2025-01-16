@@ -4,6 +4,7 @@ export * from './badge';
 export * from './breadcrumbs';
 export * from './button';
 export * from './card';
+export * from './chart';
 export * from './checkbox';
 export * from './combo-box';
 export * from './container';
