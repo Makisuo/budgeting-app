@@ -10,7 +10,7 @@ export const useApi = () => {
 	}
 
 	const fetchClient = createFetchClient<paths>({
-		baseUrl: import.meta.env.VITE_APP_BACKEND_URL,
+		baseUrl: import.meta.env.VITE_BACKEND_URL,
 	})
 
 	fetchClient.use(authMiddleware)
