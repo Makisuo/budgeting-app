@@ -10,7 +10,6 @@ export const HttpBetterAuthLive = HttpApiBuilder.group(Api, "BetterAuth", (handl
 		return handlers
 			.handleRaw("betterAuthGet", () =>
 				Effect.gen(function* () {
-					console.log("betterAuthGet")
 					const req = yield* HttpServerRequest.HttpServerRequest
 					const raw = req.source as Request
 
@@ -21,7 +20,7 @@ export const HttpBetterAuthLive = HttpApiBuilder.group(Api, "BetterAuth", (handl
 						statusText: authRes.statusText,
 						headers: authRes.headers as any,
 					})
-				}).pipe(Effect.orDie),
+				}).pipe(Effect.tapError(Effect.logError), Effect.orDie),
 			)
 			.handleRaw("betterAuthPost", () =>
 				Effect.gen(function* () {
@@ -37,7 +36,7 @@ export const HttpBetterAuthLive = HttpApiBuilder.group(Api, "BetterAuth", (handl
 						statusText: authRes.statusText,
 						headers: authRes.headers as any,
 					})
-				}).pipe(Effect.orDie),
+				}).pipe(Effect.tapError(Effect.logError), Effect.orDie),
 			)
 	}).pipe(Effect.provide(BetterAuth.Default)),
 )
