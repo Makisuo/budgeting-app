@@ -58,7 +58,10 @@ export class BetterAuth extends Effect.Service<BetterAuth>()("BetterAuth", {
 		const call = <A>(f: (client: typeof auth, signal: AbortSignal) => Promise<A>) =>
 			Effect.tryPromise({
 				try: (signal) => f(auth, signal),
-				catch: (error) => new BetterAuthApiError({ error }),
+				catch: (error) => {
+					console.error(error)
+					return new BetterAuthApiError({ error })
+				},
 			})
 
 		return {
