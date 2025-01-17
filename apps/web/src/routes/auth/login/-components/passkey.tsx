@@ -13,25 +13,6 @@ export function Passkey() {
 
 	return (
 		<Button
-			ref={() => {
-				if (
-					!PublicKeyCredential.isConditionalMediationAvailable ||
-					!PublicKeyCredential.isConditionalMediationAvailable()
-				) {
-					return
-				}
-
-				void authClient.signIn.passkey({
-					autoFill: true,
-					fetchOptions: {
-						onSuccess: async () => {
-							navigate({
-								to: "/",
-							})
-						},
-					},
-				})
-			}}
 			onPress={() => {
 				startTransition(async () => {
 					await authClient.signIn.passkey({
