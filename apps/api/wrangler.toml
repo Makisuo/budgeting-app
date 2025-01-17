@@ -27,3 +27,6 @@ class_name = "SyncTransactionsWorkflow"
 binding = "HYPERDRIVE"
 id = "20471f3545bc4210bbee3142f31367ec"
 localConnectionString = "postgres://postgres:password@127.0.0.1:5455/postgres?sslmode=disable"
+
+[vars]
+LOG_LEVEL = "INFO"
