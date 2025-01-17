@@ -19,9 +19,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 			navigate={(to, options) => router.navigate({ to, ...options })}
 			useHref={(to) => router.buildLocation({ to: to }).href}
 		>
-			<ThemeProvider attribute="class" themes={["light", "dark", "pastel"]}>
-				{children}
-			</ThemeProvider>
+			<ThemeProvider themes={["light", "dark", "pastel"]}>{children}</ThemeProvider>
 		</RouterProvider>
 	)
 }
