@@ -1,7 +1,7 @@
 import { IconPlus } from "justd-icons"
 import { useMemo, useState } from "react"
 import { useApi } from "~/lib/api/client"
-import { Button, ComboBox, Modal, ProgressCircle, TextField } from "./ui"
+import { Button, ComboBox, Modal, ProgressCircle } from "./ui"
 
 import { useLiveQuery } from "@electric-sql/pglite-react"
 import { ListBox, ListBoxItem, Text } from "react-aria-components"

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Cat, type CatDirection, type CatState } from "./cat"
 
 interface RandomCatProps {
