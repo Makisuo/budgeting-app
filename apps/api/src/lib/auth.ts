@@ -8,7 +8,7 @@ import { DrizzleD1Database } from "drizzle-orm/d1"
 export const betterAuthOptions = {
 	baseURL: process.env.API_BASE_URL!,
 	appName: "Maple Budget",
-	trustedOrigins: ["http://localhost:3001", "https://app.maple.dev", "http://localhost:8787"],
+	trustedOrigins: ["http://localhost:3000", "https://app.maple.dev", "http://localhost:8787"],
 	basePath: "/better-auth",
 	emailAndPassword: {
 		enabled: true,
