@@ -61,7 +61,7 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 						<SidebarDisclosurePanel>
 							<SidebarItem href="/settings">
 								<IconGear />
-								<SidebarLabel>Profile</SidebarLabel>
+								<SidebarLabel>Settings</SidebarLabel>
 							</SidebarItem>
 
 							<SidebarItem href="/settings/billings">
