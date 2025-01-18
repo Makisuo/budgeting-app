@@ -28,7 +28,7 @@ function RouteComponent() {
 	}
 
 	return (
-		<div className="space-y-4">
+		<>
 			<AccountCard className="max-w-[300px]" account={bankAccount} compact />
 
 			<Card>
@@ -41,6 +41,6 @@ function RouteComponent() {
 					<TransactionTable accountId={accountId} />
 				</Card.Content>
 			</Card>
-		</div>
+		</>
 	)
 }
