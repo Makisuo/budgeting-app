@@ -24,8 +24,6 @@ export const HttpBetterAuthLive = HttpApiBuilder.group(Api, "BetterAuth", (handl
 			)
 			.handleRaw("betterAuthPost", () =>
 				Effect.gen(function* () {
-					console.log("betterAuthPost")
-
 					const req = yield* HttpServerRequest.HttpServerRequest
 					const raw = req.source as Request
 
