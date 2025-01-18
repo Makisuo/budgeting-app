@@ -204,11 +204,13 @@ function Home() {
 						<p className="text-muted-fg text-sm">Total Balance</p>
 					</div>
 					<div>
-						{usageData.balances.map((balance) => (
-							<p className="text-xl first:font-semibold first:text-3xl" key={balance.currency}>
-								{currencyFormatter(balance.currency).format(balance.balance)}
-							</p>
-						))}
+						{usageData.balances.length > 0
+							? usageData.balances.map((balance) => (
+									<p className="text-xl first:font-semibold first:text-3xl" key={balance.currency}>
+										{currencyFormatter(balance.currency).format(balance.balance)}
+									</p>
+								))
+							: "No data"}
 					</div>
 				</Card>
 				<Card className="col-span-4 space-y-1 p-4">
@@ -216,11 +218,13 @@ function Home() {
 						<p className="text-muted-fg text-sm">Monthly Expenses</p>
 					</div>
 					<div>
-						{monthlyStats.map((stat) => (
-							<p className="text-xl first:font-semibold first:text-3xl" key={stat.currency}>
-								{currencyFormatter(stat.currency).format(stat.expenses)}
-							</p>
-						))}
+						{monthlyStats.length > 0
+							? monthlyStats.map((stat) => (
+									<p className="text-xl first:font-semibold first:text-3xl" key={stat.currency}>
+										{currencyFormatter(stat.currency).format(stat.expenses)}
+									</p>
+								))
+							: "No data"}
 					</div>
 				</Card>
 				<Card className="col-span-4 space-y-1 p-4">
@@ -228,11 +232,13 @@ function Home() {
 						<p className="text-muted-fg text-sm">Monthly Earnings</p>
 					</div>
 					<div>
-						{monthlyStats.map((stat) => (
-							<p className="text-xl first:font-semibold first:text-3xl" key={stat.currency}>
-								{currencyFormatter(stat.currency).format(stat.earnings)}
-							</p>
-						))}
+						{monthlyStats.length > 0
+							? monthlyStats.map((stat) => (
+									<p className="text-xl first:font-semibold first:text-3xl" key={stat.currency}>
+										{currencyFormatter(stat.currency).format(stat.earnings)}
+									</p>
+								))
+							: "No data"}
 					</div>
 				</Card>
 			</div>
