@@ -6,48 +6,62 @@ import { AdminApi } from "./routes/admin/api"
 import { GoCardlessApi } from "./routes/go-cardless/api"
 import { RootApi } from "./routes/root/api"
 
-import { createClerkClient } from "@clerk/backend"
 import { BetterAuthApi } from "./routes/better-auth/api"
 import { SubscriptionApi } from "./routes/subscriptions/api"
+import { BetterAuth } from "./services/better-auth"
 
 export const AuthorizationLive = Layer.effect(
 	Authorization,
 	Effect.gen(function* () {
-		const clerkSecretKey = yield* Config.string("CLERK_SECRET_KEY")
-		const clerkPublishableKey = yield* Config.string("CLERK_PUBLISHABLE_KEY")
-		const clerkClient = createClerkClient({
-			secretKey: clerkSecretKey,
-			publishableKey: clerkPublishableKey,
-		})
-
-		yield* Effect.log("creating Authorization middleware")
+		const betterAuth = yield* BetterAuth
 
 		return Authorization.of({
 			bearer: (bearerToken) =>
 				Effect.gen(function* () {
 					const req = yield* HttpServerRequest.HttpServerRequest
 
-					const requestState = yield* Effect.tryPromise({
-						try: () =>
-							clerkClient.authenticateRequest(req.source as Request, {
-								// jwtKey: process.env.CLERK_JWT_KEY,
-								// authorizedParties: ["https://example.com"],
-							}),
-						catch: (e) => new Unauthorized({ message: "Clerk doesnt seem to be setup" }),
-					})
+					const raw = req.source as Request
 
-					if (!requestState.isSignedIn) {
-						return yield* Effect.fail(new Unauthorized({ message: "User is not singed in" }))
+					const session = yield* betterAuth
+						.call((client) =>
+							client.api.getSession({
+								headers: new Headers(raw.headers),
+							}),
+						)
+						.pipe(
+							Effect.tapError((err) => Effect.logError(err)),
+							Effect.catchTag(
+								"BetterAuthApiError",
+								(err) =>
+									new Unauthorized({
+										message: "User is not singed in",
+
+										// action: "read",
+										// actorId: TenantId.make("anonymous"),
+										// entity: "Unknown",
+									}),
+							),
+						)
+
+					if (!session) {
+						return yield* Effect.fail(
+							new Unauthorized({
+								message: "User is not singed in",
+								// action: "read",
+								// actorId: TenantId.make("anonymous"),
+								// entity: "Unknown",
+							}),
+						)
 					}
 
-					const subId = requestState.toAuth().sessionClaims.sub
+					const subId = session.session.userId
 
 					return User.make({
 						tenantId: TenantId.make(subId),
 					})
 				}),
 		})
-	}),
+	}).pipe(Effect.provide(BetterAuth.Default)),
 )
 
 export class Api extends HttpApi.make("api")
