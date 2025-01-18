@@ -33,7 +33,7 @@ function RouteComponent() {
 				<AppSidebar />
 				<SidebarInset>
 					<AppSidebarNav />
-					<Container className="overflow-hidden p-4 lg:p-6">
+					<Container className="space-y-3 overflow-hidden p-4 lg:p-6">
 						<Outlet />
 					</Container>
 				</SidebarInset>

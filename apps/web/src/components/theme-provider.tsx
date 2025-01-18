@@ -73,7 +73,7 @@ export function ThemeProvider<T extends string = BaseTheme>({
 	)
 }
 
-export function useTheme<T extends string = BaseTheme>() {
+export function useTheme() {
 	const context = useContext(ThemeProviderContext)
 
 	if (context === undefined) {

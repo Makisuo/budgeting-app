@@ -7,5 +7,5 @@
 	},
 	"private": true,
 	"trustedDependencies": ["@biomejs/biome", "protobufjs", "sharp", "workerd"],
-	"packageManager": "bun@1.1.43"
+	"packageManager": "bun@1.1.45"
 }

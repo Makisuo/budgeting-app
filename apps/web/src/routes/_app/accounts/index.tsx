@@ -1,4 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { Link, createFileRoute } from "@tanstack/react-router"
+import { IconPlus } from "justd-icons"
+import { useState } from "react"
+import { BankConnector } from "~/components/bank-connector"
+import { Button, Card } from "~/components/ui"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 import { AccountCard } from "./-components/account-card"
 
@@ -17,6 +21,26 @@ function RouteComponent() {
 			},
 		}),
 	)
+
+	const [isOpen, setIsOpen] = useState(false)
+
+	if (data.length === 0) {
+		return (
+			<Card className="border-dotted">
+				<Card.Header
+					title="No connected accounts found"
+					description="Connect your first account to get started"
+				/>
+				<Card.Footer>
+					<Button onPress={() => setIsOpen((open) => !open)}>
+						<IconPlus />
+						Connect New Bank Account
+					</Button>
+					<BankConnector isOpen={isOpen} setIsOpen={setIsOpen} />
+				</Card.Footer>
+			</Card>
+		)
+	}
 
 	return (
 		<div>
