@@ -26,7 +26,6 @@ class_name = "SyncTransactionsWorkflow"
 [[hyperdrive]]
 binding = "HYPERDRIVE"
 id = "20471f3545bc4210bbee3142f31367ec"
-localConnectionString = "postgresql://postgres:o9iopokspplw04os@142.132.228.194:5655/maple"
 
 [vars]
 LOG_LEVEL = "INFO"

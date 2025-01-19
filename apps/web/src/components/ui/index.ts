@@ -29,5 +29,6 @@ export * from './sidebar';
 export * from './table';
 export * from './text-field';
 export * from './toast';
+export * from './toggle';
 export * from './tooltip';
 export * from './visually-hidden';

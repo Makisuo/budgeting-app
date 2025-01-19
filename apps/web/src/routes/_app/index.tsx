@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router"
 import type { Account, Transaction } from "db"
 import { useMemo } from "react"
-import { Bar, BarChart, CartesianGrid, Rectangle, XAxis, YAxis } from "recharts"
+import { Bar, CartesianGrid, Rectangle, XAxis, YAxis } from "recharts"
 import { Card } from "~/components/ui"
+import { BarChart } from "~/components/ui/bar-chart"
 import { Chart, ChartTooltip, ChartTooltipContent } from "~/components/ui/chart"
 import { currencyFormatter } from "~/utils/formatters"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
@@ -249,30 +250,27 @@ function Home() {
 						<Card.Title>Daily Financial Activity</Card.Title>
 						<Card.Description>{dateRanges.daily}</Card.Description>
 					</Card.Header>
-					<Chart config={chartConfig} className="h-[400px] w-full">
-						<BarChart
-							accessibilityLayer
-							margin={{
-								left: 10,
-								right: 10,
-							}}
-							data={chartData}
-						>
-							<CartesianGrid vertical={false} />
-							<ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-							<XAxis dataKey="date" tickLine={false} axisLine={false} />
-							<YAxis />
-							<Bar radius={3} fill="var(--color-expenses)" dataKey="expenses" name="Expenses" />
-							<Bar radius={3} fill="var(--color-earnings)" dataKey="earnings" name="Earnings" />
-						</BarChart>
-					</Chart>
+					<BarChart
+						config={chartConfig}
+						className="h-[400px] min-h-[400px] w-full"
+						data={chartData}
+						dataKey={"date"}
+					/>
 				</Card>
 				<Card className="col-span-12 md:col-span-6 xl:col-span-4">
 					<Card.Header>
 						<Card.Title>Monthly Earnings</Card.Title>
 						<Card.Description>{dateRanges.monthly}</Card.Description>
 					</Card.Header>
-					<Chart config={chartConfig} className="h-[400px] w-full">
+					{/* <BarChart
+						layout="vertical"
+						config={chartConfig}
+						className="h-[400px] w-full"
+						data={monthlyTotals}
+						dataKey={"date"}
+					/> */}
+
+					{/* <Chart config={chartConfig} className="h-[400px] w-full">
 						<BarChart
 							accessibilityLayer
 							layout="vertical"
@@ -310,14 +308,14 @@ function Home() {
 								name="Earnings"
 							/>
 						</BarChart>
-					</Chart>
+					</Chart> */}
 				</Card>
 				<Card className="col-span-12 md:col-span-6 xl:col-span-4">
 					<Card.Header>
 						<Card.Title>Monthly Expenses</Card.Title>
 						<Card.Description>{dateRanges.monthly}</Card.Description>
 					</Card.Header>
-					<Chart config={chartConfig} className="h-[400px] w-full">
+					{/* <Chart config={chartConfig} className="h-[400px] w-full">
 						<BarChart
 							accessibilityLayer
 							layout="vertical"
@@ -356,7 +354,7 @@ function Home() {
 								name="Expenses"
 							/>
 						</BarChart>
-					</Chart>
+					</Chart> */}
 				</Card>
 			</div>
 		</div>
