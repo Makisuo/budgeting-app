@@ -39,10 +39,7 @@ interface CalendarProps<T extends DateValue> extends Omit<CalendarPrimitiveProps
 
 const Calendar = <T extends DateValue>({ errorMessage, className, ...props }: CalendarProps<T>) => {
 	return (
-		<CalendarPrimitive
-			className={composeTailwindRenderProps(className, "max-w-[35rem] sm:max-w-[25.0rem]")}
-			{...props}
-		>
+		<CalendarPrimitive className={composeTailwindRenderProps(className, "")} {...props}>
 			<CalendarHeader />
 			<CalendarGrid className="[&_td]:border-collapse [&_td]:px-0">
 				<CalendarGridHeader />

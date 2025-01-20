@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 import type { Account, Transaction } from "db"
 import { useMemo } from "react"
-import { Calendar, Card } from "~/components/ui"
+import { Calendar, Card, Toggle, ToggleGroup } from "~/components/ui"
 import { currencyFormatter } from "~/utils/formatters"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 
@@ -256,13 +256,19 @@ function Home() {
 				</Card>
 			</div>
 
-			<Card>
+			<Card className="max-w-[430px]">
 				<Card.Header>
-					<Card.Title>Calendar</Card.Title>
+					<div className="flex justify-between">
+						<Card.Title>Calendar</Card.Title>
+						<ToggleGroup appearance="outline" defaultSelectedKeys={["center"]} selectionMode="single">
+							<Toggle id="income">Income</Toggle>
+							<Toggle id="expenses">Expenses</Toggle>
+						</ToggleGroup>
+					</div>
 				</Card.Header>
-				<Card.Content className="p-6">
+				<div className="px-3 py-2">
 					<Calendar aria-label="Event date" />
-				</Card.Content>
+				</div>
 			</Card>
 
 			{/* <div className="grid grid-cols-12 gap-3">
