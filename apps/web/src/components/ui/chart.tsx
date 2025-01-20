@@ -216,7 +216,7 @@ const Chart = ({
 				{...props}
 			>
 				<ChartStyle id={chartId} config={config} />
-				<ResponsiveContainer width="100%" height={400}>
+				<ResponsiveContainer id={chartId} width="100%" height={400}>
 					{typeof children === "function" ? children(value) : children}
 				</ResponsiveContainer>
 			</div>

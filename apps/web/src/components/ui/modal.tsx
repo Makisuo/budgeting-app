@@ -57,7 +57,7 @@ const content = tv({
     },
   },
   defaultVariants: {
-    size: "xl",
+    size: "lg",
   },
 })
 
@@ -112,7 +112,6 @@ const ModalContent = ({
             className,
           }),
         )}
-        {...props}
       >
         <Dialog aria-label={props["aria-label"]} role={role}>
           {(values) => (

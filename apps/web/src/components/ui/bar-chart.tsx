@@ -87,6 +87,8 @@ const BarChart = <TValue extends ValueType, TName extends NameType>({
 			{({ onLegendSelect, selectedLegend }) => (
 				<BarChartPrimitive
 					className="min-h-[400px]"
+					width={730}
+					height={250}
 					onClick={() => {
 						onLegendSelect(null)
 					}}

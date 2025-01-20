@@ -1,10 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 import type { Account, Transaction } from "db"
 import { useMemo } from "react"
-import { Bar, CartesianGrid, Rectangle, XAxis, YAxis } from "recharts"
-import { Card } from "~/components/ui"
-import { BarChart } from "~/components/ui/bar-chart"
-import { Chart, ChartTooltip, ChartTooltipContent } from "~/components/ui/chart"
+import { Calendar, Card } from "~/components/ui"
 import { currencyFormatter } from "~/utils/formatters"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 
@@ -71,7 +68,7 @@ const getChartData = (accounts: (Account & { transactions: Transaction[] })[]) =
 	fourteenDaysAgo.setDate(currentDate.getDate() - 13) // -13 because we want to include today
 
 	// Initialize daily totals for last 14 days
-	const dailyData = Array.from({ length: 14 }, (_, i) => {
+	const dailyData = Array.from({ length: 7 }, (_, i) => {
 		const date = new Date(fourteenDaysAgo)
 		date.setDate(fourteenDaysAgo.getDate() + i)
 		return {
@@ -188,63 +185,87 @@ function Home() {
 		return getDateRanges()
 	}, [])
 
+	const amountOfTransactions = useMemo(() => {
+		return data.reduce((acc, curr) => acc + curr.transactions.length, 0)
+	}, [data])
+
 	const chartConfig = {
 		expenses: {
-			color: "hsl(var(--danger))",
+			label: "Expenses",
+			color: "var(--danger)",
 		},
 		earnings: {
-			color: "hsl(var(--success))",
+			label: "Earnings",
+			color: "var(--success)",
 		},
 	}
 
 	return (
 		<div className="space-y-6">
 			<div className="grid grid-cols-12 gap-3">
-				<Card className="col-span-4 space-y-1 p-4">
-					<div className="flex items-center gap-2">
-						<p className="text-muted-fg text-sm">Total Balance</p>
-					</div>
-					<div>
-						{usageData.balances.length > 0
-							? usageData.balances.map((balance) => (
-									<p className="text-xl first:font-semibold first:text-3xl" key={balance.currency}>
-										{currencyFormatter(balance.currency).format(balance.balance)}
-									</p>
-								))
-							: "No data"}
-					</div>
+				<Card className="col-span-3 space-y-1">
+					<Card.Header>
+						<Card.Description>Total Balance</Card.Description>
+						<div>
+							{usageData.balances.length > 0
+								? usageData.balances.map((balance) => (
+										<p
+											className="text-xl first:font-semibold first:text-3xl"
+											key={balance.currency}
+										>
+											{currencyFormatter(balance.currency).format(balance.balance)}
+										</p>
+									))
+								: "No data"}
+						</div>
+					</Card.Header>
 				</Card>
-				<Card className="col-span-4 space-y-1 p-4">
-					<div className="flex items-center gap-2">
-						<p className="text-muted-fg text-sm">Monthly Expenses</p>
-					</div>
-					<div>
-						{monthlyStats.length > 0
-							? monthlyStats.map((stat) => (
-									<p className="text-xl first:font-semibold first:text-3xl" key={stat.currency}>
-										{currencyFormatter(stat.currency).format(stat.expenses)}
-									</p>
-								))
-							: "No data"}
-					</div>
+				<Card className="col-span-3 space-y-1">
+					<Card.Header>
+						<Card.Description>Monthly Expenses</Card.Description>
+						<div>
+							{monthlyStats.length > 0
+								? monthlyStats.map((stat) => (
+										<p className="text-xl first:font-semibold first:text-3xl" key={stat.currency}>
+											{currencyFormatter(stat.currency).format(stat.expenses)}
+										</p>
+									))
+								: "No data"}
+						</div>
+					</Card.Header>
 				</Card>
-				<Card className="col-span-4 space-y-1 p-4">
-					<div className="flex items-center gap-2">
-						<p className="text-muted-fg text-sm">Monthly Earnings</p>
-					</div>
-					<div>
-						{monthlyStats.length > 0
-							? monthlyStats.map((stat) => (
-									<p className="text-xl first:font-semibold first:text-3xl" key={stat.currency}>
-										{currencyFormatter(stat.currency).format(stat.earnings)}
-									</p>
-								))
-							: "No data"}
-					</div>
+				<Card className="col-span-3 space-y-1">
+					<Card.Header>
+						<Card.Description>Monthly Earnings</Card.Description>
+						<div>
+							{monthlyStats.length > 0
+								? monthlyStats.map((stat) => (
+										<p className="text-xl first:font-semibold first:text-3xl" key={stat.currency}>
+											{currencyFormatter(stat.currency).format(stat.earnings)}
+										</p>
+									))
+								: "No data"}
+						</div>
+					</Card.Header>
+				</Card>
+				<Card className="col-span-3 space-y-1">
+					<Card.Header>
+						<Card.Description>Monthly Transactions</Card.Description>
+						<p className="font-semibold text-3xl">{amountOfTransactions}</p>
+					</Card.Header>
 				</Card>
 			</div>
 
-			<div className="grid grid-cols-12 gap-3">
+			<Card>
+				<Card.Header>
+					<Card.Title>Calendar</Card.Title>
+				</Card.Header>
+				<Card.Content className="p-6">
+					<Calendar aria-label="Event date" />
+				</Card.Content>
+			</Card>
+
+			{/* <div className="grid grid-cols-12 gap-3">
 				<Card className="col-span-12 xl:col-span-4">
 					<Card.Header>
 						<Card.Title>Daily Financial Activity</Card.Title>
@@ -253,6 +274,7 @@ function Home() {
 					<BarChart
 						config={chartConfig}
 						className="h-[400px] min-h-[400px] w-full"
+						legend
 						data={chartData}
 						dataKey={"date"}
 					/>
@@ -262,101 +284,37 @@ function Home() {
 						<Card.Title>Monthly Earnings</Card.Title>
 						<Card.Description>{dateRanges.monthly}</Card.Description>
 					</Card.Header>
-					{/* <BarChart
-						layout="vertical"
-						config={chartConfig}
+					<BarChart
+						config={{
+							earnings: {
+								label: "Earnings",
+								color: "var(--success)",
+							},
+						}}
 						className="h-[400px] w-full"
 						data={monthlyTotals}
-						dataKey={"date"}
-					/> */}
-
-					{/* <Chart config={chartConfig} className="h-[400px] w-full">
-						<BarChart
-							accessibilityLayer
-							layout="vertical"
-							margin={{
-								right: 16,
-							}}
-							data={monthlyTotals}
-						>
-							<ChartTooltip cursor={true} content={<ChartTooltipContent hideLabel />} />
-							<XAxis type="number" tickLine={false} axisLine={false} />
-							<YAxis type="category" dataKey="month" tickLine={false} axisLine={false} />
-							<Bar
-								radius={3}
-								background={{ radius: 3, fill: "hsl(var(--success)/10%)" }}
-								shape={(props: any) => {
-									const formatted = currencyFormatter("USD").format(props.earnings)
-									return (
-										<>
-											<Rectangle {...props} />
-											<text
-												x={props.background.width - 4}
-												y={props.y + props.height / 2}
-												fill="hsl(var(--fg))"
-												fontSize={14}
-												dominantBaseline="middle"
-											>
-												{formatted}
-											</text>
-										</>
-									)
-								}}
-								layout="vertical"
-								fill="var(--color-earnings)"
-								dataKey="earnings"
-								name="Earnings"
-							/>
-						</BarChart>
-					</Chart> */}
+						dataKey={"month"}
+					/>
 				</Card>
 				<Card className="col-span-12 md:col-span-6 xl:col-span-4">
 					<Card.Header>
 						<Card.Title>Monthly Expenses</Card.Title>
 						<Card.Description>{dateRanges.monthly}</Card.Description>
 					</Card.Header>
-					{/* <Chart config={chartConfig} className="h-[400px] w-full">
-						<BarChart
-							accessibilityLayer
-							layout="vertical"
-							margin={{
-								right: 16,
-							}}
-							data={monthlyTotals}
-						>
-							<ChartTooltip cursor={true} content={<ChartTooltipContent hideLabel />} />
-							<XAxis type="number" tickLine={false} axisLine={false} />
-							<YAxis type="category" dataKey="month" tickLine={false} axisLine={false} />
-							<Bar
-								radius={3}
-								background={{ radius: 3, fill: "hsl(var(--danger)/10%)" }}
-								shape={(props: any) => {
-									const formatted = currencyFormatter("USD").format(props.expenses)
-
-									return (
-										<>
-											<Rectangle {...props} />
-											<text
-												x={props.background.width - 4}
-												y={props.y + props.height / 2}
-												fill="hsl(var(--fg))"
-												fontSize={14}
-												dominantBaseline="middle"
-											>
-												{formatted}
-											</text>
-										</>
-									)
-								}}
-								layout="vertical"
-								fill="var(--color-expenses)"
-								dataKey="expenses"
-								name="Expenses"
-							/>
-						</BarChart>
-					</Chart> */}
+					<BarChart
+						layout="vertical"
+						config={{
+							expenses: {
+								label: "Expenses",
+								color: "var(--danger)",
+							},
+						}}
+						className="h-[400px] w-full"
+						data={monthlyTotals}
+						dataKey={"month"}
+					/>
 				</Card>
-			</div>
+			</div> */}
 		</div>
 	)
 }
