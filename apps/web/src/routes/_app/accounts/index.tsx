@@ -44,7 +44,7 @@ function RouteComponent() {
 
 	return (
 		<div>
-			<div className="flex flex-row gap-2">
+			<div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
 				{data.map((item) => (
 					<AccountCard key={item.id} account={item} />
 				))}

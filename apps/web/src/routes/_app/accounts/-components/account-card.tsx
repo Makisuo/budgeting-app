@@ -2,8 +2,8 @@ import { Link } from "@tanstack/react-router"
 import type { Account, Institution, Transaction } from "db"
 import { IconCube } from "justd-icons"
 import { useMemo } from "react"
-import { Bar, BarChart } from "recharts"
-import { Card, Chart, type ChartConfig, ChartTooltip, ChartTooltipContent } from "ui"
+import { Card, type ChartConfig } from "ui"
+import { SparkBarChart } from "~/components/ui/spark-chart"
 import { cn } from "~/utils/classes"
 import { currencyFormatter } from "~/utils/formatters"
 
@@ -19,11 +19,11 @@ export interface AccountCardProps {
 const config = {
 	income: {
 		label: "Income",
-		color: "hsl(var(--success))",
+		color: "var(--success)",
 	},
 	outgoings: {
 		label: "Outgoings",
-		color: "hsl(var(--danger))",
+		color: "var(--danger)",
 	},
 } satisfies ChartConfig
 
@@ -71,7 +71,7 @@ export const AccountCard = ({ account, className, compact }: AccountCardProps) =
 
 	return (
 		<Link to={"/accounts/$accountId"} params={{ accountId: account.id }}>
-			<Card className={cn("min-w-[220px]", className)}>
+			<Card className={cn("flex h-full min-w-[220px] flex-col justify-between", className)}>
 				<Card.Header>
 					<div className="flex flex-row items-center gap-2">
 						{account.institution.logo ? (
@@ -87,13 +87,7 @@ export const AccountCard = ({ account, className, compact }: AccountCardProps) =
 					{currencyFormatter(account.balanceCurrency).format(account.balanceAmount)}
 				</Card.Content>
 				{!compact && (
-					<Chart className="h-[60px] w-full" config={config}>
-						<BarChart accessibilityLayer data={dailyTransactions}>
-							<ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-							<Bar dataKey="income" stackId={account.id} fill="var(--color-income)" radius={3} />
-							<Bar dataKey="outgoings" stackId={account.id} fill="var(--color-outgoings)" radius={3} />
-						</BarChart>
-					</Chart>
+					<SparkBarChart className="w-full" config={config} data={dailyTransactions} dataKey="date" />
 				)}
 			</Card>
 		</Link>
