@@ -1,21 +1,36 @@
 import { useSetAtom } from "jotai"
 import { IconCirclePlaceholderDashed } from "justd-icons"
-import { useState } from "react"
 import { DateValue } from "~/components/date-value"
-import { Badge, Button, Sheet } from "~/components/ui"
+import { Badge } from "~/components/ui"
 import { Table } from "~/components/ui/html-table"
 import { currencyFormatter } from "~/utils/formatters"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 import { TransactionAside, transactionAsideAtom } from "./transaction-aside"
 
-export const TransactionTable = ({ accountId }: { accountId: string }) => {
+export const TransactionTable = ({
+	accountId,
+	filter,
+}: {
+	accountId: string
+	filter?: {
+		transactionName?: string
+		companyId?: string
+		categoryId?: string
+	}
+}) => {
 	const { data: transactions } = useDrizzleLive((db) =>
 		db.query.transactions.findMany({
 			with: {
 				company: true,
 				category: true,
 			},
-			where: (table, { eq }) => eq(table.accountId, accountId),
+			where: (table, { eq, and }) =>
+				and(
+					eq(table.accountId, accountId),
+					filter?.companyId ? eq(table.companyId, filter.companyId) : undefined,
+					filter?.categoryId ? eq(table.categoryId, filter.categoryId) : undefined,
+					filter?.transactionName ? eq(table.name, filter.transactionName) : undefined,
+				),
 			limit: 100,
 			orderBy: (table, { desc }) => desc(table.date),
 		}),

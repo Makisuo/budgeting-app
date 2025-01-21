@@ -1,15 +1,26 @@
-import { createFileRoute } from "@tanstack/react-router"
-import { Card } from "~/components/ui"
+import { Link, createFileRoute } from "@tanstack/react-router"
+import { type } from "arktype"
+import { IconX } from "justd-icons"
+import { Button, Card, buttonStyles } from "~/components/ui"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 import { AccountCard } from "./-components/account-card"
 import { TransactionTable } from "./-components/transaction-table"
 
+const searchParams = type({
+	"company?": "string",
+	"transactionName?": "string",
+})
+
 export const Route = createFileRoute("/_app/accounts/$accountId")({
 	component: RouteComponent,
+	validateSearch: searchParams,
 })
 
 function RouteComponent() {
 	const { accountId } = Route.useParams()
+	const { company, transactionName } = Route.useSearch()
+
+	const hasSearchParams = !!company || !!transactionName
 
 	const { data: bankAccount } = useDrizzleLive((db) =>
 		db.query.accounts.findFirst({
@@ -31,6 +42,20 @@ function RouteComponent() {
 		<>
 			<AccountCard className="max-w-[300px]" account={bankAccount} compact />
 
+			<div className="flex justify-end">
+				{hasSearchParams && (
+					<Link
+						className={buttonStyles({
+							appearance: "outline",
+							size: "small",
+						})}
+						to="/accounts/$accountId"
+						params={{ accountId: accountId }}
+					>
+						<IconX /> Reset Filters
+					</Link>
+				)}
+			</div>
 			<Card>
 				<Card.Header className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
 					<div>
@@ -38,7 +63,10 @@ function RouteComponent() {
 					</div>
 				</Card.Header>
 				<Card.Content>
-					<TransactionTable accountId={accountId} />
+					<TransactionTable
+						accountId={accountId}
+						filter={{ companyId: company, transactionName: transactionName }}
+					/>
 				</Card.Content>
 			</Card>
 		</>

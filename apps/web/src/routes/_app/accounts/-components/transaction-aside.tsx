@@ -1,8 +1,9 @@
+import { Link } from "@tanstack/react-router"
 import { capitalizeFirstLetter } from "better-auth/react"
 import { atom, useAtom } from "jotai"
-import { IconCirclePlaceholderDashed } from "justd-icons"
+import { IconArrowRight, IconCirclePlaceholderDashed } from "justd-icons"
 import { useMemo } from "react"
-import { Badge, Button, DescriptionList, Sheet } from "~/components/ui"
+import { Sheet, buttonStyles } from "~/components/ui"
 import { DetailLine } from "~/components/ui/detail-line"
 import { currencyFormatter, dashboardCompactNumberFormatter } from "~/utils/formatters"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
@@ -100,6 +101,17 @@ export const TransactionAside = () => {
 						description={currencyFormatter(transaction.currency ?? "USD").format(averageAmount)}
 					/>
 				</DetailLine>
+				<div className="flex justify-end">
+					<Link
+						onClick={() => setDialogData({ open: false, transactionId: null })}
+						className={buttonStyles()}
+						to={"/accounts/$accountId"}
+						params={{ accountId: transaction.accountId }}
+						search={{ transactionName: transaction.name }}
+					>
+						Explore Transactions <IconArrowRight />
+					</Link>
+				</div>
 			</Sheet.Body>
 			<Sheet.Footer>
 				<Sheet.Close>Cancel</Sheet.Close>
