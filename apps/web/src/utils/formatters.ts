@@ -3,3 +3,10 @@ export const currencyFormatter = (currency: string) =>
 		style: "currency",
 		currency: currency,
 	})
+
+export const dashboardCompactNumberFormatter = (locale = "en", maximumFractionDigits = 4) => {
+	return Intl.NumberFormat(locale, {
+		maximumFractionDigits: maximumFractionDigits,
+		notation: "compact",
+	})
+}
