@@ -17,12 +17,18 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 			execute: () => sql`SELECT * FROM ${sql(TABLE_NAME)} WHERE company_id IS NULL`,
 		})
 
+		const deleteOldPendingTransactions = SqlSchema.void({
+			Request: Schema.Void,
+			execute: () => sql`DELETE FROM ${sql(TABLE_NAME)} WHERE status = 'pending' AND date < NOW()`,
+		})
+
 		const insertMultipleVoidSchema = SqlSchema.void({
 			Request: Schema.Array(Transaction.insert),
 			// TODO: This should update later on its fine for now though
 			execute: (request) => sql`INSERT INTO ${sql(TABLE_NAME)} ${sql.insert(request)}
 			ON CONFLICT (id) DO NOTHING`,
 		})
+
 		const insertMultipleVoid = (insert: (typeof Transaction.insert.Type)[]) =>
 			insertMultipleVoidSchema(insert).pipe(
 				Effect.orDie,
@@ -38,7 +44,12 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 			idColumn: "id",
 		})
 
-		return { ...baseRepository, insertMultipleVoid, findUnidentifiedTransactions } as const
+		return {
+			...baseRepository,
+			insertMultipleVoid,
+			findUnidentifiedTransactions,
+			deleteOldPendingTransactions,
+		} as const
 	}),
 	dependencies: [SqlLive],
 }) {}

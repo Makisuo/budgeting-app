@@ -6,6 +6,7 @@ import { AccountRepo } from "~/repositories/account-repo"
 import { TransactionRepo } from "~/repositories/transaction-repo"
 import { Workflow, makeWorkflowEntrypoint } from "~/services/cloudflare/workflows"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
+import { stepCleanupPendingTransactions } from "./cleanup-pending"
 
 const WorkflowParams = Schema.Struct({
 	accountId: AccountId,
@@ -140,6 +141,8 @@ const runMyWorkflow = ({ accountId }: typeof WorkflowParams.Type) =>
 
 		yield* stepSyncBalance({ event: { accountId } })
 		yield* stepSyncTransactions({ event: { accountId, tenantId: account.tenantId } })
+
+		yield* stepCleanupPendingTransactions({ event: undefined })
 	})
 
 export const SyncTransactionsWorkflow = makeWorkflowEntrypoint(
