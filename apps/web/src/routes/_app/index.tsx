@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router"
 import type { Account, Transaction } from "db"
 import { useMemo } from "react"
 import { Calendar, Card, Toggle, ToggleGroup } from "~/components/ui"
+import { BarChart } from "~/components/ui/bar-chart"
 import { currencyFormatter } from "~/utils/formatters"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 
@@ -271,7 +272,7 @@ function Home() {
 				</div>
 			</Card>
 
-			{/* <div className="grid grid-cols-12 gap-3">
+			<div className="grid grid-cols-12 gap-3">
 				<Card className="col-span-12 xl:col-span-4">
 					<Card.Header>
 						<Card.Title>Daily Financial Activity</Card.Title>
@@ -320,7 +321,7 @@ function Home() {
 						dataKey={"month"}
 					/>
 				</Card>
-			</div> */}
+			</div>
 		</div>
 	)
 }
