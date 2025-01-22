@@ -282,6 +282,7 @@ function Home() {
 						config={chartConfig}
 						className="h-[400px] min-h-[400px] w-full"
 						legend
+						type="stacked"
 						data={chartData}
 						dataKey={"date"}
 					/>
