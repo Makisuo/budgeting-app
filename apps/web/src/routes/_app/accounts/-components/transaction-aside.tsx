@@ -128,9 +128,7 @@ export const TransactionAside = () => {
 					</Link>
 				</div>
 			</Sheet.Body>
-			<Sheet.Footer>
-				<Sheet.Close>Cancel</Sheet.Close>
-			</Sheet.Footer>
+			<Sheet.Footer />
 		</Sheet.Content>
 	)
 }
