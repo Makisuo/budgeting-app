@@ -108,7 +108,7 @@ export const TransactionAside = () => {
 					/>
 					<DetailLine.Item
 						label="Total Transactions"
-						description={dashboardCompactNumberFormatter().format(similarTransactions.length + 1)}
+						description={dashboardCompactNumberFormatter().format(similarTransactions.length)}
 					/>
 					<DetailLine.Item
 						label="Average Amount"

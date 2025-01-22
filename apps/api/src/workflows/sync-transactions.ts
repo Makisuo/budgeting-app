@@ -1,11 +1,13 @@
-import { Data, DateTime, Duration, Effect, Option, Schema, flow } from "effect"
+import { Data, DateTime, Duration, Effect, Option, Schema, flow, pipe } from "effect"
 import { TenantId } from "~/authorization"
 import { NotFound } from "~/errors"
 import { AccountId } from "~/models/account"
+import { Transaction } from "~/models/transaction"
 import { AccountRepo } from "~/repositories/account-repo"
 import { TransactionRepo } from "~/repositories/transaction-repo"
 import { Workflow, makeWorkflowEntrypoint } from "~/services/cloudflare/workflows"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
+import { TransactionHelpers } from "~/services/transaction"
 import { stepCleanupPendingTransactions } from "./cleanup-pending"
 
 const WorkflowParams = Schema.Struct({
@@ -92,6 +94,8 @@ const stepSyncTransactions = Workflow.schema(
 			const transactionRepo = yield* TransactionRepo
 			const goCardless = yield* GoCardlessService
 
+			const transactionHelper = yield* TransactionHelpers
+
 			const transactions = yield* goCardless.getTransactions(accountId)
 
 			yield* Effect.logInfo("Found booked transactions", transactions.transactions.booked.length)
@@ -109,8 +113,13 @@ const stepSyncTransactions = Workflow.schema(
 				[...mappedBookedTransactions, ...mappedPendingTransactions],
 				(transaction) =>
 					Effect.gen(function* () {
-						// TODO: Detect Company/Category
-						return yield* Effect.succeed(transaction)
+						const company = yield* transactionHelper
+							.detectCompany(transaction.name)
+							.pipe(Effect.map(Option.getOrElse(() => null)))
+
+						return yield* Effect.succeed(
+							Transaction.insert.make({ ...transaction, companyId: company?.id || null }),
+						)
 					}),
 			)
 
@@ -158,7 +167,12 @@ export const SyncTransactionsWorkflow = makeWorkflowEntrypoint(
 	{ name: "SyncTransactionsWorkflow", binding: "SYNC_TRANSACTIONS_WORKFLOW", schema: WorkflowParams },
 	flow(
 		runMyWorkflow,
-		Effect.provide([AccountRepo.Default, TransactionRepo.Default, GoCardlessService.Default]),
+		Effect.provide([
+			AccountRepo.Default,
+			TransactionRepo.Default,
+			GoCardlessService.Default,
+			TransactionHelpers.Default,
+		]),
 		Effect.mapError((error) => new WorkflowEventError({ cause: error })),
 		Effect.orDie,
 	),
