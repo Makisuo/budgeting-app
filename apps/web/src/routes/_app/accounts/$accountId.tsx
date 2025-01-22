@@ -9,6 +9,7 @@ import { TransactionTable } from "./-components/transaction-table"
 const searchParams = type({
 	"company?": "string",
 	"transactionName?": "string",
+	"categoryId?": "string",
 })
 
 export const Route = createFileRoute("/_app/accounts/$accountId")({
@@ -18,9 +19,9 @@ export const Route = createFileRoute("/_app/accounts/$accountId")({
 
 function RouteComponent() {
 	const { accountId } = Route.useParams()
-	const { company, transactionName } = Route.useSearch()
+	const { company, transactionName, categoryId } = Route.useSearch()
 
-	const hasSearchParams = !!company || !!transactionName
+	const hasSearchParams = !!company || !!transactionName || !!categoryId
 
 	const { data: bankAccount } = useDrizzleLive((db) =>
 		db.query.accounts.findFirst({
@@ -65,7 +66,7 @@ function RouteComponent() {
 				<Card.Content>
 					<TransactionTable
 						accountId={accountId}
-						filter={{ companyId: company, transactionName: transactionName }}
+						filter={{ companyId: company, transactionName: transactionName, categoryId }}
 					/>
 				</Card.Content>
 			</Card>

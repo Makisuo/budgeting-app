@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router"
 import { useSetAtom } from "jotai"
 import { IconCirclePlaceholderDashed } from "justd-icons"
 import { DateValue } from "~/components/date-value"
@@ -5,6 +6,7 @@ import { Badge } from "~/components/ui"
 import { Table } from "~/components/ui/html-table"
 import { currencyFormatter } from "~/utils/formatters"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
+import { StatusBadge } from "./status-badge"
 import { TransactionAside, transactionAsideAtom } from "./transaction-aside"
 
 export const TransactionTable = ({
@@ -74,15 +76,22 @@ export const TransactionTable = ({
 							</Badge>
 						</Table.Cell>
 						<Table.Cell>
-							<Badge>{transaction.category.name}</Badge>
+							<Link
+								onClick={(e) => {
+									e.stopPropagation()
+								}}
+								to="/accounts/$accountId"
+								params={{ accountId: transaction.accountId }}
+								search={{ categoryId: transaction.categoryId }}
+							>
+								<Badge>{transaction.category.name}</Badge>
+							</Link>
 						</Table.Cell>
 						<Table.Cell>
 							<DateValue date={transaction.date} />
 						</Table.Cell>
 						<Table.Cell>
-							<Badge intent={transaction.status === "pending" ? "info" : "primary"}>
-								{transaction.status === "pending" ? "Pending" : "Completed"}
-							</Badge>
+							<StatusBadge status={transaction.status} />
 						</Table.Cell>
 					</Table.Row>
 				))}

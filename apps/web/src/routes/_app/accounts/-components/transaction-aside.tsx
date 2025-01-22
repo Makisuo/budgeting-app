@@ -3,10 +3,11 @@ import { capitalizeFirstLetter } from "better-auth/react"
 import { atom, useAtom } from "jotai"
 import { IconArrowRight, IconCirclePlaceholderDashed } from "justd-icons"
 import { useMemo } from "react"
-import { Sheet, buttonStyles } from "~/components/ui"
+import { Badge, Sheet, buttonStyles } from "~/components/ui"
 import { DetailLine } from "~/components/ui/detail-line"
 import { currencyFormatter, dashboardCompactNumberFormatter } from "~/utils/formatters"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
+import { StatusBadge } from "./status-badge"
 
 export const transactionAsideAtom = atom<{
 	open: boolean
@@ -82,8 +83,22 @@ export const TransactionAside = () => {
 						className={transaction.amount < 0 ? "text-danger" : "text-success"}
 						description={currencyFormatter(transaction.currency ?? "USD").format(transaction.amount)}
 					/>
-					<DetailLine.Item label="Status" description={capitalizeFirstLetter(transaction.status)} />
-					<DetailLine.Item label="Category" description={transaction.category.name} />
+					<DetailLine.Item label="Status">
+						<DetailLine.Description>
+							<StatusBadge status={transaction.status} />
+						</DetailLine.Description>
+					</DetailLine.Item>
+					<DetailLine.Item label="Category">
+						<DetailLine.Description>
+							<Link
+								to="/accounts/$accountId"
+								params={{ accountId: transaction.accountId }}
+								search={{ categoryId: transaction.categoryId }}
+							>
+								<Badge>{transaction.category.name}</Badge>
+							</Link>
+						</DetailLine.Description>
+					</DetailLine.Item>
 				</DetailLine>
 				<DetailLine className="w-full">
 					<DetailLine.Item
@@ -109,7 +124,7 @@ export const TransactionAside = () => {
 						params={{ accountId: transaction.accountId }}
 						search={{ transactionName: transaction.name }}
 					>
-						Explore Transactions <IconArrowRight />
+						Explore all Transactions <IconArrowRight />
 					</Link>
 				</div>
 			</Sheet.Body>
