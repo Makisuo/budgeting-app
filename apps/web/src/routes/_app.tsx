@@ -3,6 +3,7 @@ import { AppSidebar } from "~/components/app-sidebar"
 import { AppSidebarNav } from "~/components/app-sidebar-nav"
 import { Container, SidebarInset, SidebarProvider } from "~/components/ui"
 import { authQueryOptions } from "~/lib/auth/use-auth"
+import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 import { PgLiteProvider } from "~/utils/pglite/pglite.provider"
 
 export const Route = createFileRoute("/_app")({
@@ -12,8 +13,6 @@ export const Route = createFileRoute("/_app")({
 
 	beforeLoad: async ({ context, location }) => {
 		const session = await context.queryClient.ensureQueryData(authQueryOptions)
-
-		console.log("beforeLoad", session)
 
 		if (!session) {
 			throw redirect({

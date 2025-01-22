@@ -105,7 +105,16 @@ const stepSyncTransactions = Workflow.schema(
 				goCardless.transformTransaction(accountId, tenantId, transaction, "pending"),
 			)
 
-			yield* transactionRepo.insertMultipleVoid([...mappedBookedTransactions, ...mappedPendingTransactions])
+			const mappedTransactions = yield* Effect.forEach(
+				[...mappedBookedTransactions, ...mappedPendingTransactions],
+				(transaction) =>
+					Effect.gen(function* () {
+						// TODO: Detect Company/Category
+						return yield* Effect.succeed(transaction)
+					}),
+			)
+
+			yield* transactionRepo.insertMultipleVoid(mappedTransactions)
 
 			return
 		}).pipe(Effect.orDie),

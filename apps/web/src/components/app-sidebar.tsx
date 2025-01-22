@@ -109,11 +109,11 @@ const AccountItems = () => {
 			{accounts.map((account) => (
 				<SidebarItem key={account.id} href={`/accounts/${account.id}` as "/accounts/$accountId"}>
 					{account.institution?.logo ? (
-						<img className="size-4" src={account.institution.logo!} alt={account.institution.name} />
+						<img className="size-4" src={account.institution?.logo!} alt={account.institution?.name} />
 					) : (
 						<IconCube />
 					)}
-					{account.institution.name} {account.type}
+					{account.institution?.name} {account.type}
 				</SidebarItem>
 			))}
 		</>
