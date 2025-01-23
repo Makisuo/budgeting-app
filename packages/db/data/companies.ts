@@ -164,6 +164,13 @@ export const companies: Company[] = [
 		categoryId: "groceries",
 	},
 	{
+		id: "mapbox",
+		name: "Mapbox",
+		url: "mapbox.com",
+		patterns: ["Mapbox%"],
+		categoryId: "cloud",
+	},
+	{
 		id: "mediasaturn",
 		name: "MediaMarkt / Saturn",
 		url: "mediamarktsaturn.com",
