@@ -237,6 +237,11 @@ export const categories = [
 		name: "Gas",
 		type: "utilities",
 	},
+	{
+		id: "ai",
+		name: "AI Tools",
+		type: "utilities",
+	},
 	// Software Engineering
 	{
 		id: "cloud",

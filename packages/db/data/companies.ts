@@ -203,7 +203,7 @@ export const companies: Company[] = [
 		name: "OpenAI",
 		url: "openai.com",
 		patterns: ["Openai"],
-		categoryId: "subscriptions",
+		categoryId: "ai",
 	},
 	{
 		id: "paypal",
@@ -216,8 +216,8 @@ export const companies: Company[] = [
 		id: "perplexity",
 		name: "Perplexity",
 		url: "perplexity.com",
-		patterns: ["www.perplexity.ai"],
-		categoryId: "subscriptions",
+		patterns: ["perplexity.ai"],
+		categoryId: "ai",
 	},
 	{
 		id: "porkbun",
