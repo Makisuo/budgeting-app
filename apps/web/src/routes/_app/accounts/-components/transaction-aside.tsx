@@ -1,9 +1,9 @@
 import { Link } from "@tanstack/react-router"
 import { capitalizeFirstLetter } from "better-auth/react"
 import { atom, useAtom } from "jotai"
-import { IconArrowRight, IconCirclePlaceholderDashed } from "justd-icons"
+import { IconArrowRight, IconCirclePlaceholderDashed, IconHighlight } from "justd-icons"
 import { useMemo } from "react"
-import { Badge, Sheet, buttonStyles } from "~/components/ui"
+import { Badge, Button, Form, Modal, Sheet, TextField, buttonStyles } from "~/components/ui"
 import { DetailLine } from "~/components/ui/detail-line"
 import { currencyFormatter, dashboardCompactNumberFormatter } from "~/utils/formatters"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
@@ -133,7 +133,37 @@ export const TransactionAside = ({
 					</Link>
 				</div>
 			</Sheet.Body>
-			<Sheet.Footer />
+			<Sheet.Footer>
+				<Modal>
+					<Button>
+						<IconHighlight />
+						Edit
+					</Button>
+					<Modal.Content>
+						<Modal.Header>
+							<Modal.Title>Nice! Let's beef up your account.</Modal.Title>
+							<Modal.Description>
+								2FA beefs up your account's defense. Pop in your password to keep going.
+							</Modal.Description>
+						</Modal.Header>
+						<Form onSubmit={() => {}}>
+							<Modal.Body className="pb-1">
+								<TextField
+									isRequired
+									autoFocus
+									label="Password"
+									type="password"
+									placeholder="Enter your password"
+								/>
+							</Modal.Body>
+							<Modal.Footer>
+								<Modal.Close>Cancel</Modal.Close>
+								<Button type="submit">Turn on 2FA</Button>
+							</Modal.Footer>
+						</Form>
+					</Modal.Content>
+				</Modal>
+			</Sheet.Footer>
 		</Sheet.Content>
 	)
 }

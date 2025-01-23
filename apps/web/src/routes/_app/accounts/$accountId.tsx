@@ -1,16 +1,10 @@
 import { Link, createFileRoute } from "@tanstack/react-router"
-import { type } from "arktype"
 import { IconX } from "justd-icons"
-import { Button, Card, buttonStyles } from "~/components/ui"
+import { Card, buttonStyles } from "~/components/ui"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 import { AccountCard } from "./-components/account-card"
 import { TransactionTable } from "./-components/transaction-table"
-
-const searchParams = type({
-	"company?": "string",
-	"transactionName?": "string",
-	"categoryId?": "string",
-})
+import { searchParams } from "./-utils/table-utils"
 
 export const Route = createFileRoute("/_app/accounts/$accountId")({
 	component: RouteComponent,
@@ -65,8 +59,7 @@ function RouteComponent() {
 				</Card.Header>
 				<Card.Content>
 					<TransactionTable
-						accountId={accountId}
-						filter={{ companyId: company, transactionName: transactionName, categoryId }}
+						filter={{ companyId: company, transactionName: transactionName, categoryId, accountId }}
 					/>
 				</Card.Content>
 			</Card>

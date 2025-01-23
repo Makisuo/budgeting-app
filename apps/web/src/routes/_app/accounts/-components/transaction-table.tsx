@@ -10,11 +10,11 @@ import { StatusBadge } from "./status-badge"
 import { TransactionAside, transactionAsideAtom } from "./transaction-aside"
 
 export const TransactionTable = ({
-	accountId,
 	filter,
 }: {
-	accountId: string
 	filter?: {
+		accountId?: string
+
 		transactionName?: string
 		companyId?: string
 		categoryId?: string
@@ -28,7 +28,7 @@ export const TransactionTable = ({
 			},
 			where: (table, { eq, and }) =>
 				and(
-					eq(table.accountId, accountId),
+					filter?.accountId ? eq(table.accountId, filter.accountId) : undefined,
 					filter?.companyId ? eq(table.companyId, filter.companyId) : undefined,
 					filter?.categoryId ? eq(table.categoryId, filter.categoryId) : undefined,
 					filter?.transactionName ? eq(table.name, filter.transactionName) : undefined,
@@ -80,8 +80,8 @@ export const TransactionTable = ({
 								onClick={(e) => {
 									e.stopPropagation()
 								}}
-								to="/accounts/$accountId"
-								params={{ accountId: transaction.accountId }}
+								to={filter?.accountId ? "/accounts/$accountId" : "/accounts"}
+								params={{ accountId: filter?.accountId }}
 								search={{ categoryId: transaction.categoryId }}
 							>
 								<Badge>{transaction.category.name}</Badge>
@@ -96,7 +96,7 @@ export const TransactionTable = ({
 					</Table.Row>
 				))}
 			</Table>
-			<TransactionAside accountId={accountId} />
+			<TransactionAside accountId={filter?.accountId} />
 		</>
 	)
 }
