@@ -42,7 +42,7 @@ export const TransactionTable = ({
 
 	return (
 		<>
-			<Table aria-label="Daemons">
+			<Table aria-label="Transactions">
 				<Table.Header>
 					<Table.Column>Name</Table.Column>
 					<Table.Column>Price</Table.Column>
