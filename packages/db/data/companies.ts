@@ -227,6 +227,13 @@ export const companies: Company[] = [
 		categoryId: "groceries",
 	},
 	{
+		id: "supabase",
+		name: "Supabase",
+		url: "supabase.com",
+		patterns: ["Supabase%"],
+		categoryId: "cloud",
+	},
+	{
 		id: "sparkasse",
 		name: "Sparkasse",
 		url: "sparkasse.de",

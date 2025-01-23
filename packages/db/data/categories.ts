@@ -14,6 +14,7 @@ export const category_types = [
 	"utilities",
 	"shopping",
 	"charity",
+	"business",
 ] as const
 
 export const categories = [
@@ -235,5 +236,11 @@ export const categories = [
 		id: "gas",
 		name: "Gas",
 		type: "utilities",
+	},
+	// Software Engineering
+	{
+		id: "cloud",
+		name: "Cloud",
+		type: "business",
 	},
 ] as const satisfies Category[]
