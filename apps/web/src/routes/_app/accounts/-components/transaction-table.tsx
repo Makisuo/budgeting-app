@@ -96,7 +96,7 @@ export const TransactionTable = ({
 					</Table.Row>
 				))}
 			</Table>
-			<TransactionAside />
+			<TransactionAside accountId={accountId} />
 		</>
 	)
 }

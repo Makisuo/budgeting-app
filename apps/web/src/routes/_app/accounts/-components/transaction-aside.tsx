@@ -14,7 +14,11 @@ export const transactionAsideAtom = atom<{
 	transactionId: string | null
 }>({ open: false, transactionId: null })
 
-export const TransactionAside = () => {
+export const TransactionAside = ({
+	accountId,
+}: {
+	accountId?: string
+}) => {
 	const [dialogData, setDialogData] = useAtom(transactionAsideAtom)
 
 	const { data: transaction } = useDrizzleLive((db) =>
@@ -33,7 +37,8 @@ export const TransactionAside = () => {
 				company: true,
 				category: true,
 			},
-			where: (table, { eq }) => eq(table.name, transaction?.name ?? ""),
+			where: (table, { eq, and }) =>
+				and(accountId ? eq(table.accountId, accountId) : undefined, eq(table.name, transaction?.name ?? "")),
 		}),
 	)
 
