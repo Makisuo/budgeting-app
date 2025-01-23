@@ -280,7 +280,7 @@ export const companies: Company[] = [
 		name: "Temporal",
 		url: "temporal.io",
 		patterns: ["Temporal Technologies"],
-		categoryId: "subscriptions",
+		categoryId: "cloud",
 	},
 	{
 		id: "tfbank",
@@ -294,7 +294,7 @@ export const companies: Company[] = [
 		name: "Triplit",
 		url: "triplit.dev",
 		patterns: ["Triplit%"],
-		categoryId: "subscriptions",
+		categoryId: "cloud",
 	},
 	{
 		id: "uber",
