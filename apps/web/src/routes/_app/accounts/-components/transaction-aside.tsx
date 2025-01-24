@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router"
-import { capitalizeFirstLetter } from "better-auth/react"
 import { atom, useAtom } from "jotai"
 import { IconArrowRight, IconCirclePlaceholderDashed, IconHighlight } from "justd-icons"
 import { useMemo } from "react"
