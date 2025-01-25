@@ -130,7 +130,7 @@ const stepSyncTransactions = Workflow.schema(
 			yield* transactionRepo.insertMultipleVoid(mappedTransactions)
 
 			return
-		}).pipe(Effect.orDie),
+		}).pipe(Effect.tapError(Effect.logError), Effect.orDie),
 	{
 		retries: {
 			limit: 0,
