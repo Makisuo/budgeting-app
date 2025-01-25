@@ -36,6 +36,13 @@
       "when": 1737061924390,
       "tag": "0004_light_christian_walker",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1737811728082,
+      "tag": "0005_quiet_shadowcat",
+      "breakpoints": true
     }
   ]
 }

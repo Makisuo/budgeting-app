@@ -218,6 +218,11 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 
 				companyId: company?.id || null,
 
+				// @ts-expect-error
+				debtorIban: transaction.debtorAccount?.iban || null,
+				// @ts-expect-error
+				creditorIban: transaction.creditorAccount?.iban || null,
+
 				status: status,
 				balance: null,
 				categoryId: company?.categoryId || CategoryId.make("uncategorized"),

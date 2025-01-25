@@ -31,6 +31,9 @@ export class Transaction extends Model.Class<Transaction>("Transaction")({
 	companyId: Schema.NullOr(CompanyId),
 	categoryId: Schema.NullOr(CategoryId),
 
+	debtorIban: Schema.NullOr(Schema.String),
+	creditorIban: Schema.NullOr(Schema.String),
+
 	tenantId: Model.GeneratedByApp(TenantId),
 
 	...baseFields,
