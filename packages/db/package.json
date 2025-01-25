@@ -11,6 +11,7 @@
 	"types": "index.ts",
 	"main": "index.ts",
 	"devDependencies": {
+		"@types/bun": "^1.2.0",
 		"drizzle-kit": "^0.30.2",
 		"typescript": "^5.7.3"
 	},
