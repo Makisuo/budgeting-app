@@ -16,6 +16,7 @@ import {
 	SidebarSectionGroup,
 } from "ui"
 import { useSession } from "~/lib/auth/auth-client"
+import { currencyFormatter } from "~/utils/formatters"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 import { AppSidebarLogo } from "./app-sidebar-logo"
 import { SidebarItem } from "./app-sidebar-nav"
@@ -107,13 +108,17 @@ const AccountItems = () => {
 	return (
 		<>
 			{accounts.map((account) => (
-				<SidebarItem key={account.id} href={`/accounts/${account.id}` as "/accounts/$accountId"}>
+				<SidebarItem
+					badge={currencyFormatter(account.balanceCurrency).format(account.balanceAmount)}
+					key={account.id}
+					href={`/accounts/${account.id}` as "/accounts/$accountId"}
+				>
 					{account.institution?.logo ? (
 						<img className="size-4" src={account.institution?.logo!} alt={account.institution?.name} />
 					) : (
 						<IconCube />
 					)}
-					{account.institution?.name} {account.type}
+					<span>{account.institution?.name}</span>
 				</SidebarItem>
 			))}
 		</>
