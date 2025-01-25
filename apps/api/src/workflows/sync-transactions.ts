@@ -2,6 +2,7 @@ import { Data, DateTime, Duration, Effect, Option, Schema, flow, pipe } from "ef
 import { TenantId } from "~/authorization"
 import { NotFound } from "~/errors"
 import { AccountId } from "~/models/account"
+import { CategoryId } from "~/models/categories"
 import { Transaction } from "~/models/transaction"
 import { AccountRepo } from "~/repositories/account-repo"
 import { TransactionRepo } from "~/repositories/transaction-repo"
@@ -121,7 +122,7 @@ const stepSyncTransactions = Workflow.schema(
 							Transaction.insert.make({
 								...transaction,
 								companyId: company?.id || null,
-								categoryId: company?.categoryId || null,
+								categoryId: company?.categoryId || CategoryId.make("uncategorized"),
 							}),
 						)
 					}),

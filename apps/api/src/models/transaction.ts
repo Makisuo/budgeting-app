@@ -29,7 +29,7 @@ export class Transaction extends Model.Class<Transaction>("Transaction")({
 	currencySource: Schema.NullOr(Schema.String),
 
 	companyId: Schema.NullOr(CompanyId),
-	categoryId: Schema.NullOr(CategoryId),
+	categoryId: CategoryId,
 
 	debtorIban: Schema.NullOr(Schema.String),
 	creditorIban: Schema.NullOr(Schema.String),
