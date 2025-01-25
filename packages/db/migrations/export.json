@@ -78,5 +78,14 @@
     "bps": true,
     "folderMillis": 1737812309532,
     "hash": "55c9c0d49a512e237ce81644a8e2f1d2d964dcc7dfb0122cd1c367e7c581aaee"
+  },
+  {
+    "sql": [
+      "ALTER TABLE \"accounts\" ALTER COLUMN \"iban\" DROP DEFAULT;",
+      "\nALTER TABLE \"accounts\" ALTER COLUMN \"iban\" DROP NOT NULL;"
+    ],
+    "bps": true,
+    "folderMillis": 1737813294773,
+    "hash": "296e9f228a066ee573ccc11ef56d01d999083cf595606cfdebc3520d9581d528"
   }
 ]
