@@ -177,7 +177,6 @@ export const SyncTransactionsWorkflow = makeWorkflowEntrypoint(
 			GoCardlessService.Default,
 			TransactionHelpers.Default,
 		]),
-		Effect.mapError((error) => new WorkflowEventError({ cause: error })),
 		Effect.orDie,
 	),
 )
