@@ -4,6 +4,7 @@ export const mapTransactionMethod = (type: string | undefined) => {
 		case "Bankgiro payment":
 		case "Incoming foreign payment":
 			return "payment"
+		case "CARD_PAYMENT":
 		case "Card purchase":
 		case "Card foreign purchase":
 			return "card_purchase"

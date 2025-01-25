@@ -25,7 +25,7 @@ export class Transaction extends S.Class<Transaction>("Transaction")({
 	transactionAmount: Amount,
 	creditorName: S.optional(S.Union(S.Null, S.String)),
 	remittanceInformationUnstructuredArray: S.NullishOr(S.Array(S.String)),
-	proprietaryBankTransactionCode: S.String,
+	proprietaryBankTransactionCode: S.NullishOr(S.String),
 	internalTransactionId: S.NullishOr(S.String),
 	debtorName: S.optional(S.Union(S.Null, S.String)),
 	currencyExchange: S.optional(

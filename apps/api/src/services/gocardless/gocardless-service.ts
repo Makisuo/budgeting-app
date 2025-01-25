@@ -224,7 +224,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 				currencyRate: null,
 				currencySource: null,
 				date: date,
-				method: mapTransactionMethod(transaction.proprietaryBankTransactionCode),
+				method: mapTransactionMethod(transaction.proprietaryBankTransactionCode || undefined),
 
 				deletedAt: null,
 			})
