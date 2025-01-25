@@ -35,5 +35,40 @@
     "bps": true,
     "folderMillis": 1734128212502,
     "hash": "f6754a8a61dbb4a7427bbcb51ffa63a0954621dd75b951356921c6acca2a2b6e"
+  },
+  {
+    "sql": [
+      "ALTER TABLE \"transactions\" ALTER COLUMN \"category_id\" SET DEFAULT 'uncategorized';",
+      "\nALTER TABLE \"transactions\" ALTER COLUMN \"category_id\" SET NOT NULL;"
+    ],
+    "bps": true,
+    "folderMillis": 1734129212297,
+    "hash": "4ffe93631a7535c3e9b758219ad14befe5e9ab83cc74d47d8b6a3acda342b72b"
+  },
+  {
+    "sql": [
+      "CREATE TABLE \"account\" (\n\t\"id\" text PRIMARY KEY NOT NULL,\n\t\"account_id\" text NOT NULL,\n\t\"provider_id\" text NOT NULL,\n\t\"user_id\" text NOT NULL,\n\t\"access_token\" text,\n\t\"refresh_token\" text,\n\t\"id_token\" text,\n\t\"access_token_expires_at\" timestamp,\n\t\"refresh_token_expires_at\" timestamp,\n\t\"scope\" text,\n\t\"password\" text,\n\t\"created_at\" timestamp NOT NULL,\n\t\"updated_at\" timestamp NOT NULL\n);\n",
+      "\nCREATE TABLE \"jwks\" (\n\t\"id\" text PRIMARY KEY NOT NULL,\n\t\"public_key\" text NOT NULL,\n\t\"private_key\" text NOT NULL,\n\t\"created_at\" timestamp NOT NULL\n);\n",
+      "\nCREATE TABLE \"passkey\" (\n\t\"id\" text PRIMARY KEY NOT NULL,\n\t\"name\" text,\n\t\"public_key\" text NOT NULL,\n\t\"user_id\" text NOT NULL,\n\t\"credential_i_d\" text NOT NULL,\n\t\"counter\" integer NOT NULL,\n\t\"device_type\" text NOT NULL,\n\t\"backed_up\" boolean NOT NULL,\n\t\"transports\" text,\n\t\"created_at\" timestamp\n);\n",
+      "\nCREATE TABLE \"session\" (\n\t\"id\" text PRIMARY KEY NOT NULL,\n\t\"expires_at\" timestamp NOT NULL,\n\t\"token\" text NOT NULL,\n\t\"created_at\" timestamp NOT NULL,\n\t\"updated_at\" timestamp NOT NULL,\n\t\"ip_address\" text,\n\t\"user_agent\" text,\n\t\"user_id\" text NOT NULL,\n\tCONSTRAINT \"session_token_unique\" UNIQUE(\"token\")\n);\n",
+      "\nCREATE TABLE \"user\" (\n\t\"id\" text PRIMARY KEY NOT NULL,\n\t\"name\" text NOT NULL,\n\t\"email\" text NOT NULL,\n\t\"email_verified\" boolean NOT NULL,\n\t\"image\" text,\n\t\"created_at\" timestamp NOT NULL,\n\t\"updated_at\" timestamp NOT NULL,\n\tCONSTRAINT \"user_email_unique\" UNIQUE(\"email\")\n);\n",
+      "\nCREATE TABLE \"verification\" (\n\t\"id\" text PRIMARY KEY NOT NULL,\n\t\"identifier\" text NOT NULL,\n\t\"value\" text NOT NULL,\n\t\"expires_at\" timestamp NOT NULL,\n\t\"created_at\" timestamp,\n\t\"updated_at\" timestamp\n);\n",
+      "\nALTER TABLE \"transactions\" ALTER COLUMN \"category_id\" DROP DEFAULT;",
+      "\nALTER TABLE \"account\" ADD CONSTRAINT \"account_user_id_user_id_fk\" FOREIGN KEY (\"user_id\") REFERENCES \"public\".\"user\"(\"id\") ON DELETE no action ON UPDATE no action;",
+      "\nALTER TABLE \"passkey\" ADD CONSTRAINT \"passkey_user_id_user_id_fk\" FOREIGN KEY (\"user_id\") REFERENCES \"public\".\"user\"(\"id\") ON DELETE no action ON UPDATE no action;",
+      "\nALTER TABLE \"session\" ADD CONSTRAINT \"session_user_id_user_id_fk\" FOREIGN KEY (\"user_id\") REFERENCES \"public\".\"user\"(\"id\") ON DELETE no action ON UPDATE no action;"
+    ],
+    "bps": true,
+    "folderMillis": 1737061924390,
+    "hash": "ea79167f927d4870bec9b6795da11f6202cede01fc4bcbd29faf22bd6fa37677"
+  },
+  {
+    "sql": [
+      "ALTER TABLE \"transactions\" ADD COLUMN \"debtor_iban\" text;",
+      "\nALTER TABLE \"transactions\" ADD COLUMN \"creditor_iban\" text;"
+    ],
+    "bps": true,
+    "folderMillis": 1737811728082,
+    "hash": "6c122bbec7c5f4dad7efd6ccdf79532c6654b2a7549fb275d68a6439a339a8e8"
   }
 ]
