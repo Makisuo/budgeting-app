@@ -1,9 +1,11 @@
 import { Link } from "@tanstack/react-router"
+import { capitalizeFirstLetter } from "better-auth/react"
 import { atom, useAtom } from "jotai"
 import { IconArrowRight, IconCirclePlaceholderDashed, IconHighlight } from "justd-icons"
 import { useMemo } from "react"
 import { Badge, Button, ComboBox, Form, Modal, Sheet, TextField, buttonStyles } from "~/components/ui"
 import { DetailLine } from "~/components/ui/detail-line"
+import { useApi } from "~/lib/api/client"
 import { currencyFormatter, dashboardCompactNumberFormatter } from "~/utils/formatters"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 import { StatusBadge } from "./status-badge"
@@ -140,6 +142,10 @@ export const TransactionAside = ({
 }
 
 const EditTransactionModal = ({ transactionId }: { transactionId: string }) => {
+	const api$ = useApi()
+
+	const updateTransactionMutation = api$.useMutation("post", "")
+
 	const { data: categories } = useDrizzleLive((db) => db.query.categories.findMany({}))
 
 	const { data: transaction } = useDrizzleLive((db) =>
@@ -155,6 +161,8 @@ const EditTransactionModal = ({ transactionId }: { transactionId: string }) => {
 		return null
 	}
 
+	const categorizedCategories = Object.entries(Object.groupBy(categories, (item) => item.type))
+
 	return (
 		<Modal>
 			<Button>
@@ -163,20 +171,35 @@ const EditTransactionModal = ({ transactionId }: { transactionId: string }) => {
 			</Button>
 			<Modal.Content>
 				<Modal.Header>
-					<Modal.Title>Nice! Let's beef up your account.</Modal.Title>
-					<Modal.Description>
-						2FA beefs up your account's defense. Pop in your password to keep going.
-					</Modal.Description>
+					<Modal.Title>Edit Transaction.</Modal.Title>
+					<Modal.Description>Edit the transaction details and category.</Modal.Description>
 				</Modal.Header>
-				<Form onSubmit={() => {}}>
+				<Form
+					onSubmit={(e) => {
+						e.preventDefault()
+
+						const formData = new FormData(e.currentTarget)
+
+						console.log(formData.get("category"))
+					}}
+				>
 					<Modal.Body className="pb-1">
-						<ComboBox placeholder="Select a user" label="Users">
+						<ComboBox
+							name="category"
+							defaultSelectedKey={transaction.categoryId}
+							placeholder="Select a Category"
+							label="Category"
+						>
 							<ComboBox.Input />
-							<ComboBox.List defaultSelectedKeys={[transaction?.categoryId]} items={categories}>
-								{(item) => (
-									<ComboBox.Option id={item.id} textValue={item.name}>
-										<ComboBox.Label>{item.name}</ComboBox.Label>
-									</ComboBox.Option>
+							<ComboBox.List items={categorizedCategories}>
+								{([name, item]) => (
+									<ComboBox.Section title={capitalizeFirstLetter(name)} items={item} id={name}>
+										{(category) => (
+											<ComboBox.Option textValue={category.name} id={category.id}>
+												<ComboBox.Label>{category.name}</ComboBox.Label>
+											</ComboBox.Option>
+										)}
+									</ComboBox.Section>
 								)}
 							</ComboBox.List>
 						</ComboBox>
