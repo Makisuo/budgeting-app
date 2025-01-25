@@ -91,7 +91,7 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 								Account.insert.make({
 									id: accountId,
 									name: account.ownerName || "No name",
-									// iban: account.iban,
+									iban: account.iban || null,
 									institutionId: requisition.value.institutionId,
 									tenantId: requisition.value.tenantId,
 

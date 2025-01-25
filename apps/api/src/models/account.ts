@@ -16,6 +16,8 @@ export class Account extends Model.Class<Account>("Account")({
 	type: AccountType,
 	institutionId: InstitutionId,
 
+	iban: Schema.NullOr(Schema.String),
+
 	balanceAmount: Schema.Number,
 	balanceCurrency: Schema.String,
 
