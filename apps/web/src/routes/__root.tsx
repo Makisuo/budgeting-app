@@ -17,7 +17,6 @@ export const Route = createRootRouteWithContext<RootRouteContext>()({
 function RootComponent() {
 	return (
 		<Providers>
-			<Toast />
 			<CatMode />
 			<Outlet />
 		</Providers>

@@ -2,7 +2,8 @@ import { Link } from "@tanstack/react-router"
 import { capitalizeFirstLetter } from "better-auth/react"
 import { atom, useAtom } from "jotai"
 import { IconArrowRight, IconCirclePlaceholderDashed, IconHighlight } from "justd-icons"
-import { useMemo } from "react"
+import { startTransition, useMemo, useState } from "react"
+import { toast } from "sonner"
 import { Badge, Button, ComboBox, Form, Modal, Sheet, TextField, buttonStyles } from "~/components/ui"
 import { DetailLine } from "~/components/ui/detail-line"
 import { useApi } from "~/lib/api/client"
@@ -144,7 +145,11 @@ export const TransactionAside = ({
 const EditTransactionModal = ({ transactionId }: { transactionId: string }) => {
 	const api$ = useApi()
 
-	const updateTransactionMutation = api$.useMutation("post", "")
+	const [open, setOpen] = useState(false)
+
+	const updateTransactionMutation = api$.useMutation("post", "/transactions/{id}", {
+		onSuccess: () => setOpen(false),
+	})
 
 	const { data: categories } = useDrizzleLive((db) => db.query.categories.findMany({}))
 
@@ -164,7 +169,7 @@ const EditTransactionModal = ({ transactionId }: { transactionId: string }) => {
 	const categorizedCategories = Object.entries(Object.groupBy(categories, (item) => item.type))
 
 	return (
-		<Modal>
+		<Modal isOpen={open} onOpenChange={setOpen}>
 			<Button>
 				<IconHighlight />
 				Edit
@@ -178,9 +183,29 @@ const EditTransactionModal = ({ transactionId }: { transactionId: string }) => {
 					onSubmit={(e) => {
 						e.preventDefault()
 
-						const formData = new FormData(e.currentTarget)
+						startTransition(async () => {
+							const formData = new FormData(e.currentTarget)
 
-						console.log(formData.get("category"))
+							const category = formData.get("category")
+
+							await toast
+								.promise(
+									updateTransactionMutation.mutateAsync({
+										params: {
+											path: {
+												id: transactionId,
+											},
+										},
+										body: {
+											categoryId: category?.toString() || "uncategorized",
+										},
+									}),
+									{
+										position: "top-center",
+									},
+								)
+								.unwrap()
+						})
 					}}
 				>
 					<Modal.Body className="pb-1">

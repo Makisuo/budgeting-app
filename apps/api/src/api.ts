@@ -8,6 +8,7 @@ import { RootApi } from "./routes/root/api"
 
 import { BetterAuthApi } from "./routes/better-auth/api"
 import { SubscriptionApi } from "./routes/subscriptions/api"
+import { TransactionApi } from "./routes/transactions/api"
 import { BetterAuth } from "./services/better-auth"
 
 export const AuthorizationLive = Layer.effect(
@@ -69,5 +70,6 @@ export class Api extends HttpApi.make("api")
 	.add(GoCardlessApi)
 	.add(AdminApi)
 	.add(SubscriptionApi)
+	.add(TransactionApi)
 	.add(BetterAuthApi)
 	.annotate(OpenApi.Title, "Hazel API") {}

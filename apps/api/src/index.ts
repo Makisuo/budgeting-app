@@ -6,6 +6,7 @@ import { InstitutionRepo } from "./repositories/institution-repo"
 import { RequisitionRepo } from "./repositories/requisition-repo"
 import { SubscriptionRepo } from "./repositories/subscription-repo"
 import { TransactionRepo } from "./repositories/transaction-repo"
+import { TransactionHelper } from "./routes/transactions/transaction"
 import { Workflows } from "./services/cloudflare/workflows"
 import { CronService } from "./services/cron"
 import { GoCardlessService } from "./services/gocardless/gocardless-service"
@@ -27,6 +28,7 @@ const MainLayer = Layer.mergeAll(
 	RequisitionRepo.Default,
 	AccountRepo.Default,
 	TransactionRepo.Default,
+	TransactionHelper.Default,
 	SubscriptionRepo.Default,
 	TransactionHelpers.Default,
 	Workflows.fromRecord(() => workflows),

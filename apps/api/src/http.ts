@@ -6,14 +6,18 @@ import { HttpBetterAuthLive } from "./routes/better-auth/http"
 import { HttpGoCardlessLive } from "./routes/go-cardless/http"
 import { HttpRootLive } from "./routes/root/http"
 import { HttpSubscriptionLive } from "./routes/subscriptions/http"
+import { HttpTransactionLive } from "./routes/transactions/http"
 import { withLogFormat, withMinimalLogLevel } from "./services/logger"
 
 export const ApiLive = Layer.provide(HttpApiBuilder.api(Api), [
 	HttpRootLive,
 	HttpGoCardlessLive,
 	HttpAdminLive,
-	HttpSubscriptionLive,
 	HttpBetterAuthLive,
+
+	// App Endpoints
+	HttpSubscriptionLive,
+	HttpTransactionLive,
 ])
 
 export const HttpAppLive = pipe(
