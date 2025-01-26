@@ -9,8 +9,5 @@
 	},
 	"private": true,
 	"trustedDependencies": ["@biomejs/biome", "protobufjs", "sharp", "workerd"],
-	"packageManager": "bun@1.2.0",
-	"dependencies": {
-		"sonner": "^1.7.2"
-	}
+	"packageManager": "bun@1.2.0"
 }
