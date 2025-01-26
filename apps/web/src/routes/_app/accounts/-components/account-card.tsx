@@ -3,6 +3,7 @@ import type { Account, Institution, Transaction } from "db"
 import { IconCube } from "justd-icons"
 import { useMemo } from "react"
 import { Card, type ChartConfig } from "ui"
+import { PrivateValue } from "~/components/private-value"
 import { SparkBarChart } from "~/components/ui/spark-chart"
 import { cn } from "~/utils/classes"
 import { currencyFormatter, formatIBAN } from "~/utils/formatters"
@@ -85,7 +86,9 @@ export const AccountCard = ({ account, className, compact }: AccountCardProps) =
 				</Card.Header>
 				<Card.Content>
 					<Card.Description>Current Balance</Card.Description>
-					{currencyFormatter(account.balanceCurrency).format(account.balanceAmount)}
+					<PrivateValue>
+						{currencyFormatter(account.balanceCurrency).format(account.balanceAmount)}
+					</PrivateValue>
 				</Card.Content>
 				{!compact && (
 					<SparkBarChart className="w-full" config={config} data={dailyTransactions} dataKey="date" />

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 import type { Account, Transaction } from "db"
 import { useMemo } from "react"
+import { PrivateValue } from "~/components/private-value"
 import { Calendar, Card, Toggle, ToggleGroup } from "~/components/ui"
 import { BarChart } from "~/components/ui/bar-chart"
 import { currencyFormatter } from "~/utils/formatters"
@@ -214,7 +215,9 @@ function Home() {
 											className="text-xl first:font-semibold first:text-3xl"
 											key={balance.currency}
 										>
-											{currencyFormatter(balance.currency).format(balance.balance)}
+											<PrivateValue>
+												{currencyFormatter(balance.currency).format(balance.balance)}
+											</PrivateValue>
 										</p>
 									))
 								: "No data"}
@@ -228,7 +231,9 @@ function Home() {
 							{monthlyStats.length > 0
 								? monthlyStats.map((stat) => (
 										<p className="text-xl first:font-semibold first:text-3xl" key={stat.currency}>
-											{currencyFormatter(stat.currency).format(stat.expenses)}
+											<PrivateValue>
+												{currencyFormatter(stat.currency).format(stat.expenses)}
+											</PrivateValue>
 										</p>
 									))
 								: "No data"}
@@ -242,7 +247,9 @@ function Home() {
 							{monthlyStats.length > 0
 								? monthlyStats.map((stat) => (
 										<p className="text-xl first:font-semibold first:text-3xl" key={stat.currency}>
-											{currencyFormatter(stat.currency).format(stat.earnings)}
+											<PrivateValue>
+												{currencyFormatter(stat.currency).format(stat.earnings)}
+											</PrivateValue>
 										</p>
 									))
 								: "No data"}

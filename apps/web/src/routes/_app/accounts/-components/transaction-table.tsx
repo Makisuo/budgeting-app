@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router"
 import { useSetAtom } from "jotai"
 import { IconCirclePlaceholderDashed } from "justd-icons"
 import { DateValue } from "~/components/date-value"
+import { PrivateValue } from "~/components/private-value"
 import { Badge } from "~/components/ui"
 import { Table } from "~/components/ui/html-table"
 import { currencyFormatter } from "~/utils/formatters"
@@ -72,7 +73,9 @@ export const TransactionTable = ({
 						</Table.Cell>
 						<Table.Cell>
 							<Badge intent={Number(transaction.amount) < 0 ? "danger" : "success"}>
-								{currencyFormatter(transaction.currency ?? "USD").format(transaction.amount)}
+								<PrivateValue>
+									{currencyFormatter(transaction.currency ?? "USD").format(transaction.amount)}
+								</PrivateValue>
 							</Badge>
 						</Table.Cell>
 						<Table.Cell>

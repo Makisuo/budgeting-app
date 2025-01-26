@@ -4,6 +4,7 @@ import { atom, useAtom } from "jotai"
 import { IconArrowDown, IconArrowRight, IconCirclePlaceholderDashed, IconHighlight } from "justd-icons"
 import { startTransition, useMemo, useState } from "react"
 import { toast } from "sonner"
+import { PrivateValue } from "~/components/private-value"
 import { Badge, Button, ComboBox, Form, Modal, Sheet, TextField, buttonStyles } from "~/components/ui"
 import { DetailLine } from "~/components/ui/detail-line"
 import { useApi } from "~/lib/api/client"
@@ -91,11 +92,13 @@ export const TransactionAside = ({
 			</Sheet.Header>
 			<Sheet.Body className="flex flex-col gap-12">
 				<DetailLine className="w-full">
-					<DetailLine.Item
-						label="Amount"
-						className={transaction.amount < 0 ? "text-danger" : "text-success"}
-						description={currencyFormatter(transaction.currency ?? "USD").format(transaction.amount)}
-					/>
+					<DetailLine.Item label="Amount" className={transaction.amount < 0 ? "text-danger" : "text-success"}>
+						<DetailLine.Description>
+							<PrivateValue>
+								{currencyFormatter(transaction.currency ?? "USD").format(transaction.amount)}
+							</PrivateValue>
+						</DetailLine.Description>
+					</DetailLine.Item>
 					<DetailLine.Item label="Status">
 						<DetailLine.Description>
 							<StatusBadge status={transaction.status} />
@@ -117,17 +120,24 @@ export const TransactionAside = ({
 					<DetailLine.Item
 						label={totalSpent < 0 ? "Total Spent" : "Total Received"}
 						className={totalSpent < 0 ? "text-danger" : "text-success"}
-						description={currencyFormatter(transaction.currency ?? "USD").format(totalSpent)}
-					/>
+					>
+						<DetailLine.Description>
+							<PrivateValue>
+								{currencyFormatter(transaction.currency ?? "USD").format(totalSpent)}
+							</PrivateValue>
+						</DetailLine.Description>
+					</DetailLine.Item>
 					<DetailLine.Item
 						label="Total Transactions"
 						description={dashboardCompactNumberFormatter().format(similarTransactions.length)}
 					/>
-					<DetailLine.Item
-						label="Average Amount"
-						className={totalSpent < 0 ? "text-danger" : "text-success"}
-						description={currencyFormatter(transaction.currency ?? "USD").format(averageAmount)}
-					/>
+					<DetailLine.Item label="Average Amount" className={totalSpent < 0 ? "text-danger" : "text-success"}>
+						<DetailLine.Description>
+							<PrivateValue>
+								{currencyFormatter(transaction.currency ?? "USD").format(averageAmount)}
+							</PrivateValue>
+						</DetailLine.Description>
+					</DetailLine.Item>
 				</DetailLine>
 				<div className="flex w-full flex-col gap-2">
 					<TransactionDestinationCard type="from" transaction={transaction} />

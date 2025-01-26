@@ -21,6 +21,7 @@ import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 import { AppSidebarLogo } from "./app-sidebar-logo"
 import { SidebarItem } from "./app-sidebar-nav"
 import { BankConnector } from "./bank-connector"
+import { PrivateValue } from "./private-value"
 import { UserMenu } from "./user-menu"
 
 export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
@@ -109,7 +110,11 @@ const AccountItems = () => {
 		<>
 			{accounts.map((account) => (
 				<SidebarItem
-					badge={currencyFormatter(account.balanceCurrency).format(account.balanceAmount)}
+					badge={
+						<PrivateValue>
+							{currencyFormatter(account.balanceCurrency).format(account.balanceAmount)}
+						</PrivateValue>
+					}
 					key={account.id}
 					href={`/accounts/${account.id}` as "/accounts/$accountId"}
 				>

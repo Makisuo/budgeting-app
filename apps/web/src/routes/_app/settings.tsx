@@ -6,6 +6,7 @@ import { Checkbox } from "~/components/ui/checkbox"
 
 import { useAtom } from "jotai/react"
 import { atomWithStorage } from "jotai/utils"
+import { usePrivacyMode } from "~/lib/global-store"
 
 export const catModeAtom = atomWithStorage("catMode", false)
 
@@ -29,6 +30,7 @@ function RouteComponent() {
 				<Card.Footer>Footer</Card.Footer>
 			</Card>
 			<CatModeSetting />
+			<PrivacyMode />
 		</>
 	)
 }
@@ -45,6 +47,24 @@ const CatModeSetting = () => {
 			<Card.Content>
 				<Checkbox isSelected={catMode} onChange={setCatMode}>
 					Enable Cat Mode
+				</Checkbox>
+			</Card.Content>
+			<Card.Footer />
+		</Card>
+	)
+}
+
+const PrivacyMode = () => {
+	const [privacyMode, setPrivacyMode] = usePrivacyMode()
+	return (
+		<Card>
+			<Card.Header>
+				<Card.Title>Privacy Mode</Card.Title>
+				<Card.Description>Privacy Mode</Card.Description>
+			</Card.Header>
+			<Card.Content>
+				<Checkbox isSelected={privacyMode} onChange={setPrivacyMode}>
+					Enable Privacy Mode
 				</Checkbox>
 			</Card.Content>
 			<Card.Footer />
