@@ -124,24 +124,30 @@ export const TransactionAside = ({
 						description={currencyFormatter(transaction.currency ?? "USD").format(averageAmount)}
 					/>
 				</DetailLine>
-				<DetailLine className="w-full">
-					<DetailLine.Item label={"From"}>
-						<DetailLine.Description>
-							{transaction.account.name}
-							<p className="text-muted-fg text-xs">
-								{transaction.account.iban || "No Bank Account Connection"}
-							</p>
-						</DetailLine.Description>
-					</DetailLine.Item>
-					<DetailLine.Item label="To">
-						<DetailLine.Description>
-							{transaction.name}
-							<p className="text-muted-fg text-xs">
-								{transaction.creditorIban || "No Bank Account Connection"}
-							</p>
-						</DetailLine.Description>
-					</DetailLine.Item>
-				</DetailLine>
+				<div className="flex w-full flex-col gap-2">
+					<div className="flex w-full flex-col gap-1">
+						<p className="text-muted-fg text-sm">From</p>
+						<div className="rounded-md bg-secondary px-3 py-2">
+							<div>
+								{transaction.account.name}
+								<p className="text-muted-fg text-xs">
+									{transaction.account.iban || "No Bank Account Connection"}
+								</p>
+							</div>
+						</div>
+					</div>
+					<div className="flex w-full flex-col gap-1">
+						<p className="text-muted-fg text-sm">To</p>
+						<div className="rounded-md bg-secondary px-3 py-2">
+							<div>
+								{transaction.name}
+								<p className="text-muted-fg text-xs">
+									{transaction.creditorIban || "No Bank Account Connection"}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
 			</Sheet.Body>
 			<Sheet.Footer>
 				<EditTransactionModal transactionId={transaction.id} />
