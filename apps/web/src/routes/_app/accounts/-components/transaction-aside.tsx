@@ -28,6 +28,7 @@ export const TransactionAside = ({
 			with: {
 				company: true,
 				category: true,
+				account: true,
 			},
 			where: (table, { eq }) => eq(table.id, dialogData.transactionId ?? ""),
 		}),
@@ -123,20 +124,36 @@ export const TransactionAside = ({
 						description={currencyFormatter(transaction.currency ?? "USD").format(averageAmount)}
 					/>
 				</DetailLine>
-				<div className="flex justify-end">
-					<Link
-						onClick={() => setDialogData({ open: false, transactionId: null })}
-						className={buttonStyles()}
-						to={"/accounts/$accountId"}
-						params={{ accountId: transaction.accountId }}
-						search={{ transactionName: transaction.name }}
-					>
-						Explore all Transactions <IconArrowRight />
-					</Link>
-				</div>
+				<DetailLine className="w-full">
+					<DetailLine.Item label={"From"}>
+						<DetailLine.Description>
+							{transaction.account.name}
+							<p className="text-muted-fg text-xs">
+								{transaction.account.iban || "No Bank Account Connection"}
+							</p>
+						</DetailLine.Description>
+					</DetailLine.Item>
+					<DetailLine.Item label="To">
+						<DetailLine.Description>
+							{transaction.name}
+							<p className="text-muted-fg text-xs">
+								{transaction.creditorIban || "No Bank Account Connection"}
+							</p>
+						</DetailLine.Description>
+					</DetailLine.Item>
+				</DetailLine>
 			</Sheet.Body>
 			<Sheet.Footer>
 				<EditTransactionModal transactionId={transaction.id} />
+				<Link
+					onClick={() => setDialogData({ open: false, transactionId: null })}
+					className={buttonStyles({ className: "w-full" })}
+					to={"/accounts/$accountId"}
+					params={{ accountId: transaction.accountId }}
+					search={{ transactionName: transaction.name }}
+				>
+					Explore <IconArrowRight />
+				</Link>
 			</Sheet.Footer>
 		</Sheet.Content>
 	)
@@ -170,7 +187,7 @@ const EditTransactionModal = ({ transactionId }: { transactionId: string }) => {
 
 	return (
 		<Modal isOpen={open} onOpenChange={setOpen}>
-			<Button>
+			<Button className="w-full">
 				<IconHighlight />
 				Edit
 			</Button>
