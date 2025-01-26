@@ -71,7 +71,7 @@ const SidebarProvider = ({
   ref,
   ...props
 }: SidebarProviderProps) => {
-  const isMobile = useMediaQuery("(max-width: 768px)")
+  const isMobile = useMediaQuery("(max-width: 767px)")
   const [openMobile, setOpenMobile] = useState(false)
 
   const [internalOpenState, setInternalOpenState] = useState(defaultOpen)
@@ -233,7 +233,7 @@ const Sidebar = ({
           aria-label="Sidebar"
           data-sidebar-intent="default"
           classNames={{
-            content: "bg-sidebar w-(--sidebar-width-mobile) text-sidebar-fg [&>button]:hidden",
+            content: "w-(--sidebar-width-mobile) [&>button]:hidden",
           }}
           isFloat={intent === "float"}
           side={side}

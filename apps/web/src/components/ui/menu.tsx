@@ -60,10 +60,10 @@ const SubMenu = ({ delay = 0, ...props }) => (
 
 const menuStyles = tv({
   slots: {
-    menu: "grid max-h-[calc(var(--visual-viewport-height)-10rem)] grid-cols-[auto_1fr] overflow-auto rounded-xl p-1 outline-hidden [clip-path:inset(0_0_0_0_round_calc(var(--radius-lg)-2px))] sm:max-h-[inherit]",
+    menu: "grid max-h-[calc(var(--visual-viewport-height)-10rem)] grid-cols-[auto_1fr] overflow-auto rounded-xl p-1 outline-hidden [clip-path:inset(0_0_0_0_round_calc(var(--radius-lg)-2px))] sm:max-h-[inherit] *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1",
     popover: "z-50 p-0 shadow-xs outline-hidden sm:min-w-40",
     trigger: [
-      "relative inline text-left data-focused:outline-hidden data-pressed:outline-hidden data-focus-visible:ring-1 data-focus-visible:ring-primary",
+      "relative inline text-left outline-hidden data-focus-visible:ring-1 data-focus-visible:ring-primary",
     ],
   },
 })
@@ -144,7 +144,7 @@ const Item = ({ className, isDanger = false, children, ...props }: MenuItemProps
               {values.selectionMode === "single" && (
                 <span
                   data-slot="bullet-icon"
-                  className="**:data-[slot=indicator]:-mx-0.5 -mx-0.5 mr-2 flex size-4 shrink-0 items-center justify-center **:data-[slot=indicator]:size-2.5 **:data-[slot=indicator]:shrink-0"
+                  className="-mx-0.5 mr-2 flex size-4 shrink-0 items-center justify-center **:data-[slot=indicator]:size-2.5 **:data-[slot=indicator]:shrink-0"
                 >
                   <IconBulletFill data-slot="indicator" />
                 </span>
@@ -174,7 +174,7 @@ const MenuHeader = ({ className, separator = false, ...props }: MenuHeaderProps)
   <Header
     className={cn(
       "col-span-full px-2.5 py-2 font-semibold text-base sm:text-sm",
-      separator && "-mx-1 border-b px-4 py-3 sm:px-3 sm:pb-[0.625rem]",
+      separator && "-mx-1 mb-1 border-b px-4 py-3 sm:px-3 sm:pb-[0.625rem]",
       className,
     )}
     {...props}
@@ -202,7 +202,6 @@ Menu.Primitive = MenuPrimitive
 Menu.Content = MenuContent
 Menu.Header = MenuHeader
 Menu.Item = Item
-Menu.Content = MenuContent
 Menu.Section = Section
 Menu.Separator = DropdownSeparator
 Menu.Trigger = MenuTrigger

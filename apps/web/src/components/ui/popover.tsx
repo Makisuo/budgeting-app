@@ -44,11 +44,11 @@ const Header = ({ className, ...props }: DialogHeaderProps) => (
 )
 
 const Footer = ({ className, ...props }: DialogFooterProps) => (
-  <Dialog.Footer className={cn("sm:p-4 sm:pt-0", className)} {...props} />
+  <Dialog.Footer className={cn("sm:p-4", className)} {...props} />
 )
 
 const Body = ({ className, ref, ...props }: DialogBodyProps) => (
-  <Dialog.Body ref={ref} className={cn("sm:p-4 sm:pt-0", className)} {...props} />
+  <Dialog.Body ref={ref} className={cn("sm:px-4 sm:pt-0", className)} {...props} />
 )
 
 const content = tv({
@@ -141,8 +141,8 @@ const PopoverContent = ({
       >
         <Dialog
           role="dialog"
-          aria-label={isMenu ? "Menu" : props["aria-label"]}
-          className="touch-none p-0 data-focused:outline-hidden sm:p-0"
+          aria-label={props["aria-label"] || isMenu ? "Menu" : undefined}
+          className="outline-hidden"
         >
           {children}
         </Dialog>
@@ -171,7 +171,13 @@ const PopoverContent = ({
           </svg>
         </OverlayArrow>
       )}
-      {children}
+      <Dialog
+        role="dialog"
+        aria-label={props["aria-label"] || isMenu ? "Menu" : undefined}
+        className="outline-hidden"
+      >
+        {children}
+      </Dialog>
     </PopoverPrimitive>
   )
 }

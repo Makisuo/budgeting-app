@@ -47,10 +47,8 @@ const dropdownItemStyles = tv({
 
 const dropdownSectionStyles = tv({
   slots: {
-    section:
-      "first:-mt-[5px] xss3 col-span-full grid grid-cols-[auto_1fr] gap-y-0.5 after:block after:h-[4px] after:content-['']",
-    header:
-      "-top-[5px] -mb-0.5 -mx-1.5 sticky z-10 col-span-full min-w-(--trigger-width) truncate border-y bg-bg px-4 py-2 font-medium text-muted-fg text-sm supports-[-moz-appearance:none]:bg-bg [&+*]:mt-1",
+    section: "col-span-full grid grid-cols-[auto_1fr]",
+    header: "col-span-full px-2.5 py-1 font-medium text-muted-fg text-sm sm:text-xs",
   },
 })
 
@@ -85,7 +83,7 @@ const DropdownItem = ({ className, ...props }: DropdownItemProps) => {
       {composeRenderProps(props.children, (children, { isSelected }) => (
         <>
           {isSelected && <IconCheck className="-mx-0.5 mr-2" data-slot="checked-icon" />}
-          {children}
+          {typeof children === "string" ? <DropdownLabel>{children}</DropdownLabel> : children}
         </>
       ))}
     </ListBoxItemPrimitive>
