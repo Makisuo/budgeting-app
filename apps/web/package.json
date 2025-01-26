@@ -50,7 +50,7 @@
 		"react": "19.0.0",
 		"react-aria-components": "^1.6.0",
 		"react-dom": "19.0.0",
-		"recharts": "^2.15.0",
+		"recharts": "3.0.0-alpha.5",
 		"sonner": "^1.7.2"
 	},
 	"overrides": {
