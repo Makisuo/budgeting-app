@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router"
 import { capitalizeFirstLetter } from "better-auth/react"
 import { atom, useAtom } from "jotai"
-import { IconArrowRight, IconCirclePlaceholderDashed, IconHighlight } from "justd-icons"
+import { IconArrowDown, IconArrowRight, IconCirclePlaceholderDashed, IconHighlight } from "justd-icons"
 import { startTransition, useMemo, useState } from "react"
 import { toast } from "sonner"
 import { Badge, Button, ComboBox, Form, Modal, Sheet, TextField, buttonStyles } from "~/components/ui"
@@ -10,6 +10,7 @@ import { useApi } from "~/lib/api/client"
 import { currencyFormatter, dashboardCompactNumberFormatter } from "~/utils/formatters"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 import { StatusBadge } from "./status-badge"
+import { TransactionDestinationCard } from "./transaction-destination-card"
 
 export const transactionAsideAtom = atom<{
 	open: boolean
@@ -28,7 +29,11 @@ export const TransactionAside = ({
 			with: {
 				company: true,
 				category: true,
-				account: true,
+				account: {
+					with: {
+						institution: true,
+					},
+				},
 			},
 			where: (table, { eq }) => eq(table.id, dialogData.transactionId ?? ""),
 		}),
@@ -125,34 +130,11 @@ export const TransactionAside = ({
 					/>
 				</DetailLine>
 				<div className="flex w-full flex-col gap-2">
-					<div className="flex w-full flex-col gap-1">
-						<p className="text-muted-fg text-sm">From</p>
-						<div className="rounded-md bg-secondary px-3 py-2">
-							<div>
-								{transaction.account.name}
-								<p className="text-muted-fg text-xs">
-									{transaction.account.iban
-										? formatIBAN(transaction.account.iban)
-										: "No Bank Account"}
-								</p>
-							</div>
-						</div>
+					<TransactionDestinationCard type="from" transaction={transaction} />
+					<div className="flex justify-center text-muted-fg">
+						<IconArrowDown className="size-3" />
 					</div>
-					<div className="flex w-full flex-col gap-1">
-						<p className="text-muted-fg text-sm">To</p>
-						<div className="rounded-md bg-secondary px-3 py-2">
-							<div>
-								{transaction.name}
-								<p className="text-muted-fg text-xs">
-									{transaction.creditorIban
-										? formatIBAN(transaction.creditorIban)
-										: transaction.debtorIban
-											? formatIBAN(transaction.debtorIban)
-											: "No Bank Account"}
-								</p>
-							</div>
-						</div>
-					</div>
+					<TransactionDestinationCard type="to" transaction={transaction} />
 				</div>
 			</Sheet.Body>
 			<Sheet.Footer>
@@ -169,13 +151,6 @@ export const TransactionAside = ({
 			</Sheet.Footer>
 		</Sheet.Content>
 	)
-}
-
-const formatIBAN = (iban: string) => {
-	// Remove all spaces and convert to uppercase
-	const cleanIban = iban.replace(/\s/g, "").toUpperCase()
-	// Add a space every 4 characters
-	return cleanIban.match(/.{1,4}/g)!.join(" ")
 }
 
 const EditTransactionModal = ({ transactionId }: { transactionId: string }) => {
