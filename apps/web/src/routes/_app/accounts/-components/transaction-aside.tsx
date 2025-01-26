@@ -131,7 +131,9 @@ export const TransactionAside = ({
 							<div>
 								{transaction.account.name}
 								<p className="text-muted-fg text-xs">
-									{transaction.account.iban || "No Bank Account Connection"}
+									{transaction.account.iban
+										? formatIBAN(transaction.account.iban)
+										: "No Bank Account"}
 								</p>
 							</div>
 						</div>
@@ -142,7 +144,11 @@ export const TransactionAside = ({
 							<div>
 								{transaction.name}
 								<p className="text-muted-fg text-xs">
-									{transaction.creditorIban || "No Bank Account Connection"}
+									{transaction.creditorIban
+										? formatIBAN(transaction.creditorIban)
+										: transaction.debtorIban
+											? formatIBAN(transaction.debtorIban)
+											: "No Bank Account"}
 								</p>
 							</div>
 						</div>
@@ -163,6 +169,13 @@ export const TransactionAside = ({
 			</Sheet.Footer>
 		</Sheet.Content>
 	)
+}
+
+const formatIBAN = (iban: string) => {
+	// Remove all spaces and convert to uppercase
+	const cleanIban = iban.replace(/\s/g, "").toUpperCase()
+	// Add a space every 4 characters
+	return cleanIban.match(/.{1,4}/g)!.join(" ")
 }
 
 const EditTransactionModal = ({ transactionId }: { transactionId: string }) => {
