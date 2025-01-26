@@ -10,3 +10,10 @@ export const dashboardCompactNumberFormatter = (locale = "en", maximumFractionDi
 		notation: "compact",
 	})
 }
+
+export const formatIBAN = (iban: string): string => {
+	// Remove all spaces and convert to uppercase
+	const cleanIban = iban.replace(/\s/g, "").toUpperCase()
+	// Add a space every 4 characters
+	return cleanIban.match(/.{1,4}/g)!.join(" ")
+}

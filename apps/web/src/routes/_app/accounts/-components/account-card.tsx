@@ -5,7 +5,7 @@ import { useMemo } from "react"
 import { Card, type ChartConfig } from "ui"
 import { SparkBarChart } from "~/components/ui/spark-chart"
 import { cn } from "~/utils/classes"
-import { currencyFormatter } from "~/utils/formatters"
+import { currencyFormatter, formatIBAN } from "~/utils/formatters"
 
 export interface AccountCardProps {
 	className?: string
@@ -81,7 +81,7 @@ export const AccountCard = ({ account, className, compact }: AccountCardProps) =
 						)}
 						<Card.Title>{account.institution.name}</Card.Title>
 					</div>
-					{account.iban && <Card.Description>{account.iban}</Card.Description>}
+					{account.iban && <Card.Description>{formatIBAN(account.iban)}</Card.Description>}
 				</Card.Header>
 				<Card.Content>
 					<Card.Description>Current Balance</Card.Description>

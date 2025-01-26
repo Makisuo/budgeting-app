@@ -1,14 +1,8 @@
 import { Link } from "@tanstack/react-router"
 import type { Account, Institution, Transaction } from "db"
-import { IconArrowRight, IconChevronLgRight } from "justd-icons"
+import { IconChevronLgRight } from "justd-icons"
+import { formatIBAN } from "~/utils/formatters"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
-
-const formatIBAN = (iban: string) => {
-	// Remove all spaces and convert to uppercase
-	const cleanIban = iban.replace(/\s/g, "").toUpperCase()
-	// Add a space every 4 characters
-	return cleanIban.match(/.{1,4}/g)!.join(" ")
-}
 
 export interface TransactionDestinationCardProps {
 	type: "from" | "to"
