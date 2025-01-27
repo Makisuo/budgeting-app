@@ -1,3 +1,5 @@
+import { usePGlite } from "@electric-sql/pglite-react"
+import { Repl } from "@electric-sql/pglite-repl"
 import { Link, createFileRoute } from "@tanstack/react-router"
 import { IconPlus, IconX } from "justd-icons"
 import { useState } from "react"

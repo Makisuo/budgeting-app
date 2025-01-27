@@ -13,8 +13,8 @@ export const TransactionCalendar = () => {
 				expenses: sql<number>`SUM(CASE WHEN amount < 0 THEN amount ELSE 0 END)`.as("expenses"),
 			})
 			.from(schema.transactions)
-			.groupBy(sql`DATE_TRUNC('day', ${schema.transactions.date})`)
 			.where(isNull(schema.transactions.directTransfer))
+			.groupBy(sql`DATE_TRUNC('day', ${schema.transactions.date})`)
 			.orderBy(sql`DATE_TRUNC('day', ${schema.transactions.date})`),
 	)
 
