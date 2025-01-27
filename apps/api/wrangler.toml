@@ -11,7 +11,6 @@ enabled = true
 mode = "smart"
 
 [env.production.vars]
-API_BASE_URL = "https://api.maple.dev"
 APP_BASE_URL = "https://app.maple.dev"
 
 
@@ -22,6 +21,11 @@ crons = ["*/10 * * * *"]
 name = "workflow-transactions-sync"
 binding = "SYNC_TRANSACTIONS_WORKFLOW"
 class_name = "SyncTransactionsWorkflow"
+
+[[workflows]]
+name = "workflow-transactions-detect-direct-transfers"
+binding = "DETECT_DIRECT_TRANSACTIONS_WORKFLOW"
+class_name = "DetectDirectTransferTransactionsWorkflow"
 
 [[hyperdrive]]
 binding = "HYPERDRIVE"
