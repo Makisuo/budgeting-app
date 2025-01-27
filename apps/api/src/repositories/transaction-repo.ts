@@ -32,11 +32,10 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 		const getUndetectedDirectTransfers = SqlSchema.findAll({
 			Request: Schema.Void,
 			Result: Schema.Struct({
-				outgoing_tx_id: TransactionId,
-				incoming_tx_id: TransactionId,
-				outgoing_amount: Schema.Number,
-				incoming_amount: Schema.Number,
-				transfer_time: Schema.String,
+				outgoingTxId: TransactionId,
+				incomingTxId: TransactionId,
+				outgoingAmount: Schema.Number,
+				incomingAmount: Schema.Number,
 			}),
 			execute: () => sql`SELECT 
 			t_out.id AS outgoing_tx_id,

@@ -16,11 +16,10 @@ class StepGetDirectTransferTransactionsRequest extends Schema.TaggedRequest<Step
 		failure: StepGetDirectTransferTransactionsError,
 		success: Schema.Array(
 			Schema.Struct({
-				outgoing_tx_id: TransactionId,
-				incoming_tx_id: TransactionId,
-				outgoing_amount: Schema.Number,
-				incoming_amount: Schema.Number,
-				transfer_time: Schema.String,
+				outgoingTxId: TransactionId,
+				incomingTxId: TransactionId,
+				outgoingAmount: Schema.Number,
+				incomingAmount: Schema.Number,
 			}),
 		),
 		payload: {
@@ -82,11 +81,11 @@ const runMyWorkflow = () =>
 		yield* Effect.forEach(directTransfers, (transfer) =>
 			Effect.gen(function* () {
 				yield* stepUpdateDirectTransferTransactions({
-					event: { transactionId: transfer.outgoing_tx_id, transferId: transfer.incoming_tx_id },
+					event: { transactionId: transfer.outgoingTxId, transferId: transfer.incomingTxId },
 				})
 
 				yield* stepUpdateDirectTransferTransactions({
-					event: { transactionId: transfer.incoming_tx_id, transferId: transfer.outgoing_tx_id },
+					event: { transactionId: transfer.incomingTxId, transferId: transfer.outgoingTxId },
 				})
 			}),
 		)
