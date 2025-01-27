@@ -1,11 +1,11 @@
 import { Link } from "@tanstack/react-router"
 import { capitalizeFirstLetter } from "better-auth/react"
 import { atom, useAtom } from "jotai"
-import { IconArrowDown, IconArrowRight, IconCirclePlaceholderDashed, IconHighlight } from "justd-icons"
+import { IconArrowDown, IconArrowRight, IconCirclePlaceholderDashed, IconHighlight, IconRefresh } from "justd-icons"
 import { startTransition, useMemo, useState } from "react"
 import { toast } from "sonner"
 import { PrivateValue } from "~/components/private-value"
-import { Badge, Button, ComboBox, Form, Modal, Sheet, TextField, buttonStyles } from "~/components/ui"
+import { Badge, Button, ComboBox, Form, Modal, Note, Sheet, TextField, buttonStyles } from "~/components/ui"
 import { DetailLine } from "~/components/ui/detail-line"
 import { useApi } from "~/lib/api/client"
 import { currencyFormatter, dashboardCompactNumberFormatter } from "~/utils/formatters"
@@ -139,7 +139,16 @@ export const TransactionAside = ({
 						</DetailLine.Description>
 					</DetailLine.Item>
 				</DetailLine>
+
 				<div className="flex w-full flex-col gap-2">
+					{transaction.directTransfer && (
+						<Note indicator={false} intent="info">
+							<div className="flex items-center gap-2">
+								<IconRefresh />
+								This is a direct transfer.
+							</div>
+						</Note>
+					)}
 					<TransactionDestinationCard type="from" transaction={transaction} />
 					<div className="flex justify-center text-muted-fg">
 						<IconArrowDown className="size-3" />

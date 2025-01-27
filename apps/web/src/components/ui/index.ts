@@ -53,6 +53,7 @@ export * from './link';
 export * from './list-box';
 export * from './loader';
 export * from './menu';
+export * from './note';
 export * from './popover';
 export * from './progress-circle';
 export * from './sheet';
