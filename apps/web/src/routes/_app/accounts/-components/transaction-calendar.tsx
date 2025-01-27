@@ -41,7 +41,7 @@ export const TransactionCalendar = () => {
 				</div>
 			</Card.Header>
 			<div className="px-3 py-2">
-				<Calendar aria-label="Event date" transactionsData={data} type={type} />
+				<Calendar aria-label="Transaction Calendar" transactionsData={data} type={type} />
 			</div>
 		</Card>
 	)
