@@ -15,8 +15,16 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
+import { compactCurrencyFormatter, currencyFormatter } from "~/utils/formatters"
+import { useDrizzleLive, useDrizzlePGlite } from "~/utils/pglite/drizzle-client"
+import { PrivateValue } from "../private-value"
 import { Button } from "./button"
 import { composeTailwindRenderProps, focusRing } from "./primitive"
+
+import { CalendarDate, getLocalTimeZone, parseDate } from "@internationalized/date"
+import { schema } from "db"
+import { sql } from "drizzle-orm"
+import { cn } from "~/utils/classes"
 
 const cell = tv({
 	extend: focusRing,
@@ -35,33 +43,80 @@ const cell = tv({
 interface CalendarProps<T extends DateValue> extends Omit<CalendarPrimitiveProps<T>, "visibleDuration"> {
 	errorMessage?: string
 	className?: string
+	type: "income" | "expenses" | "all"
+	transactionsData: {
+		day: Date
+		income: number
+		expenses: number
+	}[]
 }
 
-const Calendar = <T extends DateValue>({ errorMessage, className, ...props }: CalendarProps<T>) => {
+const Calendar = <T extends DateValue>({
+	errorMessage,
+	className,
+	type,
+	transactionsData,
+	...props
+}: CalendarProps<T>) => {
 	return (
 		<CalendarPrimitive className={composeTailwindRenderProps(className, "")} {...props}>
 			<CalendarHeader />
 			<CalendarGrid className="[&_td]:border-collapse [&_td]:px-0">
 				<CalendarGridHeader />
 				<CalendarGridBody>
-					{(date) => (
-						<CalendarCell
-							date={date}
-							className={composeRenderProps(className, (className, renderProps) =>
-								cell({
-									...renderProps,
-									className,
-								}),
-							)}
-						>
-							{(date) => (
-								<div className="flex flex-col items-center justify-center">
-									{date.defaultChildren}
-									<p className="text-success text-xs opacity-70">$123</p>
-								</div>
-							)}
-						</CalendarCell>
-					)}
+					{(date) => {
+						const transactionData = transactionsData.find((d) => {
+							const year = d.day.getFullYear()
+							const month = d.day.getMonth() + 1 // Convert 0-based to 1-based
+							const day = d.day.getDate()
+							const convertedDate = new CalendarDate(year, month, day)
+
+							return convertedDate.toString() === date.toString()
+						})
+
+						return (
+							<CalendarCell
+								date={date}
+								className={composeRenderProps(className, (className, renderProps) =>
+									cell({
+										...renderProps,
+										className,
+									}),
+								)}
+							>
+								{(date) => {
+									const value =
+										type === "income"
+											? Math.floor(transactionData?.income || 0)
+											: type === "expenses"
+												? Math.floor(transactionData?.expenses || 0)
+												: Math.floor(
+														(transactionData?.income || 0) +
+															(transactionData?.expenses || 0),
+													)
+									return (
+										<div className="flex flex-col items-center justify-center">
+											{date.defaultChildren}
+											{transactionData && (
+												<p
+													className={cn(
+														"text-xs opacity-70",
+
+														value > 0 ? "text-success" : "text-danger",
+														value === 0 ? "text-muted-fg" : "",
+													)}
+												>
+													<PrivateValue>
+														{compactCurrencyFormatter("EUR").format(value)}
+													</PrivateValue>
+												</p>
+											)}
+										</div>
+									)
+								}}
+							</CalendarCell>
+						)
+					}}
 				</CalendarGridBody>
 			</CalendarGrid>
 			{errorMessage && (
@@ -122,3 +177,5 @@ const CalendarGridHeader = () => {
 }
 
 Calendar.Header = CalendarHeader
+
+export { type CalendarProps, Calendar }

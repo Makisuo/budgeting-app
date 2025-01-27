@@ -51,7 +51,8 @@
 		"react-aria-components": "^1.6.0",
 		"react-dom": "19.0.0",
 		"recharts": "3.0.0-alpha.5",
-		"sonner": "^1.7.2"
+		"sonner": "^1.7.2",
+		"@internationalized/date": "^3.7.0"
 	},
 	"overrides": {
 		"react-is": "^19.0.0"

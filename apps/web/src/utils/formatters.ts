@@ -4,6 +4,14 @@ export const currencyFormatter = (currency: string) =>
 		currency: currency,
 	})
 
+export const compactCurrencyFormatter = (currency: string, maximumFractionDigits = 2) =>
+	new Intl.NumberFormat("en-US", {
+		style: "currency",
+		currency: currency,
+		maximumFractionDigits: maximumFractionDigits,
+		notation: "compact",
+	})
+
 export const dashboardCompactNumberFormatter = (locale = "en", maximumFractionDigits = 4) => {
 	return Intl.NumberFormat(locale, {
 		maximumFractionDigits: maximumFractionDigits,
