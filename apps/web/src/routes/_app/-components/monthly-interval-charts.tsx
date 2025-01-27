@@ -1,6 +1,6 @@
 import { capitalizeFirstLetter } from "better-auth/react"
 import { schema } from "db"
-import { sql } from "drizzle-orm"
+import { and, isNull, sql } from "drizzle-orm"
 import { Card } from "~/components/ui"
 import { BarChart } from "~/components/ui/bar-chart"
 import { compactCurrencyFormatter } from "~/utils/formatters"
@@ -87,7 +87,12 @@ export const MonthlyIntervalCharts = () => {
 			})
 			.from(schema.transactions)
 			.groupBy(schema.transactions.currency, sql`DATE_TRUNC('month', ${schema.transactions.date})`)
-			.where(sql`${schema.transactions.date} > NOW() - INTERVAL '6 months'`)
+			.where(
+				and(
+					sql`${schema.transactions.date} > NOW() - INTERVAL '6 months'`,
+					isNull(schema.transactions.directTransfer),
+				),
+			)
 			.orderBy(sql`DATE_TRUNC('month', ${schema.transactions.date})`),
 	)
 

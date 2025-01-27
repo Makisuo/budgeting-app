@@ -1,5 +1,5 @@
 import { schema } from "db"
-import { sql, sum } from "drizzle-orm"
+import { isNull, sql, sum } from "drizzle-orm"
 import { useState } from "react"
 import { Calendar, Card, Toggle, ToggleGroup } from "~/components/ui"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
@@ -14,6 +14,7 @@ export const TransactionCalendar = () => {
 			})
 			.from(schema.transactions)
 			.groupBy(sql`DATE_TRUNC('day', ${schema.transactions.date})`)
+			.where(isNull(schema.transactions.directTransfer))
 			.orderBy(sql`DATE_TRUNC('day', ${schema.transactions.date})`),
 	)
 

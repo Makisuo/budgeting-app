@@ -1,5 +1,5 @@
 import { schema } from "db"
-import { count, sql } from "drizzle-orm"
+import { and, count, isNull, sql } from "drizzle-orm"
 import { useMemo } from "react"
 import { PrivateValue } from "~/components/private-value"
 import { Card } from "~/components/ui"
@@ -17,7 +17,12 @@ export const MonthlyStats = () => {
 			})
 			.from(schema.transactions)
 			.groupBy(schema.transactions.currency)
-			.where(sql`${schema.transactions.date} > NOW() - INTERVAL '1 months'`),
+			.where(
+				and(
+					sql`${schema.transactions.date} > NOW() - INTERVAL '1 months'`,
+					isNull(schema.transactions.directTransfer),
+				),
+			),
 	)
 
 	const { data: aggregatedAccountBalance } = useDrizzleLive((db) =>
