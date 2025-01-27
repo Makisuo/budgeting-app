@@ -1,7 +1,7 @@
 import { Effect, Schema } from "effect"
 
 import { Model, SqlClient, SqlSchema } from "@effect/sql"
-import { Transaction } from "~/models/transaction"
+import { Transaction, TransactionId } from "~/models/transaction"
 import { SqlLive } from "~/services/sql"
 
 const TABLE_NAME = "transactions"
@@ -31,15 +31,13 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 
 		const getUndetectedDirectTransfers = SqlSchema.findAll({
 			Request: Schema.Void,
-			Result: Schema.Array(
-				Schema.Struct({
-					outgoing_tx_id: Schema.String,
-					incoming_tx_id: Schema.String,
-					outgoing_amount: Schema.Number,
-					incoming_amount: Schema.Number,
-					transfer_time: Schema.String,
-				}),
-			),
+			Result: Schema.Struct({
+				outgoing_tx_id: TransactionId,
+				incoming_tx_id: TransactionId,
+				outgoing_amount: Schema.Number,
+				incoming_amount: Schema.Number,
+				transfer_time: Schema.String,
+			}),
 			execute: () => sql`SELECT 
 			t_out.id AS outgoing_tx_id,
 			t_in.id AS incoming_tx_id,

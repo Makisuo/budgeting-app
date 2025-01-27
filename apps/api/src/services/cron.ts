@@ -8,9 +8,13 @@ export class CronService extends Effect.Service<CronService>()("@hazel/Cron", {
 
 		const workflow = yield* Workflows
 		const syncTransactionWorkflow = workflow.getWorkflow<WorkflowsBinding>("SyncTransactionsWorkflow")
+		const detectDirectTransferTransactionsWorkflow = workflow.getWorkflow<WorkflowsBinding>(
+			"DetectDirectTransferTransactionsWorkflow",
+		)
 
 		const run = () =>
 			Effect.gen(function* () {
+				yield* detectDirectTransferTransactionsWorkflow.create()
 				const accounts = yield* accountRepo.getAccountsReadyForSync()
 
 				yield* Effect.logInfo("Found accounts ready for sync", "Count", accounts.length)

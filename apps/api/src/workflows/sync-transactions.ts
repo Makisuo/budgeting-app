@@ -9,6 +9,7 @@ import { TransactionRepo } from "~/repositories/transaction-repo"
 import { Workflow, makeWorkflowEntrypoint } from "~/services/cloudflare/workflows"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
 import { TransactionHelpers } from "~/services/transaction"
+import { stepGetDirectTransferTransactions } from "./detect-direct-transfers"
 
 const WorkflowParams = Schema.Struct({
 	accountId: AccountId,
