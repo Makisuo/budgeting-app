@@ -87,5 +87,15 @@
     "bps": true,
     "folderMillis": 1737813294773,
     "hash": "296e9f228a066ee573ccc11ef56d01d999083cf595606cfdebc3520d9581d528"
+  },
+  {
+    "sql": [
+      "CREATE INDEX \"idx_transactions_tenant_currency_amount\" ON \"transactions\" USING btree (\"tenant_id\",\"currency\",\"amount\");",
+      "\nCREATE INDEX \"idx_accounts_tenant_currency_amount\" ON \"transactions\" USING btree (\"account_id\",\"tenant_id\",\"currency\");",
+      "\nCREATE INDEX \"idx_date\" ON \"transactions\" USING btree (\"date\");"
+    ],
+    "bps": true,
+    "folderMillis": 1737997607710,
+    "hash": "54d0543192805bf5f9ca88b0cc16f6c07df3d14393176878a8d64511e774b932"
   }
 ]

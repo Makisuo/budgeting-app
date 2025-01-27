@@ -103,29 +103,47 @@ export const subscriptions = pgTable("subscriptions", {
 	...defaultFields,
 })
 
-export const transactions = pgTable("transactions", {
-	id: text().primaryKey().notNull(),
-	amount: doublePrecision().notNull(),
-	currency: text().notNull(),
-	date: timestamp({ precision: 3 }).notNull(),
-	status: transactionStatus().notNull(),
-	balance: doublePrecision(),
-	categoryId: text("category_id").notNull(),
-	method: text().notNull(),
-	name: text().notNull(),
-	description: text(),
-	currencyRate: doublePrecision("currency_rate"),
-	currencySource: text("currency_source"),
-	accountId: text("account_id").notNull(),
+export const transactions = pgTable(
+	"transactions",
+	{
+		id: text().primaryKey().notNull(),
+		amount: doublePrecision().notNull(),
+		currency: text().notNull(),
+		date: timestamp({ precision: 3 }).notNull(),
+		status: transactionStatus().notNull(),
+		balance: doublePrecision(),
+		categoryId: text("category_id").notNull(),
+		method: text().notNull(),
+		name: text().notNull(),
+		description: text(),
+		currencyRate: doublePrecision("currency_rate"),
+		currencySource: text("currency_source"),
+		accountId: text("account_id").notNull(),
 
-	debtorIban: text("debtor_iban"),
-	creditorIban: text("creditor_iban"),
+		debtorIban: text("debtor_iban"),
+		creditorIban: text("creditor_iban"),
 
-	companyId: text("company_id"),
+		companyId: text("company_id"),
 
-	tenantId: text("tenant_id").notNull(),
-	...defaultFields,
-})
+		tenantId: text("tenant_id").notNull(),
+		...defaultFields,
+	},
+	(table) => {
+		return {
+			idx_transactions_tenant_currency_amount: index("idx_transactions_tenant_currency_amount").on(
+				table.tenantId,
+				table.currency,
+				table.amount,
+			),
+			idx_accounts_tenant_currency_amount: index("idx_accounts_tenant_currency_amount").on(
+				table.accountId,
+				table.tenantId,
+				table.currency,
+			),
+			idx_date: index("idx_date").on(table.date),
+		}
+	},
+)
 
 export const accountsRelations = relations(accounts, ({ one, many }) => ({
 	institution: one(institutions, {
