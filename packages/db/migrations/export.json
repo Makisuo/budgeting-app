@@ -97,5 +97,14 @@
     "bps": true,
     "folderMillis": 1737997607710,
     "hash": "54d0543192805bf5f9ca88b0cc16f6c07df3d14393176878a8d64511e774b932"
+  },
+  {
+    "sql": [
+      "ALTER TABLE \"transactions\" ADD COLUMN \"direct_transfer\" text;",
+      "\nCREATE INDEX \"idx_id\" ON \"accounts\" USING btree (\"id\",\"tenant_id\");"
+    ],
+    "bps": true,
+    "folderMillis": 1738000447211,
+    "hash": "e43374fbda5ec797e948a4d503522a9b03f5468c9cbb8d2a9e0df1e10a798a69"
   }
 ]

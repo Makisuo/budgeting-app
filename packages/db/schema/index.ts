@@ -72,22 +72,30 @@ export const categories = pgTable("categories", {
 })
 
 // User Tables
-export const accounts = pgTable("accounts", {
-	id: text().primaryKey().notNull(),
-	name: text().notNull(),
-	currency: text().notNull(),
-	type: accountType().notNull(),
-	institutionId: text("institution_id").notNull(),
-	balanceAmount: doublePrecision("balance_amount").notNull(),
-	balanceCurrency: text("balance_currency").notNull(),
+export const accounts = pgTable(
+	"accounts",
+	{
+		id: text().primaryKey().notNull(),
+		name: text().notNull(),
+		currency: text().notNull(),
+		type: accountType().notNull(),
+		institutionId: text("institution_id").notNull(),
+		balanceAmount: doublePrecision("balance_amount").notNull(),
+		balanceCurrency: text("balance_currency").notNull(),
 
-	tenantId: text("tenant_id").notNull(),
-	iban: text("iban"),
+		tenantId: text("tenant_id").notNull(),
+		iban: text("iban"),
 
-	lastSync: timestamp("last_sync", { precision: 3 }),
+		lastSync: timestamp("last_sync", { precision: 3 }),
 
-	...defaultFields,
-})
+		...defaultFields,
+	},
+	(table) => {
+		return {
+			idx_id: index("idx_id").on(table.id, table.tenantId),
+		}
+	},
+)
 
 export const subscriptions = pgTable("subscriptions", {
 	id: text().primaryKey().notNull(),
@@ -126,6 +134,8 @@ export const transactions = pgTable(
 		companyId: text("company_id"),
 
 		tenantId: text("tenant_id").notNull(),
+
+		directTransfer: text("direct_transfer"),
 		...defaultFields,
 	},
 	(table) => {
