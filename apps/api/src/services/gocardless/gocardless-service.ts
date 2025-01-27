@@ -183,8 +183,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 		) {
 			const date = DateTime.unsafeFromDate(transaction.bookingDateTime ?? transaction.bookingDate)
 
-			const transactionId =
-				transaction.transactionId || transaction.internalTransactionId || `maple_trs_${nanoid()}`
+			const transactionId = `trx_${nanoid()}`
 
 			const company = yield* Effect.if(!!transaction.debtorName, {
 				onTrue: () =>

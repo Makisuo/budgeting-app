@@ -9,13 +9,10 @@ import { TransactionRepo } from "~/repositories/transaction-repo"
 import { Workflow, makeWorkflowEntrypoint } from "~/services/cloudflare/workflows"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
 import { TransactionHelpers } from "~/services/transaction"
-import { stepCleanupPendingTransactions } from "./cleanup-pending"
 
 const WorkflowParams = Schema.Struct({
 	accountId: AccountId,
 })
-
-class WorkflowEventError extends Data.TaggedError("WorkflowEventError")<{ message?: string; cause?: unknown }> {}
 
 class StepSyncBalanceError extends Schema.TaggedError<StepSyncBalanceError>("StepSyncBalanceError")(
 	"StepSyncBalanceError",
@@ -136,6 +133,39 @@ const stepSyncTransactions = Workflow.schema(
 		retries: {
 			limit: 0,
 			delay: Duration.millis(1000),
+		},
+	},
+)
+
+class StepCleanupPendingTransactionsError extends Schema.TaggedError<StepCleanupPendingTransactionsError>(
+	"StepCleanupPendingTransactionsError",
+)("StepCleanupPendingTransactionsError", {
+	cause: Schema.Defect,
+}) {}
+
+class StepCleanupPendingTransactionsRequest extends Schema.TaggedRequest<StepCleanupPendingTransactionsRequest>()(
+	"StepCleanupPendingTransactionsRequest",
+	{
+		failure: StepCleanupPendingTransactionsError,
+		success: Schema.Void,
+		payload: {
+			event: Schema.Void,
+		},
+	},
+) {}
+
+export const stepCleanupPendingTransactions = Workflow.schema(
+	StepCleanupPendingTransactionsRequest,
+	() =>
+		Effect.gen(function* () {
+			const transaction = yield* TransactionRepo
+
+			yield* transaction.deleteOldPendingTransactions()
+		}).pipe(Effect.orDie),
+	{
+		retries: {
+			limit: 3,
+			delay: "300 millis",
 		},
 	},
 )
