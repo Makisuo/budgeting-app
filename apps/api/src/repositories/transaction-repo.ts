@@ -51,7 +51,7 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 			  t_out.tenant_id = t_in.tenant_id
 			  AND t_out.currency = t_in.currency
 			  AND ABS(t_out.amount + t_in.amount) < 0.01
-			  AND ABS(EXTRACT(EPOCH FROM (t_out.date - t_in.date))) < 300 
+			  AND ABS(EXTRACT(EPOCH FROM (t_out.date - t_in.date))) < 172000 
 			  AND t_out.account_id != t_in.account_id
 			  AND t_out.amount < 0
 			  AND t_in.amount > 0
