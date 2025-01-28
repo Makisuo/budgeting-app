@@ -15,15 +15,12 @@ import {
 } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
-import { compactCurrencyFormatter, currencyFormatter } from "~/utils/formatters"
-import { useDrizzleLive, useDrizzlePGlite } from "~/utils/pglite/drizzle-client"
+import { compactCurrencyFormatter } from "~/utils/formatters"
 import { PrivateValue } from "../private-value"
 import { Button } from "./button"
 import { composeTailwindRenderProps, focusRing } from "./primitive"
 
-import { CalendarDate, getLocalTimeZone, parseDate } from "@internationalized/date"
-import { schema } from "db"
-import { sql } from "drizzle-orm"
+import { CalendarDate } from "@internationalized/date"
 import { cn } from "~/utils/classes"
 
 const cell = tv({
@@ -84,7 +81,7 @@ const Calendar = <T extends DateValue>({
 									}),
 								)}
 							>
-								{(date) => {
+								{({ isSelected, defaultChildren }) => {
 									const value =
 										type === "income"
 											? Math.floor(transactionData?.income || 0)
@@ -96,7 +93,7 @@ const Calendar = <T extends DateValue>({
 													)
 									return (
 										<div className="flex flex-col items-center justify-center">
-											{date.defaultChildren}
+											{defaultChildren}
 											{transactionData && (
 												<p
 													className={cn(
@@ -104,6 +101,7 @@ const Calendar = <T extends DateValue>({
 
 														value > 0 ? "text-success" : "text-danger",
 														value === 0 ? "text-muted-fg" : "",
+														isSelected && "text-fg!",
 													)}
 												>
 													<PrivateValue>
