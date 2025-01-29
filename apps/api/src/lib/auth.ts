@@ -5,6 +5,8 @@ import { passkey } from "better-auth/plugins/passkey"
 
 import { DrizzleD1Database } from "drizzle-orm/d1"
 
+
+
 export const betterAuthOptions = {
 	baseURL: process.env.API_BASE_URL!,
 	appName: "Maple Budget",
