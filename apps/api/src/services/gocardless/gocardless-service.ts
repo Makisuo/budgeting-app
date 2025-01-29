@@ -207,6 +207,8 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 				amount: +transaction.transactionAmount.amount,
 				currency: transaction.transactionAmount.currency,
 
+				directTransfer: null,
+
 				name:
 					transaction.creditorName ||
 					transaction.debtorName ||
