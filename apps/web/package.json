@@ -33,6 +33,8 @@
 		"@electric-sql/pglite-react": "0.2.15",
 		"@electric-sql/pglite-repl": "^0.2.16",
 		"@electric-sql/pglite-sync": "0.2.17",
+		"@fontsource-variable/geist-mono": "^5.0.1",
+		"@fontsource/geist-sans": "^5.1.0",
 		"@internationalized/date": "^3.7.0",
 		"@makisuo/pglite-drizzle": "npm:@jsr/makisuo__pglite-drizzle@0.0.14",
 		"@tanstack/react-query": "^5.65.1",

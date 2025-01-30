@@ -1,15 +1,18 @@
 @import "tailwindcss";
 @plugin 'tailwindcss-animate';
 
+
+
+
+
 @variant dark (&:is(.dark *));
 
 @theme {
+  --font-geist-sans: 'Geist Sans';
+  --font-geist-mono: 'Geist Mono';
   /* Recommended font is: Inter, Sathosi, Geist */
-  /*--font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",*/
-  /*"Segoe UI Symbol", "Noto Color Emoji";*/
-
-  /* Recommended font is: Geist Mono */
-  /*--font-mono: var(--font-mono), 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace';*/
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: var(--font-geist-mono), 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace';
 
   --color-border: var(--border);
   --color-input: var(--input);

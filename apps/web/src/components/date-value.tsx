@@ -18,16 +18,16 @@ export const DateValue = ({ date, children }: { date: Date; children?: React.Rea
 	}
 
 	return (
-		<Tooltip>
-			<Button className="m-0 p-0 text-muted-fg underline decoration-dashed">
+		<Tooltip delay={200} closeDelay={400}>
+			<Button className="m-0 h-full appearance-none p-0 text-muted-fg underline decoration-dashed outline-none">
 				{children} {format(date, "PPpp")}
 			</Button>
-			<Tooltip.Content className="overflow-hidden p-0" placement="right" showArrow={false}>
+			<Tooltip.Content className="overflow-hidden p-0 font-mono" placement="right" showArrow={false}>
 				<div className="border-b border-b-border bg-bg p-3">
 					<p>{formatDistanceToNow(date, { addSuffix: true })}</p>
 				</div>
-				<div className="p-3">
-					<div className="flex flex-col gap-2">
+				<div className="p-3 pb-1">
+					<div className="flex flex-col gap-1">
 						{timeZones.map(({ city, zone, key }, index) => {
 							const currentDate = fromZonedTime(date, zone)
 
@@ -40,7 +40,11 @@ export const DateValue = ({ date, children }: { date: Date; children?: React.Rea
 									<span className="mr-4">{city}:</span>
 									<div className="flex items-center gap-2">
 										<span>
-											{formatInTimeZone(date, zone, isNewDate ? "MMM d, yyyy h:mm a" : "h:mm a")}
+											{formatInTimeZone(
+												date,
+												zone,
+												isNewDate ? "MMM dd, yyyy hh:mm a" : "hh:mm a",
+											)}
 										</span>
 										<span className="ml-2 text-muted-fg">{key}</span>
 									</div>

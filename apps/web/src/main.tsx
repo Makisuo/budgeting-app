@@ -5,7 +5,9 @@ import { routeTree } from "./routeTree.gen"
 import "./index.css"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { StrictMode } from "react"
-import { Toast } from "./components/ui"
+
+import "@fontsource/geist-sans/400.css"
+import "@fontsource-variable/geist-mono"
 
 const queryClient = new QueryClient()
 
