@@ -18,6 +18,7 @@ import type { RequisitionId } from "~/models/requistion"
 
 import { nanoid } from "nanoid"
 import type { TenantId } from "~/authorization"
+import { InternalError } from "~/errors"
 import { CategoryId } from "~/models/categories"
 import { Transaction, TransactionId } from "~/models/transaction"
 import { TransactionHelpers } from "../transaction"
@@ -183,7 +184,13 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 		) {
 			const date = DateTime.unsafeFromDate(transaction.bookingDateTime ?? transaction.bookingDate)
 
-			const transactionId = `trx_${nanoid()}`
+			const transactionId = transaction.transactionId || transaction.internalTransactionId
+
+			if (!transactionId) {
+				return yield* new InternalError({
+					message: "Transaction id is missing from GoCardless response",
+				})
+			}
 
 			const company = yield* Effect.if(!!transaction.debtorName, {
 				onTrue: () =>
