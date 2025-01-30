@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router"
 import { IconX } from "justd-icons"
-import { Card, buttonStyles } from "~/components/ui"
+import { Card, Note, buttonStyles } from "~/components/ui"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 import { AccountCard } from "./-components/account-card"
 import { TransactionTable } from "./-components/transaction-table"
@@ -9,6 +9,7 @@ import { searchParams } from "./-utils/table-utils"
 export const Route = createFileRoute("/_app/accounts/$accountId")({
 	component: RouteComponent,
 	validateSearch: searchParams,
+	errorComponent: (props) => <Note intent="danger">There was an error: {props.error.message}</Note>,
 })
 
 function RouteComponent() {

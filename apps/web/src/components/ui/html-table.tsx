@@ -26,8 +26,8 @@ const Table = ({ children, className, ...props }: TableProps) => (
 	</div>
 )
 
-const Body = (props: React.HTMLProps<HTMLDivElement>) => (
-	<div {...props} className={cn("[&_.tr:last-child]:border-0")} />
+const Body = (props: React.HTMLProps<HTMLTableSectionElement>) => (
+	<tbody {...props} className={cn("[&_.tr:last-child]:border-0")} />
 )
 
 const cellStyles = tv({

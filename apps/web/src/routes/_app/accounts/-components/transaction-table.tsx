@@ -51,53 +51,55 @@ export const TransactionTable = ({
 					<Table.Column>Date</Table.Column>
 					<Table.Column>Status</Table.Column>
 				</Table.Header>
-				{transactions.map((transaction) => (
-					<Table.Row
-						key={transaction.id}
-						onClick={() => {
-							setDialogData({ open: true, transactionId: transaction.id })
-						}}
-					>
-						<Table.Cell className="flex items-center gap-2">
-							{transaction.company ? (
-								<img
-									className="size-6 rounded-md"
-									src={`https://cdn.brandfetch.io/${transaction.company.url}/w/512/h/512?c=1id0IQ-4i8Z46-n-DfQ`}
-									alt={transaction.company.name}
-								/>
-							) : (
-								<IconCirclePlaceholderDashed className="size-6" />
-							)}
+				<Table.Body>
+					{transactions.map((transaction) => (
+						<Table.Row
+							key={transaction.id}
+							onClick={() => {
+								setDialogData({ open: true, transactionId: transaction.id })
+							}}
+						>
+							<Table.Cell className="flex items-center gap-2">
+								{transaction.company ? (
+									<img
+										className="size-6 rounded-md"
+										src={`https://cdn.brandfetch.io/${transaction.company.url}/w/512/h/512?c=1id0IQ-4i8Z46-n-DfQ`}
+										alt={transaction.company.name}
+									/>
+								) : (
+									<IconCirclePlaceholderDashed className="size-6" />
+								)}
 
-							{transaction.company?.name || transaction.name}
-						</Table.Cell>
-						<Table.Cell>
-							<Badge intent={Number(transaction.amount) < 0 ? "danger" : "success"}>
-								<PrivateValue>
-									{currencyFormatter(transaction.currency ?? "USD").format(transaction.amount)}
-								</PrivateValue>
-							</Badge>
-						</Table.Cell>
-						<Table.Cell>
-							<Link
-								onClick={(e) => {
-									e.stopPropagation()
-								}}
-								to={filter?.accountId ? "/accounts/$accountId" : "/accounts"}
-								params={{ accountId: filter?.accountId }}
-								search={{ categoryId: transaction.categoryId }}
-							>
-								<Badge>{transaction.category.name}</Badge>
-							</Link>
-						</Table.Cell>
-						<Table.Cell>
-							<DateValue date={transaction.date} />
-						</Table.Cell>
-						<Table.Cell>
-							<StatusBadge status={transaction.status} />
-						</Table.Cell>
-					</Table.Row>
-				))}
+								{transaction.company?.name || transaction.name}
+							</Table.Cell>
+							<Table.Cell>
+								<Badge intent={Number(transaction.amount) < 0 ? "danger" : "success"}>
+									<PrivateValue>
+										{currencyFormatter(transaction.currency ?? "USD").format(transaction.amount)}
+									</PrivateValue>
+								</Badge>
+							</Table.Cell>
+							<Table.Cell>
+								<Link
+									onClick={(e) => {
+										e.stopPropagation()
+									}}
+									to={filter?.accountId ? "/accounts/$accountId" : "/accounts"}
+									params={{ accountId: filter?.accountId }}
+									search={{ categoryId: transaction.categoryId }}
+								>
+									<Badge>{transaction.category.name}</Badge>
+								</Link>
+							</Table.Cell>
+							<Table.Cell>
+								<DateValue date={transaction.date} />
+							</Table.Cell>
+							<Table.Cell>
+								<StatusBadge status={transaction.status} />
+							</Table.Cell>
+						</Table.Row>
+					))}
+				</Table.Body>
 			</Table>
 			<TransactionAside accountId={filter?.accountId} />
 		</>
