@@ -25,10 +25,16 @@ export const DateValue = ({ date, children }: { date: Date; children?: React.Rea
 				<div className="p-3">
 					<div className="flex flex-col gap-2">
 						{timeZones.map(({ city, zone, key }, index) => {
-							const currentDate = new Date(formatInTimeZone(date, zone, "yyyy-MM-dd"))
+							const currentDate = new Date(formatInTimeZone(date, zone, "yyyy-MM-dd'T'HH:mm:ssXXX"))
 							const prevDate =
 								index > 0
-									? new Date(formatInTimeZone(date, timeZones[index - 1]!.zone, "yyyy-MM-dd"))
+									? new Date(
+											formatInTimeZone(
+												date,
+												timeZones[index - 1]!.zone,
+												"yyyy-MM-dd'T'HH:mm:ssXXX",
+											),
+										)
 									: currentDate
 
 							const isNewDate = index === 0 || !isSameDay(currentDate, prevDate)
