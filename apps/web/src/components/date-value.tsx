@@ -1,7 +1,7 @@
 import { format, formatDistanceToNow, isSameDay } from "date-fns"
 import { Tooltip } from "./ui/tooltip"
 
-import { formatInTimeZone } from "date-fns-tz"
+import { formatInTimeZone, fromZonedTime } from "date-fns-tz"
 import { Button } from "react-aria-components"
 
 export const DateValue = ({ date, children }: { date: Date; children?: React.ReactNode }) => {
@@ -12,6 +12,10 @@ export const DateValue = ({ date, children }: { date: Date; children?: React.Rea
 		{ city: "Dubai", zone: "Asia/Dubai", key: "GST" },
 		{ city: "Mumbai", zone: "Asia/Kolkata", key: "IST" },
 	]
+
+	if (Number.isNaN(date.valueOf())) {
+		return
+	}
 
 	return (
 		<Tooltip>
@@ -25,17 +29,9 @@ export const DateValue = ({ date, children }: { date: Date; children?: React.Rea
 				<div className="p-3">
 					<div className="flex flex-col gap-2">
 						{timeZones.map(({ city, zone, key }, index) => {
-							const currentDate = new Date(formatInTimeZone(date, zone, "yyyy-MM-dd'T'HH:mm:ssXXX"))
-							const prevDate =
-								index > 0
-									? new Date(
-											formatInTimeZone(
-												date,
-												timeZones[index - 1]!.zone,
-												"yyyy-MM-dd'T'HH:mm:ssXXX",
-											),
-										)
-									: currentDate
+							const currentDate = fromZonedTime(date, zone)
+
+							const prevDate = index > 0 ? fromZonedTime(date, timeZones[index - 1]!.zone) : currentDate
 
 							const isNewDate = index === 0 || !isSameDay(currentDate, prevDate)
 
