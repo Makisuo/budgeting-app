@@ -307,7 +307,7 @@ export const companies: Company[] = [
 		id: "ubereats",
 		name: "Uber Eats",
 		url: "ubereats.com",
-		patterns: ["Uber * Eats%", "Uber Eats", "UBER..EATS"],
+		patterns: ["Uber * Eats%", "Uber Eats", "UBER..EATS", "Uber *eats"],
 		categoryId: "food-delivery",
 	},
 	{
