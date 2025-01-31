@@ -83,7 +83,7 @@ export const AccountCard = ({ account, className, compact }: AccountCardProps) =
 						<Card.Title>{account.institution.name}</Card.Title>
 					</div>
 					{account.iban && (
-						<Card.Description>
+						<Card.Description className="font-mono">
 							<PrivateValue>{formatIBAN(account.iban)}</PrivateValue>
 						</Card.Description>
 					)}

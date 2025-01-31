@@ -31,7 +31,9 @@ const PersonalBankAccountCard = ({
 			<img src={account.institution.logo || ""} alt={account.institution.name} className="size-8" />
 			<div className="flex flex-col gap-0.5 text-sm">
 				{account.name}
-				<p className="text-muted-fg text-xs">{account.iban ? formatIBAN(account.iban) : "No Bank Account"}</p>
+				<p className="font-mono text-muted-fg text-xs">
+					{account.iban ? formatIBAN(account.iban) : "No Bank Account"}
+				</p>
 			</div>
 			<IconChevronLgRight className="size-4 text-muted-fg" />
 		</Link>
