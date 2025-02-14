@@ -45,19 +45,15 @@ export const UserMenu = () => {
 					</Menu.Header>
 				</Menu.Section>
 
-				<Menu.Item href="/dashboard">
+				<Menu.Item href="/">
 					<IconDashboard />
 					Dashboard
 				</Menu.Item>
-				<Menu.Item href="/dashboard/settings">
+				<Menu.Item href="/settings">
 					<IconSettings />
 					Settings
 				</Menu.Item>
 				<Menu.Separator />
-				<Menu.Item href="/dashboard/settings/team">
-					<IconPeople />
-					Teams
-				</Menu.Item>
 				<Menu.Submenu>
 					<Menu.Item>
 						{theme === "light" ? (
