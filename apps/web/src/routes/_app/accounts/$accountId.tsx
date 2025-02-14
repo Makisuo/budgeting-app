@@ -36,7 +36,7 @@ function RouteComponent() {
 
 	return (
 		<>
-			<AccountCard className="max-w-[300px]" account={bankAccount} compact />
+			<AccountCard className="sm:max-w-[300px]" account={bankAccount} compact />
 
 			<div className="flex justify-end">
 				{hasSearchParams && (
