@@ -54,6 +54,8 @@ export const PgLiteProvider = ({ children }: { children: React.ReactNode }) => {
 		loadPglite().then(setPgForProvider)
 	}, [])
 
+	console.log("PGLITE PROVIDER", pgForProvider)
+
 	if (!pgForProvider) return <LoadingScreen />
 
 	return <PGliteProvider db={pgForProvider}>{children}</PGliteProvider>
