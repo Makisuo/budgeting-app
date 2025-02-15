@@ -1,6 +1,15 @@
 "use client"
 
-import { IconAlbum, IconCreditCard, IconCube, IconDashboard, IconGear, IconPeople, IconPlus } from "justd-icons"
+import {
+	IconAlbum,
+	IconCreditCard,
+	IconCube,
+	IconCurrencyDollar,
+	IconDashboard,
+	IconGear,
+	IconPeople,
+	IconPlus,
+} from "justd-icons"
 import { useState } from "react"
 import {
 	Sidebar,
@@ -38,6 +47,10 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 						<SidebarItem href="/">
 							<IconDashboard />
 							Dashboard
+						</SidebarItem>
+						<SidebarItem href="/budgets">
+							<IconCurrencyDollar />
+							Budgets
 						</SidebarItem>
 						<SidebarItem href="/accounts">
 							<IconAlbum />

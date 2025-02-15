@@ -23,6 +23,7 @@ import { Route as AppSubscriptionsImport } from './routes/_app/subscriptions'
 import { Route as AppSettingsImport } from './routes/_app/settings'
 import { Route as AuthRegisterIndexImport } from './routes/auth/register/index'
 import { Route as AuthLoginIndexImport } from './routes/auth/login/index'
+import { Route as AppBudgetsIndexImport } from './routes/_app/budgets/index'
 import { Route as AppAccountsIndexImport } from './routes/_app/accounts/index'
 import { Route as AppAccountsAccountIdImport } from './routes/_app/accounts/$accountId'
 
@@ -96,6 +97,12 @@ const AuthLoginIndexRoute = AuthLoginIndexImport.update({
   id: '/login/',
   path: '/login/',
   getParentRoute: () => AuthLayoutRoute,
+} as any)
+
+const AppBudgetsIndexRoute = AppBudgetsIndexImport.update({
+  id: '/budgets/',
+  path: '/budgets/',
+  getParentRoute: () => AppRoute,
 } as any)
 
 const AppAccountsIndexRoute = AppAccountsIndexImport.update({
@@ -198,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAccountsIndexImport
       parentRoute: typeof AppImport
     }
+    '/_app/budgets/': {
+      id: '/_app/budgets/'
+      path: '/budgets'
+      fullPath: '/budgets'
+      preLoaderRoute: typeof AppBudgetsIndexImport
+      parentRoute: typeof AppImport
+    }
     '/auth/login/': {
       id: '/auth/login/'
       path: '/login'
@@ -245,6 +259,7 @@ interface AppRouteChildren {
   AppIndexRoute: typeof AppIndexRoute
   AppAccountsAccountIdRoute: typeof AppAccountsAccountIdRoute
   AppAccountsIndexRoute: typeof AppAccountsIndexRoute
+  AppBudgetsIndexRoute: typeof AppBudgetsIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -253,6 +268,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppIndexRoute: AppIndexRoute,
   AppAccountsAccountIdRoute: AppAccountsAccountIdRoute,
   AppAccountsIndexRoute: AppAccountsIndexRoute,
+  AppBudgetsIndexRoute: AppBudgetsIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
@@ -269,6 +285,7 @@ export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
   '/accounts/$accountId': typeof AppAccountsAccountIdRoute
   '/accounts': typeof AppAccountsIndexRoute
+  '/budgets': typeof AppBudgetsIndexRoute
   '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
 }
@@ -285,6 +302,7 @@ export interface FileRoutesByTo {
   '/': typeof AppIndexRoute
   '/accounts/$accountId': typeof AppAccountsAccountIdRoute
   '/accounts': typeof AppAccountsIndexRoute
+  '/budgets': typeof AppBudgetsIndexRoute
   '/auth/login': typeof AuthLoginIndexRoute
   '/auth/register': typeof AuthRegisterIndexRoute
 }
@@ -303,6 +321,7 @@ export interface FileRoutesById {
   '/_app/': typeof AppIndexRoute
   '/_app/accounts/$accountId': typeof AppAccountsAccountIdRoute
   '/_app/accounts/': typeof AppAccountsIndexRoute
+  '/_app/budgets/': typeof AppBudgetsIndexRoute
   '/auth/login/': typeof AuthLoginIndexRoute
   '/auth/register/': typeof AuthRegisterIndexRoute
 }
@@ -321,6 +340,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accounts/$accountId'
     | '/accounts'
+    | '/budgets'
     | '/auth/login'
     | '/auth/register'
   fileRoutesByTo: FileRoutesByTo
@@ -336,6 +356,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accounts/$accountId'
     | '/accounts'
+    | '/budgets'
     | '/auth/login'
     | '/auth/register'
   id:
@@ -352,6 +373,7 @@ export interface FileRouteTypes {
     | '/_app/'
     | '/_app/accounts/$accountId'
     | '/_app/accounts/'
+    | '/_app/budgets/'
     | '/auth/login/'
     | '/auth/register/'
   fileRoutesById: FileRoutesById
@@ -402,7 +424,8 @@ export const routeTree = rootRoute
         "/_app/subscriptions",
         "/_app/",
         "/_app/accounts/$accountId",
-        "/_app/accounts/"
+        "/_app/accounts/",
+        "/_app/budgets/"
       ]
     },
     "/_auth": {
@@ -442,6 +465,10 @@ export const routeTree = rootRoute
     },
     "/_app/accounts/": {
       "filePath": "_app/accounts/index.tsx",
+      "parent": "/_app"
+    },
+    "/_app/budgets/": {
+      "filePath": "_app/budgets/index.tsx",
       "parent": "/_app"
     },
     "/auth/login/": {

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router"
 
 import { useTheme } from "~/components/theme-provider"
-import { Button, Card } from "~/components/ui"
+import { Button, Card, Select } from "~/components/ui"
 import { Checkbox } from "~/components/ui/checkbox"
 
 import { useAtom } from "jotai/react"
@@ -10,24 +10,70 @@ import { usePrivacyMode } from "~/lib/global-store"
 
 export const catModeAtom = atomWithStorage("catMode", false)
 
+export const generalSettingsAtom = atomWithStorage("generalSettings", {
+	currency: "USD",
+})
+
 export const Route = createFileRoute("/_app/settings")({
 	component: RouteComponent,
 })
 
+const availableCurrencies = [
+	{
+		id: "USD",
+		name: "US Dollar",
+	},
+	{
+		id: "EUR",
+		name: "Euro",
+	},
+	{
+		id: "GBP",
+		name: "Pound Sterling",
+	},
+]
+
 function RouteComponent() {
-	const { theme, setTheme } = useTheme()
+	const { setTheme } = useTheme()
+
+	const [settings, setSettings] = useAtom(generalSettingsAtom)
 
 	return (
 		<>
+			<Card>
+				<Card.Header>
+					<Card.Title>General Settings</Card.Title>
+					<Card.Description>Some general settings</Card.Description>
+				</Card.Header>
+				<Card.Content>
+					<div>
+						<Select
+							selectedKey={settings.currency}
+							onSelectionChange={(val) => {
+								setSettings((prev) => ({ ...prev, currency: val.toString() }))
+							}}
+							className="w-max"
+						>
+							<Select.Trigger />
+							<Select.List items={availableCurrencies}>
+								{(item) => (
+									<Select.Option id={item.id} textValue={item.name}>
+										{item.name}
+									</Select.Option>
+								)}
+							</Select.List>
+						</Select>
+					</div>
+				</Card.Content>
+			</Card>
 			<Card>
 				<Card.Header>
 					<Card.Title>Themes</Card.Title>
 					<Card.Description>Change the theme of the app</Card.Description>
 				</Card.Header>
 				<Card.Content>
-					<Button onPress={() => setTheme("pastel")}>Pastel</Button>
+					<Button onPress={() => setTheme("pastel" as "dark")}>Pastel</Button>
 				</Card.Content>
-				<Card.Footer>Footer</Card.Footer>
 			</Card>
 			<CatModeSetting />
 			<PrivacyMode />
@@ -49,7 +95,6 @@ const CatModeSetting = () => {
 					Enable Cat Mode
 				</Checkbox>
 			</Card.Content>
-			<Card.Footer />
 		</Card>
 	)
 }
@@ -67,7 +112,6 @@ const PrivacyMode = () => {
 					Enable Privacy Mode
 				</Checkbox>
 			</Card.Content>
-			<Card.Footer />
 		</Card>
 	)
 }

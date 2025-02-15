@@ -1,15 +1,15 @@
 import { schema } from "db"
 import { and, count, isNull, sql } from "drizzle-orm"
-import { useAtom } from "jotai/react"
+import { useAtom } from "jotai"
 import { useMemo } from "react"
 import { PrivateValue } from "~/components/private-value"
 import { Card } from "~/components/ui"
-import { exchangeRateAtom } from "~/lib/exchange-rate"
+import { exchangeRateAtom, getExchangeRates } from "~/lib/exchange-rate"
 import { currencyFormatter } from "~/utils/formatters"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
-import { generalSettingsAtom } from "../settings"
+import { generalSettingsAtom } from "../../settings"
 
-export const MonthlyStats = () => {
+export const BudgetStats = () => {
 	const { data } = useDrizzleLive((db) =>
 		db
 			.select({
@@ -70,7 +70,7 @@ export const MonthlyStats = () => {
 		<div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
 			<Card className="space-y-1">
 				<Card.Header>
-					<Card.Description>Total Balance</Card.Description>
+					<Card.Description>Balance Available</Card.Description>
 					<p className="font-semibold text-3xl">
 						<PrivateValue>{currencyFormatter(settings.currency).format(totalBalance)}</PrivateValue>
 					</p>
@@ -79,6 +79,7 @@ export const MonthlyStats = () => {
 			<Card className="space-y-1">
 				<Card.Header>
 					<Card.Description>Monthly Expenses</Card.Description>
+
 					<p className="font-semibold text-3xl">
 						<PrivateValue>
 							{currencyFormatter(settings.currency).format(Math.abs(totalExpenses))}
@@ -89,10 +90,9 @@ export const MonthlyStats = () => {
 			<Card className="space-y-1">
 				<Card.Header>
 					<Card.Description>Monthly Earnings</Card.Description>
+
 					<p className="font-semibold text-3xl">
-						<PrivateValue>
-							{currencyFormatter(settings.currency).format(Math.abs(totalEarnings))}
-						</PrivateValue>
+						<PrivateValue>{currencyFormatter(settings.currency).format(totalEarnings)}</PrivateValue>
 					</p>
 				</Card.Header>
 			</Card>
