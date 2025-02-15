@@ -19,7 +19,7 @@
 		"@types/react": "19.0.8",
 		"@types/react-dom": "19.0.3",
 		"@vitejs/plugin-react": "^4.3.4",
-		"justd-cli": "^2.4.5",
+		"justd-cli": "^2.4.6",
 		"openapi-typescript": "^7.6.1",
 		"tailwind-merge": "^3.0.1",
 		"tailwind-variants": "^0.3.1",
