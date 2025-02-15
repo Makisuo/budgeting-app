@@ -9,7 +9,7 @@
 		"build": "vite build",
 		"serve": "vite preview",
 		"start": "vite",
-		"justd": "justd-cli",
+		"justd": "justd",
 		"openapi-typescript": "openapi-typescript http://localhost:8787/openapi.json -o ./src/lib/api/v1.d.ts"
 	},
 	"devDependencies": {
