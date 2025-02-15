@@ -1,10 +1,19 @@
 import { schema } from "db"
-import { isNull, sql, sum } from "drizzle-orm"
-import { useState } from "react"
+import { isNull, sql } from "drizzle-orm"
+import { startTransition, useState } from "react"
+import type { DateValue } from "react-aria-components"
 import { Calendar, Card, Toggle, ToggleGroup } from "~/components/ui"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
 
-export const TransactionCalendar = () => {
+export const TransactionCalendar = ({
+	onChange,
+	onViewChange,
+	value,
+}: {
+	onChange?: (value: DateValue) => void
+	value?: DateValue
+	onViewChange?: (view: "all" | "income" | "expenses") => void
+}) => {
 	const { data } = useDrizzleLive((db) =>
 		db
 			.select({
@@ -21,7 +30,7 @@ export const TransactionCalendar = () => {
 	const [type, setType] = useState<"all" | "income" | "expenses">("income")
 
 	return (
-		<Card className="max-w-[430px]">
+		<Card className="max-w-[430px] lg:w-full">
 			<Card.Header>
 				<div className="flex justify-between">
 					<Card.Title>Calendar</Card.Title>
@@ -31,7 +40,10 @@ export const TransactionCalendar = () => {
 						onSelectionChange={(keys) => {
 							const key = [...keys][0]?.toString() ?? null
 
-							setType(key as "income" | "expenses")
+							startTransition(() => {
+								setType(key as "income" | "expenses")
+								onViewChange?.(key as "income" | "expenses")
+							})
 						}}
 						selectionMode="single"
 					>
@@ -42,7 +54,13 @@ export const TransactionCalendar = () => {
 				</div>
 			</Card.Header>
 			<div className="px-3 py-2">
-				<Calendar aria-label="Transaction Calendar" transactionsData={data} type={type} />
+				<Calendar
+					aria-label="Transaction Calendar"
+					value={value}
+					onChange={onChange}
+					transactionsData={data}
+					type={type}
+				/>
 			</div>
 		</Card>
 	)
