@@ -61,7 +61,7 @@ export const MonthlyStats = () => {
 
 	const totalExpenses = data.reduce((acc, curr) => {
 		if (exchangeRates.base.toUpperCase() === curr.currency.toUpperCase()) {
-			return acc + curr.income
+			return acc + curr.expenses
 		}
 		return acc + curr.expenses * exchangeRates.rates[curr.currency.toUpperCase()]
 	}, 0)
