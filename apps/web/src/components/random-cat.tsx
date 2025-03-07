@@ -23,7 +23,7 @@ export const RandomCat = ({ containerWidth, idleTime = 1500 }: RandomCatProps) =
 	const [isUserControlled, setIsUserControlled] = useState(false)
 	const [catPosition, setCatPosition] = useState(0)
 
-	const timeoutRef = useRef<NodeJS.Timeout>()
+	const timeoutRef = useRef<NodeJS.Timer | null>(null)
 
 	// Handle keyboard controls
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>

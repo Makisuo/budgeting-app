@@ -147,7 +147,7 @@ const CalendarHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivEle
 					size="square-petite"
 					className="size-8 **:data-[slot=icon]:text-fg sm:size-7"
 					shape="circle"
-					appearance="plain"
+					intent="plain"
 					slot="previous"
 				>
 					{direction === "rtl" ? <IconChevronLgRight /> : <IconChevronLgLeft aria-hidden />}
@@ -156,7 +156,7 @@ const CalendarHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivEle
 					size="square-petite"
 					className="size-8 **:data-[slot=icon]:text-fg sm:size-7"
 					shape="circle"
-					appearance="plain"
+					intent="plain"
 					slot="next"
 				>
 					{direction === "rtl" ? <IconChevronLgLeft /> : <IconChevronLgRight />}

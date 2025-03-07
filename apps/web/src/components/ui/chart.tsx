@@ -534,7 +534,7 @@ const ChartLegendContent = ({
 						className={cn(
 							"flex items-center gap-1.5 *:data-[slot=icon]:size-3 *:data-[slot=icon]:text-muted-fg",
 						)}
-						appearance="plain"
+						intent="plain"
 						aria-label={"Legend Item"}
 					>
 						{itemConfig?.icon && !hideIcon ? (

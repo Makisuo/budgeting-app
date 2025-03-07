@@ -42,7 +42,7 @@ function RouteComponent() {
 				{hasSearchParams && (
 					<Link
 						className={buttonStyles({
-							appearance: "outline",
+							intent: "outline",
 							size: "small",
 						})}
 						to="/accounts/$accountId"

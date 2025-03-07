@@ -35,7 +35,7 @@ interface UseDebouncedValueProps<T> {
 function useDebouncedValue<T>({ initialValue, delay = 500 }: UseDebouncedValueProps<T>): [T, (value: T) => void, T] {
 	const [value, setValue] = useState<T>(initialValue)
 	const [debouncedValue, setDebouncedValue] = useState<T>(initialValue)
-	const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+	const timeoutRef = useRef<NodeJS.Timer | null>(null)
 
 	useEffect(() => {
 		if (timeoutRef.current) {

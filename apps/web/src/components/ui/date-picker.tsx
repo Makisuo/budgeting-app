@@ -7,7 +7,6 @@ import {
   type PopoverProps,
   type ValidationResult,
 } from "react-aria-components"
-import { tv } from "tailwind-variants"
 
 import { cn } from "~/utils/classes"
 import type { DateDuration } from "@internationalized/date"
@@ -18,21 +17,6 @@ import { Description, FieldError, FieldGroup, Label } from "./field"
 import { Popover } from "./popover"
 import { composeTailwindRenderProps } from "./primitive"
 import { RangeCalendar } from "./range-calendar"
-
-const datePickerStyles = tv({
-  slots: {
-    base: "group/date-picker flex flex-col gap-y-1",
-    datePickerIcon:
-      "mr-1 h-7 w-8 rounded outline-offset-0data-hovered:bg-transparent data-pressed:bg-transparent **:data-[slot=icon]:text-muted-fg",
-    datePickerInput: "w-full px-2 text-base sm:text-sm",
-    dateRangePickerInputStart: "px-2 text-base sm:text-sm",
-    dateRangePickerInputEnd: "flex-1 px-2 py-1.5 text-base sm:text-sm",
-    dateRangePickerDash:
-      "text-fg group-data-disabled:opacity-50 forced-colors:text-[ButtonText] forced-colors:group-data-disabled:text-[GrayText]",
-  },
-})
-
-const { base, datePickerIcon, datePickerInput } = datePickerStyles()
 
 interface DatePickerOverlayProps
   extends Omit<DialogProps, "children" | "className" | "style">,
@@ -54,6 +38,7 @@ const DatePickerOverlay = ({
 }: DatePickerOverlayProps) => {
   return (
     <Popover.Content
+      isDismissable={false}
       showArrow={false}
       className={cn(
         "flex min-w-auto max-w-none snap-x justify-center p-4 sm:min-w-[16.5rem] sm:p-2 sm:pt-3",
@@ -78,7 +63,11 @@ const DatePickerOverlay = ({
 }
 
 const DatePickerIcon = () => (
-  <Button size="square-petite" appearance="plain" className={datePickerIcon()}>
+  <Button
+    size="square-petite"
+    intent="plain"
+    className="mr-1 h-7 w-8 rounded outline-offset-0hover:bg-transparent pressed:bg-transparent **:data-[slot=icon]:text-muted-fg"
+  >
     <IconCalendarDays aria-hidden className="ml-2 group-open:text-fg" />
   </Button>
 )
@@ -97,10 +86,13 @@ const DatePicker = <T extends DateValue>({
   ...props
 }: DatePickerProps<T>) => {
   return (
-    <DatePickerPrimitive {...props} className={composeTailwindRenderProps(className, base())}>
+    <DatePickerPrimitive
+      {...props}
+      className={composeTailwindRenderProps(className, "group/date-picker flex flex-col gap-y-1")}
+    >
       {label && <Label>{label}</Label>}
       <FieldGroup className="min-w-40">
-        <DateInput className={datePickerInput()} />
+        <DateInput className="w-full px-2 text-base sm:text-sm" />
         <DatePickerIcon />
       </FieldGroup>
       {description && <Description>{description}</Description>}

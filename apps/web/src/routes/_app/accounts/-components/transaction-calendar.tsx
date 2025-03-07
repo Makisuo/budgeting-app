@@ -35,7 +35,7 @@ export const TransactionCalendar = ({
 				<div className="flex justify-between">
 					<Card.Title>Calendar</Card.Title>
 					<ToggleGroup
-						appearance="outline"
+						intent="outline"
 						selectedKeys={[type]}
 						onSelectionChange={(keys) => {
 							const key = [...keys][0]?.toString() ?? null

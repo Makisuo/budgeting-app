@@ -57,7 +57,7 @@ export const Cat = ({
 	const positionRef = useRef({ x: 0, y: 0 })
 	const velocityRef = useRef({ x: 0, y: 0 })
 	const isJumpingRef = useRef(false)
-	const animationFrameRef = useRef<number>()
+	const animationFrameRef = useRef<number | null>(null)
 	const lastTimeRef = useRef<number>(0)
 
 	const windowWidth = useWindowWidth()

@@ -26,7 +26,7 @@ export function Passkey() {
 					})
 				})
 			}}
-			appearance="outline"
+			intent="outline"
 			isPending={isPending}
 			className="w-full"
 			type="submit"

@@ -113,7 +113,7 @@ FROM public.institutions;`
 									</div>
 								</div>
 								<Button
-									appearance="outline"
+									intent="outline"
 									size="small"
 									onPress={() =>
 										createLinkTokenMutation.mutate({

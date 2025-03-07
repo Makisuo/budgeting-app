@@ -41,7 +41,7 @@ export const OAuthButton = ({ provider, redirect, prefix }: OAuthButtonProps) =>
 			className="w-full"
 			isPending={isPending}
 			size="large"
-			appearance="outline"
+			intent="outline"
 			onPress={() => {
 				startTransition(async () => {
 					await authClient.signIn.social({

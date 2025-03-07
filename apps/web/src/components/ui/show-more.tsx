@@ -46,7 +46,7 @@ const ShowMore = ({
       {as === "button" ? (
         <ToggleButton
           {...props}
-          className={buttonStyles({ shape: "circle", appearance: "outline", size: "small" })}
+          className={buttonStyles({ shape: "circle", intent: "outline", size: "small" })}
         >
           {composeRenderProps(props.children, (children) => (
             <>{children}</>

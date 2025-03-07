@@ -9,45 +9,19 @@ import {
   composeRenderProps,
 } from "react-aria-components"
 
+import { composeTailwindRenderProps } from "~/components/ui/primitive"
 import { cn } from "~/utils/classes"
 import { DropdownItemDetails, DropdownLabel, DropdownSection, dropdownItemStyles } from "./dropdown"
 
 const ListBox = <T extends object>({ className, ...props }: ListBoxProps<T>) => (
   <ListBoxPrimitive
     {...props}
-    className={composeRenderProps(className, (className) =>
-      cn(
-        [
-          "flex max-h-96 w-full min-w-56 flex-col gap-y-1 overflow-y-auto rounded-xl border p-1 shadow-lg outline-hidden [scrollbar-width:thin] [&::-webkit-scrollbar]:size-0.5",
-          "grid grid-cols-[auto_1fr] overflow-auto *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1",
-        ],
-        className,
-      ),
+    className={composeTailwindRenderProps(
+      className,
+      "flex grid max-h-96 w-full min-w-56 grid-cols-[auto_1fr] flex-col gap-y-1 overflow-auto overflow-y-auto rounded-xl border p-1 shadow-lg outline-hidden [scrollbar-width:thin] [&::-webkit-scrollbar]:size-0.5 *:[[role='group']+[role=group]]:mt-4 *:[[role='group']+[role=separator]]:mt-1",
     )}
   />
 )
-
-// const listBoxItemStyles = tv({
-//   base: "lbi col-span-full relative cursor-pointer rounded-[calc(var(--radius-lg)-1px)] p-2 text-base outline-hidden sm:text-sm",
-//   variants: {
-//     isFocusVisible: {
-//       true: "bg-secondary text-accent-fg",
-//     },
-//     isHovered: {
-//       true: "bg-accent text-accent-fg [&:hover_[slot=description]]:text-accent-fg/70 [&:hover_[slot=label]]:text-accent-fg [&_.text-muted-fg]:text-accent-fg/80",
-//     },
-//     isFocused: {
-//       true: "bg-accent text-accent-fg **:data-[slot=icon]:text-accent-fg **:data-[slot=label]:text-accent-fg [&_.text-muted-fg]:text-accent-fg/80",
-//     },
-//     isSelected: {
-//       true: "bg-accent text-accent-fg **:data-[slot=icon]:text-accent-fg **:data-[slot=label]:text-accent-fg [&_.text-muted-fg]:text-accent-fg/80",
-//     },
-//     isDragging: { true: "cursor-grabbing bg-secondary text-secondary-fg" },
-//     isDisabled: {
-//       true: "cursor-default text-muted-fg opacity-70",
-//     },
-//   },
-// })
 
 interface ListBoxItemProps<T extends object> extends ListBoxItemPrimitiveProps<T> {
   className?: string
