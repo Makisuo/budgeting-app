@@ -11,29 +11,29 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
-		"@cloudflare/vitest-pool-workers": "^0.6.16",
-		"@cloudflare/workers-types": "^4.20250214.0",
-		"@effect/language-service": "^0.2.0",
-		"@types/node": "^22.13.4",
-		"typescript": "^5.7.3",
-		"vitest": "3.0.5",
+		"@cloudflare/vitest-pool-workers": "^0.7.7",
+		"@cloudflare/workers-types": "^4.20250303.0",
+		"@effect/language-service": "^0.4.0",
+		"@types/node": "^22.13.9",
+		"typescript": "^5.8.2",
+		"vitest": "3.0.8",
 		"wangler": "^0.0.7",
-		"wrangler": "^3.109.1"
+		"wrangler": "^3.114.0"
 	},
 	"dependencies": {
-		"@effect/experimental": "^0.41.1",
-		"@effect/opentelemetry": "^0.44.1",
-		"@effect/platform": "^0.77.1",
-		"@effect/sql": "^0.30.1",
-		"@effect/sql-drizzle": "^0.29.1",
-		"@effect/sql-pg": "^0.31.1",
+		"@effect/experimental": "^0.42.0",
+		"@effect/opentelemetry": "^0.44.7",
+		"@effect/platform": "^0.78.0",
+		"@effect/sql": "^0.31.0",
+		"@effect/sql-drizzle": "^0.30.0",
+		"@effect/sql-pg": "^0.32.0",
 		"@opentelemetry/exporter-trace-otlp-http": "^0.57.2",
 		"@opentelemetry/sdk-trace-base": "^1.30.1",
 		"@opentelemetry/sdk-trace-node": "^1.30.1",
-		"better-auth": "^1.1.18",
-		"drizzle-orm": "0.39.3",
-		"effect": "^3.13.1",
-		"nanoid": "^5.1.0",
+		"better-auth": "^1.2.3",
+		"drizzle-orm": "0.40.0",
+		"effect": "^3.13.7",
+		"nanoid": "^5.1.3",
 		"postgres": "^3.4.5"
 	}
 }
