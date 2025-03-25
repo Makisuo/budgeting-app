@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"private": true,
 	"dependencies": {
-		"drizzle-orm": "0.40.0",
+		"drizzle-orm": "0.41.0",
 		"postgres": "^3.4.5"
 	},
 	"type": "module",
@@ -11,7 +11,7 @@
 	"types": "index.ts",
 	"main": "index.ts",
 	"devDependencies": {
-		"@types/bun": "^1.2.4",
+		"@types/bun": "^1.2.6",
 		"drizzle-kit": "^0.30.5",
 		"typescript": "^5.8.2"
 	},
