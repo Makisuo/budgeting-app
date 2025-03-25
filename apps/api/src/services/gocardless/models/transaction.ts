@@ -13,7 +13,7 @@ export class Amount extends S.Class<Amount>("Amount")({
 }) {}
 
 export class AdditionalDataStructured extends S.Class<AdditionalDataStructured>("AdditionalDataStructured")({
-	chargeAmount: Amount,
+	chargeAmount: S.NullishOr(Amount),
 }) {}
 
 export class Transaction extends S.Class<Transaction>("Transaction")({
