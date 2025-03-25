@@ -1,8 +1,8 @@
-import { cn } from "~/utils/classes"
 import { IconChevronLgRight } from "justd-icons"
 import { createContext, use } from "react"
 import type { BreadcrumbProps, BreadcrumbsProps, LinkProps } from "react-aria-components"
 import { Breadcrumb, Breadcrumbs as BreadcrumbsPrimitive } from "react-aria-components"
+import { twMerge } from "tailwind-merge"
 import { Link } from "./link"
 import { composeTailwindRenderProps } from "./primitive"
 
@@ -17,7 +17,7 @@ const Breadcrumbs = <T extends object>({
 }: BreadcrumbsProps<T> & BreadcrumbsContextProps) => {
   return (
     <BreadcrumbsProvider value={{ separator: props.separator }}>
-      <BreadcrumbsPrimitive {...props} className={cn("flex items-center gap-2", className)} />
+      <BreadcrumbsPrimitive {...props} className={twMerge("flex items-center gap-2", className)} />
     </BreadcrumbsProvider>
   )
 }

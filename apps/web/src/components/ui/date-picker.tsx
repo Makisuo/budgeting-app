@@ -1,3 +1,4 @@
+import type { DateDuration } from "@internationalized/date"
 import { IconCalendarDays } from "justd-icons"
 import {
   DatePicker as DatePickerPrimitive,
@@ -7,9 +8,7 @@ import {
   type PopoverProps,
   type ValidationResult,
 } from "react-aria-components"
-
-import { cn } from "~/utils/classes"
-import type { DateDuration } from "@internationalized/date"
+import { twJoin } from "tailwind-merge"
 import { Button } from "./button"
 import { Calendar } from "./calendar"
 import { DateInput } from "./date-field"
@@ -40,7 +39,7 @@ const DatePickerOverlay = ({
     <Popover.Content
       isDismissable={false}
       showArrow={false}
-      className={cn(
+      className={twJoin(
         "flex min-w-auto max-w-none snap-x justify-center p-4 sm:min-w-[16.5rem] sm:p-2 sm:pt-3",
         visibleDuration?.months === 1 ? "sm:max-w-2xs" : "sm:max-w-none",
       )}
