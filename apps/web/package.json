@@ -37,6 +37,7 @@
 		"@fontsource/geist-sans": "^5.2.5",
 		"@internationalized/date": "^3.7.0",
 		"@nivo/pie": "^0.88.0",
+		"@tauri-apps/api": "^2.0.0-rc",
 		"@tanstack/react-query": "^5.69.0",
 		"@tanstack/react-router": "^1.114.27",
 		"@tanstack/router-devtools": "^1.114.27",
