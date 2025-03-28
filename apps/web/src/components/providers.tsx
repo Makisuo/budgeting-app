@@ -4,6 +4,7 @@ import { type NavigateOptions, type ToOptions, useRouter } from "@tanstack/react
 import { RouterProvider } from "react-aria-components"
 import { ThemeProvider } from "./theme-provider"
 import { Toast } from "./ui"
+import { AppUpdater } from "./AppUpdater"
 
 declare module "react-aria-components" {
 	interface RouterConfig {
@@ -21,6 +22,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 			useHref={(to) => router.buildLocation({ to: to }).href}
 		>
 			<Toast />
+			<AppUpdater />
 			<ThemeProvider themes={["light", "dark", "pastel"]}>{children}</ThemeProvider>
 		</RouterProvider>
 	)

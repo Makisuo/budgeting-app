@@ -2,7 +2,7 @@
 	"$schema": "../../../node_modules/@tauri-apps/cli/config.schema.json",
 	"productName": "maple-budgeting",
 	"version": "0.1.0",
-	"identifier": "com.tauri.dev",
+	"identifier": "com.maple.budgeting",
 	"build": {
 		"frontendDist": "../dist",
 		"devUrl": "http://localhost:3000",
@@ -29,5 +29,15 @@
 		"active": true,
 		"targets": "all",
 		"icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"]
+	},
+	"plugins": {
+		"updater": {
+			"active": true,
+			"endpoints": [
+				"https://releases.maple-budgeting.com/{{target}}/{{current_version}}"
+			],
+			"dialog": true,
+			"pubkey": ""
+		}
 	}
 }
