@@ -12,7 +12,6 @@ import { TransactionHelper } from "./routes/transactions/transaction"
 import { Workflows } from "./services/cloudflare/workflows"
 import { CronService } from "./services/cron"
 import { GoCardlessService } from "./services/gocardless/gocardless-service"
-import { TracingLive } from "./services/tracing"
 import { TransactionHelpers } from "./services/transaction"
 import { workflows } from "./workflows"
 
