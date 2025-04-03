@@ -28,11 +28,11 @@ const DatabaseLive = Layer.unwrapEffect(
 		Effect.map((envVars) =>
 			Database.layer({
 				url: envVars.DATABASE_URL,
-				ssl: !envVars.IS_DEV,
+				ssl: false,
 			}),
 		),
 	),
-)
+).pipe(Layer.provide(EnvVars.Default))
 
 const MainLayer = Layer.mergeAll(
 	GoCardlessService.Default,
@@ -62,20 +62,20 @@ export default {
 			env: { ...env, DATABASE_URL: env.HYPERDRIVE.connectionString },
 		})
 
-		// const handler = HttpApiBuilder.toWebHandler(Live, {
-		// 	middleware: pipe(HttpMiddleware.logger),
-		// })
+		const handler = HttpApiBuilder.toWebHandler(Live, {
+			middleware: pipe(HttpMiddleware.logger),
+		})
 
-		// console.log("WOW_COOL", "AMAZING")
+		console.log("WOW_COOL", "AMAZING")
 
-		// const res = await handler.handler(request)
+		const res = await handler.handler(request)
 
-		// ctx.waitUntil(handler.dispose())
+		ctx.waitUntil(handler.dispose())
 
-		// const origin = request.headers.get("Origin")
-		// res.headers.set("Access-Control-Allow-Origin", origin || "*")
+		const origin = request.headers.get("Origin")
+		res.headers.set("Access-Control-Allow-Origin", origin || "*")
 
-		return Response.json("COOL")
+		return res
 	},
 	async scheduled(controller, env) {
 		Object.assign(globalThis, {
