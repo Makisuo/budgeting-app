@@ -228,7 +228,7 @@ const Defect = Schema.transform(Schema.Unknown, Schema.Unknown, {
 	strict: true,
 	decode: (u) => {
 		if (Predicate.isObject(u) && "message" in u && typeof u.message === "string") {
-			const err = new Error(u.message, { cause: u })
+			const err = new Error(u.message)
 			if ("name" in u && typeof u.name === "string") {
 				err.name = u.name
 			}

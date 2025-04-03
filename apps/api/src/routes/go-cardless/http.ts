@@ -32,12 +32,12 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 
 					const institution = yield* institutionRepo.findById(payload.institutionId)
 
-					if (!Option.isSome(institution)) {
+					if (!institution) {
 						return yield* Effect.fail(new NotFound({ message: "Institution not found" }))
 					}
 
 					const agreement = yield* goCardless.createAgreement(payload.institutionId, {
-						maxHistoricalDays: institution.value.transactionTotalDays,
+						maxHistoricalDays: institution.transactionTotalDays,
 					})
 
 					const referenceId = ReferenceId.make(FastCheck.sample(Arbitrary.make(Schema.UUID), 1)[0]!)

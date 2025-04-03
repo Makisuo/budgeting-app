@@ -1,5 +1,5 @@
 {
-	"name": "api-utils",
+	"name": "@maple/api-utils",
 	"version": "0.0.0",
 	"private": true,
 	"dependencies": {

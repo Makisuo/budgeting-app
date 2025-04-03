@@ -21,6 +21,7 @@
 		"wrangler": "^4.6.0"
 	},
 	"dependencies": {
+		"@maple/api-utils": "workspace:*",
 		"@effect/experimental": "^0.44.2",
 		"@effect/opentelemetry": "^0.45.2",
 		"@effect/platform": "^0.80.2",

@@ -1,4 +1,4 @@
-import { Effect, Schema } from "effect"
+import { Effect, Option, Schema } from "effect"
 
 import { Model, SqlClient, SqlSchema } from "@effect/sql"
 import { Institution } from "~/models/institution"
@@ -7,9 +7,12 @@ import { SqlLive } from "~/services/sql"
 const TABLE_NAME = "institutions"
 const SPAN_PREFIX = "InstitutionRepo"
 
+import { Database } from "@maple/api-utils"
+
 export class InstitutionRepo extends Effect.Service<InstitutionRepo>()("InstitutionRepo", {
 	effect: Effect.gen(function* () {
 		const sql = yield* SqlClient.SqlClient
+		const db = yield* Database.Database
 
 		const insertMultipleVoidSchema = SqlSchema.void({
 			Request: Schema.Array(Institution.insert),
@@ -31,7 +34,11 @@ export class InstitutionRepo extends Effect.Service<InstitutionRepo>()("Institut
 			idColumn: "id",
 		})
 
-		return { ...baseRepository, insertMultipleVoid } as const
+		const findById = db.makeQuery((execute, input: Institution["id"]) =>
+			execute((client) => client.query.institutions.findFirst({ where: (table, { eq }) => eq(table.id, input) })),
+		)
+
+		return { ...baseRepository, findById, insertMultipleVoid } as const
 	}),
 	dependencies: [SqlLive],
 }) {}

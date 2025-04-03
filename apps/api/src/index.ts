@@ -1,6 +1,8 @@
 import { HttpApiBuilder, HttpMiddleware } from "@effect/platform"
+import { Database } from "@maple/api-utils"
 import { Effect, Layer, Runtime, pipe } from "effect"
 import { HttpAppLive } from "./http"
+import { EnvVars } from "./lib/env-vars"
 import { AccountRepo } from "./repositories/account-repo"
 import { InstitutionRepo } from "./repositories/institution-repo"
 import { RequisitionRepo } from "./repositories/requisition-repo"
@@ -22,6 +24,17 @@ declare global {
 	type WorkflowsBinding = typeof workflows
 }
 
+const DatabaseLive = Layer.unwrapEffect(
+	EnvVars.pipe(
+		Effect.map((envVars) =>
+			Database.layer({
+				url: envVars.DATABASE_URL,
+				ssl: !envVars.IS_DEV,
+			}),
+		),
+	),
+).pipe(Layer.provide(EnvVars.Default))
+
 const MainLayer = Layer.mergeAll(
 	GoCardlessService.Default,
 	InstitutionRepo.Default,
@@ -32,7 +45,7 @@ const MainLayer = Layer.mergeAll(
 	SubscriptionRepo.Default,
 	TransactionHelpers.Default,
 	Workflows.fromRecord(() => workflows),
-).pipe()
+).pipe(Layer.provide(DatabaseLive), Layer.provide(EnvVars.Default))
 
 const HttpLive = Layer.mergeAll(HttpAppLive)
 
