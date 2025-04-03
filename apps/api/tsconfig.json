@@ -43,14 +43,14 @@
 		"exactOptionalPropertyTypes": true,
 		"paths": {
 			"~/*": ["./src/*"]
-		}
+		},
+		"plugins": [
+			{
+				"name": "@effect/language-service"
+			}
+		]
 	},
 
 	"exclude": ["test"],
-	"include": ["worker-configuration.d.ts", "src/**/*.ts"],
-	"plugins": [
-		{
-			"name": "@effect/language-service"
-		}
-	]
+	"include": ["worker-configuration.d.ts", "src/**/*.ts"]
 }

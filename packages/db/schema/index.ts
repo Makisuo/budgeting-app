@@ -1,6 +1,7 @@
 import { relations, sql } from "drizzle-orm"
 import { doublePrecision, index, integer, jsonb, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core"
 
+import { type InstitutionId, InstitutionInsert } from "~/models/institution"
 import type { category_types } from "../data/categories"
 
 export const accountType = pgEnum("account_type", ["depository", "credit", "other_asset", "loan", "other_liability"])
@@ -33,11 +34,11 @@ export const requisitions = pgTable("requisitions", {
 export const institutions = pgTable(
 	"institutions",
 	{
-		id: text().primaryKey().notNull(),
+		id: text().primaryKey().notNull().$type<typeof InstitutionId.Type>(),
 		name: text().notNull(),
 		logo: text(),
 		provider: text().notNull(),
-		countries: jsonb().notNull().$type<string[]>(),
+		countries: jsonb().notNull().$type<readonly string[]>(),
 		transactionTotalDays: integer("transaction_total_days").notNull(),
 		...defaultFields,
 	},

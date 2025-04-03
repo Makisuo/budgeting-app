@@ -30,7 +30,9 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 
 					const apiBaseUrl = yield* Config.string("API_BASE_URL")
 
-					const institution = yield* institutionRepo.findById(payload.institutionId)
+					const institution = yield* institutionRepo
+						.findById(payload.institutionId)
+						.pipe(Effect.map(Option.getOrNull))
 
 					if (!institution) {
 						return yield* Effect.fail(new NotFound({ message: "Institution not found" }))

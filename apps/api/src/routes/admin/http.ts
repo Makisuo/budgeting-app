@@ -1,7 +1,7 @@
 import { HttpApiBuilder } from "@effect/platform"
 import { Effect, Option, pipe } from "effect"
 import { Api } from "~/api"
-import { Institution } from "~/models/institution"
+import { Institution, InstitutionInsert } from "~/models/institution"
 import { InstitutionRepo } from "~/repositories/institution-repo"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
 import { TransactionHelpers } from "~/services/transaction"
@@ -21,7 +21,7 @@ export const HttpAdminLive = HttpApiBuilder.group(Api, "admin", (handlers) =>
 					const dbInstitutions = yield* Effect.forEach(institutions, (institution) =>
 						// biome-ignore lint/correctness/useYield: <explanation>
 						Effect.gen(function* () {
-							const dbInstitutions = Institution.insert.make({
+							const dbInstitutions = InstitutionInsert.make({
 								id: institution.id,
 								name: institution.name,
 								transactionTotalDays: institution.transaction_total_days,
