@@ -32,7 +32,7 @@ const DatabaseLive = Layer.unwrapEffect(
 			}),
 		),
 	),
-).pipe(Layer.provide(EnvVars.Default))
+)
 
 const MainLayer = Layer.mergeAll(
 	GoCardlessService.Default,
