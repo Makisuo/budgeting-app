@@ -62,20 +62,20 @@ export default {
 			env: { ...env, DATABASE_URL: env.HYPERDRIVE.connectionString },
 		})
 
-		const handler = HttpApiBuilder.toWebHandler(Live, {
-			middleware: pipe(HttpMiddleware.logger),
-		})
+		// const handler = HttpApiBuilder.toWebHandler(Live, {
+		// 	middleware: pipe(HttpMiddleware.logger),
+		// })
 
-		console.log("WOW_COOL", "AMAZING")
+		// console.log("WOW_COOL", "AMAZING")
 
-		const res = await handler.handler(request)
+		// const res = await handler.handler(request)
 
-		ctx.waitUntil(handler.dispose())
+		// ctx.waitUntil(handler.dispose())
 
-		const origin = request.headers.get("Origin")
-		res.headers.set("Access-Control-Allow-Origin", origin || "*")
+		// const origin = request.headers.get("Origin")
+		// res.headers.set("Access-Control-Allow-Origin", origin || "*")
 
-		return res
+		return Response.json("COOL")
 	},
 	async scheduled(controller, env) {
 		Object.assign(globalThis, {
