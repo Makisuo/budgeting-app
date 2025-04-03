@@ -56,8 +56,6 @@ export default {
 			env,
 		})
 
-		console.log("TEST_DB", env.HYPERDRIVE.connectionString)
-
 		Object.assign(process, {
 			env: { ...env, DATABASE_URL: env.HYPERDRIVE.connectionString },
 		})
@@ -65,8 +63,6 @@ export default {
 		const handler = HttpApiBuilder.toWebHandler(Live, {
 			middleware: pipe(HttpMiddleware.logger),
 		})
-
-		console.log("WOW_COOL", "AMAZING")
 
 		const res = await handler.handler(request)
 
