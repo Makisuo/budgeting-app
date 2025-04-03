@@ -11,23 +11,23 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
-		"@cloudflare/vitest-pool-workers": "^0.8.8",
-		"@cloudflare/workers-types": "^4.20250327.0",
-		"@effect/language-service": "^0.4.0",
-		"@types/node": "^22.13.14",
+		"@cloudflare/vitest-pool-workers": "^0.8.9",
+		"@cloudflare/workers-types": "^4.20250403.0",
+		"@effect/language-service": "^0.5.1",
+		"@types/node": "^22.14.0",
 		"typescript": "^5.8.2",
-		"vitest": "3.0.9",
+		"vitest": "3.1.1",
 		"wangler": "^0.0.7",
-		"wrangler": "^4.6.0"
+		"wrangler": "^4.7.0"
 	},
 	"dependencies": {
+		"@effect/experimental": "^0.44.5",
+		"@effect/opentelemetry": "^0.45.5",
+		"@effect/platform": "^0.80.5",
+		"@effect/sql": "^0.33.5",
+		"@effect/sql-drizzle": "^0.32.5",
+		"@effect/sql-pg": "^0.34.5",
 		"@maple/api-utils": "workspace:*",
-		"@effect/experimental": "^0.44.2",
-		"@effect/opentelemetry": "^0.45.2",
-		"@effect/platform": "^0.80.2",
-		"@effect/sql": "^0.33.2",
-		"@effect/sql-drizzle": "^0.32.2",
-		"@effect/sql-pg": "^0.34.2",
 		"@microlabs/otel-cf-workers": "^1.0.0-rc.49",
 		"@opentelemetry/api": "^1.9.0",
 		"@opentelemetry/exporter-trace-otlp-http": "^0.57.2",
@@ -35,7 +35,7 @@
 		"@opentelemetry/sdk-trace-node": "^1.30.1",
 		"better-auth": "^1.2.5",
 		"drizzle-orm": "0.41.0",
-		"effect": "^3.14.2",
+		"effect": "^3.14.5",
 		"nanoid": "^5.1.5",
 		"postgres": "^3.4.5"
 	}
