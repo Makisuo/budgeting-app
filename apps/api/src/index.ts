@@ -6,7 +6,6 @@ import { EnvVars } from "./lib/env-vars"
 import { AccountRepo } from "./repositories/account-repo"
 import { InstitutionRepo } from "./repositories/institution-repo"
 import { RequisitionRepo } from "./repositories/requisition-repo"
-import { SubscriptionRepo } from "./repositories/subscription-repo"
 import { TransactionRepo } from "./repositories/transaction-repo"
 import { TransactionHelper } from "./routes/transactions/transaction"
 import { Workflows } from "./services/cloudflare/workflows"
@@ -41,7 +40,6 @@ const MainLayer = Layer.mergeAll(
 	AccountRepo.Default,
 	TransactionRepo.Default,
 	TransactionHelper.Default,
-	SubscriptionRepo.Default,
 	TransactionHelpers.Default,
 	Workflows.fromRecord(() => workflows),
 ).pipe(Layer.provide(DatabaseLive), Layer.provide(EnvVars.Default))

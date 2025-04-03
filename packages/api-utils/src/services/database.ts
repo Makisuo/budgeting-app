@@ -2,11 +2,13 @@ import { schema } from "db"
 import type { ExtractTablesWithRelations } from "drizzle-orm"
 import type { PgTransaction } from "drizzle-orm/pg-core"
 import { type PostgresJsDatabase, type PostgresJsQueryResultHKT, drizzle } from "drizzle-orm/postgres-js"
+import { Schema } from "effect"
 import * as Cause from "effect/Cause"
 import * as Data from "effect/Data"
 import * as Effect from "effect/Effect"
 import * as Exit from "effect/Exit"
 import * as Layer from "effect/Layer"
+import type { ParseError } from "effect/ParseResult"
 import * as Redacted from "effect/Redacted"
 import * as Runtime from "effect/Runtime"
 import * as Schedule from "effect/Schedule"
@@ -147,6 +149,43 @@ const makeService = (config: Config) =>
 				),
 		)
 
+		/**
+		 * Creates a query function factory that validates input against a schema.
+		 *
+		 * @param inputSchema The Effect Schema for the input data.
+		 * @param queryFn The function performing the database operation. It receives the validated input.
+		 * @returns A function that takes raw input and an optional transaction executor,
+		 *          returns an Effect that includes Schema.ParseError in its error channel.
+		 */
+		const makeQueryWithSchema = <InputSchema extends Schema.Schema.AnyNoContext, A, E, R>(
+			inputSchema: InputSchema,
+			queryFn: (
+				execute: <T>(
+					fn: (client: Client | TransactionClient) => Promise<T>,
+				) => Effect.Effect<T, DatabaseError, never>,
+				validatedInput: Schema.Schema.Type<InputSchema>,
+				options?: { spanPrefix?: string },
+			) => Effect.Effect<A, E, never>,
+		) => {
+			return (
+				rawData: unknown,
+				tx?: <T>(fn: (client: TransactionClient) => Promise<T>) => Effect.Effect<T, DatabaseError, never>,
+			): Effect.Effect<A, E | DatabaseError | ParseError, never> => {
+				const executor = tx ?? execute
+
+				return Effect.gen(function* () {
+					const validatedInput = yield* Schema.decodeUnknown(inputSchema)(rawData)
+
+					const result = yield* queryFn(executor, validatedInput)
+					return result
+				}).pipe(
+					Effect.withSpan("queryWithSchema", {
+						attributes: { "input.schema": inputSchema.ast.toString() },
+					}),
+				)
+			}
+		}
+
 		const makeQuery = <Input, A, E, R>(
 			queryFn: (
 				execute: <T>(fn: (client: Client | TransactionClient) => Promise<T>) => Effect.Effect<T, DatabaseError>,
@@ -168,6 +207,7 @@ const makeService = (config: Config) =>
 			execute,
 			transaction,
 			makeQuery,
+			makeQueryWithSchema,
 		} as const
 	})
 
