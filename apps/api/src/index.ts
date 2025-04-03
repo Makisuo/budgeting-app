@@ -49,7 +49,7 @@ const MainLayer = Layer.mergeAll(
 
 const HttpLive = Layer.mergeAll(HttpAppLive)
 
-const Live = HttpLive.pipe(Layer.provide(TracingLive), Layer.provide(MainLayer))
+const Live = HttpLive.pipe(Layer.provide(MainLayer))
 
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
