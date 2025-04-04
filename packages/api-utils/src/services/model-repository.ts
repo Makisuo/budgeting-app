@@ -1,4 +1,4 @@
-import type { AnyColumn, InferSelectModel, Table } from "drizzle-orm"
+import type { InferSelectModel, Table } from "drizzle-orm"
 import { eq } from "drizzle-orm"
 import * as Effect from "effect/Effect"
 import * as Option from "effect/Option"
@@ -70,7 +70,7 @@ export const makeRepository = <
 				).pipe(Effect.map((result) => result[0] as RecordType)),
 			)(data) as Effect.Effect<RecordType, DatabaseError | ParseError>
 
-		const updateVoid = (data: S["jsonUpdate"]["Type"]) =>
+		const updateVoid = (data: S["update"]["Type"]) =>
 			db.makeQueryWithSchema(schema.update as Schema.Schema<S["update"]>, (execute, input) =>
 				execute((client) =>
 					client

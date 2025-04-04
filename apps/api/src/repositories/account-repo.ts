@@ -1,9 +1,8 @@
-import { Effect, Option, Schema } from "effect"
+import { Effect } from "effect"
 
 import { Database, ModelRepository } from "@maple/api-utils"
 import { Account } from "@maple/api-utils/models"
 import { schema } from "db"
-import { eq } from "drizzle-orm"
 
 export class AccountRepo extends Effect.Service<AccountRepo>()("AccountRepo", {
 	effect: Effect.gen(function* () {

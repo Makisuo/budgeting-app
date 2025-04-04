@@ -10,6 +10,7 @@ export class AdminApi extends HttpApiGroup.make("admin")
 			.addSuccess(Schema.Array(Institution))
 			.addError(InternalError),
 	)
+	.add(HttpApiEndpoint.get("test")`/admin/test`.addSuccess(Schema.Any).addError(InternalError))
 	.add(
 		HttpApiEndpoint.post("processTransactions", "/admin/process/transactions")
 			.addError(InternalError)

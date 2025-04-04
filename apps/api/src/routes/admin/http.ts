@@ -1,7 +1,9 @@
 import { HttpApiBuilder } from "@effect/platform"
-import { InstitutionInsert } from "@maple/api-utils/models"
+import { Account, InstitutionInsert } from "@maple/api-utils/models"
 import { Effect, Option, pipe } from "effect"
 import { Api } from "~/api"
+import { InternalError } from "~/errors"
+import { AccountRepo } from "~/repositories/account-repo"
 import { InstitutionRepo } from "~/repositories/institution-repo"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
 import { TransactionHelpers } from "~/services/transaction"
@@ -45,6 +47,15 @@ export const HttpAdminLive = HttpApiBuilder.group(Api, "admin", (handlers) =>
 					Effect.orDie,
 					Effect.withSpan("GoCardless.getInstitutions"),
 				),
+			)
+			.handle("test", () =>
+				Effect.gen(function* () {
+					const accountRepo = yield* AccountRepo
+					const account = yield* accountRepo
+						.findById(Account.Id.make("0b4b50df-65a5-4d35-8692-ca9327c9a079"))
+						.pipe(Effect.mapError(() => new InternalError({ message: "Account not found" })))
+					return yield* Effect.succeed(account)
+				}),
 			)
 			.handle("processTransactions", () =>
 				Effect.gen(function* () {
