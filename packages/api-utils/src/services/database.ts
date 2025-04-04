@@ -15,13 +15,13 @@ import * as Schedule from "effect/Schedule"
 
 import postgres from "postgres"
 
-type TransactionClient = PgTransaction<
+export type TransactionClient = PgTransaction<
 	PostgresJsQueryResultHKT,
 	typeof schema,
 	ExtractTablesWithRelations<typeof schema>
 >
 
-type Client = PostgresJsDatabase<typeof schema> & {
+export type Client = PostgresJsDatabase<typeof schema> & {
 	$client: postgres.Sql
 }
 
