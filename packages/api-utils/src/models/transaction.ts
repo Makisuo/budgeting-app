@@ -1,9 +1,9 @@
 import { Model } from "@effect/sql"
 import { DateTimeFromDate } from "@effect/sql/Model"
 import { Schema } from "effect"
+import { Category } from "."
 import * as Account from "./account"
 import { TenantId } from "./auth"
-import { CategoryId } from "./categories"
 import { CompanyId } from "./company"
 import { baseFields } from "./utils"
 
@@ -29,7 +29,7 @@ export class Transaction extends Model.Class<Transaction>("Transaction")({
 	currencySource: Schema.NullOr(Schema.String),
 
 	companyId: Schema.NullOr(CompanyId),
-	categoryId: CategoryId,
+	categoryId: Category.Id,
 
 	debtorIban: Schema.NullOr(Schema.String),
 	creditorIban: Schema.NullOr(Schema.String),

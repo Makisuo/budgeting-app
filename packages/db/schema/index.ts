@@ -1,7 +1,7 @@
 import { relations, sql } from "drizzle-orm"
 import { doublePrecision, index, integer, jsonb, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core"
 
-import type { Account, Auth, CompanyId, InstitutionId, TransactionId } from "@maple/api-utils/models"
+import type { Account, Auth, CompanyId, InstitutionId, Requisition, TransactionId } from "@maple/api-utils/models"
 import type { category_types } from "../data/categories"
 
 export const accountType = pgEnum("account_type", ["depository", "credit", "other_asset", "loan", "other_liability"])
@@ -20,10 +20,10 @@ export * from "./auth-schema"
 
 // Internal Table
 export const requisitions = pgTable("requisitions", {
-	id: text().primaryKey().notNull(),
+	id: text().primaryKey().notNull().$type<typeof Requisition.Id.Type>(),
 	status: text().notNull(),
 	referenceId: text("reference_id").notNull(),
-	institutionId: text("institution_id").notNull(),
+	institutionId: text("institution_id").notNull().$type<typeof InstitutionId.Type>(),
 
 	tenantId: text("tenant_id").notNull().$type<typeof Auth.TenantId.Type>(),
 
@@ -80,7 +80,7 @@ export const accounts = pgTable(
 		name: text().notNull(),
 		currency: text().notNull(),
 		type: accountType().notNull(),
-		institutionId: text("institution_id").notNull(),
+		institutionId: text("institution_id").notNull().$type<typeof InstitutionId.Type>(),
 		balanceAmount: doublePrecision("balance_amount").notNull(),
 		balanceCurrency: text("balance_currency").notNull(),
 

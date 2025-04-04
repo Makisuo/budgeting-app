@@ -11,7 +11,7 @@ export class EnvVars extends Effect.Service<EnvVars>()("EnvVars", {
 			GO_CARDLESS_SECRET_KEY: yield* Config.redacted("GO_CARDLESS_SECRET_KEY"),
 
 			API_BASE_URL: yield* Config.string("API_BASE_URL").pipe(Config.withDefault("http://localhost:8787")),
-			APP_BASE_URL: yield* Config.string("APP_BASE_URL").pipe(Config.withDefault("http://localhost:3001")),
+			APP_BASE_URL: yield* Config.string("APP_BASE_URL").pipe(Config.withDefault("http://localhost:3000")),
 
 			BETTER_AUTH_SECRET: yield* Config.redacted("BETTER_AUTH_SECRET"),
 

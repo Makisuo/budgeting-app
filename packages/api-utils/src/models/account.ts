@@ -1,6 +1,6 @@
 import { schema } from "db"
 import { Schema } from "effect"
-import { Auth } from "."
+import { Auth, InstitutionId } from "."
 import { DrizzleEffect } from "../services"
 
 import { Model as M } from "@effect/sql"
@@ -12,6 +12,7 @@ export class Model extends M.Class<Model>("Account")({
 	...DrizzleEffect.createSelectSchema(schema.accounts).fields,
 	id: M.GeneratedByApp(Id),
 	tenantId: M.GeneratedByApp(Auth.TenantId),
+	institutionId: InstitutionId,
 
 	...baseFields,
 }) {}

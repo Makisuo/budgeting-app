@@ -1,7 +1,7 @@
 import { Model } from "@effect/sql"
 
 import { Schema } from "effect"
-import { CategoryId } from "./categories"
+import * as Category from "./category"
 
 export const CompanyId = Schema.String.pipe(Schema.brand("CompanyId"))
 
@@ -11,7 +11,7 @@ export class Company extends Model.Class<Company>("Company")({
 
 	url: Schema.String,
 
-	categoryId: CategoryId,
+	categoryId: Category.Id,
 
 	patterns: Schema.Array(Schema.String),
 }) {}

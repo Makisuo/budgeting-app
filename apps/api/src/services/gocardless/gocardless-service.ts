@@ -15,7 +15,7 @@ import {
 import {
 	type Account,
 	type Auth,
-	CategoryId,
+	Category,
 	type InstitutionId,
 	type Requisition,
 	Transaction,
@@ -234,7 +234,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 
 				status: status,
 				balance: null,
-				categoryId: company?.categoryId || CategoryId.make("uncategorized"),
+				categoryId: company?.categoryId || Category.Id.make("uncategorized"),
 				currencyRate: null,
 				currencySource: null,
 				date: date,

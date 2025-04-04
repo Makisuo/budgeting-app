@@ -1,7 +1,7 @@
 import { Duration, Effect, Option, Schema, flow } from "effect"
 import { NotFound } from "~/errors"
 
-import { Account, Auth, CategoryId, Transaction } from "@maple/api-utils/models"
+import { Account, Auth, Category, Transaction } from "@maple/api-utils/models"
 import { AccountRepo } from "~/repositories/account-repo"
 import { TransactionRepo } from "~/repositories/transaction-repo"
 import { Workflow, makeWorkflowEntrypoint } from "~/services/cloudflare/workflows"
@@ -120,7 +120,7 @@ const stepSyncTransactions = Workflow.schema(
 							Transaction.insert.make({
 								...transaction,
 								companyId: company?.id || null,
-								categoryId: company?.categoryId || CategoryId.make("uncategorized"),
+								categoryId: company?.categoryId || Category.Id.make("uncategorized"),
 							}),
 						)
 					}),

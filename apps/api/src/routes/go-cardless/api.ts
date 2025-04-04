@@ -1,5 +1,5 @@
 import { HttpApiEndpoint, HttpApiGroup } from "@effect/platform"
-import { Account, InstitutionId } from "@maple/api-utils/models"
+import { Account, InstitutionId, Requisition } from "@maple/api-utils/models"
 import { Schema } from "effect"
 import { Authorization } from "~/authorization"
 import { InternalError, NotFound } from "~/errors"
@@ -20,7 +20,7 @@ export class GoCardlessApi extends HttpApiGroup.make("gocardless")
 	)
 	.add(
 		HttpApiEndpoint.get("callback", "/gocardless/callback/:id")
-			.setPath(Schema.Struct({ id: Schema.String }))
+			.setPath(Schema.Struct({ id: Requisition.ReferenceId }))
 			.addError(InternalError)
 			.addError(NotFound),
 	)

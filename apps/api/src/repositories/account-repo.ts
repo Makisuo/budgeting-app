@@ -45,7 +45,7 @@ export class AccountRepo extends Effect.Service<AccountRepo>()("AccountRepo", {
 		)
 
 		const insertVoid = db.makeQuery((execute, input: typeof Account.Model.insert.Type) =>
-			execute((client) => client.insert(schema.accounts).values([input])),
+			execute((client) => client.insert(schema.accounts).values(input)),
 		)
 
 		return { getAccountsReadyForSync, findById, update, updateVoid, insert, insertVoid } as const

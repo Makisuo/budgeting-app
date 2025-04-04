@@ -1,19 +1,12 @@
-import { Effect, Option, Schema } from "effect"
+import { Effect, Option } from "effect"
 
-import { Model, SqlClient, SqlSchema } from "@effect/sql"
 import { Database } from "@maple/api-utils"
-import { Requisition } from "@maple/api-utils/models"
+import type { Requisition } from "@maple/api-utils/models"
 import { schema } from "db"
 import { eq } from "drizzle-orm"
-import { SqlLive } from "~/services/sql"
-
-const TABLE_NAME = "requisitions"
-const SPAN_PREFIX = "RequisitionRepo"
 
 export class RequisitionRepo extends Effect.Service<RequisitionRepo>()("RequisitionRepo", {
 	effect: Effect.gen(function* () {
-		const sql = yield* SqlClient.SqlClient
-
 		const db = yield* Database.Database
 
 		const findById = db.makeQuery((execute, input: typeof Requisition.Id.Type) =>
@@ -50,23 +43,14 @@ export class RequisitionRepo extends Effect.Service<RequisitionRepo>()("Requisit
 
 		// Advanced query
 
-		const findByReferenceIdSchema = SqlSchema.findOne({
-			Request: Schema.String,
-			Result: Requisition.Model,
-			execute: (id) => sql`SELECT * FROM ${sql(TABLE_NAME)} WHERE reference_id = ${id}`,
-		})
-
-		const findByReferenceId = (id: string) =>
-			findByReferenceIdSchema(id).pipe(
-				Effect.tapErrorTag("ParseError", (e) => Effect.logInfo(e)),
-				Effect.orDie,
-				Effect.withSpan(`${SPAN_PREFIX}.findByReferenceId`, {
-					captureStackTrace: false,
-					attributes: { id },
-				}),
-			)
+		const findByReferenceId = db.makeQuery((execute, input: typeof Requisition.ReferenceId.Type) =>
+			execute((client) =>
+				client.query.requisitions.findFirst({ where: (table, { eq }) => eq(table.referenceId, input) }),
+			).pipe(Effect.map(Option.fromNullable)),
+		)
 
 		return { findById, update, updateVoid, insert, insertVoid, findByReferenceId } as const
 	}),
-	dependencies: [SqlLive],
+	dependencies: [],
+	// accessors: true,
 }) {}
