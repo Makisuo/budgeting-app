@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"deploy": "wangler deploy",
-		"dev": "wangler dev --test-scheduled",
+		"dev": "wrangler dev --test-scheduled",
 		"start": "wangler dev",
 		"test": "vitest",
 		"cf-typegen": "wrangler types",

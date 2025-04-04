@@ -1,10 +1,9 @@
-import { Effect, Option } from "effect"
+import { Effect, Option, Schema } from "effect"
 
-import { Database } from "@maple/api-utils"
-import type { Account } from "@maple/api-utils/models"
+import { Database, ModelRepository } from "@maple/api-utils"
+import { Account } from "@maple/api-utils/models"
 import { schema } from "db"
 import { eq } from "drizzle-orm"
-import { SqlLive } from "~/services/sql"
 
 export class AccountRepo extends Effect.Service<AccountRepo>()("AccountRepo", {
 	effect: Effect.gen(function* () {
@@ -20,35 +19,11 @@ export class AccountRepo extends Effect.Service<AccountRepo>()("AccountRepo", {
 			),
 		)
 
-		const findById = db.makeQuery((execute, input: typeof Account.Id.Type) =>
-			execute((client) =>
-				client.query.accounts.findFirst({ where: (table, { eq }) => eq(table.id, input) }),
-			).pipe(Effect.map(Option.fromNullable)),
-		)
+		const baseRepo = yield* ModelRepository.makeRepository(schema.accounts, Account.Model, {
+			idColumn: "id",
+		})
 
-		const update = db.makeQuery(
-			(execute, input: { id: typeof Account.Id.Type; data: typeof Account.Update.Type }) =>
-				execute((client) =>
-					client.update(schema.accounts).set(input.data).where(eq(schema.accounts.id, input.id)).returning(),
-				).pipe(Effect.map((value) => value[0]!)),
-		)
-
-		const updateVoid = db.makeQuery(
-			(execute, input: { id: typeof Account.Id.Type; data: typeof Account.Update.Type }) =>
-				execute((client) =>
-					client.update(schema.accounts).set(input.data).where(eq(schema.accounts.id, input.id)),
-				),
-		)
-
-		const insert = db.makeQuery((execute, input: typeof Account.Insert.Type) =>
-			execute((client) => client.insert(schema.accounts).values([input]).returning()),
-		)
-
-		const insertVoid = db.makeQuery((execute, input: typeof Account.Model.insert.Type) =>
-			execute((client) => client.insert(schema.accounts).values(input)),
-		)
-
-		return { getAccountsReadyForSync, findById, update, updateVoid, insert, insertVoid } as const
+		return { getAccountsReadyForSync, ...baseRepo } as const
 	}),
-	dependencies: [SqlLive],
+	dependencies: [],
 }) {}
