@@ -9,6 +9,7 @@ import { TransactionRepo } from "~/repositories/transaction-repo"
 import { Workflow, makeWorkflowEntrypoint } from "~/services/cloudflare/workflows"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
 import { TransactionHelpers } from "~/services/transaction"
+import { DatabaseLive } from ".."
 import { stepGetDirectTransferTransactions } from "./detect-direct-transfers"
 
 const WorkflowParams = Schema.Struct({
@@ -209,6 +210,7 @@ export const SyncTransactionsWorkflow = makeWorkflowEntrypoint(
 			GoCardlessService.Default,
 			TransactionHelpers.Default,
 		]),
+		Effect.provide(DatabaseLive),
 		Effect.orDie,
 	),
 )

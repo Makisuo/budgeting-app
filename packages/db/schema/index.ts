@@ -1,7 +1,10 @@
 import { relations, sql } from "drizzle-orm"
 import { doublePrecision, index, integer, jsonb, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core"
 
+import type { AccountId } from "~/models/account"
+import type { CompanyId } from "~/models/company"
 import { type InstitutionId, InstitutionInsert } from "~/models/institution"
+import type { TransactionId } from "~/models/transaction"
 import type { category_types } from "../data/categories"
 
 export const accountType = pgEnum("account_type", ["depository", "credit", "other_asset", "loan", "other_liability"])
@@ -53,7 +56,7 @@ export const institutions = pgTable(
 export const companies = pgTable(
 	"companies",
 	{
-		id: text().primaryKey().notNull(),
+		id: text().primaryKey().notNull().$type<typeof CompanyId.Type>(),
 		name: text().notNull(),
 		url: text("url").notNull(),
 
@@ -76,7 +79,7 @@ export const categories = pgTable("categories", {
 export const accounts = pgTable(
 	"accounts",
 	{
-		id: text().primaryKey().notNull(),
+		id: text().primaryKey().notNull().$type<typeof AccountId.Type>(),
 		name: text().notNull(),
 		currency: text().notNull(),
 		type: accountType().notNull(),
@@ -115,7 +118,7 @@ export const subscriptions = pgTable("subscriptions", {
 export const transactions = pgTable(
 	"transactions",
 	{
-		id: text().primaryKey().notNull(),
+		id: text().primaryKey().notNull().$type<typeof TransactionId.Type>(),
 		amount: doublePrecision().notNull(),
 		currency: text().notNull(),
 		date: timestamp({ precision: 3 }).notNull(),

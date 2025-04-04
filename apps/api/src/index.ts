@@ -22,7 +22,7 @@ declare global {
 	type WorkflowsBinding = typeof workflows
 }
 
-const DatabaseLive = Layer.unwrapEffect(
+export const DatabaseLive = Layer.unwrapEffect(
 	EnvVars.pipe(
 		Effect.map((envVars) =>
 			Database.layer({
@@ -42,6 +42,7 @@ const MainLayer = Layer.mergeAll(
 	TransactionHelper.Default,
 	TransactionHelpers.Default,
 	Workflows.fromRecord(() => workflows),
+	DatabaseLive,
 ).pipe(Layer.provide(DatabaseLive), Layer.provide(EnvVars.Default))
 
 const HttpLive = Layer.mergeAll(HttpAppLive)

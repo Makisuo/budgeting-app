@@ -190,9 +190,6 @@ const makeService = (config: Config) =>
 			queryFn: (
 				execute: <T>(fn: (client: Client | TransactionClient) => Promise<T>) => Effect.Effect<T, DatabaseError>,
 				input: Input,
-				options?: {
-					spanPrefix?: string
-				},
 			) => Effect.Effect<A, E, R>,
 		) => {
 			return (
