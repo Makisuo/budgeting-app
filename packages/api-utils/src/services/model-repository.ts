@@ -7,7 +7,7 @@ import type * as Schema from "effect/Schema"
 
 import { Database, type DatabaseError } from "./database"
 
-export type Any = Schema.Schema.AnyNoContext & {
+export interface EntitySchema extends Schema.Schema.AnyNoContext {
 	readonly fields: Schema.Struct.Fields
 	readonly insert: Schema.Schema.AnyNoContext
 	readonly update: Schema.Schema.AnyNoContext
@@ -16,7 +16,11 @@ export type Any = Schema.Schema.AnyNoContext & {
 	readonly jsonUpdate: Schema.Schema.AnyNoContext
 }
 
-export type Repository<RecordType, S extends Any, Id> = {
+export interface RepositoryOptions<Col extends string> {
+	idColumn: Col
+}
+
+export interface Repository<RecordType, S extends EntitySchema, Id> {
 	readonly insert: (insert: S["insert"]["Type"]) => Effect.Effect<RecordType[], DatabaseError | ParseError>
 
 	readonly insertVoid: (insert: S["insert"]["Type"]) => Effect.Effect<void, DatabaseError | ParseError>
@@ -27,26 +31,19 @@ export type Repository<RecordType, S extends Any, Id> = {
 
 	readonly findById: (id: Id) => Effect.Effect<Option.Option<RecordType>, DatabaseError>
 
-	readonly delete: (id: Id) => Effect.Effect<void, DatabaseError>
+	readonly deleteById: (id: Id) => Effect.Effect<void, DatabaseError>
 }
 
-export const makeRepository = <
+export function makeRepository<
 	T extends Table<any>,
 	Col extends keyof InferSelectModel<T> & string,
 	RecordType extends InferSelectModel<T>,
-	S extends Any,
+	S extends EntitySchema,
 	Id extends InferSelectModel<T>[Col],
->(
-	table: T,
-	schema: S,
-	{
-		idColumn,
-	}: {
-		idColumn: Col
-	},
-): Effect.Effect<Repository<RecordType, S, Id>, never, Database> =>
-	Effect.gen(function* () {
+>(table: T, schema: S, options: RepositoryOptions<Col>): Effect.Effect<Repository<RecordType, S, Id>, never, Database> {
+	return Effect.gen(function* () {
 		const db = yield* Database
+		const { idColumn } = options
 
 		const insert = (data: S["insert"]["Type"]) =>
 			db.makeQueryWithSchema(schema.insert as Schema.Schema<S["insert"]>, (execute, input) =>
@@ -86,22 +83,17 @@ export const makeRepository = <
 				execute((client) =>
 					client
 						.select()
-						// @ts-expect-error
-						.from(table)
+						.from(table as Table<any>)
 						// @ts-expect-error
 						.where(eq(table[idColumn], id))
 						.limit(1),
 				).pipe(Effect.map((results) => Option.fromNullable(results[0] as RecordType))),
 			)(id) as Effect.Effect<Option.Option<RecordType>, DatabaseError>
 
-		const deleteItem = (id: Id) =>
+		const deleteById = (id: Id) =>
 			db.makeQuery((execute, id: Id) =>
-				execute((client) =>
-					client
-						.delete(table)
-						// @ts-expect-error
-						.where(eq(table[idColumn], id)),
-				),
+				// @ts-expect-error
+				execute((client) => client.delete(table).where(eq(table[idColumn], id))),
 			)(id) as Effect.Effect<void, DatabaseError>
 
 		return {
@@ -110,6 +102,7 @@ export const makeRepository = <
 			update,
 			updateVoid,
 			findById,
-			delete: deleteItem,
-		} as Repository<RecordType, S, Id>
+			deleteById,
+		}
 	})
+}
