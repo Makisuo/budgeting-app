@@ -1,9 +1,10 @@
 import { schema } from "db"
 import { Schema } from "effect"
-import { Auth, InstitutionId } from "."
 import { DrizzleEffect } from "../services"
 
 import { Model as M } from "@effect/sql"
+import * as Auth from "./auth"
+import { InstitutionId } from "./institution"
 import { baseFields } from "./utils"
 
 export const Id = Schema.String.pipe(Schema.brand("AccountId"))
