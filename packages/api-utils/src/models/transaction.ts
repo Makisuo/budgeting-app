@@ -1,9 +1,9 @@
 import { Model } from "@effect/sql"
 import { DateTimeFromDate } from "@effect/sql/Model"
 import { Schema } from "effect"
-import { Category } from "."
 import * as Account from "./account"
 import { TenantId } from "./auth"
+import * as Category from "./category"
 import { CompanyId } from "./company"
 import { baseFields } from "./utils"
 
