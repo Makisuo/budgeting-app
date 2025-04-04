@@ -1,7 +1,7 @@
-import { DateTime, Duration, Effect, Option, Schema, flow } from "effect"
+import { Duration, Effect, Option, Schema, flow } from "effect"
 import { NotFound } from "~/errors"
 
-import { AccountId, Auth, CategoryId, Transaction } from "@maple/api-utils/models"
+import { Account, Auth, CategoryId, Transaction } from "@maple/api-utils/models"
 import { AccountRepo } from "~/repositories/account-repo"
 import { TransactionRepo } from "~/repositories/transaction-repo"
 import { Workflow, makeWorkflowEntrypoint } from "~/services/cloudflare/workflows"
@@ -10,7 +10,7 @@ import { TransactionHelpers } from "~/services/transaction"
 import { DatabaseLive } from ".."
 
 const WorkflowParams = Schema.Struct({
-	accountId: AccountId,
+	accountId: Account.Id,
 })
 
 class StepSyncBalanceError extends Schema.TaggedError<StepSyncBalanceError>("StepSyncBalanceError")(
@@ -24,7 +24,7 @@ class StepSyncBalanceRequest extends Schema.TaggedRequest<StepSyncBalanceRequest
 	failure: StepSyncBalanceError,
 	success: Schema.Void,
 	payload: {
-		event: Schema.Struct({ accountId: AccountId }),
+		event: Schema.Struct({ accountId: Account.Id }),
 	},
 }) {}
 
@@ -48,10 +48,12 @@ const stepSyncBalance = Workflow.schema(
 				),
 				Effect.andThen((previous) =>
 					accountRepo.updateVoid({
-						...previous,
-						balanceAmount: +(balance?.balanceAmount.amount || 0),
-						balanceCurrency: balance?.balanceAmount.currency || "",
-						updatedAt: undefined,
+						data: {
+							...previous,
+							balanceAmount: +(balance?.balanceAmount.amount || 0),
+							balanceCurrency: balance?.balanceAmount.currency || "",
+						},
+						id: accountId,
 					}),
 				),
 			)
@@ -79,7 +81,7 @@ class StepSyncTransactionsRequest extends Schema.TaggedRequest<StepSyncTransacti
 		failure: StepSyncTransactionsError,
 		success: Schema.Void,
 		payload: {
-			event: Schema.Struct({ accountId: AccountId, tenantId: Auth.TenantId }),
+			event: Schema.Struct({ accountId: Account.Id, tenantId: Auth.TenantId }),
 		},
 	},
 ) {}
@@ -173,8 +175,6 @@ const runMyWorkflow = ({ accountId }: typeof WorkflowParams.Type) =>
 	Effect.gen(function* () {
 		const accountRepo = yield* AccountRepo
 
-		const now = yield* DateTime.now
-
 		const account = yield* accountRepo.findById(accountId).pipe(
 			Effect.flatMap(
 				Option.match({
@@ -184,9 +184,11 @@ const runMyWorkflow = ({ accountId }: typeof WorkflowParams.Type) =>
 			),
 			Effect.andThen((previous) =>
 				accountRepo.update({
-					...previous,
-					lastSync: now,
-					updatedAt: undefined,
+					data: {
+						...previous,
+						lastSync: new Date(),
+					},
+					id: previous.id,
 				}),
 			),
 		)

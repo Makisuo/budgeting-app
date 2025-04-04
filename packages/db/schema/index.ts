@@ -1,7 +1,7 @@
 import { relations, sql } from "drizzle-orm"
-import { doublePrecision, index, integer, jsonb, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core"
+import { doublePrecision, index, integer, jsonb, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core"
 
-import type { AccountId, CompanyId, InstitutionId, TransactionId } from "@maple/api-utils/models"
+import type { Account, Auth, CompanyId, InstitutionId, TransactionId } from "@maple/api-utils/models"
 import type { category_types } from "../data/categories"
 
 export const accountType = pgEnum("account_type", ["depository", "credit", "other_asset", "loan", "other_liability"])
@@ -25,7 +25,7 @@ export const requisitions = pgTable("requisitions", {
 	referenceId: text("reference_id").notNull(),
 	institutionId: text("institution_id").notNull(),
 
-	tenantId: text("tenant_id").notNull(),
+	tenantId: text("tenant_id").notNull().$type<typeof Auth.TenantId.Type>(),
 
 	...defaultFields,
 })
@@ -76,7 +76,7 @@ export const categories = pgTable("categories", {
 export const accounts = pgTable(
 	"accounts",
 	{
-		id: text().primaryKey().notNull().$type<typeof AccountId.Type>(),
+		id: text().primaryKey().notNull().$type<typeof Account.Id.Type>(),
 		name: text().notNull(),
 		currency: text().notNull(),
 		type: accountType().notNull(),
@@ -84,7 +84,7 @@ export const accounts = pgTable(
 		balanceAmount: doublePrecision("balance_amount").notNull(),
 		balanceCurrency: text("balance_currency").notNull(),
 
-		tenantId: text("tenant_id").notNull(),
+		tenantId: text("tenant_id").notNull().$type<typeof Auth.TenantId.Type>(),
 		iban: text("iban"),
 
 		lastSync: timestamp("last_sync", { precision: 3 }),
@@ -108,7 +108,7 @@ export const subscriptions = pgTable("subscriptions", {
 	currency: text().notNull(),
 	amount: doublePrecision("amount").notNull(),
 
-	tenantId: text("tenant_id").notNull(),
+	tenantId: text("tenant_id").notNull().$type<typeof Auth.TenantId.Type>(),
 	...defaultFields,
 })
 
@@ -134,7 +134,7 @@ export const transactions = pgTable(
 
 		companyId: text("company_id"),
 
-		tenantId: text("tenant_id").notNull(),
+		tenantId: text("tenant_id").notNull().$type<typeof Auth.TenantId.Type>(),
 
 		directTransfer: text("direct_transfer"),
 		...defaultFields,

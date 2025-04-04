@@ -38,7 +38,7 @@ export class TransactionHelpers extends Effect.Service<TransactionHelpers>()("Tr
 						...previous,
 						...transaction,
 						id,
-						updatedAt: undefined,
+						updatedAt: new Date(),
 					}),
 				),
 				sql.withTransaction,

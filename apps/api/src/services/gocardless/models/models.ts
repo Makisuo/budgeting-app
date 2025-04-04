@@ -1,10 +1,12 @@
 import { Brand, Schema } from "effect"
 
-import { AccountId, InstitutionId, RequisitionId } from "@maple/api-utils/models"
+import { InstitutionId, Requisition } from "@maple/api-utils/models"
 import { Transaction } from "./transaction"
 
-export class Account extends Schema.Class<Account>("Account")({
-	id: AccountId,
+import { Account as AccountModel } from "@maple/api-utils/models"
+
+export class Account extends Schema.Class<Account>("GoCardless/Account")({
+	id: AccountModel.Id,
 	created: Schema.DateFromString,
 	last_accessed: Schema.DateFromString,
 	iban: Schema.String,
@@ -14,7 +16,7 @@ export class Account extends Schema.Class<Account>("Account")({
 	owner_name: Schema.String,
 }) {}
 
-export class AccountDetails extends Schema.Class<AccountDetails>("AccountDetails")({
+export class AccountDetails extends Schema.Class<AccountDetails>("GoCardless/AccountDetails")({
 	resourceId: Schema.NullishOr(Schema.String),
 	iban: Schema.NullishOr(Schema.String),
 	currency: Schema.NullishOr(Schema.String),
@@ -25,7 +27,7 @@ export class AccountDetails extends Schema.Class<AccountDetails>("AccountDetails
 	usage: Schema.NullishOr(Schema.String),
 }) {}
 
-export class Institution extends Schema.Class<Institution>("Institution")({
+export class Institution extends Schema.Class<Institution>("GoCardless/Institution")({
 	id: InstitutionId,
 	name: Schema.String,
 	bic: Schema.String,
@@ -35,7 +37,7 @@ export class Institution extends Schema.Class<Institution>("Institution")({
 	max_access_valid_for_days: Schema.NumberFromString,
 }) {}
 
-export class Balance extends Schema.Class<Balance>("Balance")({
+export class Balance extends Schema.Class<Balance>("GoCardless/Balance")({
 	balanceAmount: Schema.Struct({
 		currency: Schema.String,
 		amount: Schema.String,
@@ -44,11 +46,13 @@ export class Balance extends Schema.Class<Balance>("Balance")({
 	referenceDate: Schema.NullishOr(Schema.DateFromString),
 }) {}
 
-export class GetAccountDetailsResponse extends Schema.Class<GetAccountDetailsResponse>("GetAccountDetailsResponse")({
+export class GetAccountDetailsResponse extends Schema.Class<GetAccountDetailsResponse>(
+	"GoCardless/GetAccountDetailsResponse",
+)({
 	account: AccountDetails,
 }) {}
 
-export class NewTokenResponse extends Schema.Class<NewTokenResponse>("NewTokenResponse")({
+export class NewTokenResponse extends Schema.Class<NewTokenResponse>("GoCardless/NewTokenResponse")({
 	access: Schema.String,
 	access_expires: Schema.Number,
 	refresh: Schema.String,
@@ -57,11 +61,13 @@ export class NewTokenResponse extends Schema.Class<NewTokenResponse>("NewTokenRe
 
 export { Transaction }
 
-export class GetBalancesResponse extends Schema.Class<GetBalancesResponse>("GetBalancesResponse")({
+export class GetBalancesResponse extends Schema.Class<GetBalancesResponse>("GoCardless/GetBalancesResponse")({
 	balances: Schema.Array(Balance),
 }) {}
 
-export class GetTransactionsResponse extends Schema.Class<GetTransactionsResponse>("GetTransactionsResponse")({
+export class GetTransactionsResponse extends Schema.Class<GetTransactionsResponse>(
+	"GoCardless/GetTransactionsResponse",
+)({
 	transactions: Schema.Struct({
 		booked: Schema.Array(Transaction),
 		pending: Schema.Array(Transaction),
@@ -73,7 +79,9 @@ export const AgreementId = Brand.nominal<AgreementId>()
 
 const AgreementIdFromString = Schema.String.pipe(Schema.fromBrand(AgreementId))
 
-export class CreateAgreementResponse extends Schema.Class<CreateAgreementResponse>("CreateAgreementResponse")({
+export class CreateAgreementResponse extends Schema.Class<CreateAgreementResponse>(
+	"GoCardless/CreateAgreementResponse",
+)({
 	id: AgreementIdFromString,
 	created: Schema.String,
 	max_historical_days: Schema.Number,
@@ -83,8 +91,8 @@ export class CreateAgreementResponse extends Schema.Class<CreateAgreementRespons
 	institution_id: Schema.String,
 }) {}
 
-export class CreateLinkResponse extends Schema.Class<CreateLinkResponse>("CreateLinkResponse")({
-	id: RequisitionId,
+export class CreateLinkResponse extends Schema.Class<CreateLinkResponse>("GoCardless/CreateLinkResponse")({
+	id: Requisition.Id,
 	redirect: Schema.String,
 	status: Schema.String,
 	agreement: Schema.String,
@@ -94,9 +102,9 @@ export class CreateLinkResponse extends Schema.Class<CreateLinkResponse>("Create
 	link: Schema.String,
 }) {}
 
-export class GetRequisitionResponse extends Schema.Class<GetRequisitionResponse>("GetRequisitionResponse")({
+export class GetRequisitionResponse extends Schema.Class<GetRequisitionResponse>("GoCardless/GetRequisitionResponse")({
 	id: Schema.String,
 	status: Schema.String,
-	accounts: Schema.Array(AccountId),
+	accounts: Schema.Array(AccountModel.Id),
 	reference: Schema.String,
 }) {}

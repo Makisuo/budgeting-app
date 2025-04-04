@@ -13,11 +13,11 @@ import {
 } from "./models/models"
 
 import {
-	type AccountId,
+	type Account,
 	type Auth,
 	CategoryId,
 	type InstitutionId,
-	type RequisitionId,
+	type Requisition,
 	Transaction,
 	TransactionId,
 } from "@maple/api-utils/models"
@@ -58,7 +58,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 			return response
 		})
 
-		const getRequistion = Effect.fn("getRequistion")(function* (id: typeof RequisitionId.Type) {
+		const getRequistion = Effect.fn("getRequistion")(function* (id: typeof Requisition.Id.Type) {
 			const { access } = yield* getAccessToken()
 
 			return yield* HttpClientRequest.get(`/api/v2/requisitions/${id}/`).pipe(
@@ -70,7 +70,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 			)
 		})
 
-		const getAccount = Effect.fn("getAccount")(function* (id: typeof AccountId.Type) {
+		const getAccount = Effect.fn("getAccount")(function* (id: typeof Account.Id.Type) {
 			const { access } = yield* getAccessToken()
 
 			return yield* HttpClientRequest.get(`/api/v2/accounts/${id}/details/`).pipe(
@@ -82,7 +82,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 			)
 		})
 
-		const getBalances = Effect.fn("getBalances")(function* (accountId: typeof AccountId.Type) {
+		const getBalances = Effect.fn("getBalances")(function* (accountId: typeof Account.Id.Type) {
 			const { access } = yield* getAccessToken()
 
 			return yield* HttpClientRequest.get(`/api/v2/accounts/${accountId}/balances/`).pipe(
@@ -94,7 +94,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 			)
 		})
 
-		const getTransactions = Effect.fn("getTransactions")(function* (accountId: typeof AccountId.Type) {
+		const getTransactions = Effect.fn("getTransactions")(function* (accountId: typeof Account.Id.Type) {
 			const { access } = yield* getAccessToken()
 
 			return yield* HttpClientRequest.get(`/api/v2/accounts/${accountId}/transactions/`).pipe(
@@ -178,7 +178,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 		})
 
 		const transformTransaction = Effect.fn("transformTransaction")(function* (
-			accountId: typeof AccountId.Type,
+			accountId: typeof Account.Id.Type,
 			tenantId: typeof Auth.TenantId.Type,
 			transaction: GoCardlessSchema.Transaction,
 			status: "posted" | "pending",
@@ -241,6 +241,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 				method: mapTransactionMethod(transaction.proprietaryBankTransactionCode || undefined),
 
 				deletedAt: null,
+				updatedAt: new Date(),
 			})
 		})
 

@@ -1,33 +1,20 @@
-import { Model } from "@effect/sql"
-
+import { schema } from "db"
 import { Schema } from "effect"
 import { Auth } from "."
-import { InstitutionId } from "./institution"
+import { DrizzleEffect } from "../services"
+
+import { Model as M } from "@effect/sql"
 import { baseFields } from "./utils"
 
-export const AccountId = Schema.String.pipe(Schema.brand("AccountId"))
+export const Id = Schema.String.pipe(Schema.brand("AccountId"))
 
-export const AccountType = Schema.Literal("depository", "credit", "other_asset", "loan", "other_liability")
-
-export class Account extends Model.Class<Account>("Account")({
-	id: Model.GeneratedByApp(AccountId),
-	name: Schema.String,
-	currency: Schema.String,
-	type: AccountType,
-	institutionId: InstitutionId,
-
-	iban: Schema.NullOr(Schema.String),
-
-	balanceAmount: Schema.Number,
-	balanceCurrency: Schema.String,
-
-	lastSync: Model.GeneratedByApp(
-		Schema.NullOr(Model.DateTimeFromDate).annotations({
-			jsonSchema: Schema.NullOr(Schema.DateTimeUtc),
-		}),
-	),
-
-	tenantId: Model.GeneratedByApp(Auth.TenantId),
+export class Model extends M.Class<Model>("Account")({
+	...DrizzleEffect.createSelectSchema(schema.accounts).fields,
+	id: M.GeneratedByApp(Id),
+	tenantId: M.GeneratedByApp(Auth.TenantId),
 
 	...baseFields,
 }) {}
+
+export const Insert = Model.insert
+export const Update = Model.update

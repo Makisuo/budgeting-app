@@ -11,7 +11,7 @@ export class TransactionHelper extends Effect.Service<TransactionHelper>()("@Map
 				transactionRepo.update({
 					...transaction,
 					...update,
-					updatedAt: undefined,
+					updatedAt: new Date(),
 				}),
 				Effect.withSpan("Transaction.update", {
 					attributes: { id: transaction.id, update },

@@ -1,7 +1,7 @@
 import { Model } from "@effect/sql"
 import { DateTimeFromDate } from "@effect/sql/Model"
 import { Schema } from "effect"
-import { AccountId } from "./account"
+import * as Account from "./account"
 import { TenantId } from "./auth"
 import { CategoryId } from "./categories"
 import { CompanyId } from "./company"
@@ -12,7 +12,7 @@ export type TransactionId = typeof TransactionId.Type
 
 export class Transaction extends Model.Class<Transaction>("Transaction")({
 	id: Model.GeneratedByApp(TransactionId),
-	accountId: Model.GeneratedByApp(AccountId),
+	accountId: Model.GeneratedByApp(Account.Id),
 	amount: Schema.Number,
 	currency: Schema.String,
 

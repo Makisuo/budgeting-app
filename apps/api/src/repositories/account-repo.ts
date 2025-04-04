@@ -1,24 +1,14 @@
-import { Effect, Schema } from "effect"
+import { Effect, Option } from "effect"
 
-import { Model, SqlClient, SqlSchema } from "@effect/sql"
 import { Database } from "@maple/api-utils"
-import { Account } from "@maple/api-utils/models"
+import type { Account } from "@maple/api-utils/models"
+import { schema } from "db"
+import { eq } from "drizzle-orm"
 import { SqlLive } from "~/services/sql"
-
-const TABLE_NAME = "accounts"
-const SPAN_PREFIX = "AccountRepo"
 
 export class AccountRepo extends Effect.Service<AccountRepo>()("AccountRepo", {
 	effect: Effect.gen(function* () {
-		const sql = yield* SqlClient.SqlClient
-
 		const db = yield* Database.Database
-
-		const baseRepository = yield* Model.makeRepository(Account, {
-			tableName: TABLE_NAME,
-			spanPrefix: SPAN_PREFIX,
-			idColumn: "id",
-		})
 
 		// biome-ignore lint/suspicious/noConfusingVoidType: <explanation>
 		const getAccountsReadyForSync = db.makeQuery((execute, input: void) =>
@@ -30,7 +20,35 @@ export class AccountRepo extends Effect.Service<AccountRepo>()("AccountRepo", {
 			),
 		)
 
-		return { ...baseRepository, getAccountsReadyForSync } as const
+		const findById = db.makeQuery((execute, input: typeof Account.Id.Type) =>
+			execute((client) =>
+				client.query.accounts.findFirst({ where: (table, { eq }) => eq(table.id, input) }),
+			).pipe(Effect.map(Option.fromNullable)),
+		)
+
+		const update = db.makeQuery(
+			(execute, input: { id: typeof Account.Id.Type; data: typeof Account.Update.Type }) =>
+				execute((client) =>
+					client.update(schema.accounts).set(input.data).where(eq(schema.accounts.id, input.id)).returning(),
+				).pipe(Effect.map((value) => value[0]!)),
+		)
+
+		const updateVoid = db.makeQuery(
+			(execute, input: { id: typeof Account.Id.Type; data: typeof Account.Update.Type }) =>
+				execute((client) =>
+					client.update(schema.accounts).set(input.data).where(eq(schema.accounts.id, input.id)),
+				),
+		)
+
+		const insert = db.makeQuery((execute, input: typeof Account.Insert.Type) =>
+			execute((client) => client.insert(schema.accounts).values([input]).returning()),
+		)
+
+		const insertVoid = db.makeQuery((execute, input: typeof Account.Model.insert.Type) =>
+			execute((client) => client.insert(schema.accounts).values([input])),
+		)
+
+		return { getAccountsReadyForSync, findById, update, updateVoid, insert, insertVoid } as const
 	}),
 	dependencies: [SqlLive],
 }) {}

@@ -1,5 +1,5 @@
 import { HttpApiBuilder, HttpApp, HttpServerResponse } from "@effect/platform"
-import { Account, ReferenceId, Requisition } from "@maple/api-utils/models"
+import { Account, Requisition } from "@maple/api-utils/models"
 import { Arbitrary, Config, Effect, FastCheck, Option, Schema, pipe } from "effect"
 import { Api } from "~/api"
 import { Authorization } from "~/authorization"
@@ -41,7 +41,9 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 						maxHistoricalDays: institution.transactionTotalDays,
 					})
 
-					const referenceId = ReferenceId.make(FastCheck.sample(Arbitrary.make(Schema.UUID), 1)[0]!)
+					const referenceId = Requisition.ReferenceId.make(
+						FastCheck.sample(Arbitrary.make(Schema.UUID), 1)[0]!,
+					)
 
 					const res = yield* goCardless.createLink({
 						redirect: `${apiBaseUrl}/gocardless/callback/${referenceId}`,
@@ -52,13 +54,14 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 					})
 
 					yield* requisitionRepo.insert(
-						Requisition.insert.make({
+						Requisition.Insert.make({
 							id: res.id,
 							referenceId: referenceId,
 							tenantId: currentUser.tenantId,
 							institutionId: payload.institutionId,
 							status: "created",
 							deletedAt: null,
+							updatedAt: new Date(),
 						}),
 					)
 
@@ -89,7 +92,7 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 								.pipe(Effect.tapErrorTag("ResponseError", (e) => Effect.logError(e)))
 
 							yield* accountRepo.insert(
-								Account.insert.make({
+								Account.Model.insert.make({
 									id: accountId,
 									name: account.ownerName || "No name",
 									iban: account.iban || null,
@@ -99,6 +102,7 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 									type: "depository",
 
 									deletedAt: null,
+									updatedAt: new Date(),
 									currency: account.currency || "",
 									lastSync: null,
 									balanceAmount: 0,

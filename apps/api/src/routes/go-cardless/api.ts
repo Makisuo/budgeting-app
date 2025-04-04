@@ -1,5 +1,5 @@
 import { HttpApiEndpoint, HttpApiGroup } from "@effect/platform"
-import { AccountId, InstitutionId } from "@maple/api-utils/models"
+import { Account, InstitutionId } from "@maple/api-utils/models"
 import { Schema } from "effect"
 import { Authorization } from "~/authorization"
 import { InternalError, NotFound } from "~/errors"
@@ -28,7 +28,7 @@ export class GoCardlessApi extends HttpApiGroup.make("gocardless")
 		HttpApiEndpoint.post("sync", "/gocardless/sync/:accountId")
 			.setPath(
 				Schema.Struct({
-					accountId: AccountId,
+					accountId: Account.Id,
 				}),
 			)
 			.addError(InternalError)
