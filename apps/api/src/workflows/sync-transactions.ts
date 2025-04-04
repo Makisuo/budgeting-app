@@ -1,16 +1,13 @@
-import { Data, DateTime, Duration, Effect, Option, Schema, flow, pipe } from "effect"
-import { TenantId } from "~/authorization"
+import { DateTime, Duration, Effect, Option, Schema, flow } from "effect"
 import { NotFound } from "~/errors"
-import { AccountId } from "~/models/account"
-import { CategoryId } from "~/models/categories"
-import { Transaction } from "~/models/transaction"
+
+import { AccountId, Auth, CategoryId, Transaction } from "@maple/api-utils/models"
 import { AccountRepo } from "~/repositories/account-repo"
 import { TransactionRepo } from "~/repositories/transaction-repo"
 import { Workflow, makeWorkflowEntrypoint } from "~/services/cloudflare/workflows"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
 import { TransactionHelpers } from "~/services/transaction"
 import { DatabaseLive } from ".."
-import { stepGetDirectTransferTransactions } from "./detect-direct-transfers"
 
 const WorkflowParams = Schema.Struct({
 	accountId: AccountId,
@@ -82,7 +79,7 @@ class StepSyncTransactionsRequest extends Schema.TaggedRequest<StepSyncTransacti
 		failure: StepSyncTransactionsError,
 		success: Schema.Void,
 		payload: {
-			event: Schema.Struct({ accountId: AccountId, tenantId: TenantId }),
+			event: Schema.Struct({ accountId: AccountId, tenantId: Auth.TenantId }),
 		},
 	},
 ) {}

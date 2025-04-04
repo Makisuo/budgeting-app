@@ -1,7 +1,7 @@
 import { Model } from "@effect/sql"
 
 import { Schema } from "effect"
-import { TenantId } from "~/authorization"
+import { Auth } from "."
 import { InstitutionId } from "./institution"
 import { baseFields } from "./utils"
 
@@ -27,7 +27,7 @@ export class Account extends Model.Class<Account>("Account")({
 		}),
 	),
 
-	tenantId: Model.GeneratedByApp(TenantId),
+	tenantId: Model.GeneratedByApp(Auth.TenantId),
 
 	...baseFields,
 }) {}

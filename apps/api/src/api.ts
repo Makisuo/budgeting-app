@@ -1,11 +1,12 @@
 import { HttpApi, HttpServerRequest, OpenApi } from "@effect/platform"
-import { Config, Effect, Layer } from "effect"
-import { Authorization, TenantId, User } from "./authorization"
+import { Effect, Layer } from "effect"
+import { Authorization } from "./authorization"
 import { Unauthorized } from "./errors"
 import { AdminApi } from "./routes/admin/api"
 import { GoCardlessApi } from "./routes/go-cardless/api"
 import { RootApi } from "./routes/root/api"
 
+import { Auth } from "@maple/api-utils/models"
 import { BetterAuthApi } from "./routes/better-auth/api"
 import { SubscriptionApi } from "./routes/subscriptions/api"
 import { TransactionApi } from "./routes/transactions/api"
@@ -57,8 +58,8 @@ export const AuthorizationLive = Layer.effect(
 
 					const subId = session.session.userId
 
-					return User.make({
-						tenantId: TenantId.make(subId),
+					return Auth.User.make({
+						tenantId: Auth.TenantId.make(subId),
 					})
 				}),
 		})

@@ -1,5 +1,5 @@
+import { type Transaction, type TransactionId, TransactionNotFound } from "@maple/api-utils/models"
 import { Effect, Option, pipe } from "effect"
-import { type Transaction, type TransactionId, TransactionNotFound } from "~/models/transaction"
 import { TransactionRepo } from "~/repositories/transaction-repo"
 
 export class TransactionHelper extends Effect.Service<TransactionHelper>()("@Maple/TransactionHelper", {

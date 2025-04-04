@@ -1,5 +1,5 @@
 import { FetchHttpClient, HttpClient, HttpClientRequest, HttpClientResponse } from "@effect/platform"
-import { Config, DateTime, Effect, Option, Schedule, Schema, pipe } from "effect"
+import { Config, DateTime, Effect, Option, Schema, pipe } from "effect"
 import {
 	type AgreementId,
 	CreateAgreementResponse,
@@ -12,15 +12,16 @@ import {
 	NewTokenResponse,
 } from "./models/models"
 
-import type { AccountId } from "~/models/account"
-import type { InstitutionId } from "~/models/institution"
-import type { RequisitionId } from "~/models/requistion"
-
-import { nanoid } from "nanoid"
-import type { TenantId } from "~/authorization"
+import {
+	type AccountId,
+	type Auth,
+	CategoryId,
+	type InstitutionId,
+	type RequisitionId,
+	Transaction,
+	TransactionId,
+} from "@maple/api-utils/models"
 import { InternalError } from "~/errors"
-import { CategoryId } from "~/models/categories"
-import { Transaction, TransactionId } from "~/models/transaction"
 import { TransactionHelpers } from "../transaction"
 import type * as GoCardlessSchema from "./models/models"
 import { mapTransactionMethod } from "./transformer"
@@ -178,7 +179,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 
 		const transformTransaction = Effect.fn("transformTransaction")(function* (
 			accountId: typeof AccountId.Type,
-			tenantId: typeof TenantId.Type,
+			tenantId: typeof Auth.TenantId.Type,
 			transaction: GoCardlessSchema.Transaction,
 			status: "posted" | "pending",
 		) {

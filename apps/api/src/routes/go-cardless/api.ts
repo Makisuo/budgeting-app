@@ -1,9 +1,8 @@
 import { HttpApiEndpoint, HttpApiGroup } from "@effect/platform"
+import { AccountId, InstitutionId } from "@maple/api-utils/models"
 import { Schema } from "effect"
 import { Authorization } from "~/authorization"
 import { InternalError, NotFound } from "~/errors"
-import { AccountId } from "~/models/account"
-import { InstitutionId } from "~/models/institution"
 import { CreateLinkResponse } from "./models"
 
 export class GoCardlessApi extends HttpApiGroup.make("gocardless")

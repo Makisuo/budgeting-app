@@ -1,8 +1,7 @@
 import { Effect, Option, Schema } from "effect"
 
-import { type Institution, InstitutionInsert } from "~/models/institution"
-
 import { Database } from "@maple/api-utils"
+import { type Institution, InstitutionInsert } from "@maple/api-utils/models"
 import { schema } from "db"
 
 export class InstitutionRepo extends Effect.Service<InstitutionRepo>()("InstitutionRepo", {

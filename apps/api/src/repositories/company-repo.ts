@@ -1,7 +1,7 @@
 import { Effect, Schema } from "effect"
 
 import { Model, SqlClient, SqlSchema } from "@effect/sql"
-import { Company } from "~/models/company"
+import { Company } from "@maple/api-utils/models"
 import { SqlLive } from "~/services/sql"
 
 const TABLE_NAME = "companies"

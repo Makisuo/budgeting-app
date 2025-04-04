@@ -11,6 +11,10 @@
 	"description": "",
 	"types": "src/index.ts",
 	"main": "src/index.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./models": "./src/models/index.ts"
+	},
 	"devDependencies": {
 		"typescript": "^5.8.2"
 	},

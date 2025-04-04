@@ -1,7 +1,6 @@
 import { Brand, Schema } from "effect"
-import { AccountId } from "~/models/account"
-import { InstitutionId } from "~/models/institution"
-import { RequisitionId } from "~/models/requistion"
+
+import { AccountId, InstitutionId, RequisitionId } from "@maple/api-utils/models"
 import { Transaction } from "./transaction"
 
 export class Account extends Schema.Class<Account>("Account")({

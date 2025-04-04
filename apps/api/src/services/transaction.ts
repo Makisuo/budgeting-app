@@ -1,6 +1,6 @@
 import { SqlClient } from "@effect/sql"
+import { type Transaction, type TransactionId, TransactionNotFound } from "@maple/api-utils/models"
 import { Effect, Option } from "effect"
-import { type Transaction, type TransactionId, TransactionNotFound } from "~/models/transaction"
 import { CompanyRepo } from "~/repositories/company-repo"
 import { TransactionRepo } from "~/repositories/transaction-repo"
 import { SqlLive } from "./sql"

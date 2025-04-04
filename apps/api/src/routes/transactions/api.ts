@@ -1,7 +1,7 @@
 import { HttpApiEndpoint, HttpApiGroup, OpenApi } from "@effect/platform"
+import { Transaction, TransactionId, TransactionNotFound } from "@maple/api-utils/models"
 import { Schema } from "effect"
 import { InternalError } from "~/errors"
-import { Transaction, TransactionId, TransactionNotFound } from "~/models/transaction"
 
 export class TransactionApi extends HttpApiGroup.make("Transactions").add(
 	HttpApiEndpoint.post("update", "/transactions/:id")

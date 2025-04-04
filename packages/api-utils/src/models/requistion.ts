@@ -1,6 +1,6 @@
 import { Model } from "@effect/sql"
 import { Schema } from "effect"
-import { TenantId } from "~/authorization"
+import { TenantId } from "./auth"
 import { InstitutionId } from "./institution"
 import { baseFields } from "./utils"
 

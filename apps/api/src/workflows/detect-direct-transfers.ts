@@ -1,5 +1,5 @@
+import { TransactionId } from "@maple/api-utils/models"
 import { Effect, Schema, flow, pipe } from "effect"
-import { TransactionId } from "~/models/transaction"
 import { TransactionRepo } from "~/repositories/transaction-repo"
 import { TransactionHelper } from "~/routes/transactions/transaction"
 import { Workflow, makeWorkflowEntrypoint } from "~/services/cloudflare/workflows"

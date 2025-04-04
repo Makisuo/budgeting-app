@@ -1,7 +1,7 @@
 import { HttpApiBuilder } from "@effect/platform"
+import { InstitutionInsert } from "@maple/api-utils/models"
 import { Effect, Option, pipe } from "effect"
 import { Api } from "~/api"
-import { Institution, InstitutionInsert } from "~/models/institution"
 import { InstitutionRepo } from "~/repositories/institution-repo"
 import { GoCardlessService } from "~/services/gocardless/gocardless-service"
 import { TransactionHelpers } from "~/services/transaction"

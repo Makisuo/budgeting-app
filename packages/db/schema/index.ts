@@ -1,10 +1,7 @@
 import { relations, sql } from "drizzle-orm"
 import { doublePrecision, index, integer, jsonb, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core"
 
-import type { AccountId } from "~/models/account"
-import type { CompanyId } from "~/models/company"
-import { type InstitutionId, InstitutionInsert } from "~/models/institution"
-import type { TransactionId } from "~/models/transaction"
+import type { AccountId, CompanyId, InstitutionId, TransactionId } from "@maple/api-utils/models"
 import type { category_types } from "../data/categories"
 
 export const accountType = pgEnum("account_type", ["depository", "credit", "other_asset", "loan", "other_liability"])

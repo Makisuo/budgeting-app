@@ -2,7 +2,7 @@ import { Effect, Schema } from "effect"
 
 import { Model, SqlClient, SqlSchema } from "@effect/sql"
 import { Database } from "@maple/api-utils"
-import { Account } from "~/models/account"
+import { Account } from "@maple/api-utils/models"
 import { SqlLive } from "~/services/sql"
 
 const TABLE_NAME = "accounts"
