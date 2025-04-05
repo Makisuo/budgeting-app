@@ -15,7 +15,7 @@ export class BetterAuthApiError extends Data.TaggedError("BetterAuthApiError")<{
 export class BetterAuth extends Effect.Service<BetterAuth>()("BetterAuth", {
 	effect: Effect.gen(function* () {
 		const databaseUrl = yield* Config.string("DATABASE_URL")
-		const apiBaseUrl = yield* Config.string("APP_BASE_URL")
+		const apiBaseUrl = yield* Config.string("VITE_BASE_URL")
 
 		const db = drizzle(databaseUrl)
 

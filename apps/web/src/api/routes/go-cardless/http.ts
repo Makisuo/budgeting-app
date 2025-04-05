@@ -27,7 +27,7 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 				Effect.gen(function* () {
 					const currentUser = yield* Authorization.provides
 
-					const apiBaseUrl = yield* Config.string("APP_BASE_URL")
+					const apiBaseUrl = yield* Config.string("VITE_BASE_URL")
 
 					const institution = yield* institutionRepo
 						.findById(payload.institutionId)
@@ -77,7 +77,7 @@ export const HttpGoCardlessLive = HttpApiBuilder.group(Api, "gocardless", (handl
 				Effect.gen(function* () {
 					const requisition = yield* requisitionRepo.findByReferenceId(path.id)
 
-					const appBaseUrl = yield* Config.string("APP_BASE_URL")
+					const appBaseUrl = yield* Config.string("VITE_BASE_URL")
 
 					if (Option.isNone(requisition)) {
 						return yield* Effect.fail(new NotFound({ message: "Requisition not found" }))

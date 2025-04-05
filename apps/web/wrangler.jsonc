@@ -47,7 +47,7 @@
 	"vars": {
 		"VITE_GOOGLE_CLIENT_ID": "433050494076-emtltu2on29bu6n3mtp8vhmh91jmu8k7.apps.googleusercontent.com",
 		"VITE_ELECTRIC_UR": "https://api.electric-auth.com/electric/0_Rg22jKqy-C86PVMnEJC",
-		"APP_BASE_URL": "https://app.maple.dev",
+		"VITE_BASE_URL": "https://app.maple.dev",
 		"LOG_LEVEL": "INFO"
 	}
 }
