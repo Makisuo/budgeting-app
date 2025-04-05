@@ -14,12 +14,12 @@
 	"placement": {
 		"mode": "smart"
 	},
-	"routes": [
-		{
-			"pattern": "app.maple.dev/*",
-			"zone_name": "maple.dev"
-		}
-	],
+	// "routes": [
+	// 	{
+	// 		"pattern": "app.maple.dev/*",
+	// 		"zone_name": "maple.dev"
+	// 	}
+	// ],
 	"triggers": {
 		"crons": ["*/10 * * * *"]
 	},
