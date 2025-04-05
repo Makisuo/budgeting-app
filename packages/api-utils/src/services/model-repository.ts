@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm"
 import * as Effect from "effect/Effect"
 import * as Option from "effect/Option"
 import type { ParseError } from "effect/ParseResult"
-import type * as Schema from "effect/Schema"
+import * as Schema from "effect/Schema"
 
 import { Database, type DatabaseError } from "./database"
 
@@ -66,7 +66,7 @@ export function makeRepository<
 			)(data) as Effect.Effect<void, DatabaseError | ParseError>
 
 		const update = (data: S["update"]["Type"]) =>
-			db.makeQueryWithSchema(schema.update as Schema.Schema<S["update"]>, (execute, input) =>
+			db.makeQueryWithSchema(Schema.partial(schema.update as Schema.Schema<S["update"]>), (execute, input) =>
 				execute((client) =>
 					client
 						.update(table)
@@ -78,7 +78,7 @@ export function makeRepository<
 			)(data) as Effect.Effect<RecordType, DatabaseError | ParseError>
 
 		const updateVoid = (data: S["update"]["Type"]) =>
-			db.makeQueryWithSchema(schema.update as Schema.Schema<S["update"]>, (execute, input) =>
+			db.makeQueryWithSchema(Schema.partial(schema.update as Schema.Schema<S["update"]>), (execute, input) =>
 				execute((client) =>
 					client
 						.update(table)
