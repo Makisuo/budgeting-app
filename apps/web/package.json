@@ -13,6 +13,7 @@
 		"openapi-typescript": "openapi-typescript http://localhost:8787/openapi.json -o ./src/lib/api/v1.d.ts"
 	},
 	"devDependencies": {
+		"@cloudflare/vite-plugin": "^1.0.0",
 		"@tailwindcss/vite": "^4.1.1",
 		"@tanstack/router-plugin": "^1.114.34",
 		"@tauri-apps/cli": "^2.4.1",
