@@ -9,6 +9,7 @@
 		"skipLibCheck": true,
 		"paths": {
 			"~/*": ["./src/*"],
+			"~/worker/*": ["./src/api/*"],
 			"ui": ["./src/components/ui/index.ts"]
 		}
 	}

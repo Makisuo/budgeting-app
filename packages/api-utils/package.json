@@ -1,0 +1,22 @@
+{
+	"name": "@maple/api-utils",
+	"version": "0.0.0",
+	"private": true,
+	"dependencies": {
+		"db": "workspace:*",
+		"drizzle-orm": "0.41.0",
+		"postgres": "^3.4.5"
+	},
+	"type": "module",
+	"description": "",
+	"types": "src/index.ts",
+	"main": "src/index.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./models": "./src/models/index.ts"
+	},
+	"devDependencies": {
+		"typescript": "^5.8.2"
+	},
+	"scripts": {}
+}

@@ -11,8 +11,8 @@
 	"types": "index.ts",
 	"main": "index.ts",
 	"devDependencies": {
-		"@types/bun": "^1.2.6",
-		"drizzle-kit": "^0.30.5",
+		"@types/bun": "^1.2.8",
+		"drizzle-kit": "^0.30.6",
 		"typescript": "^5.8.2"
 	},
 	"scripts": {

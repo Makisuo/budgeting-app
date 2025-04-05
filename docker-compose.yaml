@@ -2,7 +2,7 @@ name: "maple-budgeting"
 
 services:
   electric:
-    image: electricsql/electric:1.0.0-beta.3
+    image: electricsql/electric:1.0.2
     environment:
       # DATABASE_URL: postgresql://hazel-3edi:local@127.0.0.1:9500/hazel?sslmode=disable
       DATABASE_URL: postgres://postgres:password@127.0.0.1:5455/postgres?sslmode=disable

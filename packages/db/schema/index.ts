@@ -1,6 +1,7 @@
 import { relations, sql } from "drizzle-orm"
-import { doublePrecision, index, integer, jsonb, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core"
+import { doublePrecision, index, integer, jsonb, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core"
 
+import type { Account, Auth, CompanyId, InstitutionId, Requisition, TransactionId } from "@maple/api-utils/models"
 import type { category_types } from "../data/categories"
 
 export const accountType = pgEnum("account_type", ["depository", "credit", "other_asset", "loan", "other_liability"])
@@ -19,12 +20,12 @@ export * from "./auth-schema"
 
 // Internal Table
 export const requisitions = pgTable("requisitions", {
-	id: text().primaryKey().notNull(),
+	id: text().primaryKey().notNull().$type<typeof Requisition.Id.Type>(),
 	status: text().notNull(),
 	referenceId: text("reference_id").notNull(),
-	institutionId: text("institution_id").notNull(),
+	institutionId: text("institution_id").notNull().$type<typeof InstitutionId.Type>(),
 
-	tenantId: text("tenant_id").notNull(),
+	tenantId: text("tenant_id").notNull().$type<typeof Auth.TenantId.Type>(),
 
 	...defaultFields,
 })
@@ -33,11 +34,11 @@ export const requisitions = pgTable("requisitions", {
 export const institutions = pgTable(
 	"institutions",
 	{
-		id: text().primaryKey().notNull(),
+		id: text().primaryKey().notNull().$type<typeof InstitutionId.Type>(),
 		name: text().notNull(),
 		logo: text(),
 		provider: text().notNull(),
-		countries: jsonb().notNull().$type<string[]>(),
+		countries: jsonb().notNull().$type<readonly string[]>(),
 		transactionTotalDays: integer("transaction_total_days").notNull(),
 		...defaultFields,
 	},
@@ -52,7 +53,7 @@ export const institutions = pgTable(
 export const companies = pgTable(
 	"companies",
 	{
-		id: text().primaryKey().notNull(),
+		id: text().primaryKey().notNull().$type<typeof CompanyId.Type>(),
 		name: text().notNull(),
 		url: text("url").notNull(),
 
@@ -75,15 +76,15 @@ export const categories = pgTable("categories", {
 export const accounts = pgTable(
 	"accounts",
 	{
-		id: text().primaryKey().notNull(),
+		id: text().primaryKey().notNull().$type<typeof Account.Id.Type>(),
 		name: text().notNull(),
 		currency: text().notNull(),
 		type: accountType().notNull(),
-		institutionId: text("institution_id").notNull(),
+		institutionId: text("institution_id").notNull().$type<typeof InstitutionId.Type>(),
 		balanceAmount: doublePrecision("balance_amount").notNull(),
 		balanceCurrency: text("balance_currency").notNull(),
 
-		tenantId: text("tenant_id").notNull(),
+		tenantId: text("tenant_id").notNull().$type<typeof Auth.TenantId.Type>(),
 		iban: text("iban"),
 
 		lastSync: timestamp("last_sync", { precision: 3 }),
@@ -107,14 +108,14 @@ export const subscriptions = pgTable("subscriptions", {
 	currency: text().notNull(),
 	amount: doublePrecision("amount").notNull(),
 
-	tenantId: text("tenant_id").notNull(),
+	tenantId: text("tenant_id").notNull().$type<typeof Auth.TenantId.Type>(),
 	...defaultFields,
 })
 
 export const transactions = pgTable(
 	"transactions",
 	{
-		id: text().primaryKey().notNull(),
+		id: text().primaryKey().notNull().$type<typeof TransactionId.Type>(),
 		amount: doublePrecision().notNull(),
 		currency: text().notNull(),
 		date: timestamp({ precision: 3 }).notNull(),
@@ -133,7 +134,7 @@ export const transactions = pgTable(
 
 		companyId: text("company_id"),
 
-		tenantId: text("tenant_id").notNull(),
+		tenantId: text("tenant_id").notNull().$type<typeof Auth.TenantId.Type>(),
 
 		directTransfer: text("direct_transfer"),
 		...defaultFields,

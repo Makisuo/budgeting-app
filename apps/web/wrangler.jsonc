@@ -1,0 +1,55 @@
+{
+	"name": "maple-budgeting",
+	"main": "./src/api/index.ts",
+	"compatibility_date": "2025-04-03",
+	"compatibility_flags": ["nodejs_compat"],
+
+	"observability": {
+		"enabled": true
+	},
+
+	"assets": {
+		// "not_found_handling": "single-page-application",
+		"binding": "ASSETS",
+		"run_worker_first": true
+	},
+	"placement": {
+		"mode": "off"
+	},
+	// "routes": [
+	// 	{
+	// 		"pattern": "app.maple.dev/*",
+	// 		"zone_name": "maple.dev"
+	// 	}
+	// ],
+	"triggers": {
+		"crons": ["*/10 * * * *"]
+	},
+
+	"workflows": [
+		{
+			"name": "workflow-transactions-sync",
+			"binding": "SYNC_TRANSACTIONS_WORKFLOW",
+			"class_name": "SyncTransactionsWorkflow"
+		},
+		{
+			"name": "workflow-transactions-detect-direct-transfers",
+			"binding": "DETECT_DIRECT_TRANSACTIONS_WORKFLOW",
+			"class_name": "DetectDirectTransferTransactionsWorkflow"
+		}
+	],
+	"hyperdrive": [
+		{
+			"binding": "HYPERDRIVE",
+			"id": "20471f3545bc4210bbee3142f31367ec",
+			"localConnectionString": "postgresql://postgres:xgzcp3fcmjkitozy@142.132.228.194:5666/maple"
+		}
+	],
+
+	"vars": {
+		"VITE_GOOGLE_CLIENT_ID": "433050494076-emtltu2on29bu6n3mtp8vhmh91jmu8k7.apps.googleusercontent.com",
+		"VITE_ELECTRIC_UR": "https://api.electric-auth.com/electric/0_Rg22jKqy-C86PVMnEJC",
+		"VITE_BASE_URL": "https://app.maple.dev",
+		"LOG_LEVEL": "INFO"
+	}
+}
