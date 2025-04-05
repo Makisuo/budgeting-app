@@ -25,6 +25,7 @@
 				"noUnusedImports": "off"
 			},
 			"suspicious": {
+				"noConfusingVoidType": "off",
 				"noExplicitAny": "off",
 				"noArrayIndexKey": "off",
 				"noConsoleLog": "warn"
