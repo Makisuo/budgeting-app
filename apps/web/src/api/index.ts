@@ -41,6 +41,11 @@ const Live = HttpLive.pipe(Layer.provide(MainLayer))
 
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
+		const url = new URL(request.url)
+		if (!url.pathname.startsWith("/api/")) {
+			return new Response(null, { status: 404 })
+		}
+
 		Object.assign(globalThis, {
 			env,
 		})

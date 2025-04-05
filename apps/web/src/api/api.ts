@@ -73,4 +73,5 @@ export class Api extends HttpApi.make("api")
 	.add(SubscriptionApi)
 	.add(TransactionApi)
 	.add(BetterAuthApi)
+	.prefix("/api")
 	.annotate(OpenApi.Title, "Hazel API") {}

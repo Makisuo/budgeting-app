@@ -11,7 +11,7 @@ export const betterAuthOptions = {
 	baseURL: env.APP_BASE_URL,
 	appName: "Maple Budget",
 	trustedOrigins: ["http://localhost:3000", "https://app.maple.dev"],
-	basePath: "/better-auth",
+	basePath: "/api/better-auth",
 	emailAndPassword: {
 		enabled: true,
 		requireEmailVerification: true,
