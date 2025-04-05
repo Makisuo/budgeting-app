@@ -48,6 +48,7 @@
 		"@tanstack/react-query": "^5.71.10",
 		"@tanstack/react-router": "^1.114.34",
 		"@tanstack/router-devtools": "^1.114.34",
+		"@tauri-apps/api": "^2.0.0",
 		"arktype": "^2.1.17",
 		"better-auth": "^1.2.5",
 		"date-fns": "^4.1.0",
