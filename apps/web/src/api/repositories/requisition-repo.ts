@@ -3,7 +3,6 @@ import { Effect, Option } from "effect"
 import { Database, ModelRepository } from "@maple/api-utils"
 import { Requisition } from "@maple/api-utils/models"
 import { schema } from "db"
-import { eq } from "drizzle-orm"
 
 export class RequisitionRepo extends Effect.Service<RequisitionRepo>()("RequisitionRepo", {
 	effect: Effect.gen(function* () {

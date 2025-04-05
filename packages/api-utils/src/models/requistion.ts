@@ -3,7 +3,7 @@ import { schema } from "db"
 import { Schema } from "effect"
 import { DrizzleEffect } from "../services"
 import { TenantId } from "./auth"
-import { InstitutionId } from "./institution"
+import * as Institution from "./institution"
 import { baseFields } from "./utils"
 
 export const Id = Schema.String.pipe(Schema.brand("@GoCardless/RequisitionId"))
@@ -16,7 +16,7 @@ export class Model extends M.Class<Model>("Requisition")({
 	id: Id,
 	referenceId: ReferenceId,
 
-	institutionId: InstitutionId,
+	institutionId: Institution.Id,
 	tenantId: M.GeneratedByApp(TenantId),
 
 	...baseFields,

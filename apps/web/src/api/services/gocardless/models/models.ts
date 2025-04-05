@@ -1,6 +1,6 @@
 import { Brand, Schema } from "effect"
 
-import { InstitutionId, Requisition } from "@maple/api-utils/models"
+import { Institution as InstitutionModel, Requisition } from "@maple/api-utils/models"
 import { Transaction } from "./transaction"
 
 import { Account as AccountModel } from "@maple/api-utils/models"
@@ -12,7 +12,7 @@ export class Account extends Schema.Class<Account>("GoCardless/Account")({
 	iban: Schema.String,
 	bban: Schema.String,
 	status: Schema.String,
-	institution_id: InstitutionId,
+	institution_id: InstitutionModel.Id,
 	owner_name: Schema.String,
 }) {}
 
@@ -28,7 +28,7 @@ export class AccountDetails extends Schema.Class<AccountDetails>("GoCardless/Acc
 }) {}
 
 export class Institution extends Schema.Class<Institution>("GoCardless/Institution")({
-	id: InstitutionId,
+	id: InstitutionModel.Id,
 	name: Schema.String,
 	bic: Schema.String,
 	transaction_total_days: Schema.NumberFromString,

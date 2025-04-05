@@ -5,4 +5,4 @@ export * as Category from "./category"
 export * as Company from "./company"
 export * as Transaction from "./transaction"
 
-export * from "./institution"
+export * as Institution from "./institution"

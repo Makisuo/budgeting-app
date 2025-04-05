@@ -16,7 +16,7 @@ import {
 	type Account,
 	type Auth,
 	Category,
-	type InstitutionId,
+	type Institution as InstitionModel,
 	type Requisition,
 	Transaction,
 } from "@maple/api-utils/models"
@@ -151,7 +151,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 
 		const createLink = Effect.fn("createLink")(function* (options: {
 			redirect: string
-			institutionId: typeof InstitutionId.Type
+			institutionId: typeof InstitionModel.Id.Type
 			reference?: string
 			agreementId?: AgreementId
 			userLanguage: string | undefined

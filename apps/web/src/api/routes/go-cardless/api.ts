@@ -1,5 +1,5 @@
 import { HttpApiEndpoint, HttpApiGroup } from "@effect/platform"
-import { Account, InstitutionId, Requisition } from "@maple/api-utils/models"
+import { Account, Institution, Requisition } from "@maple/api-utils/models"
 import { Schema } from "effect"
 import { Authorization } from "~/worker/authorization"
 import { InternalError, NotFound } from "~/worker/errors"
@@ -10,7 +10,7 @@ export class GoCardlessApi extends HttpApiGroup.make("gocardless")
 		HttpApiEndpoint.post("createLink", "/gocardless/link")
 			.setPayload(
 				Schema.Struct({
-					institutionId: InstitutionId,
+					institutionId: Institution.Id,
 				}),
 			)
 			.addSuccess(CreateLinkResponse)

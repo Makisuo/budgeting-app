@@ -1,24 +1,32 @@
-import { Effect, Option, Schema } from "effect"
+import { Effect, Schema } from "effect"
 
-import { Database } from "@maple/api-utils"
-import { type Institution, InstitutionInsert } from "@maple/api-utils/models"
+import { Database, ModelRepository } from "@maple/api-utils"
+import { Institution } from "@maple/api-utils/models"
 import { schema } from "db"
 
 export class InstitutionRepo extends Effect.Service<InstitutionRepo>()("InstitutionRepo", {
 	effect: Effect.gen(function* () {
 		const db = yield* Database.Database
 
-		const insertMultipleVoid = db.makeQueryWithSchema(Schema.Array(InstitutionInsert), (execute, input) =>
-			execute((client) => client.insert(schema.institutions).values([...input])),
-		)
+		const baseRepository = yield* ModelRepository.makeRepository(schema.institutions, Institution.Model, {
+			idColumn: "id",
+		})
 
-		const findById = db.makeQuery((execute, input: Institution["id"]) =>
+		const insertMultipleVoid = db.makeQueryWithSchema(Schema.Array(Institution.Model.insert), (execute, input) =>
 			execute((client) =>
-				client.query.institutions.findFirst({ where: (table, { eq }) => eq(table.id, input) }),
-			).pipe(Effect.map(Option.fromNullable)),
+				client
+					.insert(schema.institutions)
+					.values(
+						input.map((item) => ({
+							...item,
+							countries: item.countries as string[],
+						})),
+					)
+					.onConflictDoNothing(),
+			),
 		)
 
-		return { findById, insertMultipleVoid } as const
+		return { ...baseRepository, insertMultipleVoid } as const
 	}),
 	dependencies: [],
 }) {}

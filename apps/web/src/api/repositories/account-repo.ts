@@ -8,7 +8,6 @@ export class AccountRepo extends Effect.Service<AccountRepo>()("AccountRepo", {
 	effect: Effect.gen(function* () {
 		const db = yield* Database.Database
 
-		// biome-ignore lint/suspicious/noConfusingVoidType: <explanation>
 		const getAccountsReadyForSync = db.makeQuery((execute, input: void) =>
 			execute((client) =>
 				client.query.accounts.findMany({

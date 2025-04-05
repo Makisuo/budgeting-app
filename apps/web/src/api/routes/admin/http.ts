@@ -1,5 +1,5 @@
 import { HttpApiBuilder } from "@effect/platform"
-import { Account, InstitutionInsert } from "@maple/api-utils/models"
+import { Account, Institution } from "@maple/api-utils/models"
 import { Effect, Option, pipe } from "effect"
 import { Api } from "~/worker/api"
 import { InternalError } from "~/worker/errors"
@@ -23,7 +23,7 @@ export const HttpAdminLive = HttpApiBuilder.group(Api, "admin", (handlers) =>
 					const dbInstitutions = yield* Effect.forEach(institutions, (institution) =>
 						// biome-ignore lint/correctness/useYield: <explanation>
 						Effect.gen(function* () {
-							const dbInstitutions = InstitutionInsert.make({
+							const dbInstitutions = Institution.Model.make({
 								id: institution.id,
 								name: institution.name,
 								transactionTotalDays: institution.transaction_total_days,
@@ -33,6 +33,8 @@ export const HttpAdminLive = HttpApiBuilder.group(Api, "admin", (handlers) =>
 
 								provider: "gocardless",
 								deletedAt: null,
+								createdAt: new Date(),
+								updatedAt: new Date(),
 							})
 
 							return dbInstitutions
