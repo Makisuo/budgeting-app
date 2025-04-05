@@ -8,6 +8,7 @@ import { cloudflare } from "@cloudflare/vite-plugin"
 import tailwindcss from "@tailwindcss/vite"
 
 const host = process.env.TAURI_DEV_HOST
+const isTauri = process.env.TAURI_PLATFORM !== undefined
 
 export default defineConfig({
 	optimizeDeps: {
@@ -18,7 +19,8 @@ export default defineConfig({
 	},
 	plugins: [
 		tsconfigPaths(),
-		cloudflare(),
+		// Only load Cloudflare plugin when not in Tauri environment
+		...(!isTauri ? [cloudflare()] : []),
 		TanStackRouterVite({
 			routeToken: "layout",
 		}),

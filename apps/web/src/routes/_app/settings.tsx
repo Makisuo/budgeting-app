@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router"
 import { useTheme } from "~/components/theme-provider"
 import { Button, Card, Select } from "~/components/ui"
 import { Checkbox } from "~/components/ui/checkbox"
+import { CheckUpdateButton } from "~/components/updater/CheckUpdateButton"
 
 import { useAtom } from "jotai/react"
 import { atomWithStorage } from "jotai/utils"
@@ -75,9 +76,29 @@ function RouteComponent() {
 					<Button onPress={() => setTheme("pastel" as "dark")}>Pastel</Button>
 				</Card.Content>
 			</Card>
+			<AppUpdatesCard />
 			<CatModeSetting />
 			<PrivacyMode />
 		</>
+	)
+}
+
+const AppUpdatesCard = () => {
+	// Only show in Tauri environment
+	if (typeof window !== "undefined" && typeof window.__TAURI__ === "undefined") {
+		return null
+	}
+
+	return (
+		<Card>
+			<Card.Header>
+				<Card.Title>App Updates</Card.Title>
+				<Card.Description>Check for and install app updates</Card.Description>
+			</Card.Header>
+			<Card.Content>
+				<CheckUpdateButton />
+			</Card.Content>
+		</Card>
 	)
 }
 
