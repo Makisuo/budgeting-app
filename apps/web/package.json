@@ -33,6 +33,7 @@
 		"vite-tsconfig-paths": "^5.1.4"
 	},
 	"dependencies": {
+		"@effect/platform": "^0.80.6",
 		"@electric-sql/pglite": "0.2.17",
 		"@electric-sql/pglite-react": "0.2.17",
 		"@electric-sql/pglite-repl": "^0.2.17",
@@ -48,7 +49,8 @@
 		"better-auth": "^1.2.5",
 		"date-fns": "^4.1.0",
 		"date-fns-tz": "^3.2.0",
-		"drizzle-orm": "0.41.0",
+		"drizzle-orm": "^0.41.0",
+		"effect": "^3.14.6",
 		"input-otp": "^1.4.2",
 		"jotai": "^2.12.2",
 		"justd-icons": "^1.10.26",
