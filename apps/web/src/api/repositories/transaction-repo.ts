@@ -1,7 +1,9 @@
 import { Effect, Schema } from "effect"
 
 import { Model, SqlClient, SqlSchema } from "@effect/sql"
-import { Transaction, TransactionId } from "@maple/api-utils/models"
+import { Database, ModelRepository } from "@maple/api-utils"
+import { Transaction } from "@maple/api-utils/models"
+import { schema } from "db"
 import { SqlLive } from "~/worker/services/sql"
 
 const TABLE_NAME = "transactions"
@@ -10,10 +12,15 @@ const SPAN_PREFIX = "TransactionRepo"
 export class TransactionRepo extends Effect.Service<TransactionRepo>()("TransactionRepo", {
 	effect: Effect.gen(function* () {
 		const sql = yield* SqlClient.SqlClient
+		const db = yield* Database.Database
+
+		// const baseRepository = yield* ModelRepository.makeRepository(schema.transactions, Transaction.Model, {
+		// 	idColumn: "id",
+		// })
 
 		const findUnidentifiedTransactions = SqlSchema.findAll({
 			Request: Schema.Void,
-			Result: Transaction,
+			Result: Transaction.Model,
 			execute: () => sql`SELECT * FROM ${sql(TABLE_NAME)} WHERE company_id IS NULL`,
 		})
 
@@ -23,7 +30,7 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 		})
 
 		const insertMultipleVoidSchema = SqlSchema.void({
-			Request: Schema.Array(Transaction.insert),
+			Request: Schema.Array(Transaction.Model.insert),
 			// TODO: This should update later on its fine for now though
 			execute: (request) => sql`INSERT INTO ${sql(TABLE_NAME)} ${sql.insert(request)}
 			ON CONFLICT (id) DO NOTHING`,
@@ -32,8 +39,8 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 		const getUndetectedDirectTransfers = SqlSchema.findAll({
 			Request: Schema.Void,
 			Result: Schema.Struct({
-				outgoingTxId: TransactionId,
-				incomingTxId: TransactionId,
+				outgoingTxId: Transaction.Id,
+				incomingTxId: Transaction.Id,
 				outgoingAmount: Schema.Number,
 				incomingAmount: Schema.Number,
 			}),
@@ -63,7 +70,7 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 			AND t_in.status = 'posted'`,
 		})
 
-		const insertMultipleVoid = (insert: (typeof Transaction.insert.Type)[]) =>
+		const insertMultipleVoid = (insert: (typeof Transaction.Model.insert.Type)[]) =>
 			insertMultipleVoidSchema(insert).pipe(
 				Effect.orDie,
 				Effect.withSpan(`${SPAN_PREFIX}.insertMultipleVoid`, {
@@ -72,7 +79,7 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 				}),
 			)
 
-		const baseRepository = yield* Model.makeRepository(Transaction, {
+		const baseRepository = yield* Model.makeRepository(Transaction.Model, {
 			tableName: TABLE_NAME,
 			spanPrefix: SPAN_PREFIX,
 			idColumn: "id",

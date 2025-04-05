@@ -1,8 +1,9 @@
-import { TransactionId } from "@maple/api-utils/models"
+import { Transaction } from "@maple/api-utils/models"
 import { Effect, Schema, flow, pipe } from "effect"
 import { TransactionRepo } from "~/worker/repositories/transaction-repo"
 import { TransactionHelper } from "~/worker/routes/transactions/transaction"
 import { Workflow, makeWorkflowEntrypoint } from "~/worker/services/cloudflare/workflows"
+import { DatabaseLive } from "../db-live"
 
 class StepGetDirectTransferTransactionsError extends Schema.TaggedError<StepGetDirectTransferTransactionsError>(
 	"StepGetDirectTransferTransactionsError",
@@ -16,8 +17,8 @@ class StepGetDirectTransferTransactionsRequest extends Schema.TaggedRequest<Step
 		failure: StepGetDirectTransferTransactionsError,
 		success: Schema.Array(
 			Schema.Struct({
-				outgoingTxId: TransactionId,
-				incomingTxId: TransactionId,
+				outgoingTxId: Transaction.Id,
+				incomingTxId: Transaction.Id,
 				outgoingAmount: Schema.Number,
 				incomingAmount: Schema.Number,
 			}),
@@ -50,7 +51,7 @@ class StepUpdateDirectTransferTransactionsRequest extends Schema.TaggedRequest<S
 		failure: StepUpdateDirectTransferTransactionsError,
 		success: Schema.Void,
 		payload: {
-			event: Schema.Struct({ transactionId: TransactionId, transferId: TransactionId }),
+			event: Schema.Struct({ transactionId: Transaction.Id, transferId: Transaction.Id }),
 		},
 	},
 ) {}
@@ -97,5 +98,10 @@ export const DetectDirectTransferTransactionsWorkflow = makeWorkflowEntrypoint(
 		binding: "DETECT_DIRECT_TRANSACTIONS_WORKFLOW",
 		schema: Schema.Void,
 	},
-	flow(runMyWorkflow, Effect.provide([TransactionRepo.Default, TransactionHelper.Default]), Effect.orDie),
+	flow(
+		runMyWorkflow,
+		Effect.provide([TransactionRepo.Default, TransactionHelper.Default]),
+		Effect.provide(DatabaseLive),
+		Effect.orDie,
+	),
 )

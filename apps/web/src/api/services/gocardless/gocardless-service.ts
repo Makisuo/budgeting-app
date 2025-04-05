@@ -19,7 +19,6 @@ import {
 	type InstitutionId,
 	type Requisition,
 	Transaction,
-	TransactionId,
 } from "@maple/api-utils/models"
 import { InternalError } from "~/worker/errors"
 import { TransactionHelpers } from "../transaction"
@@ -208,8 +207,8 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 				onFalse: () => Effect.succeed(null),
 			})
 
-			return Transaction.insert.make({
-				id: TransactionId.make(transactionId),
+			return Transaction.Model.insert.make({
+				id: Transaction.Id.make(transactionId),
 				accountId,
 				tenantId,
 				amount: +transaction.transactionAmount.amount,
@@ -237,7 +236,7 @@ export class GoCardlessService extends Effect.Service<GoCardlessService>()("GoCa
 				categoryId: company?.categoryId || Category.Id.make("uncategorized"),
 				currencyRate: null,
 				currencySource: null,
-				date: date,
+				date: DateTime.toDate(date),
 				method: mapTransactionMethod(transaction.proprietaryBankTransactionCode || undefined),
 
 				deletedAt: null,

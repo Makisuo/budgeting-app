@@ -42,7 +42,7 @@ export interface Repository<RecordType, S extends EntitySchema, Col extends stri
 
 export function makeRepository<
 	T extends Table<any>,
-	Col extends keyof InferSelectModel<T> & string,
+	Col extends keyof InferSelectModel<T>,
 	RecordType extends InferSelectModel<T>,
 	S extends EntitySchema,
 	Id extends InferSelectModel<T>[Col],

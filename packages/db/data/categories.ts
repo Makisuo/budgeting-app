@@ -20,231 +20,231 @@ export const category_types = [
 export const categories = [
 	// Food
 	{
-		id: "coffee",
+		id: "coffee" as Category["id"],
 		name: "Coffee",
 		type: "food",
 	},
 	{
-		id: "groceries",
+		id: "groceries" as Category["id"],
 		name: "Groceries",
 		type: "food",
 	},
 	{
-		id: "food-delivery",
+		id: "food-delivery" as Category["id"],
 		name: "Food Delivery",
 		type: "food",
 	},
 	{
-		id: "restaurant",
+		id: "restaurant" as Category["id"],
 		name: "Restaurant",
 		type: "food",
 	},
 	// Earnings
 	{
-		id: "salary",
+		id: "salary" as Category["id"],
 		name: "Salary",
 		type: "earnings",
 	},
 	{
-		id: "benefits",
+		id: "benefits" as Category["id"],
 		name: "Benefits",
 		type: "earnings",
 	},
 
 	// Finances
 	{
-		id: "taxes",
+		id: "taxes" as Category["id"],
 		name: "Taxes",
 		type: "finances",
 	},
 	{
-		id: "loan",
+		id: "loan" as Category["id"],
 		name: "Loan",
 		type: "finances",
 	},
 	{
-		id: "donations",
+		id: "donations" as Category["id"],
 		name: "Donations",
 		type: "finances",
 	},
 	{
-		id: "subscriptions",
+		id: "subscriptions" as Category["id"],
 		name: "Subscriptions",
 		type: "finances",
 	},
 	{
-		id: "insurances",
+		id: "insurances" as Category["id"],
 		name: "Insurances",
 		type: "finances",
 	},
 	// Entertainment
 	{
-		id: "gaming",
+		id: "gaming" as Category["id"],
 		name: "Gaming",
 		type: "entertainment",
 	},
 	{
-		id: "in-app-purchases",
+		id: "in-app-purchases" as Category["id"],
 		name: "In-App Purchases",
 		type: "entertainment",
 	},
 	{
-		id: "subscriptions",
+		id: "subscriptions" as Category["id"],
 		name: "Subscriptions",
 		type: "entertainment",
 	},
 	{
-		id: "streaming",
+		id: "streaming" as Category["id"],
 		name: "Streaming",
 		type: "entertainment",
 	},
 	{
-		id: "movies",
+		id: "movies" as Category["id"],
 		name: "Movies",
 		type: "entertainment",
 	},
 	{
-		id: "music",
+		id: "music" as Category["id"],
 		name: "Music",
 		type: "entertainment",
 	},
 	{
-		id: "books",
+		id: "books" as Category["id"],
 		name: "Books",
 		type: "entertainment",
 	},
 	{
-		id: "vacation",
+		id: "vacation" as Category["id"],
 		name: "Vacation",
 		type: "entertainment",
 	},
 	// Health
 	{
-		id: "gym",
+		id: "gym" as Category["id"],
 		name: "Gym",
 		type: "health",
 	},
 	{
-		id: "pharmacy",
+		id: "pharmacy" as Category["id"],
 		name: "Pharmacy",
 		type: "health",
 	},
 	{
-		id: "medical-bills",
+		id: "medical-bills" as Category["id"],
 		name: "Medical Bills",
 		type: "health",
 	},
 	// Pets
 	{
-		id: "pet-supplies",
+		id: "pet-supplies" as Category["id"],
 		name: "Pet Supplies",
 		type: "pets",
 	},
 	{
-		id: "pet-care",
+		id: "pet-care" as Category["id"],
 		name: "Pet Care",
 		type: "pets",
 	},
 	// Lifestyle
 	{
-		id: "clothing",
+		id: "clothing" as Category["id"],
 		name: "Clothing",
 		type: "lifestyle",
 	},
 	{
-		id: "beauty",
+		id: "beauty" as Category["id"],
 		name: "Beauty",
 		type: "lifestyle",
 	},
 	{
-		id: "hair-care",
+		id: "hair-care" as Category["id"],
 		name: "Hair Care",
 		type: "lifestyle",
 	},
 	// Travel
 	{
-		id: "car",
+		id: "car" as Category["id"],
 		name: "Car",
 		type: "travel",
 	},
 	{
-		id: "public-transport",
+		id: "public-transport" as Category["id"],
 		name: "Public Transport",
 		type: "travel",
 	},
 	{
-		id: "taxi",
+		id: "taxi" as Category["id"],
 		name: "Taxi",
 		type: "travel",
 	},
 	{
-		id: "bike",
+		id: "bike" as Category["id"],
 		name: "Bike",
 		type: "travel",
 	},
 	// Shopping
 	{
-		id: "shopping",
+		id: "shopping" as Category["id"],
 		name: "Shopping",
 		type: "shopping",
 	},
 	// Charity
 	{
-		id: "charity",
+		id: "charity" as Category["id"],
 		name: "Charity",
 		type: "charity",
 	},
 	// Other
 	{
-		id: "uncategorized",
+		id: "uncategorized" as Category["id"],
 		name: "Uncategorized",
 		type: "other",
 	},
 	// Savings
 	{
-		id: "savings",
+		id: "savings" as Category["id"],
 		name: "Savings",
 		type: "savings",
 	},
 	{
-		id: "investments",
+		id: "investments" as Category["id"],
 		name: "Investments",
 		type: "savings",
 	},
 	// Utilities
 	{
-		id: "electricity",
+		id: "electricity" as Category["id"],
 		name: "Electricity",
 		type: "utilities",
 	},
 	{
-		id: "water",
+		id: "water" as Category["id"],
 		name: "Water",
 		type: "utilities",
 	},
 	{
-		id: "internet",
+		id: "internet" as Category["id"],
 		name: "Internet",
 		type: "utilities",
 	},
 	{
-		id: "phone",
+		id: "phone" as Category["id"],
 		name: "Phone",
 		type: "utilities",
 	},
 	{
-		id: "gas",
+		id: "gas" as Category["id"],
 		name: "Gas",
 		type: "utilities",
 	},
 	{
-		id: "ai",
+		id: "ai" as Category["id"],
 		name: "AI Tools",
 		type: "utilities",
 	},
 	// Software Engineering
 	{
-		id: "cloud",
+		id: "cloud" as Category["id"],
 		name: "Cloud",
 		type: "business",
 	},

@@ -1,46 +1,29 @@
-import { Model } from "@effect/sql"
-import { DateTimeFromDate } from "@effect/sql/Model"
+import { Model as M } from "@effect/sql"
+import { schema } from "db"
 import { Schema } from "effect"
+import { DrizzleEffect } from "../services"
 import * as Account from "./account"
 import { TenantId } from "./auth"
 import * as Category from "./category"
-import { CompanyId } from "./company"
+import * as Company from "./company"
 import { baseFields } from "./utils"
 
-export const TransactionId = Schema.String.pipe(Schema.brand("TransactionId"))
-export type TransactionId = typeof TransactionId.Type
+export const Id = Schema.String.pipe(Schema.brand("TransactionId"))
+export type Id = typeof Id.Type
 
-export class Transaction extends Model.Class<Transaction>("Transaction")({
-	id: Model.GeneratedByApp(TransactionId),
-	accountId: Model.GeneratedByApp(Account.Id),
-	amount: Schema.Number,
-	currency: Schema.String,
+export class Model extends M.Class<Model>("Transaction")({
+	...DrizzleEffect.createSelectSchema(schema.transactions).fields,
+	id: M.GeneratedByApp(Id),
+	accountId: M.GeneratedByApp(Account.Id),
 
-	date: DateTimeFromDate.annotations({
-		jsonSchema: Schema.NullOr(Schema.DateTimeUtc),
-	}),
-
-	status: Schema.Literal("posted", "pending"),
-	balance: Schema.NullOr(Schema.Number),
-	method: Schema.String,
-	name: Schema.String,
-	description: Schema.NullOr(Schema.String),
-	currencyRate: Schema.NullOr(Schema.Number),
-	currencySource: Schema.NullOr(Schema.String),
-
-	companyId: Schema.NullOr(CompanyId),
+	companyId: Schema.NullOr(Company.Id),
 	categoryId: Category.Id,
 
-	debtorIban: Schema.NullOr(Schema.String),
-	creditorIban: Schema.NullOr(Schema.String),
-
-	directTransfer: Schema.NullOr(Schema.String),
-
-	tenantId: Model.GeneratedByApp(TenantId),
+	tenantId: M.GeneratedByApp(TenantId),
 
 	...baseFields,
 }) {}
 
 export class TransactionNotFound extends Schema.TaggedError<TransactionNotFound>()("TransactionNotFound", {
-	id: TransactionId,
+	id: Id,
 }) {}

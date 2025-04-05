@@ -84,6 +84,7 @@ function RouteComponent() {
 
 const AppUpdatesCard = () => {
 	// Only show in Tauri environment
+	// @ts-expect-error
 	if (typeof window !== "undefined" && typeof window.__TAURI__ === "undefined") {
 		return null
 	}

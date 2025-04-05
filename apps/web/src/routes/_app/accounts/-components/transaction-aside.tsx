@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router"
 import { capitalizeFirstLetter } from "better-auth/react"
+import type { Transaction } from "db"
 import { atom, useAtom } from "jotai"
 import { IconArrowDown, IconArrowRight, IconCirclePlaceholderDashed, IconHighlight, IconRefresh } from "justd-icons"
 import { startTransition, useMemo, useState } from "react"
 import { toast } from "sonner"
 import { PrivateValue } from "~/components/private-value"
-import { Badge, Button, ComboBox, Form, Modal, Note, Sheet, TextField, buttonStyles } from "~/components/ui"
+import { Badge, Button, ComboBox, Form, Modal, Note, Sheet, buttonStyles } from "~/components/ui"
 import { DetailLine } from "~/components/ui/detail-line"
 import { useApi } from "~/lib/api/client"
 import { currencyFormatter, dashboardCompactNumberFormatter } from "~/utils/formatters"
@@ -15,7 +16,7 @@ import { TransactionDestinationCard } from "./transaction-destination-card"
 
 export const transactionAsideAtom = atom<{
 	open: boolean
-	transactionId: string | null
+	transactionId: Transaction["id"] | null
 }>({ open: false, transactionId: null })
 
 export const TransactionAside = ({
@@ -36,7 +37,7 @@ export const TransactionAside = ({
 					},
 				},
 			},
-			where: (table, { eq }) => eq(table.id, dialogData.transactionId ?? ""),
+			where: (table, { eq }) => eq(table.id, dialogData.transactionId ?? ("" as Transaction["id"])),
 		}),
 	)
 
@@ -172,7 +173,7 @@ export const TransactionAside = ({
 	)
 }
 
-const EditTransactionModal = ({ transactionId }: { transactionId: string }) => {
+const EditTransactionModal = ({ transactionId }: { transactionId: Transaction["id"] }) => {
 	const api$ = useApi()
 
 	const [open, setOpen] = useState(false)

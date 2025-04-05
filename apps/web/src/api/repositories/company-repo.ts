@@ -1,33 +1,29 @@
-import { Effect, Schema } from "effect"
+import { Effect, Option, Schema } from "effect"
 
-import { Model, SqlClient, SqlSchema } from "@effect/sql"
+import { Database, ModelRepository } from "@maple/api-utils"
 import { Company } from "@maple/api-utils/models"
+import { schema } from "db"
 import { SqlLive } from "~/worker/services/sql"
-
-const TABLE_NAME = "companies"
-const SPAN_PREFIX = "CompanyRepo"
 
 export class CompanyRepo extends Effect.Service<CompanyRepo>()("CompanyRepo", {
 	effect: Effect.gen(function* () {
-		const sql = yield* SqlClient.SqlClient
+		const db = yield* Database.Database
 
-		const baseRepository = yield* Model.makeRepository(Company, {
-			tableName: TABLE_NAME,
-			spanPrefix: SPAN_PREFIX,
+		const baseRepository = yield* ModelRepository.makeRepository(schema.companies, Company.Model, {
 			idColumn: "id",
 		})
 
-		const findByPattern = SqlSchema.findOne({
-			Request: Schema.String,
-			Result: Company,
-			execute: (request) => sql`SELECT * FROM ${sql(TABLE_NAME)}
-			WHERE EXISTS (
-				SELECT 1 FROM jsonb_array_elements_text(patterns) AS pattern
-				WHERE ${request} ~~* pattern
-			)`,
-		})
+		const findByPattern = db.makeQuery((execute, pattern: string) =>
+			execute((client) =>
+				client.query.companies.findFirst({
+					where: (table, { sql, exists }) =>
+						exists(sql`SELECT 1 FROM jsonb_array_elements_text(patterns) AS pattern
+				WHERE ${pattern} ~~* ${table.patterns}`),
+				}),
+			).pipe(Effect.map((results) => Option.fromNullable(results))),
+		)
 
 		return { ...baseRepository, findByPattern } as const
 	}),
-	dependencies: [SqlLive],
+	dependencies: [],
 }) {}

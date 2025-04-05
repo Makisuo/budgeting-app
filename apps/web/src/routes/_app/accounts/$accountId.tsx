@@ -1,4 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router"
+import type { Account, Category } from "db"
 import { IconX } from "justd-icons"
 import { Card, Note, buttonStyles } from "~/components/ui"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
@@ -20,7 +21,7 @@ function RouteComponent() {
 
 	const { data: bankAccount } = useDrizzleLive((db) =>
 		db.query.accounts.findFirst({
-			where: (table, { eq }) => eq(table.id, accountId),
+			where: (table, { eq }) => eq(table.id, accountId as Account["id"]),
 			with: {
 				institution: true,
 				transactions: {
@@ -60,7 +61,12 @@ function RouteComponent() {
 				</Card.Header>
 				<Card.Content>
 					<TransactionTable
-						filter={{ companyId: company, transactionName: transactionName, categoryId, accountId }}
+						filter={{
+							companyId: company,
+							transactionName: transactionName,
+							categoryId: categoryId as Category["id"],
+							accountId,
+						}}
 					/>
 				</Card.Content>
 			</Card>

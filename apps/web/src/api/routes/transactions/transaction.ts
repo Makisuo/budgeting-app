@@ -1,4 +1,4 @@
-import { type Transaction, type TransactionId, TransactionNotFound } from "@maple/api-utils/models"
+import { Transaction } from "@maple/api-utils/models"
 import { Effect, Option, pipe } from "effect"
 import { TransactionRepo } from "~/worker/repositories/transaction-repo"
 
@@ -6,7 +6,7 @@ export class TransactionHelper extends Effect.Service<TransactionHelper>()("@Map
 	effect: Effect.gen(function* () {
 		const transactionRepo = yield* TransactionRepo
 
-		const update = (transaction: Transaction, update: Partial<typeof Transaction.jsonUpdate.Type>) =>
+		const update = (transaction: Transaction.Model, update: Partial<typeof Transaction.Model.jsonUpdate.Type>) =>
 			pipe(
 				transactionRepo.update({
 					...transaction,
@@ -20,14 +20,14 @@ export class TransactionHelper extends Effect.Service<TransactionHelper>()("@Map
 			)
 
 		const with_ = <A, E, R>(
-			id: TransactionId,
-			f: (app: Transaction) => Effect.Effect<A, E, R>,
-		): Effect.Effect<A, E | TransactionNotFound, R> =>
+			id: typeof Transaction.Id.Type,
+			f: (app: Transaction.Model) => Effect.Effect<A, E, R>,
+		): Effect.Effect<A, E | Transaction.TransactionNotFound, R> =>
 			pipe(
 				transactionRepo.findById(id),
 				Effect.flatMap(
 					Option.match({
-						onNone: () => new TransactionNotFound({ id }),
+						onNone: () => new Transaction.TransactionNotFound({ id }),
 						onSome: Effect.succeed,
 					}),
 				),

@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router"
+import type { Category } from "db"
 import { useSetAtom } from "jotai"
 import { IconCirclePlaceholderDashed } from "justd-icons"
 import { DateValue } from "~/components/date-value"
@@ -18,7 +19,7 @@ export const TransactionTable = ({
 
 		transactionName?: string
 		companyId?: string
-		categoryId?: string
+		categoryId?: Category["id"]
 	}
 }) => {
 	const { data: transactions } = useDrizzleLive((db) =>

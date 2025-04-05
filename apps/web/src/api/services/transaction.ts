@@ -1,5 +1,5 @@
 import { SqlClient } from "@effect/sql"
-import { type Transaction, type TransactionId, TransactionNotFound } from "@maple/api-utils/models"
+import { Transaction } from "@maple/api-utils/models"
 import { Effect, Option } from "effect"
 import { CompanyRepo } from "~/worker/repositories/company-repo"
 import { TransactionRepo } from "~/worker/repositories/transaction-repo"
@@ -25,11 +25,14 @@ export class TransactionHelpers extends Effect.Service<TransactionHelpers>()("Tr
 			return transactions
 		})
 
-		const updateTransaction = (id: TransactionId, transaction: Partial<typeof Transaction.jsonUpdate.Type>) => {
+		const updateTransaction = (
+			id: typeof Transaction.Id.Type,
+			transaction: Partial<typeof Transaction.Model.jsonUpdate.Type>,
+		) => {
 			return transactionRepo.findById(id).pipe(
 				Effect.flatMap(
 					Option.match({
-						onNone: () => new TransactionNotFound({ id }),
+						onNone: () => new Transaction.TransactionNotFound({ id }),
 						onSome: Effect.succeed,
 					}),
 				),

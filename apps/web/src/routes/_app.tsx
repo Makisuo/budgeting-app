@@ -2,7 +2,6 @@ import { Outlet, createFileRoute, redirect } from "@tanstack/react-router"
 import { AppSidebar } from "~/components/app-sidebar"
 import { AppSidebarNav } from "~/components/app-sidebar-nav"
 import { Container, SidebarInset, SidebarProvider } from "~/components/ui"
-import { AppUpdater } from "~/components/updater/AppUpdater"
 import { authQueryOptions } from "~/lib/auth/use-auth"
 import { PgLiteProvider } from "~/utils/pglite/pglite.provider"
 
@@ -29,7 +28,7 @@ function RouteComponent() {
 	return (
 		<PgLiteProvider>
 			{/* Auto-check for updates when app starts (only in Tauri desktop app) */}
-			<AppUpdater />
+			{/* <AppUpdater /> */}
 			<SidebarProvider>
 				<AppSidebar />
 				<SidebarInset>

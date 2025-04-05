@@ -1,7 +1,7 @@
 import { relations, sql } from "drizzle-orm"
 import { doublePrecision, index, integer, jsonb, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core"
 
-import type { Account, Auth, CompanyId, InstitutionId, Requisition, TransactionId } from "@maple/api-utils/models"
+import type { Account, Auth, Category, Company, InstitutionId, Requisition, Transaction } from "@maple/api-utils/models"
 import type { category_types } from "../data/categories"
 
 export const accountType = pgEnum("account_type", ["depository", "credit", "other_asset", "loan", "other_liability"])
@@ -53,11 +53,11 @@ export const institutions = pgTable(
 export const companies = pgTable(
 	"companies",
 	{
-		id: text().primaryKey().notNull().$type<typeof CompanyId.Type>(),
+		id: text().primaryKey().notNull().$type<typeof Company.Id.Type>(),
 		name: text().notNull(),
 		url: text("url").notNull(),
 
-		categoryId: text("category_id").notNull(),
+		categoryId: text("category_id").notNull().$type<typeof Category.Id.Type>(),
 
 		patterns: jsonb().notNull().$type<string[]>(),
 	},
@@ -67,7 +67,7 @@ export const companies = pgTable(
 )
 
 export const categories = pgTable("categories", {
-	id: text().primaryKey().notNull(),
+	id: text().primaryKey().notNull().$type<typeof Category.Id.Type>(),
 	name: text().notNull(),
 	type: text().notNull().$type<(typeof category_types)[number]>(),
 })
@@ -115,13 +115,13 @@ export const subscriptions = pgTable("subscriptions", {
 export const transactions = pgTable(
 	"transactions",
 	{
-		id: text().primaryKey().notNull().$type<typeof TransactionId.Type>(),
+		id: text().primaryKey().notNull().$type<typeof Transaction.Id.Type>(),
 		amount: doublePrecision().notNull(),
 		currency: text().notNull(),
 		date: timestamp({ precision: 3 }).notNull(),
 		status: transactionStatus().notNull(),
 		balance: doublePrecision(),
-		categoryId: text("category_id").notNull(),
+		categoryId: text("category_id").notNull().$type<typeof Category.Id.Type>(),
 		method: text().notNull(),
 		name: text().notNull(),
 		description: text(),

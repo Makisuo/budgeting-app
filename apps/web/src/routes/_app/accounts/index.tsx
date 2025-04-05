@@ -1,4 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router"
+import type { Category } from "db"
 import { IconPlus, IconX } from "justd-icons"
 import { useState } from "react"
 import { BankConnector } from "~/components/bank-connector"
@@ -80,7 +81,7 @@ function RouteComponent() {
 						filter={{
 							companyId: company,
 							transactionName: transactionName,
-							categoryId: categoryId,
+							categoryId: categoryId as Category["id"],
 						}}
 					/>
 				</Card.Content>

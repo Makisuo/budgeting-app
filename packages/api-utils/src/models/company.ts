@@ -1,17 +1,15 @@
-import { Model } from "@effect/sql"
+import { Model as M } from "@effect/sql"
 
+import { schema } from "db"
 import { Schema } from "effect"
+import { DrizzleEffect } from "../services"
 import * as Category from "./category"
 
-export const CompanyId = Schema.String.pipe(Schema.brand("CompanyId"))
+export const Id = Schema.String.pipe(Schema.brand("CompanyId"))
 
-export class Company extends Model.Class<Company>("Company")({
-	id: Model.Generated(CompanyId),
-	name: Schema.String,
-
-	url: Schema.String,
+export class Model extends M.Class<Model>("Company")({
+	...DrizzleEffect.createSelectSchema(schema.companies).fields,
+	id: M.Generated(Id),
 
 	categoryId: Category.Id,
-
-	patterns: Schema.Array(Schema.String),
 }) {}

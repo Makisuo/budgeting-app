@@ -1,5 +1,4 @@
 import { HttpApiBuilder, HttpMiddleware } from "@effect/platform"
-import { Database } from "@maple/api-utils"
 import { Effect, Layer, Runtime, pipe } from "effect"
 import { DatabaseLive } from "./db-live"
 import { HttpAppLive } from "./http"

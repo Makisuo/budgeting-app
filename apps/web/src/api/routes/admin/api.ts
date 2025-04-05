@@ -14,7 +14,7 @@ export class AdminApi extends HttpApiGroup.make("admin")
 	.add(
 		HttpApiEndpoint.post("processTransactions", "/admin/process/transactions")
 			.addError(InternalError)
-			.addSuccess(Schema.Array(Transaction.json)),
+			.addSuccess(Schema.Array(Transaction.Model.json)),
 	) {
 	// .middlewareEndpoints(Authorization) {}
 }

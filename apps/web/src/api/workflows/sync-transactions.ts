@@ -114,7 +114,7 @@ const stepSyncTransactions = Workflow.schema(
 							.pipe(Effect.map(Option.getOrElse(() => null)))
 
 						return yield* Effect.succeed(
-							Transaction.insert.make({
+							Transaction.Model.insert.make({
 								...transaction,
 								companyId: company?.id || null,
 								categoryId: company?.categoryId || Category.Id.make("uncategorized"),

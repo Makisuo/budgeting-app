@@ -79,10 +79,10 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 								<SidebarLabel>Settings</SidebarLabel>
 							</SidebarItem>
 
-							<SidebarItem href="/settings/billings">
+							{/* <SidebarItem href="/settings/billings">
 								<IconCreditCard />
 								<SidebarLabel>Billings</SidebarLabel>
-							</SidebarItem>
+							</SidebarItem> */}
 						</SidebarDisclosurePanel>
 					</SidebarDisclosure>
 					{session?.user.role === "admin" && (
@@ -90,12 +90,12 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 							<SidebarDisclosureTrigger>
 								<SidebarLabel>Admin</SidebarLabel>
 							</SidebarDisclosureTrigger>
-							<SidebarDisclosurePanel>
+							{/* <SidebarDisclosurePanel>
 								<SidebarItem href="/dashboard/admin/users">
 									<IconPeople />
 									<SidebarLabel>Users</SidebarLabel>
 								</SidebarItem>
-							</SidebarDisclosurePanel>
+							</SidebarDisclosurePanel> */}
 						</SidebarDisclosure>
 					)}
 				</SidebarSectionGroup>
@@ -124,9 +124,11 @@ const AccountItems = () => {
 			{accounts.map((account) => (
 				<SidebarItem
 					badge={
-						<PrivateValue>
-							{currencyFormatter(account.balanceCurrency).format(account.balanceAmount)}
-						</PrivateValue>
+						(
+							<PrivateValue>
+								{currencyFormatter(account.balanceCurrency).format(account.balanceAmount)}
+							</PrivateValue>
+						) as any
 					}
 					key={account.id}
 					href={`/accounts/${account.id}` as "/accounts/$accountId"}
