@@ -16,7 +16,7 @@
 	},
 	"routes": [
 		{
-			"pattern": "https://app.maple.dev/*",
+			"pattern": "app.maple.dev/*",
 			"zone_name": "maple.dev"
 		}
 	],

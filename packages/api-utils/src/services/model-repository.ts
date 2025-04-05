@@ -20,14 +20,20 @@ export interface RepositoryOptions<Col extends string> {
 	idColumn: Col
 }
 
-export interface Repository<RecordType, S extends EntitySchema, Id> {
+export type PartialExcept<T, K extends keyof T> = Partial<Omit<T, K>> & Pick<T, K>
+
+export interface Repository<RecordType, S extends EntitySchema, Col extends string, Id> {
 	readonly insert: (insert: S["insert"]["Type"]) => Effect.Effect<RecordType[], DatabaseError | ParseError>
 
 	readonly insertVoid: (insert: S["insert"]["Type"]) => Effect.Effect<void, DatabaseError | ParseError>
 
-	readonly update: (update: S["update"]["Type"]) => Effect.Effect<RecordType, DatabaseError | ParseError>
+	readonly update: (
+		update: PartialExcept<S["update"]["Type"], Col>,
+	) => Effect.Effect<RecordType, DatabaseError | ParseError>
 
-	readonly updateVoid: (update: S["update"]["Type"]) => Effect.Effect<void, DatabaseError | ParseError>
+	readonly updateVoid: (
+		update: PartialExcept<S["update"]["Type"], Col>,
+	) => Effect.Effect<void, DatabaseError | ParseError>
 
 	readonly findById: (id: Id) => Effect.Effect<Option.Option<RecordType>, DatabaseError>
 
@@ -40,7 +46,11 @@ export function makeRepository<
 	RecordType extends InferSelectModel<T>,
 	S extends EntitySchema,
 	Id extends InferSelectModel<T>[Col],
->(table: T, schema: S, options: RepositoryOptions<Col>): Effect.Effect<Repository<RecordType, S, Id>, never, Database> {
+>(
+	table: T,
+	schema: S,
+	options: RepositoryOptions<Col>,
+): Effect.Effect<Repository<RecordType, S, Col, Id>, never, Database> {
 	return Effect.gen(function* () {
 		const db = yield* Database
 		const { idColumn } = options

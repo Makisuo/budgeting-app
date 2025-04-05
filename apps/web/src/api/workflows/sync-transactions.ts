@@ -48,7 +48,6 @@ const stepSyncBalance = Workflow.schema(
 				),
 				Effect.andThen((previous) =>
 					accountRepo.updateVoid({
-						...previous,
 						balanceAmount: +(balance?.balanceAmount.amount || 0),
 						balanceCurrency: balance?.balanceAmount.currency || "",
 						id: accountId,
@@ -182,7 +181,6 @@ const runMyWorkflow = ({ accountId }: typeof WorkflowParams.Type) =>
 			),
 			Effect.andThen((previous) =>
 				accountRepo.update({
-					...previous,
 					lastSync: new Date(),
 					id: previous.id,
 				}),
