@@ -43,7 +43,7 @@ export default {
 	async fetch(request, env, ctx): Promise<Response> {
 		const url = new URL(request.url)
 		if (!url.pathname.startsWith("/api/")) {
-			return env.ASSETS.fetch(new URL(url.origin))
+			return env.ASSETS.fetch(request)
 		}
 
 		Object.assign(globalThis, {
