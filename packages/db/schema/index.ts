@@ -127,12 +127,12 @@ export const transactions = pgTable(
 		description: text(),
 		currencyRate: doublePrecision("currency_rate"),
 		currencySource: text("currency_source"),
-		accountId: text("account_id").notNull(),
+		accountId: text("account_id").notNull().$type<typeof Account.Id.Type>(),
 
 		debtorIban: text("debtor_iban"),
 		creditorIban: text("creditor_iban"),
 
-		companyId: text("company_id"),
+		companyId: text("company_id").$type<typeof Company.Id.Type | null>(),
 
 		tenantId: text("tenant_id").notNull().$type<typeof Auth.TenantId.Type>(),
 

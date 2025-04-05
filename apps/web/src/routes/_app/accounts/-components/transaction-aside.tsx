@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router"
 import { capitalizeFirstLetter } from "better-auth/react"
-import type { Transaction } from "db"
+import type { Account, Transaction } from "db"
 import { atom, useAtom } from "jotai"
 import { IconArrowDown, IconArrowRight, IconCirclePlaceholderDashed, IconHighlight, IconRefresh } from "justd-icons"
 import { startTransition, useMemo, useState } from "react"
@@ -22,7 +22,7 @@ export const transactionAsideAtom = atom<{
 export const TransactionAside = ({
 	accountId,
 }: {
-	accountId?: string
+	accountId?: Account["id"]
 }) => {
 	const [dialogData, setDialogData] = useAtom(transactionAsideAtom)
 

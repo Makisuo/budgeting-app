@@ -1,6 +1,6 @@
 import { Effect, Schema } from "effect"
 
-import { Model, SqlClient, SqlSchema } from "@effect/sql"
+import { SqlClient, SqlSchema } from "@effect/sql"
 import { Database, ModelRepository } from "@maple/api-utils"
 import { Transaction } from "@maple/api-utils/models"
 import { schema } from "db"
@@ -14,9 +14,9 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 		const sql = yield* SqlClient.SqlClient
 		const db = yield* Database.Database
 
-		// const baseRepository = yield* ModelRepository.makeRepository(schema.transactions, Transaction.Model, {
-		// 	idColumn: "id",
-		// })
+		const baseRepository = yield* ModelRepository.makeRepository(schema.transactions, Transaction.Model, {
+			idColumn: "id",
+		})
 
 		const findUnidentifiedTransactions = SqlSchema.findAll({
 			Request: Schema.Void,
@@ -78,12 +78,6 @@ export class TransactionRepo extends Effect.Service<TransactionRepo>()("Transact
 					attributes: { insert },
 				}),
 			)
-
-		const baseRepository = yield* Model.makeRepository(Transaction.Model, {
-			tableName: TABLE_NAME,
-			spanPrefix: SPAN_PREFIX,
-			idColumn: "id",
-		})
 
 		return {
 			...baseRepository,

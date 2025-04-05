@@ -1,9 +1,8 @@
-import { Effect, Option, Schema } from "effect"
+import { Effect, Option } from "effect"
 
 import { Database, ModelRepository } from "@maple/api-utils"
 import { Company } from "@maple/api-utils/models"
 import { schema } from "db"
-import { SqlLive } from "~/worker/services/sql"
 
 export class CompanyRepo extends Effect.Service<CompanyRepo>()("CompanyRepo", {
 	effect: Effect.gen(function* () {

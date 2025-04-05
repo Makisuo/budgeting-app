@@ -34,7 +34,7 @@ export class TransactionHelper extends Effect.Service<TransactionHelper>()("@Map
 				Effect.flatMap(f),
 				// Disabled since we are using D1
 				//sql.withTransaction,
-				// Effect.catchTag("SqlError", (err) => Effect.die(err)),
+				Effect.catchTag("DatabaseError", (err) => Effect.die(err)),
 				Effect.withSpan("App.with", { attributes: { id } }),
 			)
 

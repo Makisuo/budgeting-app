@@ -6,7 +6,6 @@ import { betterAuthOptions } from "~/worker/lib/auth"
 import { drizzle } from "drizzle-orm/postgres-js"
 
 import { schema } from "db"
-import { SqlLive } from "./sql"
 
 export class BetterAuthApiError extends Data.TaggedError("BetterAuthApiError")<{
 	readonly error: unknown
@@ -70,5 +69,5 @@ export class BetterAuth extends Effect.Service<BetterAuth>()("BetterAuth", {
 			call,
 		} as const
 	}),
-	dependencies: [SqlLive],
+	dependencies: [],
 }) {}

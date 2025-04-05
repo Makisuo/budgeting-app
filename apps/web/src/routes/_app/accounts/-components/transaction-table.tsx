@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router"
-import type { Category } from "db"
+import type { Account, Category, Company } from "db"
 import { useSetAtom } from "jotai"
 import { IconCirclePlaceholderDashed } from "justd-icons"
 import { DateValue } from "~/components/date-value"
@@ -15,10 +15,10 @@ export const TransactionTable = ({
 	filter,
 }: {
 	filter?: {
-		accountId?: string
+		accountId?: Account["id"]
 
 		transactionName?: string
-		companyId?: string
+		companyId?: Company["id"]
 		categoryId?: Category["id"]
 	}
 }) => {

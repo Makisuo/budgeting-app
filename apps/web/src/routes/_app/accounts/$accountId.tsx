@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router"
-import type { Account, Category } from "db"
+import type { Account, Category, Company } from "db"
 import { IconX } from "justd-icons"
 import { Card, Note, buttonStyles } from "~/components/ui"
 import { useDrizzleLive } from "~/utils/pglite/drizzle-client"
@@ -62,10 +62,10 @@ function RouteComponent() {
 				<Card.Content>
 					<TransactionTable
 						filter={{
-							companyId: company,
+							companyId: company as Company["id"],
 							transactionName: transactionName,
 							categoryId: categoryId as Category["id"],
-							accountId,
+							accountId: accountId as Account["id"],
 						}}
 					/>
 				</Card.Content>
