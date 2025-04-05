@@ -21,6 +21,8 @@ export class Model extends M.Class<Model>("Transaction")({
 
 	tenantId: M.GeneratedByApp(TenantId),
 
+	date: Schema.DateFromString,
+
 	...baseFields,
 }) {}
 
