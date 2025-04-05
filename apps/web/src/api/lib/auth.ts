@@ -3,7 +3,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle"
 import { jwt, oneTap, openAPI } from "better-auth/plugins"
 import { passkey } from "better-auth/plugins/passkey"
 
-import { DrizzleD1Database } from "drizzle-orm/d1"
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js"
 
 import { env } from "cloudflare:workers"
 
@@ -47,7 +47,7 @@ export const betterAuthOptions = {
 
 export const auth = betterAuth({
 	...betterAuthOptions,
-	database: drizzleAdapter(DrizzleD1Database, {
+	database: drizzleAdapter(PostgresJsDatabase, {
 		provider: "pg",
 	}),
 })
