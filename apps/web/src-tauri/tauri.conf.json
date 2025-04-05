@@ -34,7 +34,7 @@
 		"updater": {
 			"active": true,
 			"endpoints": [
-				"https://releases.maple-budgeting.com/{{target}}/{{current_version}}"
+				"https://github.com/Makisuo/budgeting-app/releases/latest/download/latest.json"
 			],
 			"dialog": true,
 			"pubkey": ""

@@ -46,7 +46,7 @@ export function AppUpdater() {
           );
         } else {
           // App is up to date
-          toast.info('Your app is up to date!');
+          console.log('App is up to date');
         }
       }
     } catch (error) {
