@@ -7,6 +7,7 @@ import { HttpGoCardlessLive } from "./routes/go-cardless/http"
 import { HttpRootLive } from "./routes/root/http"
 import { HttpSubscriptionLive } from "./routes/subscriptions/http"
 import { HttpTransactionLive } from "./routes/transactions/http"
+import { HttpBudgetLive } from "./routes/budgets/http"
 import { withLogFormat, withMinimalLogLevel } from "./services/logger"
 
 export const ApiLive = Layer.provide(HttpApiBuilder.api(Api), [
@@ -18,6 +19,7 @@ export const ApiLive = Layer.provide(HttpApiBuilder.api(Api), [
 	// App Endpoints
 	HttpSubscriptionLive,
 	HttpTransactionLive,
+	HttpBudgetLive,
 ])
 
 export const HttpAppLive = pipe(

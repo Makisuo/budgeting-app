@@ -10,6 +10,8 @@ export const transactionStatus = pgEnum("transaction_status", ["posted", "pendin
 export const subscriptionFrequency = pgEnum("subscription_frequency", ["monthly", "yearly", "weekly"])
 export const subscriptionStatus = pgEnum("subscription_status", ["active", "canceled", "expired"])
 
+export const budgetPeriod = pgEnum("budget_period", ["monthly", "yearly", "weekly", "quarterly"])
+
 const defaultFields = {
 	createdAt: timestamp("created_at", { precision: 3 }).default(sql`CURRENT_TIMESTAMP`).notNull(),
 	updatedAt: timestamp("updated_at", { precision: 3 }).default(sql`CURRENT_TIMESTAMP`).notNull(),
@@ -112,6 +114,30 @@ export const subscriptions = pgTable("subscriptions", {
 	...defaultFields,
 })
 
+export const budgets = pgTable(
+	"budgets",
+	{
+		id: text().primaryKey().notNull(),
+		name: text().notNull(),
+		amount: doublePrecision().notNull(),
+		currency: text().notNull(),
+		period: budgetPeriod().notNull(),
+		categoryId: text("category_id").notNull(),
+		startDate: timestamp("start_date", { precision: 3 }).notNull(),
+		endDate: timestamp("end_date", { precision: 3 }),
+		isRecurring: boolean("is_recurring").default(false).notNull(),
+		
+		tenantId: text("tenant_id").notNull().$type<typeof Auth.TenantId.Type>(),
+		...defaultFields,
+	},
+	(table) => {
+		return {
+			idx_budgets_tenant: index("idx_budgets_tenant").on(table.tenantId),
+			idx_budgets_category: index("idx_budgets_category").on(table.categoryId),
+		}
+	},
+)
+
 export const transactions = pgTable(
 	"transactions",
 	{
@@ -179,6 +205,13 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
 	}),
 	category: one(categories, {
 		fields: [transactions.categoryId],
+		references: [categories.id],
+	}),
+}))
+
+export const budgetsRelations = relations(budgets, ({ one }) => ({
+	category: one(categories, {
+		fields: [budgets.categoryId],
 		references: [categories.id],
 	}),
 }))
