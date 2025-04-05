@@ -42,7 +42,7 @@
 		{
 			"binding": "HYPERDRIVE",
 			"id": "20471f3545bc4210bbee3142f31367ec",
-			"localConnectionString": "postgresql://postgres:xgzcp3fcmjkitozy@142.132.228.194:5666/maple"
+			"localConnectionString": "postgresql://postgres:61284469@142.132.228.194:5666/maple"
 		}
 	],
 

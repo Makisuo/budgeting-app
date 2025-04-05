@@ -12,6 +12,7 @@
 		"cf-typegen": "wrangler types",
 		"start": "vite",
 		"justd": "justd",
+		"tauri": "tauri",
 		"openapi-typescript": "openapi-typescript http://localhost:8787/openapi.json -o ./src/lib/api/v1.d.ts"
 	},
 	"devDependencies": {

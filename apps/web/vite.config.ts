@@ -28,6 +28,8 @@ export default defineConfig({
 		tailwindcss(),
 	],
 	clearScreen: false,
+	envPrefix: ["VITE_", "TAURI_ENV_*"],
+
 	server: {
 		port: 3000,
 		strictPort: true,
