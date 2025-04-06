@@ -1,0 +1,14 @@
+
+DESCRIPTION >
+    Raw transaction data storage for financial operations
+
+SCHEMA >
+    `transaction_id` String `json:$.transaction_id`,
+    `tenant_id` String `json:$.tenant_id`,
+    `raw_data` Json `json:$.raw_data`,
+    `timestamp` DateTime `json:$.timestamp`
+
+ENGINE "MergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(timestamp)"
+ENGINE_SORTING_KEY "tenant_id, timestamp"
+        
